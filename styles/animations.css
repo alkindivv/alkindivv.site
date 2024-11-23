@@ -1,0 +1,133 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* #region /**=========== Fade In =========== */
+.fade-wrapper {
+  opacity: 1 !important;
+  transform: none !important;
+}
+
+[data-fade] {
+  opacity: 0;
+  transform: translateY(40px);
+  animation: fadeIn 0.4s ease-in-out forwards;
+  will-change: opacity, transform;
+}
+
+[data-fade="1"] {
+  animation-delay: 0ms;
+}
+
+[data-fade="2"] {
+  animation-delay: 150ms;
+}
+
+[data-fade="3"] {
+  animation-delay: 300ms;
+}
+
+[data-fade="4"] {
+  animation-delay: 450ms;
+}
+
+[data-fade="5"] {
+  animation-delay: 600ms;
+}
+
+[data-fade="6"] {
+  animation-delay: 750ms;
+}
+
+[data-fade="7"] {
+  animation-delay: 900ms;
+}
+
+[data-fade="8"] {
+  animation-delay: 1050ms;
+}
+
+[data-fade="9"] {
+  animation-delay: 1200ms;
+}
+
+[data-fade="10"] {
+  animation-delay: 1350ms;
+}
+
+[data-fade="11"] {
+  animation-delay: 1500ms;
+}
+
+[data-fade="12"] {
+  animation-delay: 1650ms;
+}
+
+[data-fade="13"] {
+  animation-delay: 1800ms;
+}
+
+[data-fade="14"] {
+  animation-delay: 1950ms;
+}
+
+[data-fade="15"] {
+  animation-delay: 2100ms;
+}
+
+[data-fade="16"] {
+  animation-delay: 2250ms;
+}
+
+[data-fade="17"] {
+  animation-delay: 2400ms;
+}
+
+[data-fade="18"] {
+  animation-delay: 2550ms;
+}
+
+[data-fade="19"] {
+  animation-delay: 2700ms;
+}
+
+[data-fade="20"] {
+  animation-delay: 2850ms;
+}
+
+[data-fade="21"] {
+  animation-delay: 3000ms;
+}
+
+[data-fade="22"] {
+  animation-delay: 3150ms;
+}
+
+[data-fade="23"] {
+  animation-delay: 3300ms;
+}
+
+[data-fade="24"] {
+  animation-delay: 3450ms;
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  [data-fade] {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}
+/* #endregion  /**======== Fade In =========== */

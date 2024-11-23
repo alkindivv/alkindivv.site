@@ -1,0 +1,572 @@
+/* Import Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700&display=swap');
+
+/* Tailwind Imports */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Custom Fonts */
+@font-face {
+  font-family: 'Geist';
+  src:
+    url('/fonts/Geist-Regular.woff2') format('woff2'),
+    url('/fonts/Geist-Medium.woff2') format('woff2'),
+    url('/fonts/Geist-SemiBold.woff2') format('woff2'),
+    url('/fonts/Geist-Bold.woff2') format('woff2');
+  font-weight: 100 900;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'GeistMono';
+  src: url('/fonts/GeistMonoVF.woff2') format('woff2');
+  font-weight: 100 900;
+  font-display: swap;
+}
+
+/* Root Variables */
+:root {
+  --font-sans: 'Geist', system-ui, -apple-system, sans-serif;
+  --font-mono: 'GeistMono', monospace;
+  --color-primary: #08a875;
+  --color-secondary: #34d399;
+  --color-text: #f8fafc;
+  --color-paragraph: #d1d5db;
+  --color-muted: #9ca3af;
+  --color-border: #374151;
+  --color-background: #111111;
+  --color-hover: #1f1f1f;
+  --link-gradient: linear-gradient(45deg, #08c488 0%, #59fbbf 100%);
+  --link-gradient-button: linear-gradient(45deg, #08c488 25%, #59fbbf 100%);
+
+  --color-text: #f8fafc; /* Putih soft */
+  --color-paragraph: #d1d5db; /* Abu-abu terang */
+  --color-muted: #9ca3af; /* Abu-abu muted */
+  --color-border: #374151; /* Border color */
+  --color-background: #111111; /* Hitam soft */
+  --color-hover: #1f1f1f; /* Hover color */
+
+  /* Font Weights */
+  --font-light: 325;
+  --font-normal: 400;
+  --font-medium: 500;
+  --font-semibold: 600;
+  --font-bold: 700;
+
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+  /* Tambahkan variabel layout */
+  --header-height: 80px;
+  --header-height-article: 4rem;
+  --content-padding: 3rem;
+  --content-padding-article: 0rem;
+
+  --max-width: 1200px;
+  --content-offset: 0px;
+}
+
+.transparent-bg {
+  background-color: rgba(255, 255, 255, 0.5); /* Atur alpha sesuai kebutuhan */
+}
+
+/* Global Styles */
+body {
+  /* font-family: var(--font-sans); */
+  /* font-feature-settings: "ss01", "ss03", "cv01", "cv02", "cv03", "cv04"; */
+  /* font-size: var(--font-size-base);
+  font-weight: var(--font-normal);
+  line-height: 1.65; */
+  background-color: var(--color-background);
+  color: var(--color-text);
+}
+
+html {
+  scroll-behavior: smooth;
+  overflow-y: scroll;
+}
+
+/* Khusus untuk heading dengan id */
+h1[id],
+h2[id],
+h3[id],
+h4[id],
+h5[id],
+h6[id] {
+  scroll-margin-top: var(--header-height);
+}
+
+/* Reduce Motion for Accessibility */
+@media screen and (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+/* Layout */
+.layout-container {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding-top: calc(var(--header-height) + -2rem - var(--content-offset));
+  padding-left: var(--content-padding);
+  padding-right: var(--content-padding);
+}
+
+.layout-main {
+  padding-top: 5rem;
+}
+
+@media (max-width: 440px) {
+  :root {
+    --header-height: 60px;
+    --max-width: 900px;
+    --content-padding-article: 0rem;
+    --content-padding: 1rem;
+    /* --font-size-4xl: 2rem;
+    --font-size-3xl: 1.75rem;
+    --font-size-2xl: 1.25rem;
+    --font-size-xl: 1.125rem;
+    --font-size-lg: 1rem;
+    --font-size-base: 0.875rem; */
+  }
+  .layout-main {
+    padding-top: 3rem;
+  }
+}
+
+/* Buttons */
+
+.no-gradient-button {
+  /* margin-top: 0.5rem; */
+  font-family: var(--font-sans);
+  font-weight: var(--font-semibold);
+  position: relative;
+  /* display: inline-block; */
+  padding: 0.5rem 0.5rem;
+  /* background: var(--link-gradient-button); */
+  /* color: var(--color-background); */
+  border-radius: 0.2rem;
+  border: 1px solid var(--color-border);
+  overflow: hidden;
+  /* transition: all 0.3s ease; */
+  border: 1px solid var(--color-border);
+  /* box-shadow: 0px 0px 15px 0px rgb(151, 243, 128); */
+}
+
+.gradient-button {
+  /* margin-top: 0.5rem; */
+  font-family: var(--font-sans);
+  font-weight: var(--font-semibold);
+  position: relative;
+  /* padding: 0.5rem 0.5rem;
+  border-radius: 0.2rem; */
+  border: 1px solid var(--color-border);
+  overflow: hidden;
+  /* transition: all 0.3s ease; */
+  box-shadow:
+    0px 0 1px rgba(3, 110, 77, 0.597),
+    0px 0 2px rgba(4, 128, 90, 0.82),
+    0px 0 3px rgba(4, 128, 90, 0.724),
+    0px 0 4px rgba(4, 128, 90, 0.77),
+    0px 0 8px rgba(4, 128, 90, 0.439),
+    0px 0 10px rgba(4, 128, 90, 0.6),
+    0px 0 12px rgba(4, 128, 90, 0.5),
+    0px 0 0px rgba(4, 128, 90, 0.4),
+    0px 0 0px rgba(4, 128, 90, 0.3),
+    0px 0 0px rgba(4, 128, 90, 0.2),
+    0px 0 0px rgba(4, 128, 90, 0.1),
+    0px 0 0px rgba(4, 128, 90, 0.05);
+}
+
+.gradient-button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 50%;
+  height: 100%;
+  background: linear-gradient(
+    45deg,
+    transparent,
+    rgba(9, 208, 95, 0.299),
+    transparent
+  );
+  transition: left 0.7s ease;
+}
+
+.gradient-button:hover::before {
+  left: 100%;
+}
+
+.gradient-button:hover {
+  /* box-shadow: 0 0 15px rgba(0, 147, 233, 0.2); */
+  /* box-shadow: 0 0 15px rgba(9, 208, 95, 0.651); */
+}
+
+/* Links */
+.dimension-link {
+  position: relative;
+  text-decoration: none;
+  background: var(--link-gradient);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  transition: all 0.3s ease;
+  font-weight: var(--font-semibold);
+}
+
+.dimension-link::before,
+.dimension-link::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  margin-bottom: -2px;
+  height: 2px;
+  transition: width 0.3s ease;
+}
+
+.dimension-link::before {
+  left: 0;
+  width: 100%;
+  /* background-image: radial-gradient(circle, #059669 40%, transparent 60%); */
+  background-image: radial-gradient(circle, #0bd595 40%, transparent 60%);
+  background-size: 3px 3px;
+  background-position: bottom;
+  margin-bottom: -2px;
+  opacity: 1;
+}
+
+.dimension-link::after {
+  left: 0;
+  width: 0;
+  background: var(--link-gradient);
+}
+
+.dimension-link:hover::after {
+  width: 100%;
+}
+
+/* Animations */
+.animate-pulse {
+  animation: pulse 3s infinite;
+}
+
+/* Additional Utilities */
+.gradient-title,
+.gradient-text {
+  background: var(--link-gradient);
+  -webkit-background-clip: text;
+
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  color: transparent;
+}
+
+/* Tambahkan text selection style */
+::selection {
+  background: rgba(5, 150, 105, 0.15); /* Emerald dengan opacity rendah */
+  color: var(--color-text);
+}
+
+/* Tambahkan class untuk monospace text */
+.mono {
+  font-family: var(--font-mono);
+  font-feature-settings: 'ss01', 'ss02', 'ss03', 'cv01', 'cv02', 'cv03';
+}
+
+/* Tambahkan class untuk line heights */
+.leading-none {
+  line-height: 1;
+}
+.leading-tight {
+  line-height: 1.25;
+}
+.leading-snug {
+  line-height: 1.375;
+}
+.leading-normal {
+  line-height: 1.5;
+}
+.leading-relaxed {
+  line-height: 1.625;
+}
+.leading-loose {
+  line-height: 2;
+}
+
+/* Tambahkan class untuk letter spacing */
+.tracking-tighter {
+  letter-spacing: -0.05em;
+}
+.tracking-tight {
+  letter-spacing: -0.025em;
+}
+.tracking-normal {
+  letter-spacing: 0;
+}
+.tracking-wide {
+  letter-spacing: 0.025em;
+}
+.tracking-wider {
+  letter-spacing: 0.05em;
+}
+
+/* Layout Container */
+.layout-container {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding-top: calc(var(--header-height) + -2rem - var(--content-offset));
+  padding-left: var(--content-padding);
+  padding-right: var(--content-padding);
+}
+
+.layout-main {
+  padding-top: 5rem;
+}
+
+/* Container Padding */
+.container {
+  padding-left: var(--content-padding);
+  padding-right: var(--content-padding);
+  margin: 0 auto;
+  max-width: var(--max-width);
+}
+
+/* Responsive adjustments */
+@media (max-width: 440px) {
+  :root {
+    --header-height: 50px;
+    --content-padding: 1rem;
+    /* padding-left: 1rem;
+    padding-right: 1rem; */
+  }
+  .layout-main {
+    padding-top: 3rem;
+  }
+
+  .container {
+    /* padding-left: var(--content-padding);
+    padding-right: var(--content-padding); */
+  }
+}
+
+/* Tambahkan style untuk accent text */
+.accent-text {
+  background: var(--link-gradient);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  color: transparent;
+  font-weight: var(--font-bold);
+}
+
+.accent-normal {
+  background: var(--link-gradient);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  color: transparent;
+  font-weight: var(--font-light);
+}
+
+/* Tambahkan di bagian bawah file */
+.transition-wrapper {
+  transform-origin: center;
+  backface-visibility: hidden;
+  perspective: 1000px;
+  transform: translateZ(0);
+}
+
+/* Optimize animations */
+.animate-on-scroll {
+  will-change: transform, opacity;
+}
+
+.hover-effect {
+  will-change: transform;
+}
+
+/* Tambahkan di bagian bawah file */
+
+.page-wrapper {
+  position: relative;
+  width: 100%;
+  min-height: 100vh;
+}
+
+/* Pastikan semua konten memiliki z-index yang tepat */
+.main-container {
+  position: relative;
+  z-index: 1;
+}
+
+/* Pastikan transisi berjalan smooth */
+
+/* Sederhanakan style untuk heading */
+/* h1[id],
+h2[id],
+h3[id],
+h4[id],
+h5[id],
+h6[id] {
+  scroll-margin-top: var(--header-height);
+} */
+
+/* Hapus transition yang tidak perlu */
+/* * {
+  transition: none !important;
+} */
+
+/* Khusus untuk elemen yang membutuhkan transition */
+/* .transition-all {
+  transition: all 0.3s ease-in-out !important;
+} */
+
+/* @keyframes float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-20px);
+  }
+} */
+
+/* .animate-float {
+  animation: float 3s ease-in-out infinite;
+} */
+
+.circular-progress-bar circle {
+  transform: rotate(-90deg);
+  transform-origin: 50% 50%;
+  transition: stroke-dashoffset 1s ease-in-out;
+}
+
+/* Tambahkan styling untuk testimonials carousel */
+.testimonials-carousel {
+  overflow: hidden;
+}
+
+.testimonials-carousel > div {
+  opacity: 0;
+  transition: all 0.5s ease;
+}
+
+.testimonials-carousel > div.active {
+  opacity: 1;
+}
+
+/* Breakpoint utilities */
+@layer utilities {
+  .container-padding {
+    @apply px-4 sm:px-6 md:px-8 lg:px-12;
+  }
+
+  .responsive-text {
+    @apply text-base sm:text-lg md:text-xl lg:text-2xl;
+  }
+
+  .responsive-width {
+    @apply w-full max-w-screen-xl mx-auto;
+  }
+}
+
+/* Responsive base styles */
+@layer base {
+  html {
+    @apply text-base antialiased;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  body {
+    @apply m-0 p-0 min-h-screen;
+    text-rendering: optimizeLegibility;
+  }
+}
+
+/* Responsive components */
+@layer components {
+  .layout-container {
+    @apply min-h-screen flex flex-col;
+  }
+
+  .layout-main {
+    @apply flex-grow;
+  }
+
+  .nav-link {
+    @apply px-2 py-1 sm:px-3 sm:py-2 md:px-4;
+  }
+
+  .button {
+    @apply px-3 py-1.5 sm:px-4 sm:py-2 md:px-5 md:py-2.5;
+    @apply text-xs sm:text-sm md:text-base;
+  }
+}
+
+/* Smooth scrolling */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Better touch handling */
+@media (hover: none) {
+  .hover\:scale-105 {
+    @apply transform-none;
+  }
+}
+
+/* Prevent content shift */
+* {
+  @apply box-border;
+}
+
+/* Tambahkan di bagian yang sesuai */
+.content-block {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, transform;
+}
+
+.content-block.fade-in-start {
+  opacity: 1 !important;
+  transform: translateY(0) !important;
+}
+
+/* Untuk inline elements */
+.inline-scroll-animation {
+  opacity: 0;
+  transform: translateY(10px);
+  transition: all 0.3s ease-out;
+  will-change: opacity, transform;
+}
+
+.inline-scroll-animation.fade-in-start {
+  opacity: 1 !important;
+  transform: translateY(0) !important;
+}
+
+/* Pastikan transisi smooth */
+* {
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Optimize animations */
+.animate-on-scroll {
+  will-change: transform, opacity;
+}
+
+@keyframes pulse {
+  0%,
+  100% {
+    opacity: 0.4;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.5;
+    transform: scale(1.02);
+  }
+}

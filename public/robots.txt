@@ -1,0 +1,13 @@
+User-agent: *
+Allow: /
+
+# Sitemaps
+Sitemap: https://alkindivv.site/sitemap.xml
+
+# Crawl-delay
+Crawl-delay: 10
+
+# Disallow paths
+Disallow: /api/
+Disallow: /_next/
+Disallow: /static/
