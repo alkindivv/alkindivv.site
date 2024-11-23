@@ -47,7 +47,7 @@ const BlogCard = ({
   const cardRef = useRef<HTMLElement>(null);
 
   const { data: viewsData, mutate } = useSWR(
-    `/api/page-views/?slug=${post.slug}&_t=${new Date().getTime()}`,
+    `/api/page-views/?slug=${post.slug}`,
     async (url) => {
       const res = await fetch(url, {
         headers: {
@@ -60,9 +60,9 @@ const BlogCard = ({
       return res.json();
     },
     {
-      refreshInterval: 5000,
-      revalidateOnFocus: true,
-      dedupingInterval: 1000,
+      refreshInterval: 30000,
+      revalidateOnFocus: false,
+      dedupingInterval: 5000,
       revalidateOnMount: true,
     }
   );
