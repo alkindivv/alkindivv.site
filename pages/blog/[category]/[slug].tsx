@@ -11,6 +11,7 @@ import { FaClock, FaEye } from 'react-icons/fa';
 import { useEffect, useState, useRef } from 'react';
 import TableOfContents from '@/components/TableOfContents';
 import RelatedArticles from '@/components/RelatedArticles';
+import useSWR from 'swr';
 
 interface BlogPostProps {
   frontMatter: {
@@ -60,6 +61,26 @@ export default function BlogPost({
   >([]);
   const [activeId, setActiveId] = useState<string>('');
   const articleContentRef = useRef<HTMLDivElement>(null);
+
+  // Fetch views dengan SWR
+  const { data: viewsData } = useSWR(
+    `/api/page-views?slug=${frontMatter.slug}&_t=${new Date().getTime()}`,
+    async (url) => {
+      const res = await fetch(url, {
+        headers: {
+          'Cache-Control': 'no-cache, no-store, must-revalidate',
+          Pragma: 'no-cache',
+          Expires: '0',
+        },
+      });
+      if (!res.ok) throw new Error('Failed to fetch views');
+      return res.json();
+    },
+    {
+      refreshInterval: 5000,
+      revalidateOnFocus: true,
+    }
+  );
 
   useEffect(() => {
     if (!articleContentRef.current) return;
@@ -118,26 +139,18 @@ export default function BlogPost({
     year: 'numeric',
   });
 
-  // Tambahkan useEffect untuk increment views
+  // Increment views saat artikel dibuka
   useEffect(() => {
     const incrementViews = async () => {
-      if (!frontMatter.slug) return;
-
       try {
-        const response = await fetch('/api/page-views', {
+        await fetch('/api/page-views', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
+            'Cache-Control': 'no-cache',
           },
           body: JSON.stringify({ slug: frontMatter.slug }),
         });
-
-        if (!response.ok) {
-          throw new Error('Failed to increment views');
-        }
-
-        const data = await response.json();
-        console.log('Views incremented:', data);
       } catch (error) {
         console.error('Failed to increment views:', error);
       }
@@ -186,7 +199,7 @@ export default function BlogPost({
               </span>
               <span className="font-normal mt-2 flex items-center gap-2 text-sm md:text-md lg:text-md">
                 <FaEye className="font-normal text-sm md:text-md lg:text-md" />
-                <Accent>{frontMatter.views || 0} views</Accent>
+                <Accent>{viewsData?.views ?? '–'} views</Accent>
               </span>
             </div>
             <div className="border-b border-gray-700" data-fade="5" />
