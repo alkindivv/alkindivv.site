@@ -109,7 +109,7 @@ const BlogCard = ({
                       variant={checkTagged?.(tag) ? 'gradient' : 'default'}
                       className={clsx(
                         'inline-block rounded-md',
-                        'px-1.5 py-0.5 text-xs md:text-sm 2xl:text-sm rounded-md border shrink-0 -mb-1.5 -mr-1',
+                        'px-2 md:px-2 py-0.5 text-xs md:text-sm 2xl:text-sm rounded-md border shrink-0 -mb-1.5 mr-0.5',
                         'bg-black border border-gray-600 text-gray-200',
                         'hover:text-white',
                         'focus:outline-none focus-visible:ring focus-visible:ring-primary-300',
