@@ -5,6 +5,11 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
+  // Set headers untuk menghindari caching
+  res.setHeader('Cache-Control', 'no-store, no-cache, must-revalidate');
+  res.setHeader('Pragma', 'no-cache');
+  res.setHeader('Expires', '0');
+
   try {
     if (req.method === 'POST') {
       const { slug } = req.body || req.query;
@@ -13,15 +18,22 @@ export default async function handler(
         return res.status(400).json({ error: 'Slug is required' });
       }
 
-      // Increment views
       const pageView = await prisma.pageView.upsert({
         where: { slug: String(slug) },
-        update: { count: { increment: 1 } },
-        create: { slug: String(slug), count: 1 },
+        update: {
+          count: { increment: 1 },
+          updatedAt: new Date(), // Force update timestamp
+        },
+        create: {
+          slug: String(slug),
+          count: 1,
+        },
       });
 
-      console.log(`Views incremented for ${slug}:`, pageView.count);
-      return res.status(200).json({ views: pageView.count });
+      return res.status(200).json({
+        views: pageView.count,
+        timestamp: new Date().getTime(), // Add timestamp untuk force fresh response
+      });
     }
 
     if (req.method === 'GET') {
@@ -31,13 +43,14 @@ export default async function handler(
         return res.status(400).json({ error: 'Slug is required' });
       }
 
-      // Get current views
       const pageView = await prisma.pageView.findUnique({
         where: { slug: String(slug) },
       });
 
-      console.log(`Current views for ${slug}:`, pageView?.count ?? 0);
-      return res.status(200).json({ views: pageView?.count ?? 0 });
+      return res.status(200).json({
+        views: pageView?.count ?? 0,
+        timestamp: new Date().getTime(), // Add timestamp untuk force fresh response
+      });
     }
 
     return res.status(405).json({ error: 'Method not allowed' });

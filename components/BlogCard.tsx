@@ -47,12 +47,13 @@ const BlogCard = ({
   const cardRef = useRef<HTMLElement>(null);
 
   const { data: viewsData, mutate } = useSWR(
-    `/api/page-views?slug=${post.slug}`,
+    `/api/page-views?slug=${post.slug}&_t=${new Date().getTime()}`,
     async (url) => {
       const res = await fetch(url, {
         headers: {
-          'Cache-Control': 'no-cache',
+          'Cache-Control': 'no-cache, no-store, must-revalidate',
           Pragma: 'no-cache',
+          Expires: '0',
         },
       });
       if (!res.ok) throw new Error('Failed to fetch views');
@@ -62,6 +63,7 @@ const BlogCard = ({
       refreshInterval: 5000,
       revalidateOnFocus: true,
       dedupingInterval: 1000,
+      revalidateOnMount: true,
     }
   );
 
@@ -69,7 +71,7 @@ const BlogCard = ({
 
   useEffect(() => {
     mutate();
-  }, [mutate, viewsData]);
+  }, [mutate]);
 
   useEffect(() => {
     console.log(`Views for ${post.slug}:`, viewsData?.views);
