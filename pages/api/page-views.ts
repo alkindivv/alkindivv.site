@@ -5,39 +5,44 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
-  const slug = req.query.slug as string;
-
-  if (!slug) {
-    return res.status(400).json({ error: 'Slug is required' });
-  }
-
   try {
-    await prisma.$connect();
-
     if (req.method === 'POST') {
+      const { slug } = req.body || req.query;
+
+      if (!slug) {
+        return res.status(400).json({ error: 'Slug is required' });
+      }
+
+      // Increment views
       const pageView = await prisma.pageView.upsert({
-        where: { slug },
+        where: { slug: String(slug) },
         update: { count: { increment: 1 } },
-        create: { slug, count: 1 },
+        create: { slug: String(slug), count: 1 },
       });
 
-      console.log(`Updated views for ${slug}:`, pageView.count);
+      console.log(`Views incremented for ${slug}:`, pageView.count);
       return res.status(200).json({ views: pageView.count });
     }
 
-    const pageView = await prisma.pageView.findUnique({
-      where: { slug },
-    });
+    if (req.method === 'GET') {
+      const { slug } = req.query;
 
-    console.log(`Retrieved views for ${slug}:`, pageView?.count ?? 0);
-    return res.status(200).json({ views: pageView?.count ?? 0 });
+      if (!slug) {
+        return res.status(400).json({ error: 'Slug is required' });
+      }
+
+      // Get current views
+      const pageView = await prisma.pageView.findUnique({
+        where: { slug: String(slug) },
+      });
+
+      console.log(`Current views for ${slug}:`, pageView?.count ?? 0);
+      return res.status(200).json({ views: pageView?.count ?? 0 });
+    }
+
+    return res.status(405).json({ error: 'Method not allowed' });
   } catch (error) {
-    console.error('Database error:', error);
-    return res.status(500).json({
-      error: 'Database error',
-      details: error instanceof Error ? error.message : 'Unknown error',
-    });
-  } finally {
-    await prisma.$disconnect();
+    console.error('Error handling page views:', error);
+    return res.status(500).json({ error: 'Internal server error' });
   }
 }

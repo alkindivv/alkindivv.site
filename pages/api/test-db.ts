@@ -10,17 +10,14 @@ export default async function handler(
     await prisma.$connect();
 
     // Test query
-    const count = await prisma.pageView.count();
+    const views = await prisma.pageView.findMany();
 
     return res.status(200).json({
       status: 'Connected',
-      count: count,
+      views: views,
     });
   } catch (error) {
     console.error('Database error:', error);
-    return res.status(500).json({
-      error: 'Database connection failed',
-      details: error,
-    });
+    return res.status(500).json({ error: 'Database error' });
   }
 }
