@@ -64,7 +64,7 @@ export default function HomePage() {
         </div>
         <div className="relative order-5" data-fade="5">
           <p className=" font-light text-sm md:text-base 2xl:text-lg text-gray-300 mb-4 md:mb-4 2xl:mb-8">
-            Don't forget to any my{' '}
+            Don't forget to ny my{' '}
             <DimensionLink href="/guestbook">guestbook</DimensionLink>!
           </p>
         </div>
