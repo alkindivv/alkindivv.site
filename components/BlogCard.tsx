@@ -48,16 +48,22 @@ const BlogCard = ({
 }: BlogCardProps) => {
   const cardRef = useRef<HTMLElement>(null);
 
-  const { data: viewsData } = useSWR(
+  const { data: viewsData, error } = useSWR(
     `/api/page-views?slug=${post.slug}`,
     fetcher,
     {
-      refreshInterval: 30000,
+      refreshInterval: 10000,
       revalidateOnFocus: true,
+      onError: (err) => console.error('Views fetch error:', err),
     }
   );
 
   const views = viewsData?.views ?? '–';
+
+  useEffect(() => {
+    console.log(`Views for ${post.slug}:`, viewsData?.views);
+    if (error) console.error('Views error:', error);
+  }, [viewsData, error, post.slug]);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
