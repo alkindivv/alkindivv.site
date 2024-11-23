@@ -12,25 +12,32 @@ export default async function handler(
   }
 
   try {
+    await prisma.$connect();
+
     if (req.method === 'POST') {
-      // Increment views
       const pageView = await prisma.pageView.upsert({
         where: { slug },
         update: { count: { increment: 1 } },
         create: { slug, count: 1 },
       });
 
+      console.log(`Updated views for ${slug}:`, pageView.count);
       return res.status(200).json({ views: pageView.count });
     }
 
-    // GET request - return current views
     const pageView = await prisma.pageView.findUnique({
       where: { slug },
     });
 
+    console.log(`Retrieved views for ${slug}:`, pageView?.count ?? 0);
     return res.status(200).json({ views: pageView?.count ?? 0 });
   } catch (error) {
-    console.error('Error handling page views:', error);
-    return res.status(500).json({ error: 'Internal server error' });
+    console.error('Database error:', error);
+    return res.status(500).json({
+      error: 'Database error',
+      details: error instanceof Error ? error.message : 'Unknown error',
+    });
+  } finally {
+    await prisma.$disconnect();
   }
 }
