@@ -1,16 +1,16 @@
-import { GetStaticProps, GetStaticPaths } from "next";
-import { MDXRemote } from "next-mdx-remote";
-import Layout from "../../../components/Layout";
-import { getPostBySlug, getAllPostSlugs, getAllPosts } from "@/lib/mdx";
-import { H1, MDXComponents } from "@/components/BlogContent";
-import Accent from "@/components/Accent";
+import { GetStaticProps, GetStaticPaths } from 'next';
+import { MDXRemote } from 'next-mdx-remote';
+import Layout from '../../../components/Layout';
+import { getPostBySlug, getAllPostSlugs, getAllPosts } from '@/lib/mdx';
+import { H1, MDXComponents } from '@/components/BlogContent';
+import Accent from '@/components/Accent';
 
-import styles from "../../../styles/Blog.module.css";
-import Image from "next/image";
-import { FaClock, FaEye } from "react-icons/fa";
-import { useEffect, useState, useRef } from "react";
-import TableOfContents from "@/components/TableOfContents";
-import RelatedArticles from "@/components/RelatedArticles";
+import styles from '../../../styles/Blog.module.css';
+import Image from 'next/image';
+import { FaClock, FaEye } from 'react-icons/fa';
+import { useEffect, useState, useRef } from 'react';
+import TableOfContents from '@/components/TableOfContents';
+import RelatedArticles from '@/components/RelatedArticles';
 
 interface BlogPostProps {
   frontMatter: {
@@ -23,6 +23,7 @@ interface BlogPostProps {
     category: string;
     views?: number;
     readingTime: { text: string };
+    slug: string;
   };
   mdxSource: any;
   allPosts: any[];
@@ -35,16 +36,16 @@ const mdxComponents = {
     const id = children
       ?.toString()
       .toLowerCase()
-      .replace(/[^a-z0-9]+/g, "-")
-      .replace(/(^-|-$)/g, "");
+      .replace(/[^a-z0-9]+/g, '-')
+      .replace(/(^-|-$)/g, '');
     return MDXComponents.h2({ ...props, id, children });
   },
   h3: ({ children, ...props }: any) => {
     const id = children
       ?.toString()
       .toLowerCase()
-      .replace(/[^a-z0-9]+/g, "-")
-      .replace(/(^-|-$)/g, "");
+      .replace(/[^a-z0-9]+/g, '-')
+      .replace(/(^-|-$)/g, '');
     return MDXComponents.h3({ ...props, id, children });
   },
 };
@@ -57,28 +58,28 @@ export default function BlogPost({
   const [headings, setHeadings] = useState<
     Array<{ id: string; title: string; level: number }>
   >([]);
-  const [activeId, setActiveId] = useState<string>("");
+  const [activeId, setActiveId] = useState<string>('');
   const articleContentRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     if (!articleContentRef.current) return;
 
     const elements = Array.from(
-      articleContentRef.current.querySelectorAll("h2, h3")
+      articleContentRef.current.querySelectorAll('h2, h3')
     ).filter(
       (elem): elem is HTMLElement =>
         elem instanceof HTMLElement &&
-        elem.textContent !== "Table of Contents" &&
-        elem.textContent !== "Related Articles" &&
-        elem.textContent !== "AL KINDI" &&
-        elem.textContent !== "Quick Links" &&
-        elem.textContent !== "Services" &&
-        elem.textContent !== "Contact"
+        elem.textContent !== 'Table of Contents' &&
+        elem.textContent !== 'Related Articles' &&
+        elem.textContent !== 'AL KINDI' &&
+        elem.textContent !== 'Quick Links' &&
+        elem.textContent !== 'Services' &&
+        elem.textContent !== 'Contact'
     );
 
     const items = elements.map((element) => ({
       id: element.id,
-      title: element.textContent || "",
+      title: element.textContent || '',
       level: Number(element.tagName.charAt(1)),
     }));
 
@@ -97,7 +98,7 @@ export default function BlogPost({
         });
       },
       {
-        rootMargin: "-80px 0px -80% 0px",
+        rootMargin: '-80px 0px -80% 0px',
         threshold: [0, 0.25, 0.5, 0.75, 1],
       }
     );
@@ -111,11 +112,26 @@ export default function BlogPost({
   );
 
   // Format tanggal
-  const formattedDate = new Date(frontMatter.date).toLocaleDateString("en-US", {
-    month: "long",
-    day: "numeric",
-    year: "numeric",
+  const formattedDate = new Date(frontMatter.date).toLocaleDateString('en-US', {
+    month: 'long',
+    day: 'numeric',
+    year: 'numeric',
   });
+
+  // Tambahkan useEffect untuk increment views
+  useEffect(() => {
+    const incrementViews = async () => {
+      try {
+        await fetch(`/api/page-views?slug=${frontMatter.slug}`, {
+          method: 'POST',
+        });
+      } catch (error) {
+        console.error('Failed to increment views:', error);
+      }
+    };
+
+    incrementViews();
+  }, [frontMatter.slug]);
 
   return (
     <Layout>
@@ -124,7 +140,7 @@ export default function BlogPost({
         <div className="w-full" data-fade="1">
           <div className="relative w-full aspect-[16/9]">
             <Image
-              src={frontMatter.featuredImage || ""}
+              src={frontMatter.featuredImage || ''}
               alt={frontMatter.title}
               fill
               className="object-cover"
@@ -144,7 +160,7 @@ export default function BlogPost({
               className={`mt-2 mb-6 md:mt-2 md:mb-8 font-normal text-sm md:text-md lg:text-md text-gray-300`}
               data-fade="3"
             >
-              Written on {formattedDate} by{" "}
+              Written on {formattedDate} by{' '}
               <Accent>{frontMatter.author}</Accent>
             </div>
             <div
