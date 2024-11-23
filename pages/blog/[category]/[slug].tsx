@@ -11,6 +11,7 @@ import { FaClock, FaEye } from 'react-icons/fa';
 import { useEffect, useState, useRef } from 'react';
 import TableOfContents from '@/components/TableOfContents';
 import RelatedArticles from '@/components/RelatedArticles';
+import useSWR from 'swr';
 
 interface BlogPostProps {
   frontMatter: {
@@ -145,6 +146,27 @@ export default function BlogPost({
 
     incrementViews();
   }, [frontMatter.slug]);
+
+  const { data: viewsData } = useSWR(
+    `/api/page-views/?slug=${frontMatter.slug}&_t=${new Date().getTime()}`,
+    async (url) => {
+      const res = await fetch(url, {
+        headers: {
+          'Cache-Control': 'no-cache, no-store, must-revalidate',
+          Pragma: 'no-cache',
+          Expires: '0',
+        },
+      });
+      if (!res.ok) throw new Error('Failed to fetch views');
+      return res.json();
+    },
+    {
+      refreshInterval: 5000,
+      revalidateOnFocus: true,
+      dedupingInterval: 1000,
+      revalidateOnMount: true,
+    }
+  );
 
   return (
     <Layout>

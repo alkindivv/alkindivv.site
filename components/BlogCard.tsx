@@ -47,7 +47,7 @@ const BlogCard = ({
   const cardRef = useRef<HTMLElement>(null);
 
   const { data: viewsData, mutate } = useSWR(
-    `/api/page-views?slug=${post.slug}&_t=${new Date().getTime()}`,
+    `/api/page-views/?slug=${post.slug}&_t=${new Date().getTime()}`,
     async (url) => {
       const res = await fetch(url, {
         headers: {
