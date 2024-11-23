@@ -1,3 +1,4 @@
+import React, { useEffect, useState, useRef } from 'react';
 import { GetStaticProps, GetStaticPaths } from 'next';
 import { MDXRemote } from 'next-mdx-remote';
 import Layout from '../../../components/Layout';
@@ -8,9 +9,16 @@ import Accent from '@/components/Accent';
 import styles from '../../../styles/Blog.module.css';
 import Image from 'next/image';
 import { FaClock, FaEye } from 'react-icons/fa';
-import { useEffect, useState, useRef } from 'react';
 import TableOfContents from '@/components/TableOfContents';
 import RelatedArticles from '@/components/RelatedArticles';
+import readingTime from 'reading-time';
+
+interface ReadingTimeResult {
+  text: string;
+  minutes: number;
+  time: number;
+  words: number;
+}
 
 interface BlogPostProps {
   frontMatter: {
@@ -22,7 +30,7 @@ interface BlogPostProps {
     featuredImage?: string;
     category: string;
     views?: number;
-    readingTime: { text: string };
+    readingTime: number | string | ReadingTimeResult;
     slug: string;
   };
   mdxSource: any;
@@ -62,7 +70,7 @@ export default function BlogPost({
   const articleContentRef = useRef<HTMLDivElement>(null);
   const [hasIncremented, setHasIncremented] = useState(false);
   const [views, setViews] = useState(0);
-  const hasIncrementedRef = useRef(false);
+  const viewIncrementedRef = useRef(false);
 
   useEffect(() => {
     if (!articleContentRef.current) return;
@@ -110,9 +118,15 @@ export default function BlogPost({
     return () => observer.disconnect();
   }, []);
 
-  const readingTime = Math.ceil(
-    mdxSource.compiledSource.split(/\s+/).length / 200
-  );
+  // Convert readingTime to number
+  const readingTimeMinutes =
+    typeof frontMatter.readingTime === 'number'
+      ? frontMatter.readingTime
+      : typeof frontMatter.readingTime === 'string'
+        ? parseInt(frontMatter.readingTime)
+        : 'text' in frontMatter.readingTime
+          ? parseInt(frontMatter.readingTime.text)
+          : 0;
 
   // Format tanggal
   const formattedDate = new Date(frontMatter.date).toLocaleDateString('en-US', {
@@ -139,8 +153,8 @@ export default function BlogPost({
   // Increment view once
   useEffect(() => {
     const incrementView = async () => {
-      if (hasIncrementedRef.current) return;
-      hasIncrementedRef.current = true;
+      if (viewIncrementedRef.current) return;
+      viewIncrementedRef.current = true;
 
       try {
         const res = await fetch('/api/page-views', {
@@ -195,13 +209,10 @@ export default function BlogPost({
               Written on {formattedDate} by{' '}
               <Accent>{frontMatter.author}</Accent>
             </div>
-            <div
-              className="flex items-center gap-4 text-sm md:text-md lg:text-md text-gray-400"
-              data-fade="4"
-            >
-              <span className="font-normal mt-2 flex items-center gap-2">
-                <FaClock className="font-normal text-sm md:text-md lg:text-md" />
-                <Accent>{readingTime} min read</Accent>
+            <div className="flex items-center gap-4" data-fade="4">
+              <span className="flex items-center gap-2">
+                <FaClock />
+                <Accent>{readingTimeMinutes} min read</Accent>
               </span>
               <span className="font-normal mt-2 flex items-center gap-2 text-sm md:text-md lg:text-md">
                 <FaEye className="font-normal text-sm md:text-md lg:text-md" />
@@ -252,19 +263,21 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
   const { category, slug } = params as { category: string; slug: string };
   const { frontMatter, mdxSource } = await getPostBySlug(category, slug);
 
-  // Pastikan slug ada di frontMatter
+  // Hitung reading time dari konten lengkap
+  // const stats = readingTime(mdxSource.compiledSource);
+  // const readingTimeMinutes = Math.ceil(stats.minutes);
+
   const enhancedFrontMatter = {
     ...frontMatter,
-    slug, // Tambahkan slug ke frontMatter
+    slug,
+    // readingTime: readingTimeMinutes.toString(),
   };
-
-  const allPosts = getAllPosts();
 
   return {
     props: {
       frontMatter: enhancedFrontMatter,
       mdxSource,
-      allPosts,
+      allPosts: getAllPosts(),
     },
   };
 };

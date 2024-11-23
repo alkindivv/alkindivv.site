@@ -30,24 +30,23 @@ const topics = [
   'linux',
 ];
 
-interface BlogPost {
+interface Post {
   slug: string;
   title: string;
-  description?: string;
   excerpt: string;
-  banner?: string;
   featuredImage: string;
-  date: string;
   publishedAt: string;
-  lastUpdated?: string;
+  date: string;
   tags: string[];
   category: string;
-  readingTime: string;
+  readingTime: number;
   views?: number;
+  banner: string;
+  description: string;
 }
 
 interface BlogPageProps {
-  blogPosts: BlogPost[];
+  blogPosts: Post[];
 }
 
 // Define interfaces
