@@ -8,6 +8,15 @@ import Tag from './Tag';
 import styles from '../styles/Blog.module.css';
 import clsx from 'clsx';
 import useSWR from 'swr';
+import readingTime from 'reading-time';
+
+interface ReadingTimeResult {
+  text: string;
+
+  minutes: number;
+  time: number;
+  words: number;
+}
 
 interface BlogPost {
   slug: string;
@@ -15,17 +24,14 @@ interface BlogPost {
   description?: string;
   excerpt: string;
   banner?: string;
+
   featuredImage: string;
   publishedAt: string;
   date: string;
   lastUpdated?: string;
   tags: string[];
   category: string;
-  readingTime:
-    | {
-        text: string;
-      }
-    | string;
+  readingTime: number | string | ReadingTimeResult;
   views?: number;
 }
 
@@ -102,6 +108,18 @@ const BlogCard = ({
     return () => observer.disconnect();
   }, []);
 
+  const content = `${post.description || ''} ${post.excerpt || ''}`;
+  const stats = readingTime(content);
+
+  const readingTimeMinutes =
+    typeof post.readingTime === 'number'
+      ? post.readingTime
+      : typeof post.readingTime === 'string'
+        ? parseInt(post.readingTime)
+        : 'text' in post.readingTime
+          ? parseInt(post.readingTime.text)
+          : 0;
+
   return (
     <article
       ref={cardRef}
@@ -156,11 +174,8 @@ const BlogCard = ({
               <div className="flex items-center gap-4">
                 <div className="flex items-center gap-1">
                   <HiOutlineClock className="text-base" />
-                  <Accent>
-                    {typeof post.readingTime === 'string'
-                      ? post.readingTime
-                      : post.readingTime.text}
-                  </Accent>
+
+                  <Accent>{readingTimeMinutes} min read</Accent>
                 </div>
                 <div className="flex items-center gap-1">
                   <HiOutlineEye className="text-base" />

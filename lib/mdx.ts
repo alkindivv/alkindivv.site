@@ -1,5 +1,4 @@
 import { serialize } from 'next-mdx-remote/serialize';
-import { MDXRemoteSerializeResult } from 'next-mdx-remote';
 import fs from 'fs';
 import path from 'path';
 import matter from 'gray-matter';
@@ -9,12 +8,18 @@ import remarkGfm from 'remark-gfm';
 
 const postsDirectory = path.join(process.cwd(), 'content/blog');
 
-// Definisikan interface untuk Post
+interface ReadingTimeResult {
+  text: string;
+  minutes: number;
+  time: number;
+  words: number;
+}
+
 interface Post {
   publishedAt: string;
   banner: string;
   description: string;
-  readingTime: ReturnType<typeof readingTime>;
+  readingTime: number | string | ReadingTimeResult;
   views: number;
   category: string;
   slug: string;
@@ -23,31 +28,51 @@ interface Post {
   excerpt: string;
   featuredImage: string;
   date: string;
-  content: string;
 }
 
-export async function getPostBySlug(
-  category: string,
-  slug: string
-): Promise<{
-  frontMatter: any;
-  mdxSource: MDXRemoteSerializeResult;
-}> {
+// Cache untuk menyimpan reading time
+const readingTimeCache = new Map<string, number>();
+
+// Fungsi helper untuk menghitung reading time
+function calculateAccurateReadingTime(content: string): number {
+  const cleanContent = content
+    .replace(/```[\s\S]*?```/g, '')
+    .replace(/`.*?`/g, '')
+    .replace(/\[.*?\]\(.*?\)/g, '')
+    .replace(/[#*_~`]/g, '')
+    .replace(/\s+/g, ' ')
+    .trim();
+
+  const stats = readingTime(cleanContent);
+  return Math.ceil(stats.minutes);
+}
+
+export async function getPostBySlug(category: string, slug: string) {
   const fullPath = path.join(postsDirectory, category, `${slug}.mdx`);
   const fileContents = fs.readFileSync(fullPath, 'utf8');
   const { data: frontMatter, content } = matter(fileContents);
+
+  const cacheKey = `${category}/${slug}`;
+  if (!readingTimeCache.has(cacheKey)) {
+    readingTimeCache.set(cacheKey, calculateAccurateReadingTime(content));
+  }
+
+  const readingTimeMinutes = readingTimeCache.get(cacheKey)!;
 
   const mdxSource = await serialize(content, {
     mdxOptions: {
       remarkPlugins: [remarkGfm],
       rehypePlugins: [rehypeSlug],
-      format: 'mdx',
     },
     parseFrontmatter: true,
     scope: frontMatter,
   });
+
   return {
-    frontMatter,
+    frontMatter: {
+      ...frontMatter,
+      readingTime: readingTimeMinutes,
+    },
     mdxSource,
   };
 }
@@ -90,25 +115,33 @@ export function getAllPosts(): Post[] {
         if (fileName.endsWith('.mdx')) {
           const fullPath = path.join(categoryPath, fileName);
           const fileContents = fs.readFileSync(fullPath, 'utf8');
-
           const { data, content } = matter(fileContents);
           const slug = fileName.replace(/\.mdx$/, '');
+
+          const cacheKey = `${category}/${slug}`;
+          if (!readingTimeCache.has(cacheKey)) {
+            readingTimeCache.set(
+              cacheKey,
+              calculateAccurateReadingTime(content)
+            );
+          }
+
+          const readingTimeMinutes = readingTimeCache.get(cacheKey)!;
 
           posts.push({
             title: data.title || '',
             slug,
             category,
-            content,
-            readingTime: readingTime(content),
-            views: 0,
-            featuredImage: data.featuredImage || '',
-            excerpt: data.excerpt || '',
-            tags: data.tags || [],
-            date: data.date || '',
             publishedAt: data.date || '',
             banner: data.featuredImage || '',
             description: data.description || '',
-          } as Post);
+            views: 0,
+            tags: data.tags || [],
+            excerpt: data.excerpt || '',
+            featuredImage: data.featuredImage || '',
+            date: data.date || '',
+            readingTime: readingTimeMinutes,
+          });
         }
       });
     }
