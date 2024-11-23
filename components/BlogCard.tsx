@@ -52,9 +52,8 @@ const BlogCard = ({
     `/api/page-views?slug=${post.slug}`,
     fetcher,
     {
-      revalidateOnFocus: false,
-      revalidateOnReconnect: false,
-      refreshInterval: 60 * 60 * 1000,
+      refreshInterval: 30000,
+      revalidateOnFocus: true,
     }
   );
 
