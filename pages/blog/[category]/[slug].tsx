@@ -179,7 +179,7 @@ export default function BlogPost({
     <Layout>
       <div className="min-h-screen max-w-[var(--max-width)] mx-auto -translate-y-[50px]">
         {/* Banner Image */}
-        <div className="w-full" data-fade="1">
+        <div className="w-full mt-14 md:mt-0 2xl:mt-0" data-fade="1">
           <div className="relative w-full aspect-[16/9]">
             <Image
               src={frontMatter.featuredImage || ''}
@@ -223,10 +223,12 @@ export default function BlogPost({
           {/* Article Header */}
           <header className="space-y-2 -mb-2">
             <div data-fade="2">
-              <H1 className="mb-2">{frontMatter.title}</H1>
+              <H1 className="text-2xl md:text-3xl lg:text-4xl">
+                {frontMatter.title}
+              </H1>
             </div>
             <div
-              className={`mt-2 mb-6 md:mt-2 md:mb-8 font-normal text-sm md:text-md lg:text-md text-gray-300`}
+              className={`mt-10 mb-6 md:mt-10 md:mb-8 font-normal text-sm md:text-md lg:text-md text-gray-300`}
               data-fade="3"
             >
               Written on {formattedDate} by{' '}

@@ -15,7 +15,7 @@ interface TypographyProps {
 export const H1 = ({ children, className = '' }: TypographyProps) => (
   <h1
     className={clsx(
-      'text-2xl md:text-3xl lg:text-4xl font-bold mb-6 text-white',
+      'text-3xl md:text-4xl lg:text-5xl font-bold mb-4 text-white',
       className
     )}
   >
@@ -61,6 +61,7 @@ export const P = ({ children, className = '' }: TypographyProps) => (
   <p
     className={clsx(
       'text-base md:text-lg text-gray-300 leading-relaxed mb-6',
+
       className
     )}
   >

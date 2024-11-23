@@ -104,7 +104,7 @@ const ContactPage = () => {
                 Let&apos;s <Accent>Connect</Accent>
               </h1>
               <p
-                className="text-left md:text-center 2xl:text-left text-sm lg:text-base font-light text-gray-200"
+                className="text-left md:text-center 2xl:text-left text-sm md:text-base font-light text-gray-200"
                 data-fade="3"
               >
                 Looking for a blockchain developer or need help with legal tech
