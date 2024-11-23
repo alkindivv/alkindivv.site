@@ -8,6 +8,8 @@ import Accent from '@/components/Accent';
 import { HiCalendar, HiEye } from 'react-icons/hi';
 import clsx from 'clsx';
 import { IconType } from 'react-icons/lib';
+import { getAllPosts } from '@/lib/mdx';
+import { BlogPost } from '@/types/blog';
 
 const topics = [
   'retro',
@@ -30,23 +32,8 @@ const topics = [
   'linux',
 ];
 
-interface Post {
-  slug: string;
-  title: string;
-  excerpt: string;
-  featuredImage: string;
-  publishedAt: string;
-  date: string;
-  tags: string[];
-  category: string;
-  readingTime: number;
-  views?: number;
-  banner: string;
-  description: string;
-}
-
 interface BlogPageProps {
-  blogPosts: Post[];
+  blogPosts: BlogPost[];
 }
 
 // Define interfaces
@@ -95,8 +82,10 @@ const BlogPage: React.FC<BlogPageProps> = ({ blogPosts }) => {
   const filteredAndSortedPosts = blogPosts
     .filter((post) => {
       if (!selectedTopic) return true;
-      return post.tags.some(
-        (tag) => tag.toLowerCase() === selectedTopic.toLowerCase()
+      return (
+        post.tags?.some(
+          (tag) => tag.toLowerCase() === selectedTopic.toLowerCase()
+        ) ?? false
       );
     })
     .sort((a, b) => {
@@ -229,7 +218,16 @@ const BlogPage: React.FC<BlogPageProps> = ({ blogPosts }) => {
 export const getStaticProps: GetStaticProps = async () => {
   const categories = getAllCategories();
   const blogPosts = categories.flatMap((category) =>
-    getPostsByCategory(category)
+    getPostsByCategory(category).map((post) => ({
+      ...post,
+      // author: post.author || 'Al Kindi',
+      readingTime:
+        typeof post.readingTime === 'number'
+          ? post.readingTime
+          : typeof post.readingTime === 'string'
+            ? parseInt(post.readingTime)
+            : 1,
+    }))
   );
 
   blogPosts.sort(
