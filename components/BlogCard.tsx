@@ -8,32 +8,7 @@ import Tag from './Tag';
 import styles from '../styles/Blog.module.css';
 import clsx from 'clsx';
 import useSWR from 'swr';
-import readingTime from 'reading-time';
-
-interface ReadingTimeResult {
-  text: string;
-
-  minutes: number;
-  time: number;
-  words: number;
-}
-
-interface BlogPost {
-  slug: string;
-  title: string;
-  description?: string;
-  excerpt: string;
-  banner?: string;
-
-  featuredImage: string;
-  publishedAt: string;
-  date: string;
-  lastUpdated?: string;
-  tags: string[];
-  category: string;
-  readingTime: number | string | ReadingTimeResult;
-  views?: number;
-}
+import { BlogPost } from '@/types/blog';
 
 interface BlogCardProps {
   post: BlogPost;
@@ -55,13 +30,7 @@ const BlogCard = ({
   const { data: viewsData, mutate } = useSWR(
     `/api/page-views/?slug=${post.slug}`,
     async (url) => {
-      const res = await fetch(url, {
-        headers: {
-          'Cache-Control': 'no-cache, no-store, must-revalidate',
-          Pragma: 'no-cache',
-          Expires: '0',
-        },
-      });
+      const res = await fetch(url);
       if (!res.ok) throw new Error('Failed to fetch views');
       return res.json();
     },
@@ -78,10 +47,6 @@ const BlogCard = ({
   useEffect(() => {
     mutate();
   }, [mutate]);
-
-  useEffect(() => {
-    console.log(`Views for ${post.slug}:`, viewsData?.views);
-  }, [viewsData, post.slug]);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -108,17 +73,9 @@ const BlogCard = ({
     return () => observer.disconnect();
   }, []);
 
-  const content = `${post.description || ''} ${post.excerpt || ''}`;
-  const stats = readingTime(content);
+  const readingTimeMinutes = post.readingTime;
 
-  const readingTimeMinutes =
-    typeof post.readingTime === 'number'
-      ? post.readingTime
-      : typeof post.readingTime === 'string'
-        ? parseInt(post.readingTime)
-        : 'text' in post.readingTime
-          ? parseInt(post.readingTime.text)
-          : 0;
+  const publishedDate = post.date;
 
   return (
     <article
@@ -137,7 +94,7 @@ const BlogCard = ({
         <div className="relative flex flex-col h-full rounded-xl border border-gray-700 overflow-hidden group transition-all duration-300">
           <div className="relative h-48 overflow-hidden">
             <Image
-              src={post.featuredImage || post.banner || ''}
+              src={post.featuredImage || ''}
               alt={post.title}
               fill
               className="object-cover transform group-hover:scale-105 transition-transform duration-500"
@@ -174,7 +131,6 @@ const BlogCard = ({
               <div className="flex items-center gap-4">
                 <div className="flex items-center gap-1">
                   <HiOutlineClock className="text-base" />
-
                   <Accent>{readingTimeMinutes} min read</Accent>
                 </div>
                 <div className="flex items-center gap-1">
@@ -185,13 +141,10 @@ const BlogCard = ({
             </div>
 
             <p className={styles.date}>
-              {format(
-                new Date(post.lastUpdated ?? post.date ?? post.publishedAt),
-                'MMMM dd, yyyy'
-              )}
+              {format(new Date(publishedDate), 'MMMM dd, yyyy')}
             </p>
 
-            <p className={styles.excerpt}>{post.description || post.excerpt}</p>
+            <p className={styles.excerpt}>{post.excerpt}</p>
           </div>
         </div>
       </Link>

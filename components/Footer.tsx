@@ -1,8 +1,8 @@
-import React, { useState } from "react";
-import Link from "next/link";
-import { FaGithub, FaLinkedin, FaTwitter } from "react-icons/fa";
-import Accent from "./Accent";
-import PrivacyAndTnc from "./PrivacyAndTnc";
+import React, { useState } from 'react';
+import Link from 'next/link';
+import { FaGithub, FaLinkedin, FaTwitter } from 'react-icons/fa';
+import Accent from './Accent';
+import PrivacyAndTnc from './PrivacyAndTnc';
 
 const Footer = () => {
   const [isPrivacyOpen, setIsPrivacyOpen] = useState(false);
@@ -56,10 +56,10 @@ const Footer = () => {
             </h3>
             <ul className="space-y-2">
               {[
-                { name: "Home", href: "/" },
-                { name: "About", href: "/about" },
-                { name: "Blog", href: "/blog" },
-                { name: "Contact", href: "/contact" },
+                { name: 'Home', href: '/' },
+                { name: 'About', href: '/about' },
+                { name: 'Blog', href: '/blog' },
+                { name: 'Contact', href: '/contact' },
               ].map((link) => (
                 <li key={link.name}>
                   <Link
@@ -80,10 +80,10 @@ const Footer = () => {
             </h3>
             <ul className="space-y-2">
               {[
-                "Legal Consulting",
-                "Smart Contract Development",
-                "Hackintosh Installation",
-                "Web Development",
+                'Legal Consulting',
+                'Smart Contract Development',
+                'Hackintosh Installation',
+                'Web Development',
               ].map((service) => (
                 <li
                   key={service}

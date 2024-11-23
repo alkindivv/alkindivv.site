@@ -11,7 +11,6 @@ import Image from 'next/image';
 import { FaClock, FaEye } from 'react-icons/fa';
 import TableOfContents from '@/components/TableOfContents';
 import RelatedArticles from '@/components/RelatedArticles';
-import readingTime from 'reading-time';
 
 interface ReadingTimeResult {
   text: string;
@@ -30,8 +29,8 @@ interface BlogPostProps {
     featuredImage?: string;
     category: string;
     views?: number;
-    readingTime: number | string | ReadingTimeResult;
     slug: string;
+    readingTime: number;
   };
   mdxSource: any;
   allPosts: any[];
@@ -119,14 +118,11 @@ export default function BlogPost({
   }, []);
 
   // Convert readingTime to number
-  const readingTimeMinutes =
-    typeof frontMatter.readingTime === 'number'
+  const readingTimeMinutes = !frontMatter.readingTime
+    ? 0
+    : typeof frontMatter.readingTime === 'number'
       ? frontMatter.readingTime
-      : typeof frontMatter.readingTime === 'string'
-        ? parseInt(frontMatter.readingTime)
-        : 'text' in frontMatter.readingTime
-          ? parseInt(frontMatter.readingTime.text)
-          : 0;
+      : 0;
 
   // Format tanggal
   const formattedDate = new Date(frontMatter.date).toLocaleDateString('en-US', {
@@ -196,8 +192,8 @@ export default function BlogPost({
         </div>
 
         {/* Main Content Container */}
-        <div className="mt-4">
-          {/* Article Header */}
+        {/* <div className="mt-4">
+
           <header className="space-y-2 -mb-2">
             <div data-fade="2">
               <H1 className="mb-2">{frontMatter.title}</H1>
@@ -211,6 +207,36 @@ export default function BlogPost({
             </div>
             <div className="flex items-center gap-4" data-fade="4">
               <span className="flex items-center gap-2">
+                <FaClock />
+                <Accent>{readingTimeMinutes} min read</Accent>
+              </span>
+              <span className="flex items-center gap-2">
+                <FaEye />
+                <Accent>{views} views</Accent>
+              </span>
+            </div>
+            <div className="border-b border-gray-700" data-fade="5" />
+          </header> */}
+
+        {/* Main Content Container */}
+        <div className="mt-4">
+          {/* Article Header */}
+          <header className="space-y-2 -mb-2">
+            <div data-fade="2">
+              <H1 className="mb-2">{frontMatter.title}</H1>
+            </div>
+            <div
+              className={`mt-2 mb-6 md:mt-2 md:mb-8 font-normal text-sm md:text-md lg:text-md text-gray-300`}
+              data-fade="3"
+            >
+              Written on {formattedDate} by{' '}
+              <Accent>{frontMatter.author}</Accent>
+            </div>
+            <div
+              className="flex items-center gap-4 text-sm md:text-md lg:text-md text-gray-400"
+              data-fade="4"
+            >
+              <span className="font-normal mt-2 flex items-center gap-2">
                 <FaClock />
                 <Accent>{readingTimeMinutes} min read</Accent>
               </span>
