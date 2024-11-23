@@ -136,7 +136,8 @@ const BlogPage: React.FC<BlogPageProps> = ({ blogPosts }) => {
                 key={topic}
                 onClick={() => handleTopicClick(topic)}
                 className={clsx(
-                  'px-1 py-0.5 text-sm md:text-md 2xl:text-md rounded-md border transition-colors',
+                  'px-1 py-0.5 text-xs md:text-sm 2xl:text-sm rounded-md border transition-colors',
+                  // text-sm md:text-md 2xl:text-md
                   selectedTopic === topic
                     ? 'border-emerald-500 text-emerald-500'
                     : 'border-gray-600 text-gray-300 hover:border-emerald-500'

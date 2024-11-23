@@ -115,7 +115,7 @@ const ContactPage = () => {
         </section>
 
         {/* Contact Grid */}
-        <section className="-mt-0 -md:mt-10 2xl:mt-10" data-fade="4">
+        <section className="-mt-0 md:-mt-10 2xl:-mt-10" data-fade="4">
           <div className="max-w-6xl mx-auto">
             <div className="grid md:grid-cols-3 gap-6 h-full">
               {/* Contact Info Column */}

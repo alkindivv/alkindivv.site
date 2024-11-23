@@ -101,16 +101,17 @@ const BlogCard = ({
             />
             <div className="absolute inset-0 bg-gradient-to-t from-gray-900/80 via-gray-900/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
             <div className="absolute inset-0 backdrop-blur-[0px] opacity-0 group-hover:opacity-100 transition-all duration-300" />
-            <div className={styles.tagContainer}>
+            <div className="absolute bottom-0.5 right-1.5 flex flex-wrap gap-1 justify-end">
               {Array.isArray(post.tags)
                 ? post.tags.map((tag) => (
                     <Tag
                       key={tag}
                       variant={checkTagged?.(tag) ? 'gradient' : 'default'}
                       className={clsx(
-                        'inline-block rounded-md',
-                        'px-2 md:px-2 py-0.5 text-xs md:text-sm 2xl:text-sm rounded-md border shrink-0 -mb-1.5 mr-0.5',
-                        'bg-black border border-gray-600 text-gray-200',
+                        'inline-block',
+                        'px-1 py-0.5 text-xs md:text-sm 2xl:text-sm',
+                        'rounded-md border',
+                        'bg-black border-gray-600 text-gray-200',
                         'hover:text-white',
                         'focus:outline-none focus-visible:ring focus-visible:ring-primary-300',
                         checkTagged?.(tag) && 'bg-emerald-500 text-white',
