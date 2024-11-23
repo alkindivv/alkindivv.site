@@ -11,7 +11,6 @@ import { FaClock, FaEye } from 'react-icons/fa';
 import { useEffect, useState, useRef } from 'react';
 import TableOfContents from '@/components/TableOfContents';
 import RelatedArticles from '@/components/RelatedArticles';
-import useSWR from 'swr';
 
 interface BlogPostProps {
   frontMatter: {
