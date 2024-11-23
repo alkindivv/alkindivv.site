@@ -37,7 +37,7 @@ export default function HomePage() {
         {/* You can call me AL KINDI */}
         <div className="relative order-2" data-fade="2">
           <div className="text-3xl md:text-4xl 2xl:text-5xl font-bold tracking-tight mb-1 md:mb-1">
-            You can call me <Accent className="inline-block">AL KINDI</Accent>
+            You can call me <Accent className="inline-block">ALKINDIVV</Accent>
           </div>
         </div>
         {/* Front-end Engineer text */}

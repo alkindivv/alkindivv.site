@@ -37,8 +37,6 @@ interface BlogCardProps {
   index?: number;
 }
 
-const fetcher = (url: string) => fetch(url).then((res) => res.json());
-
 const BlogCard = ({
   post,
   className = '',
@@ -48,23 +46,34 @@ const BlogCard = ({
 }: BlogCardProps) => {
   const cardRef = useRef<HTMLElement>(null);
 
-  const { data: viewsData, error } = useSWR(
+  const { data: viewsData, mutate } = useSWR(
     `/api/page-views?slug=${post.slug}`,
-    fetcher,
+    async (url) => {
+      const res = await fetch(url, {
+        headers: {
+          'Cache-Control': 'no-cache',
+          Pragma: 'no-cache',
+        },
+      });
+      if (!res.ok) throw new Error('Failed to fetch views');
+      return res.json();
+    },
     {
       refreshInterval: 5000,
       revalidateOnFocus: true,
-      onSuccess: (data) => console.log(`Views updated for ${post.slug}:`, data),
-      onError: (err) => console.error(`Views error for ${post.slug}:`, err),
+      dedupingInterval: 1000,
     }
   );
 
   const views = viewsData?.views ?? '–';
 
   useEffect(() => {
+    mutate();
+  }, [mutate, viewsData]);
+
+  useEffect(() => {
     console.log(`Views for ${post.slug}:`, viewsData?.views);
-    if (error) console.error('Views error:', error);
-  }, [viewsData, error, post.slug]);
+  }, [viewsData, post.slug]);
 
   useEffect(() => {
     const observer = new IntersectionObserver(

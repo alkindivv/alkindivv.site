@@ -121,10 +121,23 @@ export default function BlogPost({
   // Tambahkan useEffect untuk increment views
   useEffect(() => {
     const incrementViews = async () => {
+      if (!frontMatter.slug) return;
+
       try {
-        await fetch(`/api/page-views?slug=${frontMatter.slug}`, {
+        const response = await fetch('/api/page-views', {
           method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ slug: frontMatter.slug }),
         });
+
+        if (!response.ok) {
+          throw new Error('Failed to increment views');
+        }
+
+        const data = await response.json();
+        console.log('Views incremented:', data);
       } catch (error) {
         console.error('Failed to increment views:', error);
       }
@@ -220,12 +233,17 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
   const { category, slug } = params as { category: string; slug: string };
   const { frontMatter, mdxSource } = await getPostBySlug(category, slug);
 
-  // Dapatkan semua post untuk related articles
+  // Pastikan slug ada di frontMatter
+  const enhancedFrontMatter = {
+    ...frontMatter,
+    slug, // Tambahkan slug ke frontMatter
+  };
+
   const allPosts = getAllPosts();
 
   return {
     props: {
-      frontMatter,
+      frontMatter: enhancedFrontMatter,
       mdxSource,
       allPosts,
     },
