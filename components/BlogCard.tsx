@@ -52,9 +52,10 @@ const BlogCard = ({
     `/api/page-views?slug=${post.slug}`,
     fetcher,
     {
-      refreshInterval: 10000,
+      refreshInterval: 5000,
       revalidateOnFocus: true,
-      onError: (err) => console.error('Views fetch error:', err),
+      onSuccess: (data) => console.log(`Views updated for ${post.slug}:`, data),
+      onError: (err) => console.error(`Views error for ${post.slug}:`, err),
     }
   );
 
