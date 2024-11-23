@@ -61,6 +61,9 @@ export default function BlogPost({
   >([]);
   const [activeId, setActiveId] = useState<string>('');
   const articleContentRef = useRef<HTMLDivElement>(null);
+  const [hasIncremented, setHasIncremented] = useState(false);
+  const [views, setViews] = useState(0);
+  const hasIncrementedRef = useRef(false);
 
   useEffect(() => {
     if (!articleContentRef.current) return;
@@ -119,54 +122,49 @@ export default function BlogPost({
     year: 'numeric',
   });
 
-  // Tambahkan useEffect untuk increment views
+  // Fetch initial views
   useEffect(() => {
-    const incrementViews = async () => {
-      if (!frontMatter.slug) return;
+    const fetchViews = async () => {
+      try {
+        const res = await fetch(`/api/page-views/?slug=${frontMatter.slug}`);
+        const data = await res.json();
+        setViews(data.views);
+      } catch (error) {
+        console.error('Failed to fetch views:', error);
+      }
+    };
+
+    fetchViews();
+  }, [frontMatter.slug]);
+
+  // Increment view once
+  useEffect(() => {
+    const incrementView = async () => {
+      if (hasIncrementedRef.current) return;
+      hasIncrementedRef.current = true;
 
       try {
-        const response = await fetch('/api/page-views', {
+        const res = await fetch('/api/page-views', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
           },
-          body: JSON.stringify({ slug: frontMatter.slug }),
+          body: JSON.stringify({
+            slug: frontMatter.slug,
+          }),
         });
 
-        if (!response.ok) {
-          throw new Error('Failed to increment views');
+        if (res.ok) {
+          const data = await res.json();
+          setViews(data.views);
         }
-
-        const data = await response.json();
-        console.log('Views incremented:', data);
       } catch (error) {
-        console.error('Failed to increment views:', error);
+        console.error('Failed to increment view:', error);
       }
     };
 
-    incrementViews();
+    incrementView();
   }, [frontMatter.slug]);
-
-  const { data: viewsData } = useSWR(
-    `/api/page-views/?slug=${frontMatter.slug}&_t=${new Date().getTime()}`,
-    async (url) => {
-      const res = await fetch(url, {
-        headers: {
-          'Cache-Control': 'no-cache, no-store, must-revalidate',
-          Pragma: 'no-cache',
-          Expires: '0',
-        },
-      });
-      if (!res.ok) throw new Error('Failed to fetch views');
-      return res.json();
-    },
-    {
-      refreshInterval: 5000,
-      revalidateOnFocus: true,
-      dedupingInterval: 1000,
-      revalidateOnMount: true,
-    }
-  );
 
   return (
     <Layout>
@@ -208,7 +206,7 @@ export default function BlogPost({
               </span>
               <span className="font-normal mt-2 flex items-center gap-2 text-sm md:text-md lg:text-md">
                 <FaEye className="font-normal text-sm md:text-md lg:text-md" />
-                <Accent>{frontMatter.views || 0} views</Accent>
+                <Accent>{views} views</Accent>
               </span>
             </div>
             <div className="border-b border-gray-700" data-fade="5" />
