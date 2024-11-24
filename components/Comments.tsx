@@ -265,7 +265,7 @@ export default function Comments({ postSlug }: CommentsProps) {
                   className="flex items-center gap-2 px-4 py-2 bg-[#238636] text-white rounded-md hover:bg-[#2ea043] transition-colors text-sm"
                 >
                   <FaGoogle className="text-lg" />
-                  Sign in with GitHub
+                  Sign in with Google
                 </button>
               </div>
             ) : (
