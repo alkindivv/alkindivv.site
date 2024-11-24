@@ -18,10 +18,10 @@ jobs:
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           port: ${{ secrets.PORT }}
           script: |
-            source ~/.bashrc
-            source ~/.nvm/nvm.sh
             cd /root/alkindivv.site
             git pull origin main
+            nvm install 18
+            nvm use 18
             npm install
             npm run build
             pm2 restart alkindivv-site
