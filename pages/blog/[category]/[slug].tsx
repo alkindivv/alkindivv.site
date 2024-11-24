@@ -11,6 +11,7 @@ import Image from 'next/image';
 import { FaClock, FaEye } from 'react-icons/fa';
 import TableOfContents from '@/components/TableOfContents';
 import RelatedArticles from '@/components/RelatedArticles';
+import Comments from '@/components/Comments';
 
 interface ReadingTimeResult {
   text: string;
@@ -264,6 +265,11 @@ export default function BlogPost({
 
             {/* Table of Contents */}
             <TableOfContents headings={headings} activeId={activeId} />
+          </div>
+
+          {/* Add Comments section before Related Articles */}
+          <div className="mt-16 border-t border-gray-700 pt-8" data-fade="6">
+            <Comments postSlug={frontMatter.slug} />
           </div>
 
           {/* Related Articles */}
