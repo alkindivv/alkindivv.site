@@ -110,10 +110,7 @@ const AboutPage = () => {
                   className="flex justify-center md:justify-start gap-4"
                   data-fade="3"
                 >
-                  <Link
-                    href="/contact"
-                    className="gradient-button text-sm md:text-base 2xl:text-lg  px-3 md:px-3 py-1.5 md:py-2.5"
-                  >
+                  <Link href="/contact" className="gradient-button ">
                     Contact Me
                   </Link>
                   <DimensionLink
@@ -456,7 +453,7 @@ const AboutPage = () => {
         </section>
 
         {/* Connect Section */}
-        <section className="py-16">
+        {/* <section className="py-16">
           <div className="max-w-6xl mx-auto text-center">
             <h2 className="text-3xl font-bold mb-6" data-fade="22">
               Let&apos;s <Accent>Connect</Accent>
@@ -477,7 +474,7 @@ const AboutPage = () => {
               </DimensionLink>
             </div>
           </div>
-        </section>
+        </section> */}
       </main>
     </Layout>
   );

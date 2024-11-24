@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import type { AppProps } from 'next/app';
 import { useRouter } from 'next/router';
+import { SessionProvider } from 'next-auth/react';
 import '../styles/globals.css';
 import '../styles/animations.css';
 import { DefaultSeo } from 'next-seo';
@@ -25,7 +26,7 @@ function MyApp({ Component, pageProps }: AppProps) {
   }, [router.events]);
 
   return (
-    <>
+    <SessionProvider>
       <DefaultSeo
         openGraph={{
           type: 'website',
@@ -41,7 +42,7 @@ function MyApp({ Component, pageProps }: AppProps) {
       />
       <SEO />
       <Component {...pageProps} />
-    </>
+    </SessionProvider>
   );
 }
 

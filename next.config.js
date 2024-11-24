@@ -9,6 +9,7 @@ const nextConfig = {
         hostname: 'images.unsplash.com',
       },
     ],
+    domains: ['lh3.googleusercontent.com', 'avatars.githubusercontent.com'],
   },
   // experimental: {
   //   optimizeFonts: true,
