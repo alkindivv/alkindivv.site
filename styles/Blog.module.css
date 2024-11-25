@@ -149,7 +149,6 @@
   gap: 1rem;
 }
 
-
 .blogActions {
   display: flex;
   justify-content: space-between;
@@ -176,12 +175,12 @@
 
 .blogPost {
   flex: 1;
-  max-width: calc(100% - 210px);
+  max-width: calc(100% - 110px);
 }
 
 .postContent {
   color: var(--color-paragraph);
-  padding-right: 0;
+  padding-right: 0rem;
   padding-top: 2.5rem;
   max-width: 100%;
 }
@@ -354,7 +353,7 @@
 /* ---------------------------- Style untuk blog card Module ----------------------------- */
 
 /* ------------------------- Animasi untuk konten Artikel blog --------------------------- */
-.content-block.fade-in-start {
+/* .content-block.fade-in-start {
   opacity: 1 !important;
   transform: translateY(0) !important;
 }
@@ -364,7 +363,7 @@
   transform: translateY(0) !important;
 }
 
-/* Reduced Motion */
+
 @media (prefers-reduced-motion: reduce) {
   .content-block,
   .inline-block {
@@ -372,9 +371,8 @@
     transform: none !important;
     opacity: 1 !important;
   }
-}
+} */
 /* ------------------------- Animasi untuk konten Artikel blog --------------------------- */
-
 
 /* .readMore {
   color: #3b82f6;

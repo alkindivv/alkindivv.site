@@ -1,10 +1,10 @@
-import React, { useEffect } from "react";
-import Head from "next/head";
-import Header from "./Header";
-import Footer from "./Footer";
-import { useRouter } from "next/router";
-import { useState } from "react";
-import NProgress from "nprogress";
+import React, { useEffect } from 'react';
+import Head from 'next/head';
+import Header from './Header';
+import Footer from './Footer';
+import { useRouter } from 'next/router';
+import { useState } from 'react';
+import NProgress from 'nprogress';
 
 interface LayoutProps {
   children: React.ReactNode;
@@ -15,7 +15,7 @@ interface LayoutProps {
 const Layout: React.FC<LayoutProps> = ({
   isHomePage,
   children,
-  title = "AL KINDI - Legal Tech Innovator",
+  title = 'AL KINDI - Law, Technology, and Cryptocurrency',
 }) => {
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
@@ -39,14 +39,14 @@ const Layout: React.FC<LayoutProps> = ({
       window.scrollTo(0, 0);
     };
 
-    router.events.on("routeChangeStart", handleStart);
-    router.events.on("routeChangeComplete", handleComplete);
-    router.events.on("routeChangeError", handleComplete);
+    router.events.on('routeChangeStart', handleStart);
+    router.events.on('routeChangeComplete', handleComplete);
+    router.events.on('routeChangeError', handleComplete);
 
     return () => {
-      router.events.off("routeChangeStart", handleStart);
-      router.events.off("routeChangeComplete", handleComplete);
-      router.events.off("routeChangeError", handleComplete);
+      router.events.off('routeChangeStart', handleStart);
+      router.events.off('routeChangeComplete', handleComplete);
+      router.events.off('routeChangeError', handleComplete);
     };
   }, [router]);
 
@@ -56,7 +56,7 @@ const Layout: React.FC<LayoutProps> = ({
         <title>{title}</title>
         <meta
           name="description"
-          content="AL KINDI - Exploring the future of legal technology and cybersecurity law."
+          content="AL KINDI - Exploring the future of legal technology focus on corporate, bankruptcy and capital markets and blockchain technology."
         />
         <link rel="icon" href="/favicon.ico" />
 
@@ -100,12 +100,12 @@ const Layout: React.FC<LayoutProps> = ({
       </Head>
       <div
         className={`layout-container ${
-          isLoading ? "opacity-80" : "opacity-100"
+          isLoading ? 'opacity-80' : 'opacity-100'
         } transition-opacity duration-75 ease-in-out`}
       >
         <Header />
         <main
-          className={`layout-main ${isLoading ? "pointer-events-none" : ""}`}
+          className={`layout-main ${isLoading ? 'pointer-events-none' : ''}`}
         >
           {children}
         </main>

@@ -10,6 +10,7 @@ import clsx from 'clsx';
 import { IconType } from 'react-icons/lib';
 import { getAllPosts } from '@/lib/mdx';
 import { BlogPost } from '@/types/blog';
+import SEO from '@/components/SEO';
 
 const topics = [
   'retro',
@@ -99,7 +100,13 @@ const BlogPage: React.FC<BlogPageProps> = ({ blogPosts }) => {
     });
 
   return (
-    <Layout title="Blog | alkindivv.site">
+    <Layout>
+      <SEO
+        title="Blog"
+        description="Thoughts, insights, and tutorials about law, hackintosh, blockchain
+        and smart contract development."
+      />
+
       <main
         className={clsx(
           'mt-5 sm:-mt-12 md:-mt-10 2xl:-mt-30 fade-wrapper',
@@ -112,8 +119,8 @@ const BlogPage: React.FC<BlogPageProps> = ({ blogPosts }) => {
             Personal <Accent>Blog</Accent>
           </h1>
           <p className="text-sm md:text-base 2xl:text-lg font-light text-gray-200">
-            Thoughts, and tutorials about law, hackintosh, blockchain and smart
-            contract development.
+            Thoughts, insights, and tutorials about law, hackintosh, blockchain
+            and smart contract development.
           </p>
         </div>
 

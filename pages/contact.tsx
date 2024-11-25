@@ -7,6 +7,7 @@ import { FaWhatsapp } from 'react-icons/fa';
 import { SiFiverr } from 'react-icons/si';
 import dynamic from 'next/dynamic';
 import emailjs from '@emailjs/browser';
+import SEO from '@/components/SEO';
 
 const SocialMediaSection = dynamic(
   () => import('../components/SocialMediaSectionContact'),
@@ -85,7 +86,12 @@ const ContactPage = () => {
   };
 
   return (
-    <Layout title="Contact | alkindivv.site">
+    <Layout>
+      <SEO
+        title="Contact"
+        description="Looking for a blockchain developer or need help with legal tech
+                solutions? I'm here to help turn your ideas into reality, or Leave whatever you like to say—message, appreciation, suggestions"
+      />
       <main
         className={clsx(
           '-mt-1 sm:-mt-20 md:-mt-30 2xl:-mt-20  fade-wrapper',
