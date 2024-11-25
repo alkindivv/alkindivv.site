@@ -178,7 +178,8 @@ export default function BlogPost({
 
   return (
     <Layout>
-      <div className="min-h-screen max-w-[var(--max-width)] mx-auto -translate-y-[50px]">
+      <div className="min-h-screen  max-w-[var(--max-width)] mx-auto -translate-y-[50px]">
+        {/* <div className="min-h-screen  max-w-[var(--max-width)] mx-auto -translate-y-[50px]"> */}
         {/* Banner Image */}
         <div className="w-full mt-14 md:mt-0 2xl:mt-0" data-fade="1">
           <div className="relative w-full aspect-[16/9]">
@@ -191,33 +192,6 @@ export default function BlogPost({
             />
           </div>
         </div>
-
-        {/* Main Content Container */}
-        {/* <div className="mt-4">
-
-          <header className="space-y-2 -mb-2">
-            <div data-fade="2">
-              <H1 className="mb-2">{frontMatter.title}</H1>
-            </div>
-            <div
-              className={`mt-2 mb-6 md:mt-2 md:mb-8 font-normal text-sm md:text-md lg:text-md text-gray-300`}
-              data-fade="3"
-            >
-              Written on {formattedDate} by{' '}
-              <Accent>{frontMatter.author}</Accent>
-            </div>
-            <div className="flex items-center gap-4" data-fade="4">
-              <span className="flex items-center gap-2">
-                <FaClock />
-                <Accent>{readingTimeMinutes} min read</Accent>
-              </span>
-              <span className="flex items-center gap-2">
-                <FaEye />
-                <Accent>{views} views</Accent>
-              </span>
-            </div>
-            <div className="border-b border-gray-700" data-fade="5" />
-          </header> */}
 
         {/* Main Content Container */}
         <div className="mt-4">
@@ -257,7 +231,8 @@ export default function BlogPost({
             data-fade="6"
           >
             {/* Main Article */}
-            <article className="flex-1 lg:max-w-[calc(100%-0px)]">
+            <article className="flex-1 ">
+              {/* < className="flex-1 max-w-[calc(100%-50px)]"> */}
               <div className={`${styles.postContent}`} ref={articleContentRef}>
                 <MDXRemote {...mdxSource} components={mdxComponents} />
               </div>

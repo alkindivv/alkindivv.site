@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react";
-import clsx from "clsx";
+import React, { useEffect, useState } from 'react';
+import clsx from 'clsx';
 
 interface TOCProps {
   headings: Array<{ id: string; title: string; level: number }>;
@@ -23,7 +23,7 @@ const TableOfContents = ({ headings, activeId: propActiveId }: TOCProps) => {
         });
       },
       {
-        rootMargin: "-20px 0px -80% 0px",
+        rootMargin: '-20px 0px -80% 0px',
         threshold: [0, 1, 1],
       }
     );
@@ -56,12 +56,12 @@ const TableOfContents = ({ headings, activeId: propActiveId }: TOCProps) => {
 
       window.scrollTo({
         top: offsetPosition,
-        behavior: "smooth",
+        behavior: 'smooth',
       });
 
       setActiveId(id);
       if (window.history) {
-        window.history.pushState(null, "", `#${id}`);
+        window.history.pushState(null, '', `#${id}`);
       }
 
       setTimeout(() => {
@@ -83,17 +83,17 @@ const TableOfContents = ({ headings, activeId: propActiveId }: TOCProps) => {
                 key={heading.id}
                 onClick={() => scrollToHeading(heading.id)}
                 className={clsx(
-                  "block w-full text-left text-sm transition-colors duration-200 py-1",
-                  heading.level === 2 && "pl-12",
-                  heading.level === 3 && "pl-16",
-                  "hover:text-white",
-                  activeId === heading.id ? "text-white" : "text-gray-600"
+                  'block w-full text-left text-sm transition-colors duration-200 py-1',
+                  heading.level === 2 && 'pl-12',
+                  heading.level === 3 && 'pl-16',
+                  'hover:text-white',
+                  activeId === heading.id ? 'text-white' : 'text-gray-600'
                 )}
                 style={{
-                  textAlign: "left",
-                  wordWrap: "break-word",
-                  whiteSpace: "normal",
-                  lineHeight: "1.5",
+                  textAlign: 'left',
+                  wordWrap: 'break-word',
+                  whiteSpace: 'normal',
+                  lineHeight: '1.5',
                 }}
               >
                 {heading.title}

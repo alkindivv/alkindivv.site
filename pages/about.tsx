@@ -6,6 +6,7 @@ import Accent from '@/components/Accent';
 import DimensionLink from '@/components/DimensionLink';
 import Link from 'next/link';
 import Image from 'next/image';
+import SEO from '@/components/SEO';
 
 const AboutPage = () => {
   const [isLoaded, setIsLoaded] = useState(false);
@@ -19,7 +20,12 @@ const AboutPage = () => {
   }, []);
 
   return (
-    <Layout title="About | alkindivv.site">
+    <Layout>
+      <SEO
+        title="About"
+        description="Al Kindi is a Law Graduate with focus on corporate law,bankruptcy, capital market and have interent in technology, programming and cryptocurrency."
+      />
+
       <main
         className={clsx(
           'mt-5 sm:-mt-20 md:-mt-10 2xl:-mt-30 fade-wrapper',

@@ -9,7 +9,7 @@ const Footer = () => {
   const [isTermsOpen, setIsTermsOpen] = useState(false);
 
   return (
-    <footer className="mt-32 border-t border-gray-800">
+    <footer className="mt-20 border-t border-gray-800" data-fade="10">
       <div className="max-w-6xl mx-auto py-12">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           {/* Brand Section */}

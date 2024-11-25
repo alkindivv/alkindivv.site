@@ -5,6 +5,7 @@ import DimensionLink from '@/components/DimensionLink';
 import Accent from '@/components/Accent';
 import clsx from 'clsx';
 import SocialMediaSection from '@/components/SocialMediaSection';
+import SEO from '@/components/SEO';
 
 export default function HomePage() {
   const [isLoaded, setIsLoaded] = useState(false);
@@ -18,7 +19,8 @@ export default function HomePage() {
   }, []);
 
   return (
-    <Layout title="Home | alkindivv.site" isHomePage>
+    <Layout isHomePage>
+      <SEO />
       <main
         className={clsx(
           'layout-main mt-10 md:mt-15',
@@ -86,7 +88,15 @@ export default function HomePage() {
         >
           <SocialMediaSection />
         </div>
+
         {/* </div>
+
+
+
+
+
+
+
         </div> */}
       </main>
     </Layout>

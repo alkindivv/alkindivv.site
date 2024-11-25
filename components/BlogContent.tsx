@@ -282,12 +282,12 @@ export const MDXComponents = {
 };
 
 // Main Blog Content Component
-const BlogContent: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  return (
-    <article className="prose prose-lg dark:prose-dark max-w-[900px] prose-headings:text-white prose-strong:text-white prose-em:text-white">
-      {children}
-    </article>
-  );
-};
+// const BlogContent: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+//   return (
+//     <article className="prose prose-lg dark:prose-dark max-w-[900px] prose-headings:text-white prose-strong:text-white prose-em:text-white">
+//       {children}
+//     </article>
+//   );
+// };
 
-export default BlogContent;
+// export default BlogContent;
