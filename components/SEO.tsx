@@ -11,8 +11,8 @@ interface SEOProps {
 }
 
 const SEO = ({
-  title = 'AL KINDI - Law Graduate & Frontend Developer',
-  description = 'Personal website of AL KINDI, a law graduate with expertise in legal practice and technology, specializing in blockchain development and legal tech solutions.',
+  title = 'AL KINDI - Law, Technology, and Cryptocurrency',
+  description = 'Personal website of AL KINDI, a Trainee Associate with focus on corporate law, capital markets, and bankruptcy, offering insights and solutions in legal practice.',
   image = 'https://alkindivv.site/images/og-image.png',
   article = false,
   date,
