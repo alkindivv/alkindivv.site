@@ -8,15 +8,18 @@ interface SEOProps {
   article?: boolean;
   date?: string;
   author?: string;
+
+  robots?: string;
 }
 
 const SEO = ({
   title = 'AL KINDI - Law, Technology, and Cryptocurrency',
   description = 'Personal website of AL KINDI, a Trainee Associate with focus on corporate law, capital markets, and bankruptcy, offering insights and solutions in legal practice.',
-  image = 'https://alkindivv.site/images/og-image.png',
+  image = 'https://alkindivv.site/images/default.png',
   article = false,
   date,
   author = 'AL KINDI',
+  robots = 'follow, index',
 }: SEOProps) => {
   const router = useRouter();
   const canonicalUrl = `https://alkindivv.site${router.asPath}`;
