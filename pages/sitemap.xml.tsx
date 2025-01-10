@@ -3,6 +3,16 @@ import { getAllPosts, getAllCategories } from '@/lib/mdx';
 
 const Sitemap = () => null;
 
+// Fungsi untuk mengenkode karakter khusus XML
+const encodeXMLChars = (str: string) => {
+  return str
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&apos;');
+};
+
 export const getServerSideProps: GetServerSideProps = async ({ res }) => {
   const baseUrl = 'https://alkindivv.site';
   const posts = getAllPosts();
@@ -23,7 +33,7 @@ export const getServerSideProps: GetServerSideProps = async ({ res }) => {
         <priority>1.0</priority>
         <image:image>
           <image:loc>${baseUrl}/images/ALKINDI-bg.PNG</image:loc>
-          <image:title>AL KINDI - Law, Technology, and Cryptocurrency</image:title>
+          <image:title>${encodeXMLChars('AL KINDI - Law, Technology, and Cryptocurrency')}</image:title>
         </image:image>
       </url>
 
@@ -82,8 +92,8 @@ export const getServerSideProps: GetServerSideProps = async ({ res }) => {
                 ? `
             <image:image>
               <image:loc>${baseUrl}${post.featuredImage}</image:loc>
-              <image:title>${post.title}</image:title>
-              <image:caption>${post.excerpt || post.title}</image:caption>
+              <image:title>${encodeXMLChars(post.title)}</image:title>
+              <image:caption>${encodeXMLChars(post.excerpt || post.title)}</image:caption>
             </image:image>
             `
                 : ''
@@ -97,7 +107,7 @@ export const getServerSideProps: GetServerSideProps = async ({ res }) => {
                 <news:language>id</news:language>
               </news:publication>
               <news:publication_date>${new Date(post.date).toISOString()}</news:publication_date>
-              <news:title>${post.title}</news:title>
+              <news:title>${encodeXMLChars(post.title)}</news:title>
             </news:news>
             `
                 : ''
