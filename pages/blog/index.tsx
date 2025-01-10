@@ -2,13 +2,12 @@ import React, { useEffect, useState } from 'react';
 import Layout from '../../components/Layout';
 import styles from '../../styles/Blog.module.css';
 import { GetStaticProps } from 'next';
-import { getAllCategories, getPostsByCategory } from '../../lib/posts';
 import BlogCard from '@/components/BlogCard';
 import Accent from '@/components/Accent';
 import { HiCalendar, HiEye } from 'react-icons/hi';
 import clsx from 'clsx';
 import { IconType } from 'react-icons/lib';
-import { getAllPosts } from '@/lib/mdx';
+import { getAllPosts, getAllCategories } from '@/lib/mdx';
 import { BlogPost } from '@/types/blog';
 import SEO from '@/components/SEO';
 
@@ -61,7 +60,6 @@ const sortOptions: SortOption[] = [
 const BlogPage: React.FC<BlogPageProps> = ({ blogPosts }) => {
   const [selectedTopic, setSelectedTopic] = useState<string | null>(null);
   const [sortOrder, setSortOrder] = useState<SortOption>(sortOptions[0]);
-
   const [isLoaded, setIsLoaded] = useState(false);
 
   useEffect(() => {
@@ -103,8 +101,7 @@ const BlogPage: React.FC<BlogPageProps> = ({ blogPosts }) => {
     <Layout>
       <SEO
         title="Blog"
-        description="Thoughts, insights, and tutorials about law, hackintosh, blockchain
-        and smart contract development."
+        description="Thoughts, insights, and tutorials about law, hackintosh, blockchain and smart contract development."
       />
 
       <main
@@ -115,7 +112,7 @@ const BlogPage: React.FC<BlogPageProps> = ({ blogPosts }) => {
       >
         {/* Header Section */}
         <div className="mt-10" data-fade="1">
-          <h1 className="mb-2 text-3xl md:text-4xl 2xl:text-5xl  font-bold tracking-tight">
+          <h1 className="mb-2 text-3xl md:text-4xl 2xl:text-5xl font-bold tracking-tight">
             Personal <Accent>Blog</Accent>
           </h1>
           <p className="text-sm md:text-base 2xl:text-lg font-light text-gray-200">
@@ -144,7 +141,6 @@ const BlogPage: React.FC<BlogPageProps> = ({ blogPosts }) => {
                 onClick={() => handleTopicClick(topic)}
                 className={clsx(
                   'px-1 py-0.5 text-xs md:text-sm 2xl:text-sm rounded-md border transition-colors',
-                  // text-sm md:text-md 2xl:text-md
                   selectedTopic === topic
                     ? 'border-emerald-500 text-emerald-500'
                     : 'border-gray-600 text-gray-300 hover:border-emerald-500'
@@ -224,23 +220,7 @@ const BlogPage: React.FC<BlogPageProps> = ({ blogPosts }) => {
 };
 
 export const getStaticProps: GetStaticProps = async () => {
-  const categories = getAllCategories();
-  const blogPosts = categories.flatMap((category) =>
-    getPostsByCategory(category).map((post) => ({
-      ...post,
-      // author: post.author || 'Al Kindi',
-      readingTime:
-        typeof post.readingTime === 'number'
-          ? post.readingTime
-          : typeof post.readingTime === 'string'
-            ? parseInt(post.readingTime)
-            : 1,
-    }))
-  );
-
-  blogPosts.sort(
-    (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
-  );
+  const blogPosts = getAllPosts();
 
   return {
     props: {

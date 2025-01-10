@@ -1,13 +1,64 @@
+# Global rules
 User-agent: *
 Allow: /
+Allow: /blog/
+Allow: /about/
+Allow: /contact/
+Allow: /*.html$
+Allow: /*.xml$
 
-# Sitemaps
-Sitemap: https://alkindivv.site/sitemap.xml
-
-# Crawl-delay
-Crawl-delay: 10
-
-# Disallow paths
+# Protect API routes and internal paths
 Disallow: /api/
 Disallow: /_next/
 Disallow: /static/
+Disallow: /admin/
+Disallow: /draft/
+Disallow: /preview/
+Disallow: /*?*
+Disallow: /*?
+
+# Googlebot specific rules
+User-agent: Googlebot
+Allow: /
+Allow: /blog/
+Allow: /about/
+Allow: /contact/
+Allow: /*.js
+Allow: /*.css
+Allow: /*.png
+Allow: /*.jpg
+Allow: /*.gif
+Allow: /*.svg
+Allow: /*.ico
+Crawl-delay: 1
+
+# Googlebot-Image specific rules
+User-agent: Googlebot-Image
+Allow: /images/
+Allow: /*.jpg$
+Allow: /*.jpeg$
+Allow: /*.gif$
+Allow: /*.png$
+Allow: /*.webp$
+Allow: /*.svg$
+
+# Googlebot-News specific rules
+User-agent: Googlebot-News
+Allow: /blog/
+Priority: 1
+
+# Bing specific rules
+User-agent: Bingbot
+Allow: /
+Crawl-delay: 2
+
+# DuckDuckGo specific rules
+User-agent: DuckDuckBot
+Allow: /
+Crawl-delay: 2
+
+# Host
+Host: https://alkindivv.site
+
+# Sitemaps
+Sitemap: https://alkindivv.site/sitemap.xml

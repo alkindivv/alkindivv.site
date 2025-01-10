@@ -11,41 +11,44 @@ const RelatedArticles: React.FC<RelatedArticlesProps> = ({
   currentPost,
   allPosts,
 }) => {
-  // Filter posts berdasarkan kesamaan tags dan category
+  // Calculate relevance score for each post
+  const getRelevanceScore = (post: BlogPost) => {
+    let score = 0;
+
+    // Same category gets highest score
+    if (post.category === currentPost.category) {
+      score += 5;
+    }
+
+    // Matching tags
+    const currentTags = new Set(currentPost.tags || []);
+    (post.tags || []).forEach((tag) => {
+      if (currentTags.has(tag)) {
+        score += 2;
+      }
+    });
+
+    // Recent posts get a bonus
+    const postDate = new Date(post.date);
+    const currentDate = new Date();
+    const daysDifference =
+      (currentDate.getTime() - postDate.getTime()) / (1000 * 3600 * 24);
+    if (daysDifference < 30) {
+      score += 1;
+    }
+
+    return score;
+  };
+
+  // Get related posts
   const relatedPosts = allPosts
-    .filter((post) => {
-      if (post.slug === currentPost.slug) return false;
-
-      const sameCategory = post.category === currentPost.category;
-      const currentTags = currentPost.tags || [];
-      const postTags = post.tags || [];
-      const hasCommonTags = postTags.some((tag) => currentTags.includes(tag));
-
-      return sameCategory || hasCommonTags;
-    })
-    .sort((a, b) => {
-      const aTags = a.tags || [];
-      const bTags = b.tags || [];
-      const currentTags = currentPost.tags || [];
-
-      const aMatchCount = aTags.filter((tag) =>
-        currentTags.includes(tag)
-      ).length;
-      const bMatchCount = bTags.filter((tag) =>
-        currentTags.includes(tag)
-      ).length;
-
-      return bMatchCount - aMatchCount;
-    })
-    .slice(0, 3);
-
-  if (relatedPosts.length === 0) {
-    return (
-      <div className="text-center text-gray-400 py-8">
-        No related articles found.
-      </div>
-    );
-  }
+    .filter((post) => post.slug !== currentPost.slug) // Exclude current post
+    .map((post) => ({
+      ...post,
+      relevanceScore: getRelevanceScore(post),
+    }))
+    .sort((a, b) => b.relevanceScore - a.relevanceScore)
+    .slice(0, 3); // Get top 3 related posts
 
   return (
     <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">

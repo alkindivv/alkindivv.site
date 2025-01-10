@@ -5,6 +5,7 @@ import Layout from '../../../components/Layout';
 import { getPostBySlug, getAllPostSlugs, getAllPosts } from '@/lib/mdx';
 import { H1, MDXComponents } from '@/components/BlogContent';
 import Accent from '@/components/Accent';
+import SEO from '@/components/SEO';
 
 import styles from '../../../styles/Blog.module.css';
 import Image from 'next/image';
@@ -178,7 +179,24 @@ export default function BlogPost({
 
   return (
     <Layout>
-      <div className="min-h-screen  max-w-[var(--max-width)] mx-auto -translate-y-[50px]">
+      <SEO
+        title={frontMatter.title}
+        description={
+          frontMatter.excerpt ||
+          `${frontMatter.title} - Article by ${frontMatter.author}`
+        }
+        image={
+          frontMatter.featuredImage ||
+          'https://alkindivv.site/images/default.png'
+        }
+        article={true}
+        date={frontMatter.date}
+        author={frontMatter.author}
+        category={frontMatter.category}
+        tags={frontMatter.tags}
+        readingTime={readingTimeMinutes}
+      />
+      <div className="min-h-screen max-w-[var(--max-width)] mx-auto -translate-y-[50px]">
         {/* <div className="min-h-screen  max-w-[var(--max-width)] mx-auto -translate-y-[50px]"> */}
         {/* Banner Image */}
         <div className="w-full mt-14 md:mt-0 2xl:mt-0" data-fade="1">
