@@ -36,6 +36,39 @@ const cleanUrl = (url: string) => {
     .toLowerCase();
 };
 
+// Fungsi untuk memvalidasi dan membersihkan URL gambar
+const cleanImageUrl = (imageUrl: string, baseUrl: string) => {
+  if (!imageUrl) return '';
+
+  // Jika URL dimulai dengan https://images.unsplash.com, gunakan URL lengkap
+  if (imageUrl.startsWith('https://images.unsplash.com')) {
+    return imageUrl;
+  }
+
+  // Jika URL sudah memiliki baseUrl, jangan tambahkan lagi
+  if (imageUrl.startsWith(baseUrl)) {
+    return imageUrl;
+  }
+
+  // Jika URL dimulai dengan https://, kembalikan apa adanya
+  if (imageUrl.startsWith('https://')) {
+    return imageUrl;
+  }
+
+  // Jika URL dimulai dengan //, tambahkan https:
+  if (imageUrl.startsWith('//')) {
+    return `https:${imageUrl}`;
+  }
+
+  // Jika URL dimulai dengan /, gabungkan dengan baseUrl
+  if (imageUrl.startsWith('/')) {
+    return `${baseUrl}${imageUrl}`;
+  }
+
+  // Default: tambahkan baseUrl dan /
+  return `${baseUrl}/${imageUrl}`;
+};
+
 export const getServerSideProps: GetServerSideProps = async ({ res }) => {
   const baseUrl = 'https://alkindivv.site';
   const posts = getAllPosts();
@@ -54,7 +87,7 @@ export const getServerSideProps: GetServerSideProps = async ({ res }) => {
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
     <image:image>
-      <image:loc>${baseUrl}/images/ALKINDI-bg.PNG</image:loc>
+      <image:loc>${cleanImageUrl('/images/ALKINDI-bg.PNG', baseUrl)}</image:loc>
       <image:title>${encodeXMLChars('AL KINDI - Law, Technology, and Cryptocurrency')}</image:title>
     </image:image>
   </url>
@@ -112,7 +145,7 @@ export const getServerSideProps: GetServerSideProps = async ({ res }) => {
       const imageSection = post.featuredImage
         ? `
     <image:image>
-      <image:loc>${baseUrl}${cleanUrl(post.featuredImage)}</image:loc>
+      <image:loc>${cleanImageUrl(post.featuredImage, baseUrl)}</image:loc>
       <image:title>${encodeXMLChars(post.title)}</image:title>
       ${
         post.excerpt
