@@ -63,6 +63,9 @@ const SEO = ({
 
   return (
     <Head>
+      {/* Google Site Verification */}
+      <meta name="google-site-verification" content="googledd93bf1ef1da1f54" />
+
       {/* Basic Meta Tags */}
       <title>{title}</title>
       <meta name="description" content={description} />
