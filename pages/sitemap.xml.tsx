@@ -7,24 +7,10 @@ const Sitemap = () => null;
 const encodeXMLChars = (str: string) => {
   if (!str) return '';
 
-  // Bersihkan string dari karakter non-printable
-  const cleanStr = str
-    .replace(/[\x00-\x1F\x7F-\x9F]/g, '') // Hapus karakter kontrol
+  // Hapus semua karakter khusus kecuali alfanumerik dan tanda baca dasar
+  return str
+    .replace(/[^a-zA-Z0-9\s.,\-]/g, '') // Hanya izinkan alfanumerik, spasi, titik, koma, dan strip
     .replace(/\s+/g, ' ') // Normalisasi whitespace
-    .trim();
-
-  // Enkode karakter XML
-  return cleanStr
-    .replace(/&/g, '&amp;') // Harus dilakukan pertama
-    .replace(/</g, '&lt;')
-    .replace(/>/g, '&gt;')
-    .replace(/"/g, '&quot;')
-    .replace(/'/g, '&apos;')
-    .replace(/[^\x20-\x7E\xA0-\xFF]/g, '') // Hanya izinkan ASCII printable dan Latin-1
-    .replace(/[\u2018\u2019]/g, "'") // Ganti smart quotes
-    .replace(/[\u201C\u201D]/g, '"') // Ganti smart quotes
-    .replace(/\u2026/g, '...') // Ganti ellipsis
-    .replace(/\u2013|\u2014/g, '-') // Ganti em/en dash
     .trim();
 };
 
