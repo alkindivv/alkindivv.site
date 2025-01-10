@@ -17,19 +17,6 @@ export default function robots(): MetadataRoute.Robots {
         ],
       },
       {
-        userAgent: 'Googlebot',
-        allow: '/',
-        disallow: [
-          '/api/',
-          '/_next/',
-          '/static/',
-          '/admin/',
-          '/draft/',
-          '/preview/',
-          '/*?*',
-        ],
-      },
-      {
         userAgent: 'Googlebot-Image',
         allow: [
           '/images/',
