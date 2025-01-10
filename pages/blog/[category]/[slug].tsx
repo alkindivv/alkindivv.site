@@ -6,20 +6,12 @@ import { getPostBySlug, getAllPostSlugs, getAllPosts } from '@/lib/mdx';
 import { H1, MDXComponents } from '@/components/BlogContent';
 import Accent from '@/components/Accent';
 import SEO from '@/components/SEO';
-
 import styles from '../../../styles/Blog.module.css';
 import Image from 'next/image';
 import { FaClock, FaEye } from 'react-icons/fa';
 import TableOfContents from '@/components/TableOfContents';
 import RelatedArticles from '@/components/RelatedArticles';
 import Comments from '@/components/Comments';
-
-interface ReadingTimeResult {
-  text: string;
-  minutes: number;
-  time: number;
-  words: number;
-}
 
 interface BlogPostProps {
   frontMatter: {
@@ -67,12 +59,12 @@ export default function BlogPost({
   const [headings, setHeadings] = useState<
     Array<{ id: string; title: string; level: number }>
   >([]);
-  const [activeId, setActiveId] = useState<string>('');
   const articleContentRef = useRef<HTMLDivElement>(null);
   const [hasIncremented, setHasIncremented] = useState(false);
   const [views, setViews] = useState(0);
   const viewIncrementedRef = useRef(false);
 
+  // Extract headings from content
   useEffect(() => {
     if (!articleContentRef.current) return;
 
@@ -96,27 +88,6 @@ export default function BlogPost({
     }));
 
     setHeadings(items);
-
-    if (items.length > 0) {
-      setActiveId(items[0].id);
-    }
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            setActiveId(entry.target.id);
-          }
-        });
-      },
-      {
-        rootMargin: '-80px 0px -80% 0px',
-        threshold: [0, 0.25, 0.5, 0.75, 1],
-      }
-    );
-
-    elements.forEach((elem) => observer.observe(elem));
-    return () => observer.disconnect();
   }, []);
 
   // Convert readingTime to number
@@ -197,7 +168,6 @@ export default function BlogPost({
         readingTime={readingTimeMinutes}
       />
       <div className="min-h-screen max-w-[var(--max-width)] mx-auto -translate-y-[50px]">
-        {/* <div className="min-h-screen  max-w-[var(--max-width)] mx-auto -translate-y-[50px]"> */}
         {/* Banner Image */}
         <div className="w-full mt-14 md:mt-0 2xl:mt-0" data-fade="1">
           <div className="relative w-full aspect-[16/9]">
@@ -249,15 +219,14 @@ export default function BlogPost({
             data-fade="6"
           >
             {/* Main Article */}
-            <article className="flex-1 ">
-              {/* < className="flex-1 max-w-[calc(100%-50px)]"> */}
+            <article className="flex-1">
               <div className={`${styles.postContent}`} ref={articleContentRef}>
                 <MDXRemote {...mdxSource} components={mdxComponents} />
               </div>
             </article>
 
             {/* Table of Contents */}
-            <TableOfContents headings={headings} activeId={activeId} />
+            <TableOfContents headings={headings} />
           </div>
 
           {/* Add Comments section before Related Articles */}

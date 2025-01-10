@@ -1,6 +1,7 @@
 import React from 'react';
 import BlogCard from './BlogCard';
 import { BlogPost } from '@/types/blog';
+import { useRouter } from 'next/router';
 
 interface RelatedArticlesProps {
   currentPost: BlogPost;
@@ -50,14 +51,31 @@ const RelatedArticles: React.FC<RelatedArticlesProps> = ({
     .sort((a, b) => b.relevanceScore - a.relevanceScore)
     .slice(0, 3); // Get top 3 related posts
 
+  const handlePostClick = () => {
+    // Reset scroll position
+    window.scrollTo(0, 0);
+
+    // Clear any existing observers
+    const observers = (window as any).__observers__;
+    if (observers) {
+      Object.values(observers).forEach((observer: any) => {
+        observer.disconnect();
+      });
+      (window as any).__observers__ = {};
+    }
+  };
+
   return (
     <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
       {relatedPosts.map((post) => (
-        <BlogCard
-          key={post.slug}
-          post={post}
-          className="transition-all duration-300"
-        />
+        <div key={post.slug} className="cursor-pointer">
+          <BlogCard
+            post={post}
+            className="transition-all duration-300"
+            onClick={handlePostClick}
+            isRelated={true}
+          />
+        </div>
       ))}
     </div>
   );
