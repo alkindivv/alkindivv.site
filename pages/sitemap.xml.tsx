@@ -7,19 +7,20 @@ const Sitemap = () => null;
 const encodeXMLChars = (str: string) => {
   if (!str) return '';
   return str
-    .replace(/&/g, '&amp;')
+    .replace(/&(?!amp;|lt;|gt;|quot;|apos;)/g, '&amp;') // Replace & not part of existing entities
     .replace(/</g, '&lt;')
     .replace(/>/g, '&gt;')
     .replace(/"/g, '&quot;')
     .replace(/'/g, '&apos;')
-    .replace(/[^\x20-\x7E]/g, ''); // Hapus karakter non-ASCII
+    .replace(/[^\x20-\x7E\u00A0-\u00FF]/g, '') // Hanya izinkan ASCII dan Latin-1
+    .trim();
 };
 
 // Fungsi untuk memvalidasi URL
 const isValidUrl = (url: string) => {
   try {
     new URL(url);
-    return true;
+    return url.match(/^https?:\/\/[^\s/$.?#].[^\s]*$/i) !== null;
   } catch {
     return false;
   }
@@ -28,7 +29,11 @@ const isValidUrl = (url: string) => {
 // Fungsi untuk membersihkan URL
 const cleanUrl = (url: string) => {
   if (!url) return '';
-  return url.trim().replace(/\s+/g, '-');
+  return url
+    .trim()
+    .replace(/\s+/g, '-')
+    .replace(/[^a-zA-Z0-9-_.~/]/g, '')
+    .toLowerCase();
 };
 
 export const getServerSideProps: GetServerSideProps = async ({ res }) => {
