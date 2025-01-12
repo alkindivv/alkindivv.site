@@ -3,20 +3,19 @@ import { useEffect, useRef } from 'react';
 
 const fetcher = (url: string) => fetch(url).then((res) => res.json());
 
-export function usePageViews(slug: string) {
+export function usePageViews(slug: string, increment: boolean = false) {
   const viewIncrementedRef = useRef(false);
 
   // Gunakan SWR untuk fetch dan cache data
   const { data, error } = useSWR(`/api/page-views/?slug=${slug}`, fetcher, {
-    refreshInterval: 5000, // Refresh setiap 5 detik
     revalidateOnFocus: false,
-    dedupingInterval: 5000,
+    dedupingInterval: 60000, // Cache selama 1 menit
   });
 
-  // Increment view once
+  // Increment view once if increment is true
   useEffect(() => {
     const incrementView = async () => {
-      if (viewIncrementedRef.current) return;
+      if (!increment || viewIncrementedRef.current) return;
       viewIncrementedRef.current = true;
 
       try {
@@ -48,7 +47,7 @@ export function usePageViews(slug: string) {
     };
 
     incrementView();
-  }, [slug, data]);
+  }, [slug, data, increment]);
 
   return data?.views || 0;
 }
