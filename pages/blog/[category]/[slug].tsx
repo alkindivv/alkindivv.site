@@ -1,17 +1,19 @@
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { GetStaticProps, GetStaticPaths } from 'next';
 import { MDXRemote } from 'next-mdx-remote';
-import Layout from '../../../components/Layout';
+import Layout from '@/components/layout/Layout';
 import { getPostBySlug, getAllPostSlugs, getAllPosts } from '@/lib/mdx';
-import { H1, MDXComponents } from '@/components/BlogContent';
-import Accent from '@/components/Accent';
-import SEO from '@/components/SEO';
-import styles from '../../../styles/Blog.module.css';
+import { H1, MDXComponents } from '@/components/blog/BlogContent';
+import Accent from '@/components/shared/Accent';
+import SEO from '@/components/shared/SEO';
+import styles from '@/styles/Blog.module.css';
 import Image from 'next/image';
 import { FaClock, FaEye } from 'react-icons/fa';
-import TableOfContents from '@/components/TableOfContents';
-import RelatedArticles from '@/components/RelatedArticles';
+import TableOfContents from '@/components/blog/TableOfContents';
+import RelatedArticles from '@/components/blog/RelatedArticles';
 import Comments from '@/components/Comments';
+import { usePageViews } from '@/lib/hooks/usePageViews';
+import { formatDate } from '@/lib/utils/date';
 
 interface BlogPostProps {
   frontMatter: {
@@ -60,9 +62,7 @@ export default function BlogPost({
     Array<{ id: string; title: string; level: number }>
   >([]);
   const articleContentRef = useRef<HTMLDivElement>(null);
-  const [hasIncremented, setHasIncremented] = useState(false);
-  const [views, setViews] = useState(0);
-  const viewIncrementedRef = useRef(false);
+  const views = usePageViews(frontMatter.slug);
 
   // Extract headings from content
   useEffect(() => {
@@ -90,82 +90,23 @@ export default function BlogPost({
     setHeadings(items);
   }, []);
 
-  // Convert readingTime to number
-  const readingTimeMinutes = !frontMatter.readingTime
-    ? 0
-    : typeof frontMatter.readingTime === 'number'
-      ? frontMatter.readingTime
-      : 0;
-
   // Format tanggal
-  const formattedDate = new Date(frontMatter.date).toLocaleDateString('en-US', {
-    month: 'long',
-    day: 'numeric',
-    year: 'numeric',
-  });
-
-  // Fetch initial views
-  useEffect(() => {
-    const fetchViews = async () => {
-      try {
-        const res = await fetch(`/api/page-views/?slug=${frontMatter.slug}`);
-        const data = await res.json();
-        setViews(data.views);
-      } catch (error) {
-        console.error('Failed to fetch views:', error);
-      }
-    };
-
-    fetchViews();
-  }, [frontMatter.slug]);
-
-  // Increment view once
-  useEffect(() => {
-    const incrementView = async () => {
-      if (viewIncrementedRef.current) return;
-      viewIncrementedRef.current = true;
-
-      try {
-        const res = await fetch('/api/page-views', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            slug: frontMatter.slug,
-          }),
-        });
-
-        if (res.ok) {
-          const data = await res.json();
-          setViews(data.views);
-        }
-      } catch (error) {
-        console.error('Failed to increment view:', error);
-      }
-    };
-
-    incrementView();
-  }, [frontMatter.slug]);
+  const formattedDate = formatDate(frontMatter.date);
 
   return (
     <Layout>
       <SEO
-        title={frontMatter.title}
+        templateTitle={frontMatter.title}
         description={
           frontMatter.excerpt ||
           `${frontMatter.title} - Article by ${frontMatter.author}`
         }
-        image={
-          frontMatter.featuredImage ||
-          'https://alkindivv.site/images/default.png'
-        }
-        article={true}
+        banner={frontMatter.featuredImage}
+        isBlog={true}
         date={frontMatter.date}
-        author={frontMatter.author}
         category={frontMatter.category}
         tags={frontMatter.tags}
-        readingTime={readingTimeMinutes}
+        readingTime={frontMatter.readingTime}
       />
       <div className="min-h-screen max-w-[var(--max-width)] mx-auto -translate-y-[50px]">
         {/* Banner Image */}
@@ -203,7 +144,7 @@ export default function BlogPost({
             >
               <span className="font-normal mt-2 flex items-center gap-2">
                 <FaClock />
-                <Accent>{readingTimeMinutes} min read</Accent>
+                <Accent>{frontMatter.readingTime} min read</Accent>
               </span>
               <span className="font-normal mt-2 flex items-center gap-2 text-sm md:text-md lg:text-md">
                 <FaEye className="font-normal text-sm md:text-md lg:text-md" />
@@ -258,22 +199,18 @@ export const getStaticPaths: GetStaticPaths = async () => {
 export const getStaticProps: GetStaticProps = async ({ params }) => {
   const { category, slug } = params as { category: string; slug: string };
   const { frontMatter, mdxSource } = await getPostBySlug(category, slug);
-
-  // Hitung reading time dari konten lengkap
-  // const stats = readingTime(mdxSource.compiledSource);
-  // const readingTimeMinutes = Math.ceil(stats.minutes);
+  const allPosts = await getAllPosts();
 
   const enhancedFrontMatter = {
     ...frontMatter,
     slug,
-    // readingTime: readingTimeMinutes.toString(),
   };
 
   return {
     props: {
       frontMatter: enhancedFrontMatter,
       mdxSource,
-      allPosts: getAllPosts(),
+      allPosts,
     },
   };
 };

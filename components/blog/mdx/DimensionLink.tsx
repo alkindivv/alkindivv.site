@@ -22,9 +22,7 @@ export default function DimensionLink({
         target="_blank"
         rel="noopener noreferrer"
         className={clsx(
-          'text-emerald-500 hover:text-emerald-400 transition-colors',
-          'underline decoration-dotted underline-offset-4',
-          'focus:outline-none focus-visible:ring focus-visible:ring-emerald-500',
+          'text-accent transition-colors hover:text-accent-dark',
           className
         )}
       >
@@ -37,9 +35,7 @@ export default function DimensionLink({
     <Link
       href={href}
       className={clsx(
-        'text-emerald-500 hover:text-emerald-400 transition-colors',
-        'underline decoration-dotted underline-offset-4',
-        'focus:outline-none focus-visible:ring focus-visible:ring-emerald-500',
+        'text-accent transition-colors hover:text-accent-dark',
         className
       )}
     >

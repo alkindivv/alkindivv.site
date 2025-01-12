@@ -1,5 +1,7 @@
 import React from 'react';
-import styles from '../styles/Blog.module.css';
+import Link from 'next/link';
+import clsx from 'clsx';
+import styles from '@/styles/Blog.module.css';
 
 interface TagProps {
   children: React.ReactNode;

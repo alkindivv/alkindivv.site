@@ -1,13 +1,12 @@
-import Layout from '@/components/Layout';
-import { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import Image from 'next/image';
+import Layout from '@/components/layout/Layout';
+import Accent from '@/components/shared/Accent';
+import SEO from '@/components/shared/SEO';
 import clsx from 'clsx';
-import { useEffect } from 'react';
-import Accent from '@/components/Accent';
 import DimensionLink from '@/components/DimensionLink';
 import Link from 'next/link';
-import Image from 'next/image';
-import SEO from '@/components/SEO';
-
+import AccentNormal from '@/components/shared/AccentNormal';
 const AboutPage = () => {
   const [isLoaded, setIsLoaded] = useState(false);
 
@@ -22,120 +21,131 @@ const AboutPage = () => {
   return (
     <Layout>
       <SEO
-        title="About"
-        description="Al Kindi is a Law Graduate with focus on corporate law,bankruptcy, capital market and have interent in technology, programming and cryptocurrency."
+        templateTitle="About"
+        description="Learn about AL KINDI - A legal professional specializing in capital markets, M&A, bankruptcy, and crypto regulations. Discover my background, expertise, and professional journey."
+        banner="/images/AL-KINDI.png"
       />
 
       <main
         className={clsx(
-          'mt-5 sm:-mt-20 md:-mt-10 2xl:-mt-30 fade-wrapper',
+          'mt-5 sm:-mt-12 md:-mt-10 2xl:-mt-30 fade-wrapper',
           !isLoaded && 'opacity-0'
         )}
       >
-        {/* Hero Section */}
-        <section className="relative min-h-[5vh] flex items-center py-1 md:py-12">
-          <div className="absolute inset-0"></div>
+        {/* Header Section */}
+        <div className="mt-10" data-fade="1">
+          <h1 className="mb-2 text-3xl md:text-4xl 2xl:text-5xl font-bold tracking-tight">
+            About <Accent>Me</Accent>
+          </h1>
+          <p className="text-sm md:text-base 2xl:text-lg font-light text-gray-400 leading-relaxed">
+            Learn more about my background, interests, and experiences.
+          </p>
+        </div>
 
-          <div className="max-w-6xl mx-auto relative z-10">
-            <div className="flex flex-col md:grid md:grid-cols-2 gap-8 md:gap-12 items-center">
-              <div className="relative order-1 md:order-2 w-full" data-fade="4">
-                <div className="relative -mx-4 sm:-mx-6 md:mx-0 aspect-square md:max-w-md  md:w-full">
-                  {/* <div
-                    className="absolute -inset-0.5 rounded-none md:rounded-2xl"
-                    style={{
-                      zIndex: 1,
-                      filter: 'blur(25px)',
-                      animation:
-                        'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
-                      opacity: 0.5,
-                      background:
-                        'linear-gradient(to bottom, rgba(16, 185, 129, 0.4), transparent 50%)',
-                      mixBlendMode: 'overlay',
-                    }}
-                  /> */}
-
-                  {/* <div
-                    className="absolute bottom-0 left-0 right-0 h-[60%] rounded-none md:rounded-b-2xl"
-                    style={{
-                      zIndex: 2,
-                      background:
-                        'linear-gradient(to top, rgba(17, 17, 17, 1) 0%, rgba(17, 17, 17, 0.95) 20%, rgba(17, 17, 17, 0.8) 40%, rgba(17, 17, 17, 0.6) 60%, rgba(17, 17, 17, 0.2) 80%, transparent)',
-                      mixBlendMode: 'multiply',
-                    }}
-                  /> */}
-
-                  {/* <Image
-                    src="/images/AL-KINDI.png"
-                    alt="AL KINDI"
-                    className="md:ml-[70px] 2xl:ml-[70px] relative w-full h-full object-contain rounded-none md:rounded-2xl shadow-lg transition-transform duration-300 hover:scale-[0.9]"
-                    width={500}
-                    height={500}
-                    priority
-                  /> */}
-
-                  <Image
-                    src="/images/AL-KINDI.png"
-                    alt="AL KINDI"
-                    className="relative w-full h-full
-                  object-cover scale-75 md:scale-[1] rounded-none md:rounded-2xl shadow-lg md:ml-[80px] 2xl:ml-[80px]"
-                    // transition-transform duration-300 hover:scale-[1]"
-                    width={400}
-                    height={400}
-                    priority
-                  />
-                </div>
-              </div>
-
-              <div className="space-y-6 order-2 md:order-1 md:text-left ">
-                <h1
-                  className="text-3xl md:text-4xl 2xl:text-5xl  font-bold"
-                  data-fade="1"
-                >
-                  About <Accent>Me</Accent>
-                </h1>
-                <p className="text-gray-300 leading-relaxed" data-fade="2">
-                  Hello! I&apos;m <Accent>AL KINDI</Accent> — a law graduate
-                  with a unique blend of expertise in legal practice and
-                  technology In the crypto space, I&apos;m deeply engaged with
-                  blockchain technology and have been following and studying it
-                  since 2018. I run nodes, validators, and regularly participate
-                  in testnets and airdrops, aiming to stay at the forefront of{' '}
-                  <DimensionLink href="#">decentralized</DimensionLink>{' '}
-                  technology advancements.
-                  <br />
-                  <br />
-                  Through this blog, I share insights and tutorials related to
-                  my experiences in both law and technology. You&apos;ll find
-                  articles on legal issues in fintech, guides on testnets and
-                  airdrops, as well as tips on system setups and optimizations.
-                  I hope this blog serves as a resourceful place for both
-                  beginners and seasoned professionals interested in the
-                  convergence of law, technology, and blockchain.
-                </p>
-                <div
-                  className="flex justify-center md:justify-start gap-4"
-                  data-fade="3"
-                >
-                  <Link href="/contact" className="gradient-button ">
-                    Contact Me
-                  </Link>
-                  <DimensionLink
-                    href="https://www.fiverr.com/s/5r5xxG6"
-                    className="no-gradient-button"
-                  >
-                    Hire on Fiverr
-                  </DimensionLink>
-                </div>
-              </div>
+        {/* Profile Section */}
+        <div className="mt-8 max-w-6xl mx-auto relative" data-fade="2">
+          {/* Photo and Buttons Column - Fixed Width */}
+          <div className="md:float-left md:w-[300px] lg:w-[400px] md:mr-8 mb-6 md:mb-0">
+            <div className="relative w-full aspect-square rounded-2xl overflow-hidden shadow-xl transform hover:scale-[1.02] transition-transform duration-300">
+              <Image
+                src="/images/AL-KINDI.png"
+                alt="AL KINDI"
+                fill
+                className="object-cover"
+                priority
+              />
             </div>
+            {/* <div
+              className="flex justify-center md:justify-start gap-4 mt-6"
+              data-fade="3"
+            >
+              <Link href="/contact" className="gradient-button">
+                Contact Me
+              </Link>
+              <DimensionLink
+                href="https://www.fiverr.com/s/5r5xxG6"
+                className="no-gradient-button"
+              >
+                Hire on Fiverr
+              </DimensionLink>
+            </div> */}
           </div>
-        </section>
+
+          {/* Text Content - Will flow around the image */}
+          <div className="prose prose-invert max-w-none">
+            <h2 className="text-2xl font-bold md:text-3xl mb-2">
+              Hi, I'm <Accent>AL KINDI</Accent>
+            </h2>
+            <p
+              className="text-justify leading-relaxed text-sm md:text-base 2xl:text-lg font-light text-gray-400"
+              data-fade="2"
+            >
+              a law graduate with a passion for writing and sharing knowledge. I
+              focus on exploring and analyzing legal topics such as{' '}
+              <AccentNormal>
+                capital markets & securities, mergers and acquisitions (M&A),
+                bankruptcy & insolvency,
+              </AccentNormal>{' '}
+              and the{' '}
+              <AccentNormal>legal aspects of crypto assets</AccentNormal> in
+              Indonesia.
+            </p>
+
+            <p
+              className="text-justify leading-relaxed text-sm md:text-base 2xl:text-lg font-light text-gray-400"
+              data-fade="3"
+            >
+              In my legal journey, I have completed the Pendidikan Khusus
+              Profesi Advokat (PKPA) from PERADI, strengthening my foundation in
+              legal practice. My academic achievements include graduating with
+              Cumlaude honors (GPA: 3.59) from the Faculty of Law, Universitas
+              Islam Indonesia, with a focus on Private law.
+            </p>
+
+            <p
+              className="text-justify leading-relaxed text-sm md:text-base 2xl:text-lg font-light text-gray-400"
+              data-fade="4"
+            >
+              During my academic years, I have participated in legal
+              competitions and activities, including legal research dan debate.
+              These experiences have sharpened my analytical skills and deepened
+              my understanding of practical legal issues. Currently i'm looking
+              for job as <AccentNormal>Trainee</AccentNormal> or{' '}
+              <AccentNormal>Junior Associates</AccentNormal> so i can gain more
+              experience in the field of law especially in the field of
+              corporate law, capital markets, mergers and acquisitions, and
+              bankruptcy.
+            </p>
+
+            <p
+              className="text-justify mt-8 leading-relaxed text-sm md:text-base 2xl:text-lg font-light text-gray-400"
+              data-fade="5"
+            >
+              Since 2018, I have been deeply immersed in studying blockchain
+              technology, which has given me a unique perspective on the legal
+              and compliance issues surrounding decentralized systems. I
+              actively engage in projects related to crypto regulations and
+              blockchain governance, helping to bridge the gap between legal
+              practice and technological innovation.
+            </p>
+
+            <p
+              className="text-justify leading-relaxed text-sm md:text-base 2xl:text-lg font-light text-gray-400"
+              data-fade="6"
+            >
+              This blog is a platform where I bring together my expertise in law
+              and technology to sharing knowledge for people who are interested
+              in capital markets, M&A, bankruptcy, and crypto asset regulations.
+            </p>
+          </div>
+          <div className="clear-both"></div>
+        </div>
 
         {/* Current Focus Section */}
         <section className="py-16">
           <div className="max-w-6xl mx-auto">
             <h2 className="text-3xl font-bold mb-12 text-center" data-fade="5">
-              Current <Accent>Focus</Accent>
+              Focus & <Accent>Interest</Accent>
             </h2>
             <div className="grid md:grid-cols-4 gap-8" data-fade="6">
               {/* Corporate Law */}
@@ -156,60 +166,22 @@ const AboutPage = () => {
                       />
                     </svg>
                   </div>
-                  <h3 className="text-xl font-semibold group-hover:text-emerald-400 transition-colors">
-                    Corporate Law
+                  <h3 className="text-xl text-gray-400 font-semibold group-hover:text-emerald-400 transition-colors">
+                    Mergers & Acquisitions
                   </h3>
                 </div>
-                <ul className="space-y-3 text-gray-300">
+                <ul className="space-y-3 text-gray-400">
                   <li className="flex items-center gap-2">
                     <span className="w-1.5 h-1.5 bg-emerald-500 rounded-full"></span>
-                    Company Establishment
+                    Due Diligence & Compliance
                   </li>
                   <li className="flex items-center gap-2">
                     <span className="w-1.5 h-1.5 bg-emerald-500 rounded-full"></span>
-                    Corporate Governance
+                    Business Restructuring
                   </li>
                   <li className="flex items-center gap-2">
                     <span className="w-1.5 h-1.5 bg-emerald-500 rounded-full"></span>
-                    Business Contracts
-                  </li>
-                </ul>
-              </div>
-
-              {/* Bankruptcy Law */}
-              <div className="group p-6 border border-gray-700 rounded-xl bg-gray-800/30 hover:border-emerald-500/50 transition-all duration-300">
-                <div className="flex items-center gap-4 mb-6">
-                  <div className="p-3 bg-emerald-900/30 rounded-lg group-hover:bg-emerald-900/50 transition-colors">
-                    <svg
-                      className="w-6 h-6 text-emerald-500"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      stroke="currentColor"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
-                      />
-                    </svg>
-                  </div>
-                  <h3 className="text-xl font-semibold group-hover:text-emerald-400 transition-colors">
-                    Bankruptcy
-                  </h3>
-                </div>
-                <ul className="space-y-3 text-gray-300">
-                  <li className="flex items-center gap-2">
-                    <span className="w-1.5 h-1.5 bg-emerald-500 rounded-full"></span>
-                    PKPU Procedures
-                  </li>
-                  <li className="flex items-center gap-2">
-                    <span className="w-1.5 h-1.5 bg-emerald-500 rounded-full"></span>
-                    Debt Restructuring
-                  </li>
-                  <li className="flex items-center gap-2">
-                    <span className="w-1.5 h-1.5 bg-emerald-500 rounded-full"></span>
-                    Asset Liquidation
+                    Strategic Transactions
                   </li>
                 </ul>
               </div>
@@ -236,7 +208,7 @@ const AboutPage = () => {
                     Capital Markets
                   </h3>
                 </div>
-                <ul className="space-y-3 text-gray-300">
+                <ul className="space-y-3 text-gray-400">
                   <li className="flex items-center gap-2">
                     <span className="w-1.5 h-1.5 bg-emerald-500 rounded-full"></span>
                     Securities Regulations
@@ -248,6 +220,44 @@ const AboutPage = () => {
                   <li className="flex items-center gap-2">
                     <span className="w-1.5 h-1.5 bg-emerald-500 rounded-full"></span>
                     IPO Procedures
+                  </li>
+                </ul>
+              </div>
+
+              {/* Bankruptcy Law */}
+              <div className="group p-6 border border-gray-700 rounded-xl bg-gray-800/30 hover:border-emerald-500/50 transition-all duration-300">
+                <div className="flex items-center gap-4 mb-6">
+                  <div className="p-3 bg-emerald-900/30 rounded-lg group-hover:bg-emerald-900/50 transition-colors">
+                    <svg
+                      className="w-6 h-6 text-emerald-500"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
+                      />
+                    </svg>
+                  </div>
+                  <h3 className="text-xl font-semibold group-hover:text-emerald-400 transition-colors">
+                    Bankruptcy
+                  </h3>
+                </div>
+                <ul className="space-y-3 text-gray-400">
+                  <li className="flex items-center gap-2">
+                    <span className="w-1.5 h-1.5 bg-emerald-500 rounded-full"></span>
+                    PKPU Procedures
+                  </li>
+                  <li className="flex items-center gap-2">
+                    <span className="w-1.5 h-1.5 bg-emerald-500 rounded-full"></span>
+                    Debt Restructuring
+                  </li>
+                  <li className="flex items-center gap-2">
+                    <span className="w-1.5 h-1.5 bg-emerald-500 rounded-full"></span>
+                    Asset Liquidation
                   </li>
                 </ul>
               </div>
@@ -274,7 +284,7 @@ const AboutPage = () => {
                     Crypto Assets
                   </h3>
                 </div>
-                <ul className="space-y-3 text-gray-300">
+                <ul className="space-y-3 text-gray-400">
                   <li className="flex items-center gap-2">
                     <span className="w-1.5 h-1.5 bg-emerald-500 rounded-full"></span>
                     Digital Asset Laws
@@ -298,16 +308,16 @@ const AboutPage = () => {
                 data-fade="8"
               >
                 <h3 className="text-lg font-semibold mb-6">Current Progress</h3>
-                <div className="space-y-4">
+                <div className="space-y-4 text-gray-400">
                   {[
-                    { label: 'Corporate Law Studies', progress: 75 },
-                    { label: 'Bankruptcy Law', progress: 70 },
-                    { label: 'Capital Markets Knowledge', progress: 70 },
-                    { label: 'Crypto Regulations', progress: 80 },
+                    { label: ' Mergers & Acquisitions', progress: 65 },
+                    { label: 'Capital Markets', progress: 60 },
+                    { label: 'Bankruptcy', progress: 40 },
+                    { label: 'Crypto Regulations', progress: 50 },
                   ].map((item, idx) => (
                     <div key={idx} className="space-y-2" data-fade={9 + idx}>
                       <div className="flex justify-between text-sm">
-                        <span className="text-gray-300">{item.label}</span>
+                        <span className="text-gray-400">{item.label}</span>
                         <span className="text-emerald-500">
                           {item.progress}%
                         </span>
@@ -330,7 +340,7 @@ const AboutPage = () => {
                 <h3 className="text-lg font-semibold mb-6">
                   Learning Resources
                 </h3>
-                <ul className="space-y-3">
+                <ul className="space-y-3 text-gray-400">
                   {[
                     'Legal Research Databases',
                     'Professional Certifications',
@@ -340,7 +350,7 @@ const AboutPage = () => {
                   ].map((resource, idx) => (
                     <li
                       key={idx}
-                      className="flex items-center gap-3 text-gray-300"
+                      className="flex items-center gap-3 text-gray-400"
                       data-fade={14 + idx}
                     >
                       <svg
@@ -371,7 +381,7 @@ const AboutPage = () => {
             <h2 className="text-3xl text-center font-bold mb-8" data-fade="19">
               Education & <Accent>Experience</Accent>
             </h2>
-            <div className="space-y-8">
+            <div className="space-y-8 ">
               {[
                 {
                   year: 'Nov 2023 - Sep 2024',
@@ -441,15 +451,15 @@ const AboutPage = () => {
                       <span>{item.location}</span>
                     </div>
                   </div>
-                  <ul className="space-y-2 text-gray-300 list-disc list-inside">
+                  <ul className="space-y-2 text-gray-400 list-disc list-inside">
                     {Array.isArray(item.description) ? (
                       item.description.map((desc, i) => (
-                        <li key={i} className="text-gray-300">
+                        <li key={i} className="text-gray-400">
                           {desc}
                         </li>
                       ))
                     ) : (
-                      <p className="text-gray-300">{item.description}</p>
+                      <p className="text-gray-400">{item.description}</p>
                     )}
                   </ul>
                 </div>
@@ -457,30 +467,6 @@ const AboutPage = () => {
             </div>
           </div>
         </section>
-
-        {/* Connect Section */}
-        {/* <section className="py-16">
-          <div className="max-w-6xl mx-auto text-center">
-            <h2 className="text-3xl font-bold mb-6" data-fade="22">
-              Let&apos;s <Accent>Connect</Accent>
-            </h2>
-            <p className="text-gray-300 mb-8 max-w-2xl mx-auto" data-fade="23">
-              Interested in discussing legal tech solutions or need help with
-              blockchain development? Feel free to reach out!
-            </p>
-            <div className="flex justify-center gap-4" data-fade="24">
-              <Link href="/contact" className="gradient-button">
-                Get in Touch
-              </Link>
-              <DimensionLink
-                href="https://www.fiverr.com/s/5r5xxG6"
-                className="no-gradient-button"
-              >
-                Hire Me
-              </DimensionLink>
-            </div>
-          </div>
-        </section> */}
       </main>
     </Layout>
   );

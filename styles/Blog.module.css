@@ -316,6 +316,7 @@
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
   overflow: hidden;
+  color: #bcc5d4;
 }
 
 @media (max-width: 768px) {

@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
+import clsx from 'clsx';
 import { motion, AnimatePresence } from 'framer-motion';
-import styles from '../styles/Header.module.css';
+import styles from '@/styles/Header.module.css';
 
 const Header: React.FC = () => {
   const router = useRouter();

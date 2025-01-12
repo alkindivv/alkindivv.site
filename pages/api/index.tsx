@@ -18,14 +18,6 @@ import SEO from '@/components/shared/SEO';
 
 const POSTS_PER_PAGE = 9;
 
-const categories = [
-  'All Categories',
-  'Law',
-  'Technology',
-  'Blockchain',
-  'Tutorial',
-];
-
 const topics = [
   'law',
   'corporate law',
@@ -68,10 +60,12 @@ const sortOptions: SortOption[] = [
   },
 ];
 
+const categories = ['Category', 'Law', 'Technology', 'Blockchain', 'Tutorial'];
+
 const BlogPage: React.FC<BlogPageProps> = ({ blogPosts }) => {
   const [selectedTopic, setSelectedTopic] = useState<string | null>(null);
-  const [selectedCategory, setSelectedCategory] = useState('All Categories');
   const [sortOrder, setSortOrder] = useState<SortOption>(sortOptions[0]);
+  const [selectedCategory, setSelectedCategory] = useState('All');
   const [isLoaded, setIsLoaded] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
 
@@ -103,21 +97,17 @@ const BlogPage: React.FC<BlogPageProps> = ({ blogPosts }) => {
 
       // Filter by category
       const categoryMatch =
-        selectedCategory === 'All Categories' ||
+        selectedCategory === 'All' ||
         post.category?.toLowerCase() === selectedCategory.toLowerCase();
 
       return topicMatch && categoryMatch;
     })
     .sort((a, b) => {
       if (sortOrder.id === 'date') {
-        const dateA = new Date(a.date).getTime();
-        const dateB = new Date(b.date).getTime();
-        return dateB - dateA;
+        return new Date(b.date).getTime() - new Date(a.date).getTime();
       }
       if (sortOrder.id === 'views') {
-        const viewsA = a.views || 0;
-        const viewsB = b.views || 0;
-        return viewsB - viewsA;
+        return (b.views || 0) - (a.views || 0);
       }
       return 0;
     });
@@ -138,43 +128,38 @@ const BlogPage: React.FC<BlogPageProps> = ({ blogPosts }) => {
     <Layout>
       <SEO templateTitle="Blog" />
 
-      <main
-        className={clsx(
-          'mt-5 sm:-mt-12 md:-mt-10 2xl:-mt-30 fade-wrapper',
-          !isLoaded && 'opacity-0'
-        )}
-      >
-        {/* Header Section */}
-        <div className="mt-10" data-fade="1">
-          <h1 className="mb-2 text-3xl md:text-4xl 2xl:text-5xl font-bold tracking-tight">
+      <main className={clsx('fade-wrapper', !isLoaded && 'opacity-0')}>
+        {/* Header Section - more compact */}
+        <div className="mb-4" data-fade="1">
+          <h1 className="text-2xl md:text-3xl font-bold tracking-tight">
             Personal <Accent>Blog</Accent>
           </h1>
-          <p className="text-sm md:text-base 2xl:text-lg font-light text-gray-400">
+          <p className="text-sm text-gray-400">
             Thoughts, insights, and knowledge about law, technology, and crypto
             assets.
           </p>
         </div>
 
-        {/* Search Input */}
-        <div className="mt-4" data-fade="2">
+        {/* Search Input - reduced margin */}
+        <div className="mb-3" data-fade="2">
           <input
             type="text"
             placeholder="Search..."
             className="w-full bg-transparent text-gray-200 border border-gray-600
-              rounded-md px-4 py-2 outline-none hover:border-emerald-500 transition-colors"
+              rounded-md px-3 py-1.5 text-sm outline-none hover:border-emerald-500 transition-colors"
           />
         </div>
 
-        {/* Topics Section */}
-        <div className="mt-2" data-fade="3">
-          <div className="flex flex-wrap gap-2 items-center">
-            <span className="text-sm text-gray-400">Choose topic:</span>
+        {/* Topics Section - reduced spacing */}
+        <div className="mb-3" data-fade="3">
+          <div className="flex flex-wrap gap-1.5 items-center">
+            <span className="text-xs text-gray-400">Choose topic:</span>
             {topics.map((topic) => (
               <button
                 key={topic}
                 onClick={() => handleTopicClick(topic)}
                 className={clsx(
-                  'px-1 py-0.5 text-gray-300 text-xs md:text-sm 2xl:text-sm rounded-md border transition-colors',
+                  'px-2 py-0.5 text-xs rounded-md border transition-colors',
                   selectedTopic === topic
                     ? 'border-emerald-500 text-emerald-500'
                     : 'border-gray-600 text-gray-300 hover:border-emerald-500'
@@ -186,20 +171,17 @@ const BlogPage: React.FC<BlogPageProps> = ({ blogPosts }) => {
           </div>
         </div>
 
-        {/* Controls Section */}
-        <div
-          className="flex justify-between items-center mt-6 mb-2"
-          data-fade="4"
-        >
-          <div className="relative w-[140px]">
+        {/* Controls Section - reduced height and spacing */}
+        <div className="flex justify-between items-center mb-4" data-fade="4">
+          <div className="relative w-[120px]">
             <select
               value={selectedCategory}
               onChange={(e) => {
                 setSelectedCategory(e.target.value);
                 setCurrentPage(1);
               }}
-              className="w-full bg-transparent text-sm text-gray-300 border border-gray-600
-                rounded-md pl-3 pr-10 py-2 outline-none focus:border-emerald-500
+              className="w-full bg-transparent text-xs text-gray-300 border border-gray-600
+                rounded-md px-2 py-1.5 outline-none focus:border-emerald-500
                 appearance-none cursor-pointer transition-colors"
             >
               {categories.map((category) => (
@@ -212,10 +194,10 @@ const BlogPage: React.FC<BlogPageProps> = ({ blogPosts }) => {
                 </option>
               ))}
             </select>
-            <HiChevronRight className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none text-lg" />
+            <HiChevronRight className="absolute right-2 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none text-sm" />
           </div>
 
-          <div className="relative w-[140px]">
+          <div className="relative w-[120px]">
             <select
               value={sortOrder.id}
               onChange={(e) => {
@@ -224,8 +206,8 @@ const BlogPage: React.FC<BlogPageProps> = ({ blogPosts }) => {
                 );
                 setSortOrder(selected || sortOptions[0]);
               }}
-              className="w-full bg-transparent text-sm text-gray-300 border border-gray-600
-                rounded-md pl-3 pr-10 py-2 outline-none focus:border-emerald-500
+              className="w-full bg-transparent text-xs text-gray-300 border border-gray-600
+                rounded-md px-2 py-1.5 outline-none focus:border-emerald-500
                 appearance-none cursor-pointer transition-colors"
             >
               {sortOptions.map((option) => (
@@ -240,13 +222,13 @@ const BlogPage: React.FC<BlogPageProps> = ({ blogPosts }) => {
             </select>
             {React.createElement(sortOrder.icon, {
               className:
-                'absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none text-lg',
+                'absolute right-2 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none text-sm',
             })}
           </div>
         </div>
 
-        {/* Blog Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mt-2">
+        {/* Blog Grid - adjusted gap */}
+        <div className={clsx(styles.blogGrid, 'gap-3')} data-fade="5">
           {currentPosts.length > 0 ? (
             currentPosts.map((post, index) => (
               <BlogCard
@@ -259,30 +241,30 @@ const BlogPage: React.FC<BlogPageProps> = ({ blogPosts }) => {
             ))
           ) : (
             <div className="col-span-full text-center py-10">
-              <h3 className="text-sm md:text-2xl 2xl:text-3xl font-bold mb-1">
+              <h3 className="text-xl font-bold mb-1">
                 Sorry, <Accent>article not found</Accent>
               </h3>
-              <p className="text-xs md:text-sm 2xl:text-base text-gray-400">
+              <p className="text-sm text-gray-400">
                 No articles found for topic: <Accent>{selectedTopic}</Accent>
               </p>
             </div>
           )}
         </div>
 
-        {/* Pagination */}
+        {/* Pagination - more compact */}
         {totalPages > 1 && (
-          <div className="flex justify-center items-center mt-8 gap-2">
+          <div className="flex justify-center items-center mt-6 gap-1">
             <button
               onClick={() => handlePageChange(currentPage - 1)}
               disabled={currentPage === 1}
               className={clsx(
-                'p-2 rounded-md text-xs md:text-sm 2xl:text-base transition-colors',
+                'p-1 rounded-md border transition-colors',
                 currentPage === 1
                   ? 'border-gray-700 text-gray-700 cursor-not-allowed'
                   : 'border-gray-600 text-gray-300 hover:border-emerald-500'
               )}
             >
-              <HiChevronLeft className="text-xs" />
+              <HiChevronLeft className="text-base" />
             </button>
 
             {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
@@ -290,7 +272,7 @@ const BlogPage: React.FC<BlogPageProps> = ({ blogPosts }) => {
                 key={page}
                 onClick={() => handlePageChange(page)}
                 className={clsx(
-                  'px-3 py-1 text-xs md:text-sm 2xl:text-base rounded-md border transition-colors',
+                  'px-3 py-1 text-sm rounded-md border transition-colors',
                   currentPage === page
                     ? 'border-emerald-500 text-emerald-500'
                     : 'border-gray-600 text-gray-300 hover:border-emerald-500'
@@ -304,13 +286,13 @@ const BlogPage: React.FC<BlogPageProps> = ({ blogPosts }) => {
               onClick={() => handlePageChange(currentPage + 1)}
               disabled={currentPage === totalPages}
               className={clsx(
-                'p-2 rounded-md  transition-colors',
+                'p-1 rounded-md border transition-colors',
                 currentPage === totalPages
                   ? 'border-gray-700 text-gray-700 cursor-not-allowed'
                   : 'border-gray-600 text-gray-300 hover:border-emerald-500'
               )}
             >
-              <HiChevronRight className="text-xs" />
+              <HiChevronRight className="text-base" />
             </button>
           </div>
         )}

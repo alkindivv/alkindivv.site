@@ -3,9 +3,9 @@ import Image from 'next/image';
 import { format } from 'date-fns';
 import { HiOutlineClock, HiOutlineEye } from 'react-icons/hi';
 import Link from 'next/link';
-import Accent from './Accent';
-import Tag from './Tag';
-import styles from '../styles/Blog.module.css';
+import Accent from '@/components/shared/Accent';
+import Tag from '@/components/shared/Tag';
+import styles from '@/styles/Blog.module.css';
 import clsx from 'clsx';
 import useSWR from 'swr';
 import { BlogPost } from '@/types/blog';
@@ -210,7 +210,9 @@ const BlogCardContent = ({
         {format(new Date(publishedDate), 'MMMM dd, yyyy')}
       </p>
 
-      <p className={styles.excerpt}>{post.excerpt}</p>
+      <p className="text-sm md:text-base text-gray-400 line-clamp-2">
+        {post.excerpt}
+      </p>
     </div>
   </div>
 );

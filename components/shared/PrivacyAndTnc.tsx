@@ -1,11 +1,11 @@
-import React from "react";
-import Accent from "./Accent";
-import DimensionLink from "./DimensionLink";
+import React from 'react';
+import Accent from './Accent';
+import DimensionLink from '@/components/mdx/DimensionLink';
 
 interface ModalProps {
   isOpen: boolean;
   onClose: () => void;
-  type: "privacy" | "terms";
+  type: 'privacy' | 'terms';
 }
 
 const PrivacyAndTnc = ({ isOpen, onClose, type }: ModalProps) => {
@@ -74,7 +74,7 @@ const PrivacyAndTnc = ({ isOpen, onClose, type }: ModalProps) => {
         </h2>
         <p>
           If you have any questions about this Privacy Policy, please contact us
-          at{" "}
+          at{' '}
           <DimensionLink href="mailto:alkindivv@gmail.com">
             alkindivv@gmail.com
           </DimensionLink>
@@ -90,11 +90,11 @@ const PrivacyAndTnc = ({ isOpen, onClose, type }: ModalProps) => {
           you of any changes by posting the new Privacy Policy on this page.
         </p>
         <p className="text-sm text-gray-400">
-          Last updated:{" "}
-          {new Date().toLocaleDateString("en-US", {
-            year: "numeric",
-            month: "long",
-            day: "numeric",
+          Last updated:{' '}
+          {new Date().toLocaleDateString('en-US', {
+            year: 'numeric',
+            month: 'long',
+            day: 'numeric',
           })}
         </p>
       </section>
@@ -184,11 +184,11 @@ const PrivacyAndTnc = ({ isOpen, onClose, type }: ModalProps) => {
           users of any changes by updating the date at the bottom of this page.
         </p>
         <p className="text-sm text-gray-400">
-          Last updated:{" "}
-          {new Date().toLocaleDateString("en-US", {
-            year: "numeric",
-            month: "long",
-            day: "numeric",
+          Last updated:{' '}
+          {new Date().toLocaleDateString('en-US', {
+            year: 'numeric',
+            month: 'long',
+            day: 'numeric',
           })}
         </p>
       </section>
@@ -198,7 +198,7 @@ const PrivacyAndTnc = ({ isOpen, onClose, type }: ModalProps) => {
           <Accent>8. Contact</Accent>
         </h2>
         <p>
-          For any questions about these Terms, please contact us at{" "}
+          For any questions about these Terms, please contact us at{' '}
           {/* <a
             href="mailto:alkindivv@gmail.com"
             className="text-emerald-500 hover:underline"
@@ -225,7 +225,7 @@ const PrivacyAndTnc = ({ isOpen, onClose, type }: ModalProps) => {
         {/* Header */}
         <div className="sticky top-0 flex items-center justify-between p-6 bg-gray-900 border-b border-gray-700">
           <h2 className="text-2xl font-bold">
-            {type === "privacy" ? "Privacy Policy" : "Terms of Service"}
+            {type === 'privacy' ? 'Privacy Policy' : 'Terms of Service'}
           </h2>
           <button
             onClick={onClose}
@@ -249,7 +249,7 @@ const PrivacyAndTnc = ({ isOpen, onClose, type }: ModalProps) => {
 
         {/* Body */}
         <div className="p-6">
-          {type === "privacy" ? <PrivacyContent /> : <TermsContent />}
+          {type === 'privacy' ? <PrivacyContent /> : <TermsContent />}
         </div>
       </div>
     </div>

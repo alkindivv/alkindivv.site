@@ -1,23 +1,15 @@
-import React, { useEffect, useState, useRef } from 'react';
-import Layout from '../components/Layout';
-import { FaEnvelope } from 'react-icons/fa';
-import Accent from '../components/Accent';
+import React, { useState, useEffect, useRef } from 'react';
+import Layout from '@/components/layout/Layout';
+import Accent from '@/components/shared/Accent';
+import SEO from '@/components/shared/SEO';
+import SocialMediaContact from '@/components/social/SocialMediaContact';
+
 import clsx from 'clsx';
+import { FaEnvelope } from 'react-icons/fa';
 import { FaWhatsapp } from 'react-icons/fa';
 import { SiFiverr } from 'react-icons/si';
 import dynamic from 'next/dynamic';
 import emailjs from '@emailjs/browser';
-import SEO from '@/components/SEO';
-
-const SocialMediaSection = dynamic(
-  () => import('../components/SocialMediaSectionContact'),
-  {
-    ssr: false,
-    loading: () => (
-      <div className="animate-pulse h-48 bg-gray-800 rounded-xl" />
-    ),
-  }
-);
 
 const ContactPage = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -88,9 +80,9 @@ const ContactPage = () => {
   return (
     <Layout>
       <SEO
-        title="Contact"
-        description="Looking for a blockchain developer or need help with legal tech
-                solutions? I'm here to help turn your ideas into reality, or Leave whatever you like to say—message, appreciation, suggestions"
+        templateTitle="Contact"
+        description="Get in touch with AL KINDI for legal consultations, collaborations, or inquiries about capital markets, M&A, bankruptcy, and crypto regulations. Available through email, WhatsApp, or professional platforms."
+        banner="/images/contact-banner.png"
       />
       <main
         className={clsx(
@@ -110,11 +102,11 @@ const ContactPage = () => {
                 Let&apos;s <Accent>Connect</Accent>
               </h1>
               <p
-                className="text-left md:text-center 2xl:text-left text-sm md:text-base font-light text-gray-200"
+                className="text-left md:text-center 2xl:text-left text-sm md:text-base 2xl:text-lg font-light text-gray-400"
                 data-fade="3"
               >
-                Looking for a blockchain developer or need help with legal tech
-                solutions? I'm here to help turn your ideas into reality.
+                Feel free to reach out — I’ll be happy to help, answer your
+                questions, or simply say hi!
               </p>
             </div>
           </div>
@@ -139,8 +131,8 @@ const ContactPage = () => {
                       {
                         icon: FaEnvelope,
                         label: 'Email',
-                        value: 'alkindivv@gmail.com',
-                        link: 'mailto:alkindivv@gmail.com',
+                        value: 'law.alkindi@gmail.com',
+                        link: 'mailto:law.alkindi@gmail.com',
                         response: 'Response within 24 hours',
                       },
                       {
@@ -204,7 +196,7 @@ const ContactPage = () => {
 
                 {/* Social Links */}
                 <div className="flex-1" data-fade="11">
-                  <SocialMediaSection />
+                  <SocialMediaContact />
                 </div>
               </div>
 

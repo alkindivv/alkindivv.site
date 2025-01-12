@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import Layout from '@/components/Layout';
+import Layout from '@/components/layout/Layout';
+import Accent from '@/components/shared/Accent';
+import SEO from '@/components/shared/SEO';
+import SocialMedia from '@/components/social/SocialMedia';
 import Link from 'next/link';
-import DimensionLink from '@/components/DimensionLink';
-import Accent from '@/components/Accent';
+import Image from 'next/image';
 import clsx from 'clsx';
-import SocialMediaSection from '@/components/SocialMediaSection';
-import SEO from '@/components/SEO';
+import DimensionLink from '@/components/DimensionLink';
 
 export default function HomePage() {
   const [isLoaded, setIsLoaded] = useState(false);
@@ -38,55 +39,60 @@ export default function HomePage() {
 
         {/* You can call me AL KINDI */}
         <div className="relative order-2" data-fade="2">
-          <div className="text-3xl md:text-4xl 2xl:text-5xl font-bold tracking-tight mb-1 md:mb-1">
+          <div className="text-3xl mb-2 md:text-4xl 2xl:text-5xl font-bold tracking-tight">
             You can call me <Accent className="inline-block">AL KINDI</Accent>
           </div>
+          {/* <div className="text-[11px] text-gray-300/60 font-light mt-1 mb-2 tracking-widest ">
+            Known as <Accent className="inline-block">alkindivv</Accent> in the
+            digital space
+          </div> */}
         </div>
         {/* Front-end Engineer text */}
         <div className="relative order-3" data-fade="3">
-          <p className=" font-light text-sm md:text-base 2xl:text-lg text-gray-300 mb-4 md:mb-4">
-            Trainee Associate at{' '}
-            <DimensionLink href="#">Law Firm</DimensionLink>
+          <p className=" font-light text-sm md:text-base 2xl:text-lg text-gray-400 mb-4 md:mb-4 leading-relaxed">
+            Looking for a job as a{' '}
+            <DimensionLink href="#">Junior or Trainee Associate</DimensionLink>
+            {/* at{' '}
+            <DimensionLink href="#">Law Firm</DimensionLink> */}
           </p>
         </div>
         {/* Main paragraph */}
         <div className="relative order-4" data-fade="4">
-          <p className="font-light text-sm md:text-base 2xl:text-lg text-gray-200 leading-relaxed mb-4 md:mb-6 max-w-[800px]">
-            I have a passion for typing and enjoy learning Technology and law.
-            Exploring the intersection of these fields inspires me to find
-            innovative Solutions to complex challenges
+          <p className=" text-sm md:text-base 2xl:text-lg text-gray-400 leading-relaxed mb-4 md:mb-6 max-w-[800px]">
+            I am passionate about law, focusing on capital markets, M&A,
+            bankruptcy, and crypto assets. I enjoy exploring the intersection of
+            law and technology to address complex challenges and share my
+            thoughts through blog writing on topics like legal trends,
+            technology, and crypto assets.
           </p>
         </div>
         {/* Guestbook text */}
-        <div className="relative order-5" data-fade="5">
+        {/* <div className="relative order-5" data-fade="5">
           <p className=" font-light text-sm md:text-base 2xl:text-lg text-gray-300 mb-4 md:mb-4 2xl:mb-8">
-            Don't forget t sign my{' '}
+            Don't forget to sign my{' '}
             <DimensionLink href="/guestbook">guestbook</DimensionLink>!
           </p>
-        </div>
+        </div> */}
         {/* Buttons Section */}
         <div className="relative order-6" data-fade="6">
           <div className="flex gap-3 md:gap-4 mb-4 md:mb-4 2xl:mb-6">
             <Link
               href="/blog"
-              className="gradient-button text-sm md:text-base 2xl:text-lg  px-3 md:px-3 py-1.5 md:py-2.5"
+              className="gradient-button font-semibold text-sm md:text-base 2xl:text-lg  px-3 md:px-3 py-1.5 md:py-2.5"
             >
               Read the blog
             </Link>
             <Link
               href="/about"
-              className="no-gradient-button text-sm md:text-base 2xl:text-lg px-3 md:px-3 py-1.5 md:py-2.5"
+              className="no-gradient-button font-semibold text-sm md:text-base 2xl:text-lg px-3 md:px-3 py-1.5 md:py-2.5"
             >
               Learn more about me
             </Link>
           </div>
         </div>
-        {/* Social Media Links */}
-        <div
-          className="font-sans relative order-7 mx-auto md:order-1"
-          data-fade="7"
-        >
-          <SocialMediaSection />
+        {/* Social Media Section */}
+        <div className="mt-4" data-fade="7">
+          <SocialMedia variant="default" />
         </div>
 
         {/* </div>

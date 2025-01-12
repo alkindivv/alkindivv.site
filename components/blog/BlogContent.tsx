@@ -1,8 +1,11 @@
 import React, { useEffect, useRef } from 'react';
+import Image from 'next/image';
+import Link from 'next/link';
 import clsx from 'clsx';
-import DimensionLink from './mdx/DimensionLink';
-import Accent from './Accent';
-import Blockquote from './mdx/Blockquote';
+import Accent from '@/components/shared/Accent';
+import DimensionLink from '@/components/blog/mdx/DimensionLink';
+import Blockquote from '@/components/blog/mdx/Blockquote';
+import styles from '@/styles/Blog.module.css';
 
 // Typography Components
 interface TypographyProps {

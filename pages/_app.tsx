@@ -1,25 +1,27 @@
+import '@/styles/globals.css';
+import '@/styles/animations.css';
 import { useEffect } from 'react';
 import type { AppProps } from 'next/app';
 import { useRouter } from 'next/router';
 import { SessionProvider } from 'next-auth/react';
-import '../styles/globals.css';
-import '../styles/animations.css';
+import { Analytics } from '@vercel/analytics/react';
 import { DefaultSeo } from 'next-seo';
-import SEO from '@/components/SEO';
+import dynamic from 'next/dynamic';
+
+// Dynamic imports for non-critical components
+const SEO = dynamic(() => import('@/components/shared/SEO'), {
+  ssr: true,
+});
 
 function MyApp({ Component, pageProps }: AppProps) {
   const router = useRouter();
 
   useEffect(() => {
-    // Fungsi untuk handle route change
     const handleRouteChange = (url: string) => {
-      // Tambahkan analytics atau tracking di sini jika diperlukan
       console.log(`App is changing to: ${url}`);
     };
 
     router.events.on('routeChangeComplete', handleRouteChange);
-
-    // Cleanup listener
     return () => {
       router.events.off('routeChangeComplete', handleRouteChange);
     };
@@ -42,6 +44,7 @@ function MyApp({ Component, pageProps }: AppProps) {
       />
       <SEO />
       <Component {...pageProps} />
+      <Analytics />
     </SessionProvider>
   );
 }

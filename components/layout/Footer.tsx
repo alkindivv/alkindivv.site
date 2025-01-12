@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
 import { FaGithub, FaLinkedin, FaTwitter } from 'react-icons/fa';
-import Accent from './Accent';
-import PrivacyAndTnc from './PrivacyAndTnc';
+import Accent from '@/components/shared/Accent';
+import PrivacyAndTnc from '@/components/shared/PrivacyAndTnc';
 
 const Footer = () => {
   const [isPrivacyOpen, setIsPrivacyOpen] = useState(false);
@@ -103,11 +103,11 @@ const Footer = () => {
             <ul className="space-y-2">
               <li className="text-gray-400 text-sm">
                 <span className="block text-emerald-500">Email</span>
-                alkindivv@gmail.com
+                law.alkindi@gmail.com
               </li>
               <li className="text-gray-400 text-sm">
                 <span className="block text-emerald-500">Location</span>
-                Medan, Indonesia
+                Jakarta, Indonesia
               </li>
               <li className="text-gray-400 text-sm">
                 <span className="block text-emerald-500">Working Hours</span>

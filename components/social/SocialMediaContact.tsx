@@ -1,8 +1,8 @@
 import React from 'react';
 import { FaGithub, FaLinkedin, FaTwitter } from 'react-icons/fa';
-import Accent from './Accent';
+import Accent from '@/components/shared/Accent';
 
-const SocialMediaSectionContact = React.memo(() => {
+const SocialMediaContact = React.memo(() => {
   const socialLinks = [
     {
       icon: FaGithub,
@@ -46,6 +46,6 @@ const SocialMediaSectionContact = React.memo(() => {
   );
 });
 
-SocialMediaSectionContact.displayName = 'SocialMediaSectionContact';
+SocialMediaContact.displayName = 'SocialMediaContact';
 
-export default SocialMediaSectionContact;
+export default SocialMediaContact;

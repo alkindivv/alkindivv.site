@@ -39,6 +39,7 @@
   --color-hover: #1f1f1f;
   --link-gradient: linear-gradient(45deg, #08c488 0%, #59fbbf 100%);
   --link-gradient-button: linear-gradient(45deg, #08c488 25%, #59fbbf 100%);
+  --link-gradient-normal: linear-gradient(45deg, #59fbbf 0%, #59fbbf 100%);
 
   --color-text: #f8fafc; /* Putih soft */
   --color-paragraph: #d1d5db; /* Abu-abu terang */
@@ -364,12 +365,12 @@ h6[id] {
 }
 
 .accent-normal {
-  background: var(--link-gradient);
+  background: var(--link-gradient-normal);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
   color: transparent;
-  font-weight: var(--font-light);
+  font-weight: var(--font-medium);
 }
 
 /* Tambahkan di bagian bawah file */
