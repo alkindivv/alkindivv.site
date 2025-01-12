@@ -246,7 +246,18 @@ const BlogPage: React.FC<BlogPageProps> = ({ blogPosts }) => {
         </div>
 
         {/* Blog Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mt-2">
+        {/* <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mt-2 data-fade='5'">
+          {currentPosts.length > 0 ? (
+            currentPosts.map((post, index) => (
+              <BlogCard
+                key={post.slug}
+                post={post}
+                checkTagged={checkTagged}
+                className="transition-all duration-300 hover:translate-y-[-0.5px]"
+                index={index}
+              /> */}
+
+        <div className={styles.blogGrid} mt-10 data-fade="5">
           {currentPosts.length > 0 ? (
             currentPosts.map((post, index) => (
               <BlogCard
@@ -327,5 +338,4 @@ export const getStaticProps: GetStaticProps = async () => {
     },
   };
 };
-
 export default BlogPage;

@@ -62,7 +62,7 @@ export default function BlogPost({
     Array<{ id: string; title: string; level: number }>
   >([]);
   const articleContentRef = useRef<HTMLDivElement>(null);
-  const views = usePageViews(frontMatter.slug);
+  const views = usePageViews(frontMatter.slug, true);
 
   // Extract headings from content
   useEffect(() => {

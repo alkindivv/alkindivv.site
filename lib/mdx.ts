@@ -34,6 +34,8 @@ export function getAllCategories(): BlogCategory[] {
 function createSEOSlug(text: string): string {
   return text
     .toLowerCase()
+    .replace(/[&]/g, '-and-') // Replace & with 'and'
+    .replace(/[()]/g, '') // Remove parentheses
     .replace(/[^a-z0-9]+/g, '-') // Replace non-alphanumeric with hyphens
     .replace(/^-+|-+$/g, '') // Remove leading/trailing hyphens
     .replace(/--+/g, '-'); // Replace multiple hyphens with single hyphen
@@ -58,10 +60,8 @@ export async function getAllPosts(): Promise<BlogPost[]> {
         const { data, content } = matter(source);
         const rawSlug = file.replace(/\.mdx$/, '');
 
-        // Create SEO-friendly slug from title if available, otherwise use file name
-        const slug = data.title
-          ? createSEOSlug(data.title)
-          : createSEOSlug(rawSlug);
+        // Use the file name as the slug to maintain consistency
+        const slug = rawSlug;
 
         // Validate required fields
         if (!data.title) {
@@ -82,11 +82,11 @@ export async function getAllPosts(): Promise<BlogPost[]> {
           title: data.title,
           date: new Date(data.date).toISOString(),
           author: data.author || 'AL KINDI',
-          category: createSEOSlug(data.category || category), // Ensure category slug is SEO-friendly
+          category: createSEOSlug(data.category || category),
           excerpt: data.excerpt || content.slice(0, 200) + '...',
           description:
             data.description || data.excerpt || content.slice(0, 200) + '...',
-          tags: Array.isArray(data.tags) ? data.tags.map(createSEOSlug) : [], // Ensure tag slugs are SEO-friendly
+          tags: Array.isArray(data.tags) ? data.tags : [],
           featuredImage: data.featuredImage || null,
           slug,
           readingTime: Math.ceil(readingTime(content).minutes),
