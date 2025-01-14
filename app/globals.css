@@ -9,7 +9,8 @@
 
 body {
   color: var(--foreground);
-  background: var(--background);
+  background: #111111;
+  background-color: #111111;
 }
 
 @layer components {

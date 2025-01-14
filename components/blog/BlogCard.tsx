@@ -190,7 +190,7 @@ const BlogCardContent = ({
       <div className="absolute inset-0 backdrop-blur-[0px] opacity-0 group-hover:opacity-100 transition-all duration-300" />
       <div className="absolute bottom-0.5 right-1.5 flex flex-wrap gap-1 justify-end">
         {Array.isArray(post.tags)
-          ? post.tags.map((tag) => (
+          ? post.tags.filter(Boolean).map((tag) => (
               <Tag
                 key={tag}
                 variant={checkTagged?.(tag) ? 'gradient' : 'default'}
@@ -205,7 +205,10 @@ const BlogCardContent = ({
                   'transition-colors'
                 )}
               >
-                <HighlightedText text={tag} searchQuery={searchQuery} />
+                <HighlightedText
+                  text={tag || ''}
+                  searchQuery={searchQuery || ''}
+                />
               </Tag>
             ))
           : null}

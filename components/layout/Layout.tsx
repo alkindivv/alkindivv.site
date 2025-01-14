@@ -51,7 +51,7 @@ const Layout: React.FC<LayoutProps> = ({
   }, [router]);
 
   return (
-    <>
+    <div className="min-h-screen bg-[#111111]">
       <Head>
         <title>{title}</title>
         <meta
@@ -111,7 +111,7 @@ const Layout: React.FC<LayoutProps> = ({
         </main>
         {!isHomePage && <Footer />}
       </div>
-    </>
+    </div>
   );
 };
 

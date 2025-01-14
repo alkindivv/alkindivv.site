@@ -80,7 +80,7 @@ body {
   /* font-size: var(--font-size-base);
   font-weight: var(--font-normal);
   line-height: 1.65; */
-  background-color: var(--color-background);
+  background-color: #111111;
   color: var(--color-text);
 }
 

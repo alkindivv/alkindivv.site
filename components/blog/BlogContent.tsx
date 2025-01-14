@@ -218,39 +218,23 @@ const ScrollAnimation = ({ children }: { children: React.ReactNode }) => {
 // MDX Components
 export const MDXComponents = {
   h1: ({ children, ...props }: TypographyProps) => (
-    <ScrollAnimation>
-      <H1 {...props}>{children}</H1>
-    </ScrollAnimation>
+    <H1 {...props}>{children}</H1>
   ),
   h2: ({ children, ...props }: TypographyProps) => (
-    <ScrollAnimation>
-      <H2 {...props}>{children}</H2>
-    </ScrollAnimation>
+    <H2 {...props}>{children}</H2>
   ),
   h3: ({ children, ...props }: TypographyProps) => (
-    <ScrollAnimation>
-      <H3 {...props}>{children}</H3>
-    </ScrollAnimation>
+    <H3 {...props}>{children}</H3>
   ),
-  p: ({ children, ...props }: TypographyProps) => (
-    <ScrollAnimation>
-      <P {...props}>{children}</P>
-    </ScrollAnimation>
-  ),
+  p: ({ children, ...props }: TypographyProps) => <P {...props}>{children}</P>,
   blockquote: ({ children, ...props }: TypographyProps) => (
-    <ScrollAnimation>
-      <Blockquote {...props}>{children}</Blockquote>
-    </ScrollAnimation>
+    <Blockquote {...props}>{children}</Blockquote>
   ),
   ul: ({ children, ...props }: TypographyProps) => (
-    <ScrollAnimation>
-      <UL {...props}>{children}</UL>
-    </ScrollAnimation>
+    <UL {...props}>{children}</UL>
   ),
   li: ({ children, ...props }: TypographyProps) => (
-    <ScrollAnimation>
-      <LI {...props}>{children}</LI>
-    </ScrollAnimation>
+    <LI {...props}>{children}</LI>
   ),
   // blockquote: ({ children, ...props }: TypographyProps) => (
   //   <ScrollAnimation>

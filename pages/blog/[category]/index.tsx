@@ -10,6 +10,7 @@ import Accent from '@/components/shared/Accent';
 import Tag from '@/components/shared/Tag';
 import clsx from 'clsx';
 import HighlightedText from '@/components/shared/HighlightedText';
+import Breadcrumb from '@/components/shared/Breadcrumb';
 
 interface CategoryPageProps {
   posts: BlogPost[];
@@ -32,6 +33,11 @@ export default function CategoryPage({ posts, category }: CategoryPageProps) {
     return searchContent.includes(searchQuery.toLowerCase());
   });
 
+  const breadcrumbItems = [
+    { label: 'Blog', href: '/blog' },
+    { label: category.name },
+  ];
+
   return (
     <Layout>
       <SEO
@@ -40,11 +46,15 @@ export default function CategoryPage({ posts, category }: CategoryPageProps) {
       />
       <main>
         <section className="bg-dark">
-          <div className="layout py-12">
-            <h1 className="text-3xl md:text-5xl font-bold">
+          <div className="layout py-3">
+            {/* Breadcrumb */}
+
+            <h1 className="mb-2 text-3xl md:text-4xl 2xl:text-5xl font-bold tracking-tight">
               <Accent>{category.name}</Accent> Articles
             </h1>
-            <p className="mt-2 text-gray-400">{category.description}</p>
+            <p className="mt-2text-sm md:text-base 2xl:text-lg font-light text-gray-400 leading-relaxed">
+              {category.description}
+            </p>
 
             {/* Search Section */}
             <div className="mt-8">
@@ -66,6 +76,9 @@ export default function CategoryPage({ posts, category }: CategoryPageProps) {
                   {filteredPosts.length !== 1 ? 's' : ''}
                 </p>
               )}
+            </div>
+            <div className="mb-6">
+              <Breadcrumb items={breadcrumbItems} />
             </div>
 
             {/* Articles List */}

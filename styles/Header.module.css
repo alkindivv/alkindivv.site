@@ -5,7 +5,7 @@
   right: 0;
   z-index: 1000;
   background-color: #111111;
-  border-bottom: 1px solid #374151;
+  /* border-bottom: 1px solid #374151; */
   transition: all 0.3s ease;
 }
 
@@ -13,7 +13,7 @@
   background-color: rgba(0, 0, 0, 0.378);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
-  border-bottom: 1px solid rgba(55, 65, 81, 0.3);
+  /* border-bottom: 1px solid rgba(55, 65, 81, 0.3); */
 }
 
 @supports (-webkit-backdrop-filter: none) or (backdrop-filter: none) {
