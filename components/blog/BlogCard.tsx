@@ -10,6 +10,7 @@ import clsx from 'clsx';
 import useSWR from 'swr';
 import { BlogPost } from '@/types/blog';
 import { useRouter } from 'next/router';
+import HighlightedText from '@/components/shared/HighlightedText';
 
 interface BlogCardProps {
   post: BlogPost;
@@ -18,6 +19,13 @@ interface BlogCardProps {
   onClick?: () => void;
   index?: number;
   isRelated?: boolean;
+  customContent?: (
+    post: BlogPost,
+    views: number | string,
+    readingTimeMinutes: number,
+    publishedDate: string
+  ) => React.ReactNode;
+  searchQuery?: string;
 }
 
 const BlogCard = ({
@@ -27,6 +35,8 @@ const BlogCard = ({
   onClick,
   index: _index,
   isRelated = false,
+  customContent,
+  searchQuery = '',
 }: BlogCardProps) => {
   const cardRef = useRef<HTMLElement>(null);
   const router = useRouter();
@@ -119,23 +129,33 @@ const BlogCard = ({
           href={`/blog/${post.category.toLowerCase()}/${post.slug}`}
           className="block h-full focus:outline-none focus-visible:ring focus-visible:ring-primary-300"
         >
-          <BlogCardContent
-            post={post}
-            views={views}
-            readingTimeMinutes={readingTimeMinutes}
-            publishedDate={publishedDate}
-            checkTagged={checkTagged}
-          />
+          {customContent ? (
+            customContent(post, views, readingTimeMinutes, publishedDate)
+          ) : (
+            <BlogCardContent
+              post={post}
+              views={views}
+              readingTimeMinutes={readingTimeMinutes}
+              publishedDate={publishedDate}
+              checkTagged={checkTagged}
+              searchQuery={searchQuery}
+            />
+          )}
         </Link>
       ) : (
         <div className="block h-full">
-          <BlogCardContent
-            post={post}
-            views={views}
-            readingTimeMinutes={readingTimeMinutes}
-            publishedDate={publishedDate}
-            checkTagged={checkTagged}
-          />
+          {customContent ? (
+            customContent(post, views, readingTimeMinutes, publishedDate)
+          ) : (
+            <BlogCardContent
+              post={post}
+              views={views}
+              readingTimeMinutes={readingTimeMinutes}
+              publishedDate={publishedDate}
+              checkTagged={checkTagged}
+              searchQuery={searchQuery}
+            />
+          )}
         </div>
       )}
     </article>
@@ -149,12 +169,14 @@ const BlogCardContent = ({
   readingTimeMinutes,
   publishedDate,
   checkTagged,
+  searchQuery,
 }: {
   post: BlogPost;
   views: number | string;
   readingTimeMinutes: number;
   publishedDate: string;
   checkTagged?: (tag: string) => boolean;
+  searchQuery?: string;
 }) => (
   <div className="relative flex flex-col h-full rounded-xl border border-gray-700 overflow-hidden group transition-all duration-300">
     <div className="relative h-48 overflow-hidden">
@@ -183,7 +205,7 @@ const BlogCardContent = ({
                   'transition-colors'
                 )}
               >
-                {tag}
+                <HighlightedText text={tag} searchQuery={searchQuery} />
               </Tag>
             ))
           : null}
@@ -191,7 +213,9 @@ const BlogCardContent = ({
     </div>
 
     <div className={styles.content}>
-      <h4 className={styles.title}>{post.title}</h4>
+      <h4 className={styles.title}>
+        <HighlightedText text={post.title} searchQuery={searchQuery || ''} />
+      </h4>
 
       <div className={styles.meta}>
         <div className="flex items-center gap-4">
@@ -211,7 +235,10 @@ const BlogCardContent = ({
       </p>
 
       <p className="text-sm md:text-base text-gray-400 line-clamp-2">
-        {post.excerpt}
+        <HighlightedText
+          text={post.excerpt || ''}
+          searchQuery={searchQuery || ''}
+        />
       </p>
     </div>
   </div>

@@ -9,21 +9,22 @@ import {
   HiEye,
   HiChevronLeft,
   HiChevronRight,
+  HiSearch,
 } from 'react-icons/hi';
 import clsx from 'clsx';
 import { IconType } from 'react-icons/lib';
 import { getAllPosts, getAllCategories } from '@/lib/mdx';
 import { BlogPost } from '@/types/blog';
 import SEO from '@/components/shared/SEO';
+import HighlightedText from '@/components/shared/HighlightedText';
 
 const POSTS_PER_PAGE = 9;
 
 const categories = [
-  'All Categories',
-  'Law',
-  'Technology',
-  'Blockchain',
-  'Tutorial',
+  { name: 'All Categories', path: '/blog/' },
+  { name: 'Law', path: '/blog/law/' },
+  { name: 'Cryptocurrency', path: '/blog/cryptocurrency/' },
+  { name: 'Hackintosh', path: '/blog/hackintosh/' },
 ];
 
 const topics = [
@@ -74,6 +75,7 @@ const BlogPage: React.FC<BlogPageProps> = ({ blogPosts }) => {
   const [sortOrder, setSortOrder] = useState<SortOption>(sortOptions[0]);
   const [isLoaded, setIsLoaded] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
+  const [searchQuery, setSearchQuery] = useState('');
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -94,6 +96,17 @@ const BlogPage: React.FC<BlogPageProps> = ({ blogPosts }) => {
 
   const filteredAndSortedPosts = blogPosts
     .filter((post) => {
+      // Filter by search query
+      const searchContent = [
+        post.title,
+        post.description,
+        post.excerpt,
+        ...(post.tags || []),
+      ]
+        .join(' ')
+        .toLowerCase();
+      const matchesSearch = searchContent.includes(searchQuery.toLowerCase());
+
       // Filter by topic
       const topicMatch =
         !selectedTopic ||
@@ -106,7 +119,7 @@ const BlogPage: React.FC<BlogPageProps> = ({ blogPosts }) => {
         selectedCategory === 'All Categories' ||
         post.category?.toLowerCase() === selectedCategory.toLowerCase();
 
-      return topicMatch && categoryMatch;
+      return matchesSearch && topicMatch && categoryMatch;
     })
     .sort((a, b) => {
       if (sortOrder.id === 'date') {
@@ -157,12 +170,23 @@ const BlogPage: React.FC<BlogPageProps> = ({ blogPosts }) => {
 
         {/* Search Input */}
         <div className="mt-4" data-fade="2">
-          <input
-            type="text"
-            placeholder="Search..."
-            className="w-full bg-transparent text-gray-200 border border-gray-600
-              rounded-md px-4 py-2 outline-none hover:border-emerald-500 transition-colors"
-          />
+          <div className="relative">
+            <input
+              type="text"
+              placeholder="Search articles..."
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              className="w-full bg-transparent text-gray-200 border border-gray-600
+                rounded-md px-4 py-2 pl-10 outline-none hover:border-emerald-500 transition-colors"
+            />
+            <HiSearch className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 text-lg" />
+          </div>
+          {searchQuery && (
+            <p className="mt-2 text-sm text-gray-400">
+              Found {filteredAndSortedPosts.length} article
+              {filteredAndSortedPosts.length !== 1 ? 's' : ''}
+            </p>
+          )}
         </div>
 
         {/* Topics Section */}
@@ -180,7 +204,7 @@ const BlogPage: React.FC<BlogPageProps> = ({ blogPosts }) => {
                     : 'border-gray-600 text-gray-300 hover:border-emerald-500'
                 )}
               >
-                {topic}
+                <HighlightedText text={topic} searchQuery={searchQuery} />
               </button>
             ))}
           </div>
@@ -204,11 +228,11 @@ const BlogPage: React.FC<BlogPageProps> = ({ blogPosts }) => {
             >
               {categories.map((category) => (
                 <option
-                  key={category}
-                  value={category}
+                  key={category.name}
+                  value={category.name}
                   className="bg-[#111111]"
                 >
-                  {category}
+                  {category.name}
                 </option>
               ))}
             </select>
@@ -246,7 +270,7 @@ const BlogPage: React.FC<BlogPageProps> = ({ blogPosts }) => {
         </div>
 
         {/* Blog Grid */}
-        {/* <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mt-2 data-fade='5'">
+        <div className={styles.blogGrid} data-fade="5">
           {currentPosts.length > 0 ? (
             currentPosts.map((post, index) => (
               <BlogCard
@@ -255,17 +279,7 @@ const BlogPage: React.FC<BlogPageProps> = ({ blogPosts }) => {
                 checkTagged={checkTagged}
                 className="transition-all duration-300 hover:translate-y-[-0.5px]"
                 index={index}
-              /> */}
-
-        <div className={styles.blogGrid} mt-10 data-fade="5">
-          {currentPosts.length > 0 ? (
-            currentPosts.map((post, index) => (
-              <BlogCard
-                key={post.slug}
-                post={post}
-                checkTagged={checkTagged}
-                className="transition-all duration-300 hover:translate-y-[-0.5px]"
-                index={index}
+                searchQuery={searchQuery}
               />
             ))
           ) : (
@@ -315,7 +329,7 @@ const BlogPage: React.FC<BlogPageProps> = ({ blogPosts }) => {
               onClick={() => handlePageChange(currentPage + 1)}
               disabled={currentPage === totalPages}
               className={clsx(
-                'p-2 rounded-md  transition-colors',
+                'p-2 rounded-md transition-colors',
                 currentPage === totalPages
                   ? 'border-gray-700 text-gray-700 cursor-not-allowed'
                   : 'border-gray-600 text-gray-300 hover:border-emerald-500'

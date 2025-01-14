@@ -22,6 +22,7 @@ export interface BlogPost {
   banner?: string;
   views?: number;
   publishedAt?: string;
+  image?: string;
 }
 
 export type BlogCategory = {
