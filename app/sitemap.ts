@@ -7,25 +7,25 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   // Base routes - static pages
   const routes = [
     {
-      url: baseUrl,
+      url: `${baseUrl}/`,
       lastModified: new Date().toISOString(),
       changeFrequency: 'daily' as const,
       priority: 1,
     },
     {
-      url: `${baseUrl}/about`,
+      url: `${baseUrl}/about/`,
       lastModified: new Date().toISOString(),
       changeFrequency: 'monthly' as const,
       priority: 0.8,
     },
     {
-      url: `${baseUrl}/blog`,
+      url: `${baseUrl}/blog/`,
       lastModified: new Date().toISOString(),
       changeFrequency: 'daily' as const,
       priority: 0.9,
     },
     {
-      url: `${baseUrl}/contact`,
+      url: `${baseUrl}/contact/`,
       lastModified: new Date().toISOString(),
       changeFrequency: 'monthly' as const,
       priority: 0.8,
@@ -42,7 +42,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     ).filter(Boolean);
 
     const categoryRoutes = categories.map((category) => ({
-      url: `${baseUrl}/blog/${category}`,
+      url: `${baseUrl}/blog/${category}/`,
       lastModified: new Date().toISOString(),
       changeFrequency: 'weekly' as const,
       priority: 0.8,
@@ -57,7 +57,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
           new Date().getTime() - postDate.getTime() < 30 * 24 * 60 * 60 * 1000; // 30 days
 
         return {
-          url: `${baseUrl}/blog/${post.category.toLowerCase()}/${post.slug}`,
+          url: `${baseUrl}/blog/${post.category.toLowerCase()}/${post.slug}/`,
           lastModified: postDate.toISOString(),
           changeFrequency: isRecent ? ('daily' as const) : ('monthly' as const),
           priority: isRecent ? 0.9 : 0.7,
