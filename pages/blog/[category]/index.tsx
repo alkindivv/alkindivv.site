@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { GetStaticPaths, GetStaticProps } from 'next';
 import Layout from '@/components/layout/Layout';
-import { getAllPosts } from '@/lib/mdx';
-import { BlogPost } from '@/types/blog';
+import { getAllPosts, getAllCategories } from '@/lib/mdx';
+import { BlogPost, BlogCategory } from '@/types/blog';
 import SEO from '@/components/shared/SEO';
 import BlogCard from '@/components/blog/BlogCard';
 import { HiSearch, HiCalendar, HiClock, HiEye } from 'react-icons/hi';
@@ -13,12 +13,10 @@ import HighlightedText from '@/components/shared/HighlightedText';
 
 interface CategoryPageProps {
   posts: BlogPost[];
-  category: string;
+  category: BlogCategory;
 }
 
 export default function CategoryPage({ posts, category }: CategoryPageProps) {
-  const capitalizedCategory =
-    category.charAt(0).toUpperCase() + category.slice(1);
   const [searchQuery, setSearchQuery] = useState('');
 
   const filteredPosts = posts.filter((post) => {
@@ -37,15 +35,16 @@ export default function CategoryPage({ posts, category }: CategoryPageProps) {
   return (
     <Layout>
       <SEO
-        title={`${capitalizedCategory} Articles - Al Kindi`}
-        description={`Articles about ${category} by Al Kindi`}
+        title={`${category.name} Articles - Al Kindi`}
+        description={category.description}
       />
       <main>
         <section className="bg-dark">
           <div className="layout py-12">
             <h1 className="text-3xl md:text-5xl font-bold">
-              <Accent>{capitalizedCategory}</Accent> Articles
+              <Accent>{category.name}</Accent> Articles
             </h1>
+            <p className="mt-2 text-gray-400">{category.description}</p>
 
             {/* Search Section */}
             <div className="mt-8">
@@ -173,10 +172,9 @@ export default function CategoryPage({ posts, category }: CategoryPageProps) {
 }
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  const posts = await getAllPosts();
-  const categories = Array.from(new Set(posts.map((post) => post.category)));
+  const categories = getAllCategories();
   const paths = categories.map((category) => ({
-    params: { category: category.toLowerCase() },
+    params: { category: category.slug },
   }));
 
   return {
@@ -186,15 +184,23 @@ export const getStaticPaths: GetStaticPaths = async () => {
 };
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
-  const posts = await getAllPosts();
-  const category = params?.category as string;
-  const filteredPosts = posts.filter(
-    (post) => post.category.toLowerCase() === category.toLowerCase()
+  const categories = getAllCategories();
+  const category = categories.find((cat) => cat.slug === params?.category);
+
+  if (!category) {
+    return {
+      notFound: true,
+    };
+  }
+
+  const allPosts = await getAllPosts();
+  const posts = allPosts.filter(
+    (post) => post.category.toLowerCase() === category.slug.toLowerCase()
   );
 
   return {
     props: {
-      posts: filteredPosts,
+      posts,
       category,
     },
   };

@@ -21,9 +21,11 @@ export function getAllCategories(): BlogCategory[] {
       .readdirSync(categoryPath)
       .filter((file) => file.endsWith('.mdx')).length;
 
+    const categoryName = category.charAt(0).toUpperCase() + category.slice(1);
+
     return {
-      name: category.charAt(0).toUpperCase() + category.slice(1),
-      description: `Articles about ${category}`,
+      name: categoryName,
+      description: `Articles about ${categoryName.toLowerCase()} by AL KINDI`,
       slug: category.toLowerCase(),
       count: postCount,
     };
