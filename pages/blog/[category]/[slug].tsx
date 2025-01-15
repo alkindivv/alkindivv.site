@@ -121,7 +121,7 @@ export default function BlogPost({
       />
 
       {/* Hero Banner - Full Width */}
-      <div className="relative h-[40vh] sm:h-[35vh] w-screen -mx-[calc((100vw-100%)/2)] -mt-[var(--header-height)] overflow-hidden">
+      <div className="relative h-[40vh] sm:h-[35vh] w-screen -mx-[calc((100vw-100%)/2)] overflow-hidden">
         <div className="absolute inset-0 transform scale-110 motion-safe:animate-subtle-zoom">
           <Image
             src={frontMatter.featuredImage || ''}
@@ -135,11 +135,11 @@ export default function BlogPost({
       </div>
 
       {/* Main Content Container */}
-      <div className="max-w-[var(--max-width)] mx-auto -mt-32 sm:-mt-48">
+      <div className="container -mt-32 sm:-mt-48">
         {/* Title Section */}
         <div className="mb-4 sm:mb-8">
           {/* Category Tag */}
-          <div className=" mb-3 sm:mb-2" data-fade="2">
+          <div className="mb-3 sm:mb-2" data-fade="2">
             <span className="inline-block py-1 text-xs sm:text-sm tracking-wider text-gray-300 bg-gray-800/50 rounded-full">
               {frontMatter.category.toLowerCase()}
             </span>
@@ -198,7 +198,7 @@ export default function BlogPost({
         </div>
 
         {/* Breadcrumb */}
-        <div className=" mb-0" data-fade="7">
+        <div className="mb-0" data-fade="7">
           <Breadcrumb items={breadcrumbItems} />
         </div>
 
@@ -254,8 +254,8 @@ export default function BlogPost({
           </article>
 
           {/* Table of Contents Sidebar */}
-          <aside className="hidden lg:block w-[280px] flex-shrink-0">
-            <div className="sticky top-24 rounded-xl border border-gray-800/50 backdrop-blur-sm">
+          <aside className="hidden lg:block w-[220px] ">
+            <div className="sticky top-24 bg-gray-900/30 rounded-xl border border-gray-800/50 backdrop-blur-sm">
               <TableOfContents headings={headings} />
             </div>
           </aside>

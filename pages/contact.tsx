@@ -86,13 +86,13 @@ const ContactPage = () => {
       />
       <main
         className={clsx(
-          '-mt-1 sm:-mt-20 md:-mt-30 2xl:-mt-20  fade-wrapper',
-          isLoaded && 'fade-wrapper'
+          'content-spacing fade-wrapper',
+          !isLoaded && 'opacity-0'
         )}
       >
         {/* Hero Section */}
         <section
-          className="relative min-h-[20vh] sm:min-h-[25vh] flex items-center"
+          className="relative  min-h-[20vh] sm:min-h-[25vh] flex items-center"
           data-fade="1"
         >
           <div className="absolute inset-0"></div>

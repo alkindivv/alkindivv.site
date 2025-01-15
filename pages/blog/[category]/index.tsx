@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { GetStaticPaths, GetStaticProps } from 'next';
 import Layout from '@/components/layout/Layout';
 import { getAllPosts, getAllCategories } from '@/lib/mdx';
@@ -19,6 +19,15 @@ interface CategoryPageProps {
 
 export default function CategoryPage({ posts, category }: CategoryPageProps) {
   const [searchQuery, setSearchQuery] = useState('');
+  const [isLoaded, setIsLoaded] = useState(false);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setIsLoaded(true);
+    }, 200);
+
+    return () => clearTimeout(timer);
+  }, []);
 
   const filteredPosts = posts.filter((post) => {
     const searchContent = [
@@ -44,7 +53,12 @@ export default function CategoryPage({ posts, category }: CategoryPageProps) {
         title={`${category.name} Articles - Al Kindi`}
         description={category.description}
       />
-      <main>
+      <main
+        className={clsx(
+          'content-spacing fade-wrapper',
+          !isLoaded && 'opacity-0'
+        )}
+      >
         <section className="bg-dark">
           <div className="layout py-3">
             {/* Breadcrumb */}

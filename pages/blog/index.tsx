@@ -153,7 +153,7 @@ const BlogPage: React.FC<BlogPageProps> = ({ blogPosts }) => {
 
       <main
         className={clsx(
-          'mt-5 sm:-mt-12 md:-mt-10 2xl:-mt-30 fade-wrapper',
+          'content-spacing fade-wrapper',
           !isLoaded && 'opacity-0'
         )}
       >

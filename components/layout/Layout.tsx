@@ -104,9 +104,7 @@ const Layout: React.FC<LayoutProps> = ({
         } transition-opacity duration-75 ease-in-out`}
       >
         <Header />
-        <main
-          className={`layout-main ${isLoading ? 'pointer-events-none' : ''}`}
-        >
+        <main className={`${isLoading ? 'pointer-events-none' : ''}`}>
           {children}
         </main>
         {!isHomePage && <Footer />}

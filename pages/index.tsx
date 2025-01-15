@@ -7,6 +7,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import clsx from 'clsx';
 import DimensionLink from '@/components/DimensionLink';
+import AccentNormal from '@/components/shared/AccentNormal';
 
 export default function HomePage() {
   const [isLoaded, setIsLoaded] = useState(false);
@@ -23,10 +24,7 @@ export default function HomePage() {
     <Layout isHomePage>
       <SEO />
       <main
-        className={clsx(
-          'layout-main mt-10 md:mt-15',
-          isLoaded && 'fade-wrapper'
-        )}
+        className={clsx('content-spacing mt-20 ', isLoaded && 'fade-wrapper')}
       >
         {/* <div className={styles.container}>
           <div className={styles.main}> */}
@@ -50,8 +48,9 @@ export default function HomePage() {
         {/* Front-end Engineer text */}
         <div className="relative order-3" data-fade="3">
           <p className=" font-light text-sm md:text-base 2xl:text-lg text-gray-400 mb-4 md:mb-4 leading-relaxed">
-            Looking for a job as a{' '}
-            <DimensionLink href="#">Junior or Trainee Associate</DimensionLink>
+            <span className="inline-block">
+              <AccentNormal>Junior or Trainee Associate</AccentNormal>
+            </span>
             {/* at{' '}
             <DimensionLink href="#">Law Firm</DimensionLink> */}
           </p>
