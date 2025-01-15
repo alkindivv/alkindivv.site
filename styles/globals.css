@@ -1,5 +1,6 @@
 /* Import Google Fonts */
 @import url('https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap');
 
 /* Tailwind Imports */
 @tailwind base;
@@ -63,7 +64,7 @@
   --header-height: 0px;
   --header-height-article: 0rem;
   --content-padding: 1.5rem;
-  --content-padding-mobile: 0.5rem;
+  --content-padding-mobile: 0rem;
   --content-padding-article: 0rem;
   --max-width: 1200px;
   --content-offset: 0px;
@@ -72,6 +73,21 @@
   --transition-slow: 300ms;
   --transition-normal: 200ms;
   --transition-fast: 150ms;
+
+  --content-width: 1280px;
+  --content-padding-x: 1rem;
+}
+
+@media (min-width: 640px) {
+  :root {
+    --content-padding-x: 1.5rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  :root {
+    --content-padding-x: 2rem;
+  }
 }
 
 .transparent-bg {
@@ -87,12 +103,22 @@ body {
   line-height: 1.65; */
   background-color: #111111;
   color: var(--color-text);
-  @apply bg-[#111111] text-white;
+  @apply bg-[#111111] text-gray-100;
+  font-family:
+    'Inter',
+    system-ui,
+    -apple-system,
+    sans-serif;
 }
 
 html {
   scroll-behavior: smooth;
   overflow-y: scroll;
+  font-family:
+    'Inter',
+    system-ui,
+    -apple-system,
+    sans-serif;
 }
 
 /* Khusus untuk heading dengan id */
