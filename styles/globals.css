@@ -61,32 +61,48 @@
   -moz-osx-font-smoothing: grayscale;
 
   /* Layout Variables */
-  --header-height: 0px;
-  --header-height-article: 0rem;
-  --content-padding: 1.5rem;
-  --content-padding-mobile: 1rem;
-  --content-padding-article: 0rem;
+  --site-padding-mobile: 1rem;
+  --site-padding-desktop: 2rem;
+  --header-height: 4rem;
   --max-width: 1200px;
-  --content-offset: 0px;
-
-  /* Animation Durations */
-  --transition-slow: 300ms;
-  --transition-normal: 200ms;
-  --transition-fast: 150ms;
-
-  --content-width: 1280px;
-  --content-padding-x: 1rem;
 }
 
-@media (min-width: 640px) {
+/* Base Layout Classes */
+.content-spacing {
+  padding-left: var(--site-padding-desktop);
+  padding-right: var(--site-padding-desktop);
+  padding-top: 0rem; /* Jarak fixed dari header */
+  min-height: calc(100vh - var(--header-height));
+  max-width: var(--max-width);
+  margin: 0 auto;
+}
+
+/* Container */
+.container {
+  width: 100%;
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding-left: var(--site-padding-desktop);
+  padding-right: var(--site-padding-desktop);
+}
+
+/* Mobile Adjustments */
+@media (max-width: 768px) {
   :root {
-    --content-padding-x: 1.5rem;
+    --header-height: 3.5rem;
+  }
+
+  .content-spacing {
+    padding-top: 4rem;
   }
 }
 
-@media (min-width: 1024px) {
-  :root {
-    --content-padding-x: 2rem;
+@media (max-width: 390px) {
+  .content-spacing,
+  .container {
+    padding-left: var(--site-padding-mobile);
+    padding-right: var(--site-padding-mobile);
+    padding-top: 3.5rem;
   }
 }
 
@@ -142,19 +158,35 @@ h6[id] {
 .layout-container {
   max-width: var(--max-width);
   margin: 0 auto;
-  padding-left: var(--content-padding);
-  padding-right: var(--content-padding);
+  padding-left: var(--site-padding-desktop);
+  padding-right: var(--site-padding-desktop);
 }
 
 .layout-main {
-  padding-top: 8rem;
+  padding-top: 1rem;
 }
 
 /* Content Spacing */
 .content-spacing {
-  padding-top: 5rem;
-  padding-left: var(--content-padding);
-  padding-right: var(--content-padding);
+  padding-top: 0rem;
+  padding-left: 3rem;
+  padding-right: 3rem;
+}
+
+/* Article and Blog Content Spacing */
+.prose,
+article,
+.postContent {
+  padding-left: var(--content-padding-article) !important;
+  padding-right: var(--content-padding-article) !important;
+  max-width: none !important;
+}
+
+/* Override any conflicting styles from BlogContent.tsx */
+.postContent.prose {
+  padding-left: var(--content-padding-article) !important;
+  padding-right: var(--content-padding-article) !important;
+  max-width: none !important;
 }
 
 /* Mobile Adjustments */
@@ -166,26 +198,28 @@ h6[id] {
   }
 
   .layout-main {
-    padding-top: 6rem;
+    padding-top: 0rem;
   }
 
   .content-spacing {
-    padding-top: 4rem;
+    padding-top: 0rem;
   }
 }
 
-@media (max-width: 440px) {
+@media (max-width: 390px) {
   :root {
-    --header-height: 50px;
+    /* --header-height: 50px; */
     --content-padding: var(--content-padding-mobile);
   }
 
   .layout-main {
-    padding-top: 4rem;
+    padding-top: 0rem;
   }
 
   .content-spacing {
-    padding-top: 3rem;
+    padding-top: 0rem;
+    padding-left: 0.1rem;
+    padding-right: 0.1rem;
   }
 
   .container {

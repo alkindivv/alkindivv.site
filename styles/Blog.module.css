@@ -180,11 +180,36 @@
 }
 
 .postContent {
-  color: var(--color-paragraph);
-  padding-right: 0rem;
-  padding-top: 2.5rem;
-  max-width: 100%;
+  /* Hapus pengaturan padding karena sudah diatur di globals.css */
 }
+
+/* @media screen and (width <= 390px) {
+  .postContent {
+    padding-left: 0.5rem !important;
+    padding-right: 0.5rem !important;
+  }
+}
+
+@media screen and (391px <= width <= 640px) {
+  .postContent {
+    padding-left: 0.5rem !important;
+    padding-right: 0.5rem !important;
+  }
+}
+
+@media screen and (641px <= width <= 768px) {
+  .postContent {
+    padding-left: 1rem !important;
+    padding-right: 1rem !important;
+  }
+}
+
+@media screen and (width >= 769px) {
+  .postContent {
+    padding-left: 1rem !important;
+    padding-right: 1rem !important;
+  }
+} */
 
 .postContent > *:first-child {
   margin-top: -1rem !important;

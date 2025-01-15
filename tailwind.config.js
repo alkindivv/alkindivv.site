@@ -7,7 +7,8 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        sans: ['Inter', 'system-ui', '-apple-system', 'sans-serif'],
+        sans: ['SF Pro Display', 'system-ui', '-apple-system', 'sans-serif'],
+        sf: ['SF Pro Display', 'system-ui', '-apple-system', 'sans-serif'],
       },
       colors: {
         primary: '#059669',

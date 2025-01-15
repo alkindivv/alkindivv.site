@@ -75,7 +75,7 @@ export default function TableOfContents({ headings }: TableOfContentsProps) {
               className={`
                 block transition-all
                 hover:text-emerald-500
-                ${activeId === heading.id ? 'text-emerald-500' : 'text-gray-400'}
+                ${activeId === heading.id ? 'text-emerald-600' : 'text-gray-500'}
                 ${heading.level === 2 ? 'font-medium' : 'font-normal'}
               `}
             >

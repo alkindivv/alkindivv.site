@@ -84,6 +84,7 @@ const ContactPage = () => {
         description="Get in touch with AL KINDI for legal consultations, collaborations, or inquiries about capital markets, M&A, bankruptcy, and crypto regulations. Available through email, WhatsApp, or professional platforms."
         banner="/images/contact-banner.png"
       />
+
       <main
         className={clsx(
           'content-spacing fade-wrapper',
@@ -92,7 +93,7 @@ const ContactPage = () => {
       >
         {/* Hero Section */}
         <section
-          className="relative  min-h-[20vh] sm:min-h-[25vh] flex items-center"
+          className="mt-16 relative min-h-[20vh] sm:min-h-[25vh] flex items-center"
           data-fade="1"
         >
           <div className="absolute inset-0"></div>

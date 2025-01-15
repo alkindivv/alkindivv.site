@@ -33,7 +33,7 @@ const AboutPage = () => {
         )}
       >
         {/* Header Section */}
-        <div className="mt-10" data-fade="1">
+        <div className="mt-24 relative" data-fade="1">
           <h1 className="mb-2 text-3xl md:text-4xl 2xl:text-5xl font-bold tracking-tight">
             About <Accent>Me</Accent>
           </h1>

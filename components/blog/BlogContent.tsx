@@ -4,7 +4,6 @@ import Link from 'next/link';
 import clsx from 'clsx';
 import Accent from '@/components/shared/Accent';
 import DimensionLink from '@/components/blog/mdx/DimensionLink';
-import Blockquote from '@/components/blog/mdx/Blockquote';
 import styles from '@/styles/Blog.module.css';
 
 // Typography Components
@@ -18,7 +17,7 @@ interface TypographyProps {
 export const H1 = ({ children, className = '' }: TypographyProps) => (
   <h1
     className={clsx(
-      'text-3xl md:text-4xl lg:text-5xl font-bold mb-4 text-white',
+      'font-sans text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight mb-8 text-gray-50',
       className
     )}
   >
@@ -36,7 +35,7 @@ export const H2 = ({
 }) => (
   <h2
     id={id}
-    className="text-xl md:text-2xl lg:text-3xl font-bold text-white scroll-mt-20 mt-10 mb-4"
+    className="font-sans text-2xl md:text-3xl lg:text-4xl font-bold text-gray-100 scroll-mt-20 mt-12 mb-6"
     {...props}
   >
     {children}
@@ -53,7 +52,7 @@ export const H3 = ({
 }) => (
   <h3
     id={id}
-    className="text-lg md:text-xl lg:text-2xl font-bold text-white scroll-mt-20 mt-8 mb-3"
+    className="font-sans text-xl md:text-2xl lg:text-3xl font-semibold text-gray-200 scroll-mt-20 mt-8 mb-4"
     {...props}
   >
     {children}
@@ -63,8 +62,7 @@ export const H3 = ({
 export const P = ({ children, className = '' }: TypographyProps) => (
   <p
     className={clsx(
-      'text-base md:text-lg text-gray-300 leading-relaxed mb-6',
-
+      'font-sf text-base sm:text-lg text-gray-400 leading-[1.8] mb-6 tracking-wide',
       className
     )}
   >
@@ -75,7 +73,7 @@ export const P = ({ children, className = '' }: TypographyProps) => (
 export const UL = ({ children, className = '' }: TypographyProps) => (
   <ul
     className={clsx(
-      'list-disc pl-6 space-y-2 text-base md:text-lg text-gray-300 mb-6',
+      'font-sf list-disc pl-8 space-y-4 text-[17px] text-gray-300 mb-6 leading-[1.8]',
       className
     )}
   >
@@ -83,8 +81,24 @@ export const UL = ({ children, className = '' }: TypographyProps) => (
   </ul>
 );
 
+export const OL = ({ children, className = '' }: TypographyProps) => (
+  <ol
+    className={clsx(
+      'font-sf list-decimal pl-8 space-y-4 text-[17px] text-gray-300 mb-6 leading-[1.8]',
+      className
+    )}
+  >
+    {children}
+  </ol>
+);
+
 export const LI = ({ children, className = '' }: TypographyProps) => (
-  <li className={clsx('text-base md:text-lg text-gray-300', className)}>
+  <li
+    className={clsx(
+      'font-sf text-[17px] text-gray-300 leading-[1.8] tracking-wide',
+      className
+    )}
+  >
     {children}
   </li>
 );
@@ -97,7 +111,7 @@ export const A = ({
   <a
     href={href}
     className={clsx(
-      'text-base md:text-lg text-emerald-500 hover:text-emerald-400 transition-colors',
+      'font-sf text-[17px] text-emerald-400 hover:text-emerald-300 transition-colors underline-offset-4 decoration-emerald-400/30 hover:decoration-emerald-300 underline',
       className
     )}
   >
@@ -107,16 +121,24 @@ export const A = ({
 
 export const Strong = ({ children, className = '' }: TypographyProps) => (
   <strong
-    className={clsx('text-base md:text-lg font-bold text-white', className)}
+    className={clsx(
+      'font-sf text-[17px] font-semibold text-gray-50',
+      className
+    )}
   >
     {children}
   </strong>
 );
 
-export const Em = ({ children, className = '' }: TypographyProps) => (
-  <em className={clsx('text-base md:text-lg italic text-white', className)}>
+export const BlockQuote = ({ children, className = '' }: TypographyProps) => (
+  <blockquote
+    className={clsx(
+      'font-sf pl-4 border-l-2 border-emerald-500/50 italic text-[17px] text-gray-300 my-6',
+      className
+    )}
+  >
     {children}
-  </em>
+  </blockquote>
 );
 
 // export const InlineScrollAnimation = ({ children }: { children: React.ReactNode }) => {
@@ -228,7 +250,7 @@ export const MDXComponents = {
   ),
   p: ({ children, ...props }: TypographyProps) => <P {...props}>{children}</P>,
   blockquote: ({ children, ...props }: TypographyProps) => (
-    <Blockquote {...props}>{children}</Blockquote>
+    <BlockQuote {...props}>{children}</BlockQuote>
   ),
   ul: ({ children, ...props }: TypographyProps) => (
     <UL {...props}>{children}</UL>

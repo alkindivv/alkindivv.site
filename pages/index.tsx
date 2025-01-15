@@ -23,14 +23,12 @@ export default function HomePage() {
   return (
     <Layout isHomePage>
       <SEO />
-      <main
-        className={clsx('content-spacing mt-20 ', isLoaded && 'fade-wrapper')}
-      >
+      <main className={clsx('content-spacing ', isLoaded && 'fade-wrapper')}>
         {/* <div className={styles.container}>
           <div className={styles.main}> */}
         {/* Hi! */}
-        <div className="relative order-1" data-fade="1">
-          <h2 className="text-2xl md:text-3xl 2xl:text-4xl  font-bold tracking-tight mb-0 md:mb-0">
+        <div className="mt-40 relative order-1" data-fade="1">
+          <h2 className="text-2xl md:text-3xl 2xl:text-4xl font-bold tracking-tight mb-0 md:mb-0">
             Hi!
           </h2>
         </div>
@@ -61,8 +59,7 @@ export default function HomePage() {
             I am passionate about law, focusing on capital markets, M&A,
             bankruptcy, and crypto assets. I enjoy exploring the intersection of
             law and technology to address complex challenges and share my
-            thoughts through blog writing on topics like legal trends,
-            technology, and crypto assets.
+            thoughts through blog writing on this website.
           </p>
         </div>
         {/* Guestbook text */}
