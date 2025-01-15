@@ -1,33 +1,23 @@
-import React, { useEffect, useState, useCallback } from 'react';
-import clsx from 'clsx';
-import { useRouter } from 'next/router';
+import React, { useEffect, useState } from 'react';
+import { HiOutlineMenu } from 'react-icons/hi';
+import Accent from '../shared/Accent';
 
-interface TOCProps {
-  headings: Array<{ id: string; title: string; level: number }>;
-  activeId?: string;
+interface TOCHeading {
+  id: string;
+  title: string;
+  level: number;
 }
 
-const TableOfContents = ({ headings, activeId: propActiveId }: TOCProps) => {
-  const [activeId, setActiveId] = useState<string | null>(null);
-  const [isScrolling, setIsScrolling] = useState(false);
-  const router = useRouter();
+interface TableOfContentsProps {
+  headings: TOCHeading[];
+}
 
-  // Reset state and setup observers when route or headings change
+export default function TableOfContents({ headings }: TableOfContentsProps) {
+  const [activeId, setActiveId] = useState<string>('');
+
   useEffect(() => {
-    // Reset states
-    setActiveId(null);
-    setIsScrolling(false);
-
-    // Set initial active heading
-    if (headings.length > 0) {
-      setActiveId(headings[0].id);
-    }
-
-    // Setup observer
     const observer = new IntersectionObserver(
       (entries) => {
-        if (isScrolling) return;
-
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
             setActiveId(entry.target.id);
@@ -35,80 +25,65 @@ const TableOfContents = ({ headings, activeId: propActiveId }: TOCProps) => {
         });
       },
       {
-        rootMargin: '-20px 0px -80% 0px',
-        threshold: [0, 0.1, 0.5, 1],
+        rootMargin: '0% 0% -80% 0%',
+        threshold: 1.0,
       }
     );
 
-    // Observe all headings
     headings.forEach((heading) => {
       const element = document.getElementById(heading.id);
-      if (element) {
-        observer.observe(element);
-      }
+      if (element) observer.observe(element);
     });
 
     return () => {
-      observer.disconnect();
+      headings.forEach((heading) => {
+        const element = document.getElementById(heading.id);
+        if (element) observer.unobserve(element);
+      });
     };
-  }, [router.asPath, headings, isScrolling]);
-
-  const scrollToHeading = useCallback((id: string) => {
-    if (!id) return;
-
-    const element = document.getElementById(id);
-    if (!element) return;
-
-    setIsScrolling(true);
-
-    const headerOffset = 100;
-    const elementPosition =
-      element.getBoundingClientRect().top + window.scrollY;
-    const offsetPosition = elementPosition - headerOffset;
-
-    window.scrollTo({
-      top: offsetPosition,
-      behavior: 'smooth',
-    });
-
-    setActiveId(id);
-
-    // Reset scrolling state after animation
-    setTimeout(() => {
-      setIsScrolling(false);
-    }, 100);
-  }, []);
+  }, [headings]);
 
   if (headings.length === 0) return null;
 
   return (
-    <aside className="hidden lg:block w-[300px] flex-shrink-10 pl-14">
-      <div className="sticky top-[120px] mt-[0.5rem]">
-        <div className="bg-[#111111] rounded-lg pt-6 pb-4">
-          <h2 className="text-2xl font-semibold mb-6 pl-12">
-            Table of Contents
-          </h2>
-          <nav className="max-h-[calc(100vh-300px)] overflow-y-auto">
-            {headings.map((heading) => (
-              <button
-                key={`${router.asPath}-${heading.id}`}
-                onClick={() => scrollToHeading(heading.id)}
-                className={clsx(
-                  'block w-full text-left text-sm transition-colors duration-200 py-1',
-                  heading.level === 2 && 'pl-12',
-                  heading.level === 3 && 'pl-16',
-                  'hover:text-white',
-                  activeId === heading.id ? 'text-white' : 'text-gray-600'
-                )}
-              >
-                {heading.title}
-              </button>
-            ))}
-          </nav>
-        </div>
+    <nav className="p-4 lg:p-6">
+      <div className="flex items-center gap-2 mb-4">
+        <HiOutlineMenu className="w-4 h-4 text-emerald-500" />
+        <h2 className="text-sm font-medium">
+          <Accent>Table of Contents</Accent>
+        </h2>
       </div>
-    </aside>
-  );
-};
 
-export default TableOfContents;
+      <ul className="space-y-2.5 text-[13px]">
+        {headings.map((heading) => (
+          <li
+            key={heading.id}
+            style={{
+              paddingLeft: `${(heading.level - 2) * 1}rem`,
+            }}
+          >
+            <a
+              href={`#${heading.id}`}
+              onClick={(e) => {
+                e.preventDefault();
+                document.getElementById(heading.id)?.scrollIntoView({
+                  behavior: 'smooth',
+                  block: 'start',
+                  inline: 'nearest',
+                });
+              }}
+              className={`
+                block transition-all
+                hover:text-emerald-500
+                ${activeId === heading.id ? 'text-emerald-500' : 'text-gray-400'}
+                ${heading.level === 2 ? 'font-medium' : 'font-normal'}
+              `}
+            >
+              <span className="line-clamp-2">{heading.title}</span>
+            </a>
+          </li>
+        ))}
+      </ul>
+    </nav>
+  );
+}

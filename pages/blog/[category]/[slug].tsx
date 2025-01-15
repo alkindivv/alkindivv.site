@@ -121,34 +121,33 @@ export default function BlogPost({
       />
 
       {/* Hero Banner - Full Width */}
-      <div className="relative h-[35vh] w-screen -mx-[calc((100vw-100%)/2)] -mt-[var(--header-height)] overflow-hidden">
+      <div className="relative h-[40vh] sm:h-[35vh] w-screen -mx-[calc((100vw-100%)/2)] -mt-[var(--header-height)] overflow-hidden">
         <div className="absolute inset-0 transform scale-110 motion-safe:animate-subtle-zoom">
           <Image
             src={frontMatter.featuredImage || ''}
             alt={frontMatter.title}
             fill
-            className="object-cover brightness-[0.5] transition-transform duration-[20s]"
+            className="object-cover brightness-[0.4] transition-transform duration-[20s]"
             priority
           />
-          {/* Enhanced gradient overlays */}
-          <div className="absolute inset-0 bg-gradient-to-b from-[#111111]/50 via-[#111111]/80 to-[#111111]" />
+          <div className="absolute inset-0 bg-gradient-to-b from-[#111111]/20 via-[#111111]/40 to-[#111111]" />
         </div>
       </div>
 
       {/* Main Content Container */}
-      <div className="max-w-[var(--max-width)] mx-auto -mt-48">
+      <div className="max-w-[var(--max-width)] mx-auto -mt-32 sm:-mt-48">
         {/* Title Section */}
-        <div className="mb-12">
+        <div className="mb-4 sm:mb-8">
           {/* Category Tag */}
-          <div className="mb-4" data-fade="2">
-            <span className="inline-block px-3 py-1 text-xs tracking-wider uppercase text-gray-300 bg-gray-800/50 rounded-full">
+          <div className=" mb-3 sm:mb-2" data-fade="2">
+            <span className="inline-block py-1 text-xs sm:text-sm tracking-wider text-gray-300 bg-gray-800/50 rounded-full">
               {frontMatter.category.toLowerCase()}
             </span>
           </div>
 
           {/* Title */}
           <h1
-            className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-semibold text-white leading-[1.2] tracking-tight mb-4 "
+            className="text-xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-white leading-[1.15] tracking-tight mb-3 sm:mb-4"
             data-fade="3"
           >
             {frontMatter.title}
@@ -156,7 +155,7 @@ export default function BlogPost({
 
           {/* Excerpt */}
           <p
-            className="text-sm sm:text-base text-gray-300 font-light leading-relaxed tracking-wide"
+            className="text-xs sm:text-sm md:text-base text-gray-300 font-light leading-relaxed tracking-wide max-w-3xl"
             data-fade="4"
           >
             {frontMatter.excerpt}
@@ -164,10 +163,10 @@ export default function BlogPost({
         </div>
 
         {/* Author Info & Stats */}
-        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between py-4 mb-2 border-y border-gray-800/50 gap-4">
+        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between py-3 sm:py-4 mb-6 sm:mb-8 border-y border-gray-800/50 gap-3 sm:gap-4">
           {/* Author & Date */}
-          <div className="flex items-center gap-4" data-fade="5">
-            <div className="relative w-10 h-10 overflow-hidden rounded-full ring-2 ring-gray-800">
+          <div className="flex items-center gap-3">
+            <div className="relative w-8 h-8 sm:w-10 sm:h-10 overflow-hidden rounded-full ring-2 ring-gray-800">
               <Image
                 src="/images/AL-KINDI.png"
                 alt={frontMatter.author}
@@ -176,58 +175,54 @@ export default function BlogPost({
               />
             </div>
             <div>
-              <div className="uppercase text-sm sm:text-base font-medium text-white data-fade='6'">
+              <div className="text-xs sm:text-sm font-medium text-white">
                 <Accent>{frontMatter.author}</Accent>
               </div>
-              <div className="text-xs sm:text-sm text-gray-400 data-fade='7'">
+              <div className="text-[10px] sm:text-xs text-gray-400">
                 {formattedDate}
               </div>
             </div>
           </div>
 
           {/* Stats */}
-          <div className="flex items-center gap-6 text-sm text-gray-400 data-fade='8'">
-            <span className="flex items-center gap-2 hover:text-gray-300 transition-colors">
-              <FaEye className="w-4 h-4" />
+          <div className="flex items-center gap-4 text-[10px] sm:text-sm text-gray-400">
+            <span className="flex items-center gap-1.5">
+              <FaEye className="w-3 h-3 sm:w-4 sm:h-4" />
               {views} views
             </span>
-            <span className="flex items-center gap-2">
-              <FaClock className="w-4 h-4" />
+            <span className="flex items-center gap-1.5">
+              <FaClock className="w-3 h-3 sm:w-4 sm:h-4" />
               {frontMatter.readingTime} min read
             </span>
           </div>
         </div>
 
         {/* Breadcrumb */}
-        <div className="mb-0" data-fade="7">
+        <div className=" mb-0" data-fade="7">
           <Breadcrumb items={breadcrumbItems} />
         </div>
 
         {/* Content Layout */}
-        <div
-          className="relative flex flex-col lg:flex-row gap-8 lg:gap-16"
-          data-fade="8"
-        >
+        <div className="relative flex flex-col lg:flex-row gap-6 lg:gap-12">
           {/* Main Article */}
           <article className="flex-1">
             {/* Article Content */}
             <div
-              className={`${styles.postContent} prose prose-sm sm:prose-base lg:prose-lg prose-invert prose-headings:scroll-mt-24 prose-a:text-primary-400 prose-a:no-underline hover:prose-a:text-primary-300 prose-img:rounded-xl max-w-none`}
+              className={`${styles.postContent} prose prose-sm sm:prose-base lg:prose-lg prose-invert prose-headings:scroll-mt-24 prose-headings:font-bold prose-headings:tracking-tight prose-a:text-primary-400 prose-a:no-underline hover:prose-a:text-primary-300 prose-img:rounded-xl max-w-none`}
               ref={articleContentRef}
-              data-fade="8"
             >
               <MDXRemote {...mdxSource} components={mdxComponents} />
             </div>
 
             {/* Article Footer */}
-            <div className="mt-16 pt-8 border-t border-gray-800" data-fade="9">
+            <div className="mt-8 sm:mt-12 pt-6 sm:pt-8 border-t border-gray-800">
               {/* Tags */}
-              <div className="flex flex-wrap gap-2 mb-8">
+              <div className="flex flex-wrap gap-2 mb-6 sm:mb-8">
                 {frontMatter.tags?.map((tag) => (
                   <Link
                     key={tag}
                     href={`/blog/tag/${tag.toLowerCase()}`}
-                    className="py-1.5 px-4 text-xs sm:text-sm bg-gray-800/50 hover:bg-gray-700 text-gray-300 rounded-full transition-colors"
+                    className="py-1 sm:py-1.5 text-[10px] sm:text-xs bg-gray-800/50 hover:bg-gray-700 text-gray-300 rounded-full transition-colors"
                   >
                     #{tag}
                   </Link>
@@ -235,8 +230,8 @@ export default function BlogPost({
               </div>
 
               {/* Author Bio */}
-              <div className="flex items-start gap-6 p-8 bg-gray-900/30 rounded-2xl border border-gray-800/50 backdrop-blur-sm">
-                <div className="relative w-12 h-12 sm:w-16 sm:h-16 overflow-hidden rounded-xl ring-2 ring-gray-800">
+              <div className="flex flex-col sm:flex-row items-start gap-4 bg-gray-900/30 rounded-xl border border-gray-800/50 backdrop-blur-sm">
+                <div className="relative w-14 h-14 sm:w-20 sm:h-20 overflow-hidden rounded-xl ring-2 ring-gray-800">
                   <Image
                     src="/images/AL-KINDI.png"
                     alt={frontMatter.author}
@@ -245,10 +240,10 @@ export default function BlogPost({
                   />
                 </div>
                 <div className="flex-1">
-                  <h3 className="text-lg sm:text-xl font-semibold mb-2">
+                  <h3 className="text-sm sm:text-base font-semibold mb-2">
                     <Accent>{frontMatter.author}</Accent>
                   </h3>
-                  <p className="text-gray-400 text-sm sm:text-base leading-relaxed">
+                  <p className="text-xs sm:text-sm text-gray-400 leading-relaxed">
                     Trainee Associate with focus on corporate law, capital
                     markets, and bankruptcy. Passionate about the intersection
                     of law and technology.
@@ -258,25 +253,31 @@ export default function BlogPost({
             </div>
           </article>
 
-          {/* Table of Contents Sidebar - Hidden on Mobile */}
-          <aside className="hidden lg:block lg:w-64 xl:w-72">
-            <div className="sticky top-24">
+          {/* Table of Contents Sidebar */}
+          <aside className="hidden lg:block w-[280px] flex-shrink-0">
+            <div className="sticky top-24 rounded-xl border border-gray-800/50 backdrop-blur-sm">
               <TableOfContents headings={headings} />
             </div>
           </aside>
         </div>
 
-        {/* Comments Section */}
-        <div className="mt-16 border-t border-gray-800 pt-8" data-fade="9">
-          <Comments postSlug={frontMatter.slug} />
-        </div>
+        {/* Comments & Related Articles */}
+        <div className="mt-8 sm:mt-12 space-y-8 sm:space-y-12">
+          {/* Comments Section */}
+          <div>
+            <h2 className="text-base sm:text-xl font-bold mb-4 sm:mb-6">
+              <Accent>Comments</Accent>
+            </h2>
+            <Comments postSlug={frontMatter.slug} />
+          </div>
 
-        {/* Related Articles */}
-        <div className="mt-16 border-t border-gray-800 pt-8" data-fade="10">
-          <h2 className="text-xl sm:text-2xl font-bold mb-8">
-            <Accent>Related Articles</Accent>
-          </h2>
-          <RelatedArticles currentPost={frontMatter} allPosts={allPosts} />
+          {/* Related Articles */}
+          <div>
+            <h2 className="text-base sm:text-xl font-bold mb-4 sm:mb-6">
+              <Accent>Related Articles</Accent>
+            </h2>
+            <RelatedArticles currentPost={frontMatter} allPosts={allPosts} />
+          </div>
         </div>
       </div>
     </Layout>

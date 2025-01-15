@@ -18,10 +18,10 @@ export default function Breadcrumb({ items }: BreadcrumbProps) {
       {/* Background Gradient Overlay */}
       <div className="absolute inset-0  pointer-events-none" />
 
-      <nav className="relative flex items-center space-x-1.5 text-xs md:text-sm text-gray-400 py-4">
+      <nav className="relative flex items-center space-x-0 sm:space-x-1 text-xs sm:text-sm text-gray-400 py-2">
         <Link
           href="/"
-          className="hover:text-emerald-500 transition-colors flex items-center gap-1.5 px-2 py-1 rounded-md hover:bg-emerald-500/10"
+          className="hover:text-emerald-500 transition-colors flex items-center gap-1.5 py-1 rounded-md hover:bg-emerald-500/10"
         >
           <HiHome className="w-4 h-4" />
         </Link>
