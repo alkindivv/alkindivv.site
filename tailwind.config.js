@@ -7,8 +7,15 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        sans: ['SF Pro Display', 'system-ui', '-apple-system', 'sans-serif'],
-        sf: ['SF Pro Display', 'system-ui', '-apple-system', 'sans-serif'],
+        sans: [
+          'ui-sans-serif',
+          'system-ui',
+          'sans-serif',
+          'Apple Color Emoji',
+          'Segoe UI Emoji',
+          'Segoe UI Symbol',
+          'Noto Color Emoji',
+        ],
       },
       colors: {
         primary: '#059669',

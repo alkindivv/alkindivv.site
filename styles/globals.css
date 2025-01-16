@@ -7,29 +7,10 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Custom Fonts */
-@font-face {
-  font-family: 'Geist';
-  src:
-    url('/fonts/Geist-Regular.woff2') format('woff2'),
-    url('/fonts/Geist-Medium.woff2') format('woff2'),
-    url('/fonts/Geist-SemiBold.woff2') format('woff2'),
-    url('/fonts/Geist-Bold.woff2') format('woff2');
-  font-weight: 100 900;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'GeistMono';
-  src: url('/fonts/GeistMonoVF.woff2') format('woff2');
-  font-weight: 100 900;
-  font-display: swap;
-}
-
 /* Root Variables */
 :root {
-  --font-sans: 'Geist', system-ui, -apple-system, sans-serif;
-  --font-mono: 'GeistMono', monospace;
+  --font-sans: sans-serif;
+  --font-mono: ui-monospace, monospace;
   --color-primary: #08a875;
   --color-secondary: #34d399;
   --color-text: #f8fafc;
@@ -56,15 +37,21 @@
   --font-semibold: 600;
   --font-bold: 700;
 
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-
-  /* Layout Variables */
   --site-padding-mobile: 1rem;
   --site-padding-desktop: 2rem;
   --header-height: 4rem;
   --max-width: 1200px;
+
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+  body {
+    /* color: var(--foreground); */
+    font-family: var(--font-sans);
+    font-feature-settings: normal;
+    font-variation-settings: normal;
+  }
 }
 
 /* Base Layout Classes */
@@ -80,24 +67,69 @@
 /* Container */
 .container {
   width: 100%;
-  max-width: var(--max-width);
-  margin: 0 auto;
+  /* max-width: var(--max-width); */
+  /* margin: 0 auto; */
   padding-left: var(--site-padding-desktop);
   padding-right: var(--site-padding-desktop);
 }
 
 /* Mobile Adjustments */
-@media (max-width: 768px) {
-  :root {
-    --header-height: 3.5rem;
-  }
 
-  .content-spacing {
-    padding-top: 4rem;
+@media (max-width: 390px) {
+  .content-spacing,
+  .container {
+    padding-left: var(--site-padding-mobile);
+    padding-right: var(--site-padding-mobile);
+    padding-top: 3.5rem;
   }
 }
 
-@media (max-width: 390px) {
+@media (max-width: 430px) {
+  .content-spacing,
+  .container {
+    padding-left: var(--site-padding-mobile);
+    padding-right: var(--site-padding-mobile);
+    padding-top: 3.5rem;
+  }
+}
+
+@media (max-width: 470px) {
+  .content-spacing,
+  .container {
+    padding-left: var(--site-padding-mobile);
+    padding-right: var(--site-padding-mobile);
+    padding-top: 3.5rem;
+  }
+}
+
+@media (max-width: 500px) {
+  .content-spacing,
+  .container {
+    padding-left: var(--site-padding-mobile);
+    padding-right: var(--site-padding-mobile);
+    padding-top: 3.5rem;
+  }
+}
+
+@media (max-width: 600px) {
+  .content-spacing,
+  .container {
+    padding-left: var(--site-padding-mobile);
+    padding-right: var(--site-padding-mobile);
+    padding-top: 3.5rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .content-spacing,
+  .container {
+    padding-left: var(--site-padding-mobile);
+    padding-right: var(--site-padding-mobile);
+    padding-top: 3.5rem;
+  }
+}
+
+@media (max-width: 800px) {
   .content-spacing,
   .container {
     padding-left: var(--site-padding-mobile);

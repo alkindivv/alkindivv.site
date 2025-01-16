@@ -66,14 +66,6 @@ export default function Seo(props: SeoProps) {
 
   return (
     <Head>
-      {/* Preconnect to Google Fonts */}
-      <link rel="preconnect" href="https://fonts.googleapis.com" />
-      <link
-        rel="preconnect"
-        href="https://fonts.gstatic.com"
-        crossOrigin="anonymous"
-      />
-
       <title>{meta.title}</title>
       <meta name="robots" content={meta.robots} />
       <meta name="description" content={meta.description} />

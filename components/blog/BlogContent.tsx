@@ -62,7 +62,7 @@ export const H3 = ({
 export const P = ({ children, className = '' }: TypographyProps) => (
   <p
     className={clsx(
-      'font-sf text-base sm:text-lg text-gray-400 leading-[1.8] mb-6 tracking-wide',
+      'font-sans text-base sm:text-lg text-gray-400  mb-6 leading-[1.8]',
       className
     )}
   >

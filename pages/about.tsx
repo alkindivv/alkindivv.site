@@ -77,7 +77,7 @@ const AboutPage = () => {
               Hi, I'm <Accent>AL KINDI</Accent>
             </h2>
             <p
-              className="text-justify leading-relaxed text-sm md:text-base 2xl:text-lg font-light text-gray-400"
+              className="text-justify leading-loose text-sm md:text-base 2xl:text-lg font-light text-gray-400"
               data-fade="2"
             >
               a law graduate with a passion for writing and sharing knowledge. I

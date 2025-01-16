@@ -11,6 +11,10 @@ body {
   color: var(--foreground);
   background: #111111;
   background-color: #111111;
+  font-family: ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji',
+    'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  font-feature-settings: normal;
+  font-variation-settings: normal;
 }
 
 @layer components {

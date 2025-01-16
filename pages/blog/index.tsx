@@ -159,7 +159,7 @@ const BlogPage: React.FC<BlogPageProps> = ({ blogPosts }) => {
       >
         {/* Header Section */}
         <div className="mt-24" data-fade="1">
-          <h1 className="mb-2 text-3xl md:text-4xl 2xl:text-5xl font-bold tracking-tight">
+          <h1 className="font-sans mb-2 text-3xl md:text-4xl 2xl:text-5xl font-bold tracking-tight">
             Personal <Accent>Blog</Accent>
           </h1>
           <p className="text-sm md:text-base 2xl:text-lg font-light text-gray-400">

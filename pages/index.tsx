@@ -55,11 +55,16 @@ export default function HomePage() {
         </div>
         {/* Main paragraph */}
         <div className="relative order-4" data-fade="4">
-          <p className=" text-sm md:text-base 2xl:text-lg text-gray-400 leading-relaxed mb-4 md:mb-6 max-w-[800px]">
+          <p className=" leading-relaxed text-sm md:text-base 2xl:text-lg text-gray-400 mb-4 md:mb-6 max-w-[800px]">
             I am passionate about law, focusing on capital markets, M&A,
             bankruptcy, and crypto assets. I enjoy exploring the intersection of
             law and technology to address complex challenges and share my
             thoughts through blog writing on this website.
+            <br />
+            <br />
+            Though I can't say it isn't expensive, I feel this purchase is well
+            justified since it has brought me thousands of percent in returns as
+            it supports my work.
           </p>
         </div>
         {/* Guestbook text */}

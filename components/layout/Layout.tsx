@@ -60,14 +60,6 @@ const Layout: React.FC<LayoutProps> = ({
         />
         <link rel="icon" href="/favicon.ico" />
 
-        {/* Preload critical assets */}
-        <link
-          rel="preload"
-          href="/fonts/Geist-Regular.woff2"
-          as="font"
-          type="font/woff2"
-          crossOrigin="anonymous"
-        />
         <link rel="preload" as="style" href="/styles/globals.css" />
 
         {/* Custom styles untuk NProgress */}

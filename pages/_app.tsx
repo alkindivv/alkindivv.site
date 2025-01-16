@@ -7,17 +7,10 @@ import { SessionProvider } from 'next-auth/react';
 import { Analytics } from '@vercel/analytics/react';
 import { DefaultSeo } from 'next-seo';
 import dynamic from 'next/dynamic';
-import { Inter } from 'next/font/google';
 
 // Dynamic imports for non-critical components
 const SEO = dynamic(() => import('@/components/shared/SEO'), {
   ssr: true,
-});
-
-const inter = Inter({
-  subsets: ['latin'],
-  display: 'swap',
-  variable: '--font-inter',
 });
 
 function MyApp({ Component, pageProps }: AppProps) {
@@ -50,7 +43,7 @@ function MyApp({ Component, pageProps }: AppProps) {
         }}
       />
       <SEO />
-      <main className={`${inter.variable} font-sans`}>
+      <main>
         <Component {...pageProps} />
       </main>
       <Analytics />
