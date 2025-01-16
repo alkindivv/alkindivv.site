@@ -13,7 +13,7 @@ interface TableOfContentsProps {
 }
 
 export default function TableOfContents({ headings }: TableOfContentsProps) {
-  const [activeId, setActiveId] = useState<string>('');
+  const [activeId, setActiveId] = useState<string>('introduction');
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -30,36 +30,46 @@ export default function TableOfContents({ headings }: TableOfContentsProps) {
       }
     );
 
+    // Observe all headings including introduction
+    const introElement = document.getElementById('introduction');
+    if (introElement) {
+      observer.observe(introElement);
+    }
+
     headings.forEach((heading) => {
       const element = document.getElementById(heading.id);
-      if (element) observer.observe(element);
+      if (element && (element.tagName === 'H2' || element.tagName === 'H3')) {
+        observer.observe(element);
+      }
     });
 
     return () => {
+      if (introElement) {
+        observer.unobserve(introElement);
+      }
       headings.forEach((heading) => {
         const element = document.getElementById(heading.id);
-        if (element) observer.unobserve(element);
+        if (element && (element.tagName === 'H2' || element.tagName === 'H3')) {
+          observer.unobserve(element);
+        }
       });
     };
   }, [headings]);
 
-  if (headings.length === 0) return null;
+  // Add Introduction to the headings list
+  const allHeadings = [
+    { id: 'introduction', title: 'Introduction', level: 2 },
+    ...headings,
+  ];
 
   return (
-    <nav className="p-4 lg:p-6">
-      <div className="flex items-center gap-2 mb-3">
-        {/* <HiOutlineMenu className="w-4 h-4 text-emerald-500" /> */}
-        <h2 className="text-base">
-          <Accent>Table of Contents</Accent>
-        </h2>
-      </div>
-
-      <ul className="space-y-2.5 text-[13px]">
-        {headings.map((heading) => (
+    <nav className="w-[180px] hidden sm:block shrink-0 sticky top-24">
+      <ul className="space-y-3 text-sm">
+        {allHeadings.map((heading) => (
           <li
             key={heading.id}
             style={{
-              paddingLeft: `${(heading.level - 2) * 1}rem`,
+              paddingLeft: `${(heading.level - 2) * 1.5}rem`,
             }}
           >
             <a
@@ -73,12 +83,21 @@ export default function TableOfContents({ headings }: TableOfContentsProps) {
                 });
               }}
               className={`
-                block transition-all
+                group relative flex
                 hover:text-white
-                ${activeId === heading.id ? 'text-white' : 'text-gray-500'}
-                ${heading.level === 2 ? '' : ''}
+                ${activeId === heading.id ? 'font-medium text-white' : 'text-gray-600'}
+                ${heading.level === 2 ? 'text-sm' : ' text-sm'}
               `}
             >
+              <span
+                className={`
+                absolute left-0 top-1/2
+                ${heading.level === 2 ? 'h-2 w-2' : 'h-1.5 w-1.5'}
+                ${activeId === heading.id ? '' : ''}
+                ${heading.level === 2 ? 'opacity-100' : 'opacity-50'}
+                group-hover:bg-white group-hover:opacity-100
+              `}
+              ></span>
               <span className="line-clamp-2">{heading.title}</span>
             </a>
           </li>

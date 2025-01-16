@@ -151,8 +151,8 @@ export default function Header() {
                   <Link
                     href={item.href}
                     className={clsx(
-                      'relative flex items-center justify-center gap-3',
-                      'px-3 py-1.5 rounded-xl',
+                      'relative flex items-center justify-center gap-2',
+                      'px-1.5 py-1.5 rounded-xl',
                       'text-sm font-medium',
                       'transition-all duration-300 ease-out',
                       'hover:bg-emerald-500/5',

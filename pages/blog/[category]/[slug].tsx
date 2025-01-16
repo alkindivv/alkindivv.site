@@ -137,33 +137,36 @@ export default function BlogPost({
         )}
       >
         {/* Hero Banner - Full Width */}
-        <div className="relative h-[15vh] sm:h-[20vh] w-screen -mx-[calc((100vw-100%)/2)] overflow-hidden">
+        <div className="relative h-[30vh] sm:h-[40vh] w-screen -mx-[calc((100vw-100%)/2)] overflow-hidden">
           <div className="absolute inset-0 transform scale-110 motion-safe:animate-subtle-zoom">
             <Image
               src={frontMatter.featuredImage || ''}
               alt={frontMatter.title}
               fill
-              className="object-cover brightness-[0.4] transition-transform duration-[20s]"
+              className="object-cover brightness-[0.3] transition-transform duration-[20s]"
               priority
             />
-            <div className="absolute inset-0 bg-gradient-to-b from-[#111111]/20 via-[#111111]/40 to-[#111111]" />
+            <div className="absolute inset-0 bg-gradient-to-b from-[#111111]/30 via-[#111111]/60 to-[#111111]" />
           </div>
         </div>
 
         {/* Main Content Container */}
-        <div className="fade-wrapper">
+        <div className="fade-wrapper max-w-[1400px] mx-auto">
           {/* Title Section */}
-          <div className="mb-4 sm:mb-8">
+          <div className="mb-8 sm:mb-12 -mt-20 relative z-10">
             {/* Category Tag */}
-            <div className="mb-3 sm:mb-2" data-fade="2">
-              <span className="inline-block py-1 text-xs sm:text-sm tracking-wider text-gray-300 bg-gray-800/50 rounded-full">
+            <div className="mb-2" data-fade="2">
+              <Link
+                href={`/blog/${frontMatter.category.toLowerCase()}`}
+                className="inline-block py-1.5 px-4 text-sm tracking-wider text-emerald-300 bg-emerald-900/30 hover:bg-emerald-900/50 rounded-full transition-colors"
+              >
                 {frontMatter.category.toLowerCase()}
-              </span>
+              </Link>
             </div>
 
             {/* Title */}
             <h1
-              className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-white leading-[1.15] tracking-tight mb-1 sm:mb-3"
+              className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-[1.15] tracking-tight mb-2 sm:mb-2"
               data-fade="3"
             >
               {frontMatter.title}
@@ -171,7 +174,7 @@ export default function BlogPost({
 
             {/* Excerpt */}
             <p
-              className="text-xs sm:text-sm md:text-base leading-relaxed tracking-wide max-w-3xl"
+              className="text-[0.825rem] font-paragraf leading-relaxed tracking-wide text-[#A3A3A3] max-w-3xl"
               data-fade="4"
             >
               {frontMatter.excerpt}
@@ -179,10 +182,10 @@ export default function BlogPost({
           </div>
 
           {/* Author Info & Stats */}
-          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between py-3 sm:py-4 mb-4 sm:mb-4 border-y border-gray-800/50 gap-3 sm:gap-4">
+          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between py-2 sm:py-4 mb-8 sm:mb-4 border-y border-gray-800/50 gap-4">
             {/* Author & Date */}
-            <div className="flex items-center gap-3">
-              <div className="relative w-8 h-8 sm:w-10 sm:h-10 overflow-hidden rounded-full ring-2 ring-gray-800">
+            <div className="flex items-center gap-4">
+              <div className="relative w-12 h-12 overflow-hidden rounded-full ring-2 ring-emerald-500/30">
                 <Image
                   src="/images/AL-KINDI.png"
                   alt={frontMatter.author}
@@ -191,93 +194,98 @@ export default function BlogPost({
                 />
               </div>
               <div>
-                <div className="text-xs sm:text-sm font-medium text-white">
+                <div className="text-sm sm:text-base font-paragraf">
                   <Accent>{frontMatter.author}</Accent>
                 </div>
-                <div className="text-[10px] sm:text-xs text-gray-400">
+                <div className="text-xs sm:text-sm font-paragraf text-[#A3A3A3]">
                   {formattedDate}
                 </div>
               </div>
             </div>
 
             {/* Stats */}
-            <div className="flex items-center gap-4 text-[10px] sm:text-sm text-gray-400">
-              <span className="flex items-center gap-1.5">
-                <FaEye className="w-3 h-3 sm:w-4 sm:h-4" />
+            <div className="flex items-center gap-6 text-xs sm:text-sm font-paragraf text-[#A3A3A3]">
+              <span className="flex items-center gap-2">
+                <FaEye className="w-4 h-4" />
                 {views} views
               </span>
-              <span className="flex items-center gap-1.5">
-                <FaClock className="w-3 h-3 sm:w-4 sm:h-4" />
+              <span className="flex items-center font-paragraf text-[#A3A3A3] gap-2">
+                <FaClock className="w-4 h-4" />
                 {frontMatter.readingTime} min read
               </span>
             </div>
           </div>
 
           {/* Breadcrumb */}
-          <div className="mb-6" data-fade="7">
+          <div className="mb-8" data-fade="7">
             <Breadcrumb items={breadcrumbItems} />
           </div>
 
           {/* Content Layout */}
-          <span className="">
-            <div className="relative flex flex-col lg:flex-row gap-6 lg:gap-10">
-              {/* Main Article */}
-              <article className="flex-1 max-w-[1200px]">
-                {/* Article Content */}
-                <div
-                  className={`prose prose-sm sm:prose-base lg:prose-lg prose-invert prose-headings:scroll-mt-24 prose-headings:font-bold prose-headings:tracking-tight prose-a:text-primary-400 prose-a:no-underline hover:prose-a:text-primary-300 prose-img:rounded-xl max-w-none`}
-                  ref={articleContentRef}
-                >
-                  <MDXRemote {...mdxSource} components={mdxComponents} />
+          <div className="relative flex flex-col-reverse lg:flex-row gap-8 lg:gap-12">
+            {/* Main Article */}
+            <article className="flex-1 max-w-[1200px]">
+              {/* Article Content */}
+              <div
+                className={`prose prose-lg prose-invert
+                  prose-headings:scroll-mt-24
+                  prose-headings:font-semibold
+
+
+                  prose-img:rounded-xl
+                  prose-img:shadow-lg
+                  max-w-none`}
+                ref={articleContentRef}
+              >
+                <MDXRemote {...mdxSource} components={mdxComponents} />
+              </div>
+
+              {/* Article Footer */}
+              <div className="mt-12 sm:mt-16 pt-8 border-t border-gray-800">
+                {/* Tags */}
+                <div className="flex flex-wrap gap-2 mb-8 sm:mb-12">
+                  {frontMatter.tags?.map((tag) => (
+                    <Link
+                      key={tag}
+                      href={`/blog/tag/${tag.toLowerCase()}`}
+                      className="px-4 py-1.5 text-sm bg-gray-800/50 hover:bg-gray-700 text-gray-300 rounded-full transition-colors"
+                    >
+                      #{tag}
+                    </Link>
+                  ))}
                 </div>
 
-                {/* Article Footer */}
-                <div className="mt-8 sm:mt-12 pt-6 sm:pt-8 border-t border-gray-800">
-                  {/* Tags */}
-                  <div className="flex flex-wrap gap-2 mb-6 sm:mb-8">
-                    {frontMatter.tags?.map((tag) => (
-                      <Link
-                        key={tag}
-                        href={`/blog/tag/${tag.toLowerCase()}`}
-                        className="py-1 sm:py-1.5 text-[10px] sm:text-xs bg-gray-800/50 hover:bg-gray-700 text-gray-300 rounded-full transition-colors"
-                      >
-                        #{tag}
-                      </Link>
-                    ))}
+                {/* Author Bio */}
+                <div className="flex flex-col sm:flex-row items-start gap-6 p-6 sm:p-8 bg-gray-900/30 rounded-2xl border border-gray-800/50 backdrop-blur-sm">
+                  <div className="relative w-14 h-14 sm:w-20 sm:h-20 overflow-hidden rounded-xl ring-2 ring-gray-800">
+                    <Image
+                      src="/images/AL-KINDI.png"
+                      alt={frontMatter.author}
+                      fill
+                      className="object-cover"
+                    />
                   </div>
-
-                  {/* Author Bio */}
-                  <div className="flex flex-col sm:flex-row items-start gap-4 bg-gray-900/30 rounded-xl border border-gray-800/50 backdrop-blur-sm">
-                    <div className="relative w-14 h-14 sm:w-20 sm:h-20 overflow-hidden rounded-xl ring-2 ring-gray-800">
-                      <Image
-                        src="/images/AL-KINDI.png"
-                        alt={frontMatter.author}
-                        fill
-                        className="object-cover"
-                      />
-                    </div>
-                    <div className="flex-1">
-                      <h3 className="text-sm sm:text-base font-semibold mb-2">
-                        <Accent>{frontMatter.author}</Accent>
-                      </h3>
-                      <p className="text-xs sm:text-sm text-gray-400 leading-relaxed">
-                        Trainee Associate with focus on corporate law, capital
-                        markets, and bankruptcy. Passionate about the
-                        intersection of law and technology.
-                      </p>
-                    </div>
+                  <div className="flex-1">
+                    <h3 className="text-sm sm:text-base font-semibold mb-2">
+                      <Accent>{frontMatter.author}</Accent>
+                    </h3>
+                    <p className="text-xs sm:text-sm text-gray-400 leading-relaxed">
+                      Trainee Associate with focus on corporate law, capital
+                      markets, and bankruptcy. Passionate about the intersection
+                      of law and technology.
+                    </p>
                   </div>
                 </div>
-              </article>
+              </div>
+            </article>
 
-              {/* Table of Contents Sidebar */}
-              <aside className="hidden lg:block w-[240px] shrink-0 ">
-                <div className="sticky top-24 rounded-xl  border border-gray-800/50">
-                  <TableOfContents headings={headings} />
-                </div>
-              </aside>
-            </div>
-          </span>
+            {/* Table of Contents - Desktop */}
+            <aside className="hidden lg:block w-50">
+              <div className="sticky top-24">
+                <TableOfContents headings={headings} />
+              </div>
+            </aside>
+          </div>
 
           {/* Comments & Related Articles */}
           <div className="mt-8 sm:mt-12 space-y-8 sm:space-y-12">

@@ -9,6 +9,7 @@
 /* Root Variables */
 :root {
   --font-sans: 'DM Sans';
+  --font-paragraf: 'system-ui';
   --color-primary: #08a875;
   --color-secondary: #34d399;
 
@@ -34,7 +35,7 @@
   --font-bold: 700;
 
   /* Layout Variables */
-  --header-height: 80px;
+  /* --header-height: 80px; */
   --header-height-article: 4rem;
   --content-padding: 3rem;
   --content-padding-article: 0rem;
@@ -48,6 +49,8 @@
   /* Font Features */
   font-feature-settings: normal;
   font-variation-settings: normal;
+  -webkit-tap-highlight-color: transparent;
+  -webkit-text-size-adjust: 100%;
 }
 
 /* Global Styles */
@@ -66,7 +69,7 @@ html {
 .layout-container {
   max-width: var(--max-width);
   margin: 0 auto;
-  padding-top: calc(var(--header-height) + -2rem - var(--content-offset));
+  /* padding-top: calc(var(--header-height) + -2rem - var(--content-offset)); */
   padding-left: var(--content-padding);
   padding-right: var(--content-padding);
 }
@@ -249,7 +252,7 @@ h6[id] {
 /* Global Text Styles */
 h1 {
   color: var(--color-heading);
-  font-weight: var(--font-bold);
+  font-weight: var(--font-semibold);
   font-size: 2.25rem;
   line-height: 2.5rem;
   letter-spacing: -0.02em;
@@ -260,14 +263,15 @@ h2 {
   font-weight: var(--font-semibold);
   font-size: 1.875rem;
   line-height: 2.25rem;
-  letter-spacing: -0.02em;
+  letter-spacing: -0.5em;
 }
 
 h3 {
-  color: var(--color-heading);
+  color: var(--color-secondary);
   font-weight: var(--font-semibold);
   font-size: 1.5rem;
-  line-height: 2rem;
+  line-height: 6rem;
+  /* letter-spacing: 10rem; */
 }
 
 h4 {
