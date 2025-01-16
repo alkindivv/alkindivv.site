@@ -64,7 +64,9 @@ export default function HomePage() {
             <br />
             Though I can't say it isn't expensive, I feel this purchase is well
             justified since it has brought me thousands of percent in{' '}
-            <DimensionLink href="https://www.google.com">returns</DimensionLink>
+            <DimensionLink href="https://www.google.com">
+              returns
+            </DimensionLink>{' '}
             as it supports my work.
           </p>
         </div>
