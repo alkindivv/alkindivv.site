@@ -77,7 +77,7 @@ const AboutPage = () => {
               Hi, I'm <Accent>AL KINDI</Accent>
             </h2>
             <p
-              className="text-justify leading-loose text-sm md:text-base 2xl:text-lg font-light text-gray-400"
+              className="text-justify leading-loose text-sm md:text-base 2xl:text-lg font-light "
               data-fade="2"
             >
               a law graduate with a passion for writing and sharing knowledge. I
@@ -92,7 +92,7 @@ const AboutPage = () => {
             </p>
 
             <p
-              className="text-justify leading-relaxed text-sm md:text-base 2xl:text-lg font-light text-gray-400"
+              className="text-justify leading-relaxed text-sm md:text-base 2xl:text-lg font-light"
               data-fade="3"
             >
               In my legal journey, I have completed the Pendidikan Khusus
@@ -103,7 +103,7 @@ const AboutPage = () => {
             </p>
 
             <p
-              className="text-justify leading-relaxed text-sm md:text-base 2xl:text-lg font-light text-gray-400"
+              className="text-justify leading-relaxed text-sm md:text-base 2xl:text-lg"
               data-fade="4"
             >
               During my academic years, I have participated in legal

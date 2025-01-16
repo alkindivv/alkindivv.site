@@ -1,6 +1,6 @@
 import React from 'react';
 import Accent from './Accent';
-import DimensionLink from '@/components/mdx/DimensionLink';
+import DimensionLink from '@/components/common/DimensionLink';
 
 interface ModalProps {
   isOpen: boolean;

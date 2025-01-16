@@ -15,16 +15,27 @@ export default function DimensionLink({
 }: DimensionLinkProps) {
   const isExternal = href.startsWith('http');
 
+  const linkClasses = clsx(
+    'dimension-link',
+    'relative',
+    'text-decoration-none',
+    'font-semibold',
+    className
+  );
+
   if (isExternal) {
     return (
       <a
         href={href}
         target="_blank"
         rel="noopener noreferrer"
-        className={clsx(
-          'text-accent transition-colors hover:text-accent-dark',
-          className
-        )}
+        className={linkClasses}
+        style={{
+          background: 'var(--link-gradient)',
+          WebkitBackgroundClip: 'text',
+          backgroundClip: 'text',
+          color: 'transparent',
+        }}
       >
         {children}
       </a>
@@ -34,10 +45,13 @@ export default function DimensionLink({
   return (
     <Link
       href={href}
-      className={clsx(
-        'text-accent transition-colors hover:text-accent-dark',
-        className
-      )}
+      className={linkClasses}
+      style={{
+        background: 'var(--link-gradient)',
+        WebkitBackgroundClip: 'text',
+        backgroundClip: 'text',
+        color: 'transparent',
+      }}
     >
       {children}
     </Link>

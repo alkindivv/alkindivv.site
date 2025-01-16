@@ -2,10 +2,10 @@ import React, { useEffect, useRef } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import clsx from 'clsx';
-import Accent from '@/components/shared/Accent';
-import DimensionLink from '@/components/blog/mdx/DimensionLink';
+import DimensionLink from './mdx/DimensionLink';
+import AccentNormal from '@/components/shared/AccentNormal';
 import styles from '@/styles/Blog.module.css';
-
+import Accent from '@/components/shared/Accent';
 // Typography Components
 interface TypographyProps {
   children: React.ReactNode;
@@ -17,7 +17,7 @@ interface TypographyProps {
 export const H1 = ({ children, className = '' }: TypographyProps) => (
   <h1
     className={clsx(
-      'font-sans text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight mb-8 text-gray-50',
+      'text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight mb-8 bg-gradient-to-r from-gray-50 to-gray-200 bg-clip-text text-transparent',
       className
     )}
   >
@@ -35,7 +35,7 @@ export const H2 = ({
 }) => (
   <h2
     id={id}
-    className="font-sans text-2xl md:text-3xl lg:text-4xl font-bold text-gray-100 scroll-mt-20 mt-12 mb-6"
+    className="text-2xl md:text-3xl lg:text-4xl font-bold text-gray-100 scroll-mt-20 mt-16 mb-6"
     {...props}
   >
     {children}
@@ -52,7 +52,7 @@ export const H3 = ({
 }) => (
   <h3
     id={id}
-    className="font-sans text-xl md:text-2xl lg:text-3xl font-semibold text-gray-200 scroll-mt-20 mt-8 mb-4"
+    className="text-xl md:text-2xl lg:text-2xl font-semibold text-gray-200 scroll-mt-20 mt-12 mb-4 underline underline-offset-4 decoration-gray-500/30 hover:decoration-gray-300"
     {...props}
   >
     {children}
@@ -60,12 +60,7 @@ export const H3 = ({
 );
 
 export const P = ({ children, className = '' }: TypographyProps) => (
-  <p
-    className={clsx(
-      'font-sans text-base sm:text-lg text-gray-400  mb-6 leading-[1.8]',
-      className
-    )}
-  >
+  <p className={clsx('text-base md:text-lg  mb-6 leading-loose', className)}>
     {children}
   </p>
 );
@@ -73,7 +68,7 @@ export const P = ({ children, className = '' }: TypographyProps) => (
 export const UL = ({ children, className = '' }: TypographyProps) => (
   <ul
     className={clsx(
-      'font-sf list-disc pl-8 space-y-4 text-[17px] text-gray-300 mb-6 leading-[1.8]',
+      'list-disc pl-6 space-y-2 text-base md:text-lg text-gray-300 mb-6',
       className
     )}
   >
@@ -84,7 +79,7 @@ export const UL = ({ children, className = '' }: TypographyProps) => (
 export const OL = ({ children, className = '' }: TypographyProps) => (
   <ol
     className={clsx(
-      'font-sf list-decimal pl-8 space-y-4 text-[17px] text-gray-300 mb-6 leading-[1.8]',
+      'list-decimal pl-6 space-y-3 text-base md:text-lg mb-6 leading-relaxed',
       className
     )}
   >
@@ -93,38 +88,14 @@ export const OL = ({ children, className = '' }: TypographyProps) => (
 );
 
 export const LI = ({ children, className = '' }: TypographyProps) => (
-  <li
-    className={clsx(
-      'font-sf text-[17px] text-gray-300 leading-[1.8] tracking-wide',
-      className
-    )}
-  >
+  <li className={clsx('text-base md:text-lg text-gray-300', className)}>
     {children}
   </li>
 );
 
-export const A = ({
-  children,
-  className = '',
-  href = '#',
-}: TypographyProps) => (
-  <a
-    href={href}
-    className={clsx(
-      'font-sf text-[17px] text-emerald-400 hover:text-emerald-300 transition-colors underline-offset-4 decoration-emerald-400/30 hover:decoration-emerald-300 underline',
-      className
-    )}
-  >
-    {children}
-  </a>
-);
-
 export const Strong = ({ children, className = '' }: TypographyProps) => (
   <strong
-    className={clsx(
-      'font-sf text-[17px] font-semibold text-gray-50',
-      className
-    )}
+    className={clsx('text-base md:text-lg font-bold text-white', className)}
   >
     {children}
   </strong>
@@ -133,7 +104,7 @@ export const Strong = ({ children, className = '' }: TypographyProps) => (
 export const BlockQuote = ({ children, className = '' }: TypographyProps) => (
   <blockquote
     className={clsx(
-      'font-sf pl-4 border-l-2 border-emerald-500/50 italic text-[17px] text-gray-300 my-6',
+      'pl-4 border-l-2 border-emerald-500/50 italic text-[17px] text-gray-300 my-6',
       className
     )}
   >
@@ -258,35 +229,24 @@ export const MDXComponents = {
   li: ({ children, ...props }: TypographyProps) => (
     <LI {...props}>{children}</LI>
   ),
-  // blockquote: ({ children, ...props }: TypographyProps) => (
-  //   <ScrollAnimation>
-  //     <Blockquote {...props}>{children}</Blockquote>
-  //   </ScrollAnimation>
-  // ),
   a: ({ href = '#', children, ...props }: TypographyProps) => (
-    <InlineScrollAnimation>
-      <A href={href} {...props}>
-        {children}
-      </A>
-    </InlineScrollAnimation>
+    <DimensionLink href={href} {...props}>
+      {children}
+    </DimensionLink>
   ),
   strong: ({ children }: { children: React.ReactNode }) => (
-    <strong className="font-bold text-white">{children}</strong>
+    <Strong>{children}</Strong>
   ),
   em: ({ children }: { children: React.ReactNode }) => (
-    <em className="italic text-white">{children}</em>
+    <em className="italic">{children}</em>
   ),
   Accent: ({ children, ...props }: TypographyProps) => (
-    <InlineScrollAnimation>
-      <Accent {...props}>{children}</Accent>
-    </InlineScrollAnimation>
+    <Accent {...props}>{children}</Accent>
   ),
   DimensionLink: ({ href = '#', children, ...props }: TypographyProps) => (
-    <InlineScrollAnimation>
-      <DimensionLink href={href} {...props}>
-        {children}
-      </DimensionLink>
-    </InlineScrollAnimation>
+    <DimensionLink href={href} {...props}>
+      {children}
+    </DimensionLink>
   ),
 };
 

@@ -163,7 +163,7 @@ export default function BlogPost({
 
             {/* Title */}
             <h1
-              className="font-sf text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-white leading-[1.15] tracking-tight mb-1 sm:mb-3"
+              className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-white leading-[1.15] tracking-tight mb-1 sm:mb-3"
               data-fade="3"
             >
               {frontMatter.title}
@@ -171,7 +171,7 @@ export default function BlogPost({
 
             {/* Excerpt */}
             <p
-              className="font-sf text-xs sm:text-sm md:text-base text-gray-400 leading-relaxed tracking-wide max-w-3xl"
+              className="text-xs sm:text-sm md:text-base leading-relaxed tracking-wide max-w-3xl"
               data-fade="4"
             >
               {frontMatter.excerpt}
@@ -220,9 +220,9 @@ export default function BlogPost({
 
           {/* Content Layout */}
           <span className="">
-            <div className="relative flex flex-col lg:flex-row gap-6 lg:gap-12">
+            <div className="relative flex flex-col lg:flex-row gap-6 lg:gap-10">
               {/* Main Article */}
-              <article className="flex-1">
+              <article className="flex-1 max-w-[1200px]">
                 {/* Article Content */}
                 <div
                   className={`prose prose-sm sm:prose-base lg:prose-lg prose-invert prose-headings:scroll-mt-24 prose-headings:font-bold prose-headings:tracking-tight prose-a:text-primary-400 prose-a:no-underline hover:prose-a:text-primary-300 prose-img:rounded-xl max-w-none`}
@@ -271,8 +271,8 @@ export default function BlogPost({
               </article>
 
               {/* Table of Contents Sidebar */}
-              <aside className="hidden lg:block w-[250px] ">
-                <div className="sticky top-24 rounded-xl border border-gray-800/50 backdrop-blur-sm">
+              <aside className="hidden lg:block w-[240px] shrink-0 ">
+                <div className="sticky top-24 rounded-xl  border border-gray-800/50">
                   <TableOfContents headings={headings} />
                 </div>
               </aside>

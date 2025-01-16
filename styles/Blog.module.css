@@ -174,10 +174,10 @@
   gap: 0.5rem;
 }
 
-.blogPost {
+/* .blogPost {
   flex: 1;
   max-width: calc(100% - 110px);
-}
+} */
 
 .postContent {
   /* Hapus pengaturan padding karena sudah diatur di globals.css */
@@ -246,7 +246,7 @@
   transition: all 0.3s ease;
 }
 
-@media (max-width: 1024px) {
+/* @media (max-width: 1024px) {
   .blogPost {
     max-width: 100%;
     padding-right: 0;
@@ -256,7 +256,7 @@
     flex-direction: column;
     gap: 2rem;
   }
-}
+} */
 
 .postHeader {
   margin-top: 0;

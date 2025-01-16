@@ -47,9 +47,9 @@ export default function TableOfContents({ headings }: TableOfContentsProps) {
 
   return (
     <nav className="p-4 lg:p-6">
-      <div className="flex items-center gap-2 mb-4">
-        <HiOutlineMenu className="w-4 h-4 text-emerald-500" />
-        <h2 className="text-sm font-medium">
+      <div className="flex items-center gap-2 mb-3">
+        {/* <HiOutlineMenu className="w-4 h-4 text-emerald-500" /> */}
+        <h2 className="text-base">
           <Accent>Table of Contents</Accent>
         </h2>
       </div>
@@ -74,9 +74,9 @@ export default function TableOfContents({ headings }: TableOfContentsProps) {
               }}
               className={`
                 block transition-all
-                hover:text-emerald-500
-                ${activeId === heading.id ? 'text-emerald-600' : 'text-gray-500'}
-                ${heading.level === 2 ? 'font-medium' : 'font-normal'}
+                hover:text-white
+                ${activeId === heading.id ? 'text-white' : 'text-gray-500'}
+                ${heading.level === 2 ? '' : ''}
               `}
             >
               <span className="line-clamp-2">{heading.title}</span>
