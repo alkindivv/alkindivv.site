@@ -216,7 +216,7 @@ export async function getPostBySlug(category: string, slug: string) {
         rehypePlugins: [
           rehypeSlug,
           [
-            rehypePrettyCode,
+            rehypePrettyCode as any,
             {
               theme: 'one-dark-pro',
               onVisitLine(node: any) {
