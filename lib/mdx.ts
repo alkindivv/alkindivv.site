@@ -6,6 +6,7 @@ import readingTime from 'reading-time';
 import { serialize } from 'next-mdx-remote/serialize';
 import remarkGfm from 'remark-gfm';
 import rehypeSlug from 'rehype-slug';
+import rehypePrettyCode from 'rehype-pretty-code';
 
 const BLOG_DIR = path.join(process.cwd(), 'content/blog');
 
@@ -212,7 +213,31 @@ export async function getPostBySlug(category: string, slug: string) {
     const mdxSource = await serialize(content, {
       mdxOptions: {
         remarkPlugins: [remarkGfm],
-        rehypePlugins: [rehypeSlug],
+        rehypePlugins: [
+          rehypeSlug,
+          [
+            rehypePrettyCode,
+            {
+              theme: 'one-dark-pro',
+              onVisitLine(node: any) {
+                if (node.children.length === 0) {
+                  node.children = [
+                    {
+                      type: 'text',
+                      value: ' ',
+                    },
+                  ];
+                }
+              },
+              onVisitHighlightedLine(node: any) {
+                node.properties.className.push('highlighted');
+              },
+              onVisitHighlightedWord(node: any) {
+                node.properties.className = ['word'];
+              },
+            },
+          ],
+        ],
       },
       parseFrontmatter: true,
       scope: frontMatter,

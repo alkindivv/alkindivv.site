@@ -63,7 +63,7 @@ export default function TableOfContents({ headings }: TableOfContentsProps) {
   ];
 
   return (
-    <nav className="w-[180px] hidden sm:block shrink-0 sticky top-24">
+    <nav className="w-[180px] hidden sm:block shrink-0 text-left sticky top-24">
       <ul className="space-y-3 text-sm">
         {allHeadings.map((heading) => (
           <li

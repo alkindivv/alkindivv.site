@@ -155,14 +155,18 @@ export default function BlogPost({
           {/* Title Section */}
           <div className="mb-8 sm:mb-12 -mt-20 relative z-10">
             {/* Category Tag */}
-            <div className="mb-2" data-fade="2">
+            {/* Breadcrumb */}
+            <div className="mb-1" data-fade="2">
+              <Breadcrumb items={breadcrumbItems} />
+            </div>
+            {/* <div className="mb-2" data-fade="2">
               <Link
                 href={`/blog/${frontMatter.category.toLowerCase()}`}
                 className="inline-block py-1.5 px-4 text-sm tracking-wider text-emerald-300 bg-emerald-900/30 hover:bg-emerald-900/50 rounded-full transition-colors"
               >
                 {frontMatter.category.toLowerCase()}
               </Link>
-            </div>
+            </div> */}
 
             {/* Title */}
             <h1
@@ -174,7 +178,7 @@ export default function BlogPost({
 
             {/* Excerpt */}
             <p
-              className="text-[0.825rem] font-paragraf leading-relaxed tracking-wide text-[#A3A3A3] max-w-3xl"
+              className="text-[0.825rem] md:text-[0.925rem] font-paragraf leading-relaxed tracking-wide text-[#A3A3A3] max-w-3xl"
               data-fade="4"
             >
               {frontMatter.excerpt}
@@ -182,7 +186,10 @@ export default function BlogPost({
           </div>
 
           {/* Author Info & Stats */}
-          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between py-2 sm:py-4 mb-8 sm:mb-4 border-y border-gray-800/50 gap-4">
+          <div
+            className="flex flex-col sm:flex-row sm:items-center sm:justify-between py-2 sm:py-4 mb-8 sm:mb-4 border-y border-gray-800/50 gap-4"
+            data-fade="5"
+          >
             {/* Author & Date */}
             <div className="flex items-center gap-4">
               <div className="relative w-12 h-12 overflow-hidden rounded-full ring-2 ring-emerald-500/30">
@@ -204,7 +211,10 @@ export default function BlogPost({
             </div>
 
             {/* Stats */}
-            <div className="flex items-center gap-6 text-xs sm:text-sm font-paragraf text-[#A3A3A3]">
+            <div
+              className="flex items-center gap-6 text-xs sm:text-sm font-paragraf text-[#A3A3A3]"
+              data-fade="5"
+            >
               <span className="flex items-center gap-2">
                 <FaEye className="w-4 h-4" />
                 {views} views
@@ -216,24 +226,23 @@ export default function BlogPost({
             </div>
           </div>
 
-          {/* Breadcrumb */}
-          <div className="mb-8" data-fade="7">
-            <Breadcrumb items={breadcrumbItems} />
-          </div>
-
           {/* Content Layout */}
-          <div className="relative flex flex-col-reverse lg:flex-row gap-8 lg:gap-12">
+          <div
+            className="relative flex flex-col-reverse lg:flex-row gap-8 lg:gap-12"
+            data-fade="8"
+          >
             {/* Main Article */}
             <article className="flex-1 max-w-[1200px]">
               {/* Article Content */}
               <div
                 className={`prose prose-lg prose-invert
-                  prose-headings:scroll-mt-24
-                  prose-headings:font-semibold
+                                    prose-headings:scroll-mt-24
+
+                   prose-a:no-underline
 
 
-                  prose-img:rounded-xl
-                  prose-img:shadow-lg
+
+
                   max-w-none`}
                 ref={articleContentRef}
               >

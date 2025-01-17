@@ -2,10 +2,11 @@ import React, { useEffect, useRef } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import clsx from 'clsx';
-import DimensionLink from './mdx/DimensionLink';
+import DimensionLink from '@/components/common/DimensionLink';
 import AccentNormal from '@/components/shared/AccentNormal';
 import styles from '@/styles/Blog.module.css';
 import Accent from '@/components/shared/Accent';
+
 // Typography Components
 interface TypographyProps {
   children: React.ReactNode;
@@ -25,51 +26,6 @@ export const H1 = ({ children, className = '' }: TypographyProps) => (
   </h1>
 );
 
-// export const H2 = ({
-//   id,
-//   children,
-//   ...props
-// }: {
-//   id?: string;
-//   children: React.ReactNode;
-// }) => (
-//   <h2
-//     id={id}
-//     className="text-2xl md:text-3xl lg:text-4xl font-semibold text-white scroll-mt-20 mb-8 relative leading-normal tracking-normal"
-//     {...props}
-//   >
-//     {children}
-//   </h2>
-// );
-
-// export const H3 = ({
-//   id,
-//   children,
-//   ...props
-// }: {
-//   id?: string;
-//   children: React.ReactNode;
-// }) => (
-//   <h3
-//     id={id}
-//     className="text-xl md:text-2xl lg:text-3xl font-medium text-gray-200 scroll-mt-20 mb-6 relative leading-tight"
-//     {...props}
-//   >
-//     {children}
-//   </h3>
-// );
-
-// export const P = ({ children, className = '' }: TypographyProps) => (
-//   <p
-//     className={clsx(
-//       'text-base md:text-lg text-gray-400 mb-6 leading-loose tracking-wide',
-//       className
-//     )}
-//   >
-//     {children}
-//   </p>
-// );
-
 export const H2 = ({
   id,
   children,
@@ -80,7 +36,7 @@ export const H2 = ({
 }) => (
   <h2
     id={id}
-    className="text-[1.5rem] font-semibold text-[#F5F5F5] scroll-mt-20 mb-8 relative leading-tight tracking-normal"
+    className="text-[1.25rem] text-[#E5E7EB] font-semibold scroll-mt-20 mb-6 relative leading-relaxed tracking-wide"
     {...props}
   >
     {children}
@@ -97,7 +53,7 @@ export const H3 = ({
 }) => (
   <h3
     id={id}
-    className="text-[1.25rem] text-[#F5F5F5] font-semibold scroll-mt-20 mb-6 relative leading-tight"
+    className="text-[1.25rem] text-[#E5E7EB] font-semibold scroll-mt-20 mb-6 relative leading-tight"
     {...props}
   >
     {children}
@@ -107,7 +63,7 @@ export const H3 = ({
 export const P = ({ children, className = '' }: TypographyProps) => (
   <p
     className={clsx(
-      'text-[1rem] text-[#A3A3A3] mb-6 leading-relaxed font-["system-ui"]',
+      'leading-loose text-[0.95rem] md:text-[1.05rem] text-[#979ca7] mb-6 font-[system-ui]',
       className
     )}
   >
@@ -118,7 +74,7 @@ export const P = ({ children, className = '' }: TypographyProps) => (
 export const UL = ({ children, className = '' }: TypographyProps) => (
   <ul
     className={clsx(
-      'list-none pl-6 space-y-3 text-[1rem] text-[#A3A3A3] mb-6',
+      'list-none pl-6 space-y-3 text-[1rem] text-[#979ca7] mb-6',
       className
     )}
   >
@@ -129,7 +85,7 @@ export const UL = ({ children, className = '' }: TypographyProps) => (
 export const OL = ({ children, className = '' }: TypographyProps) => (
   <ol
     className={clsx(
-      'list-decimal pl-6 space-y-4 text-[1rem] mb-6 leading-relaxed marker:text-emerald-500/70',
+      'list-decimal pl-6 space-y-4 text-[1rem] mb-6 leading-relaxed marker:text-[#979ca7]',
       className
     )}
   >
@@ -140,7 +96,7 @@ export const OL = ({ children, className = '' }: TypographyProps) => (
 export const LI = ({ children, className = '' }: TypographyProps) => (
   <li
     className={clsx(
-      'text-[1rem] text-[#A3A3A3] leading-relaxed pl-6 relative before:content-[""] before:absolute before:left-0 before:top-[0.6em] before:w-2 before:h-2 before:bg-emerald-500/30 before:rounded-full',
+      'text-[1rem] text-[#979ca7] leading-relaxed pl-4 relative before:content-[""] before:absolute before:left-0 before:top-[0.6em] before:w-1 before:h-1 before:bg-[#747881] before:rounded-full',
       className
     )}
   >
@@ -171,7 +127,6 @@ export const Introduction = ({
   ...props
 }: TypographyProps) => (
   <section className="mb-10">
-    {/* <h2 */}
     <div
       id="introduction"
       className="text-xl md:text-2xl lg:text-3xl font-semibold text-white scroll-mt-20 mb-4 relative"
@@ -179,7 +134,6 @@ export const Introduction = ({
     >
       Introduction
     </div>
-    {/* </h2> */}
     <div
       className={clsx(
         'text-[1.25rem] text-white leading-relaxed tracking-wide border-b border-gray-700/50',
@@ -190,9 +144,6 @@ export const Introduction = ({
     </div>
   </section>
 );
-
-// export const InlineScrollAnimation = ({ children }: { children: React.ReactNode }) => {
-//   const elementRef = useRef<HTMLDivElement>(null);
 
 const InlineScrollAnimation = ({ children }: { children: React.ReactNode }) => {
   const elementRef = useRef<HTMLSpanElement>(null);
@@ -287,6 +238,105 @@ const ScrollAnimation = ({ children }: { children: React.ReactNode }) => {
   );
 };
 
+export const CodeBlock = ({
+  children,
+  className = '',
+  title,
+}: {
+  children: React.ReactNode;
+  className?: string;
+  title?: string;
+}) => {
+  const language = className?.replace('language-', '');
+  const [isCopied, setIsCopied] = React.useState(false);
+
+  const getTextContent = (children: React.ReactNode): string => {
+    if (typeof children === 'string') return children;
+    if (Array.isArray(children)) {
+      return children.map((child) => getTextContent(child)).join('');
+    }
+    if (children && typeof children === 'object' && 'props' in children) {
+      return getTextContent(children.props.children);
+    }
+    return '';
+  };
+
+  const handleCopy = () => {
+    const text = getTextContent(children);
+    navigator.clipboard.writeText(text);
+    setIsCopied(true);
+    setTimeout(() => setIsCopied(false), 2000);
+  };
+
+  return (
+    <div className="relative my-6 group">
+      {title && (
+        <div className="absolute top-0 right-0 px-4 py-2 text-xs font-medium text-gray-400">
+          {title}
+        </div>
+      )}
+      <div className="absolute top-3 right-3 opacity-0 group-hover:opacity-100 transition-opacity">
+        <button
+          onClick={handleCopy}
+          className="p-2 text-xs text-gray-400 hover:text-white bg-gray-800 rounded-md flex items-center gap-1.5"
+        >
+          {isCopied ? (
+            <>
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                className="h-3.5 w-3.5 text-emerald-400"
+                stroke="currentColor"
+                strokeWidth={2}
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
+                <polyline points="20 6 9 17 4 12" />
+              </svg>
+              <span className="text-emerald-400">Copied</span>
+            </>
+          ) : (
+            <>
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                className="h-3.5 w-3.5"
+                stroke="currentColor"
+                strokeWidth={1.5}
+              >
+                <path d="M8 16c0 2.828 0 4.243.879 5.121C9.757 22 11.172 22 14 22h1c2.828 0 4.243 0 5.121-.879C21 20.243 21 18.828 21 16V8c0-2.828 0-4.243-.879-5.121C19.243 2 17.828 2 15 2h-1c-2.828 0-4.243 0-5.121.879C8 3.757 8 5.172 8 8" />
+                <path d="M8 19.5c-2.357 0-3.536 0-4.268-.732C3 18.035 3 16.857 3 14.5v-5c0-2.357 0-3.536.732-4.268C4.464 4.5 5.643 4.5 8 4.5" />
+              </svg>
+              <span>Copy</span>
+            </>
+          )}
+        </button>
+      </div>
+      <pre
+        className={clsx(
+          'overflow-x-auto rounded-lg bg-[#1b1b1f] p-4',
+          'border border-gray-800/40',
+          'text-[13.6px] leading-relaxed',
+          'scrollbar-thin scrollbar-track-gray-800/20 scrollbar-thumb-gray-800/40',
+          className
+        )}
+      >
+        <code
+          className={clsx('text-gray-300', language && `language-${language}`)}
+        >
+          {children}
+        </code>
+      </pre>
+    </div>
+  );
+};
+
+export const InlineCode = ({ children }: { children: React.ReactNode }) => (
+  <code className="px-1.5 py-0.5 text-[0.9em] bg-gray-800/50 text-gray-600 rounded-md font-mono">
+    {children}
+  </code>
+);
+
 // MDX Components
 export const MDXComponents = {
   h1: ({ children, ...props }: TypographyProps) => (
@@ -322,6 +372,22 @@ export const MDXComponents = {
   em: ({ children }: { children: React.ReactNode }) => (
     <em className="italic">{children}</em>
   ),
+  Image: ({ src, alt, width, height, ...props }: any) => (
+    <div className="relative w-full aspect-[1.88/1] mb-12 -mt-10 md:mb-12 md:-mt-14 group cursor-zoom-in">
+      <div className="absolute inset-0">
+        <Image
+          src={src}
+          alt={alt || ''}
+          fill
+          className="object-contain"
+          quality={100}
+          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw"
+          priority
+          {...props}
+        />
+      </div>
+    </div>
+  ),
   Accent: ({ children, ...props }: TypographyProps) => (
     <Accent {...props}>{children}</Accent>
   ),
@@ -335,15 +401,12 @@ export const MDXComponents = {
       {children}
     </Introduction>
   ),
+  pre: ({ children, ...props }: { children: React.ReactNode }) => {
+    if (typeof children === 'object' && children && 'type' in children) {
+      return children;
+    }
+    return <pre {...props}>{children}</pre>;
+  },
+  code: CodeBlock,
+  inlineCode: InlineCode,
 };
-
-// Main Blog Content Component
-// const BlogContent: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-//   return (
-//     <article className="prose prose-lg dark:prose-dark max-w-[900px] prose-headings:text-white prose-strong:text-white prose-em:text-white">
-//       {children}
-//     </article>
-//   );
-// };
-
-// export default BlogContent;

@@ -60,14 +60,6 @@ export default function HomePage() {
             bankruptcy, and crypto assets. I enjoy exploring the intersection of
             law and technology to address complex challenges and share my
             thoughts through blog writing on this website.
-            <br />
-            <br />
-            Though I can't say it isn't expensive, I feel this purchase is well
-            justified since it has brought me thousands of percent in{' '}
-            <DimensionLink href="https://www.google.com">
-              returns
-            </DimensionLink>{' '}
-            as it supports my work.
           </p>
         </div>
         {/* Guestbook text */}

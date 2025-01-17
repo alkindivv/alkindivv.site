@@ -134,12 +134,12 @@ export default function Header() {
             'border-emerald-500/20',
             'bg-[#111111]',
           ],
-          'w-fit px-8',
+          'w-fit px-6',
           'relative overflow-hidden'
         )}
       >
         <div className="h-full relative">
-          <ul className="h-full flex items-center justify-center gap-6">
+          <ul className="h-full flex items-center justify-center gap-5">
             {navItems.slice(0, 4).map((item) => {
               const isActive =
                 item.href === '/'
@@ -151,9 +151,9 @@ export default function Header() {
                   <Link
                     href={item.href}
                     className={clsx(
-                      'relative flex items-center justify-center gap-2',
-                      'px-1.5 py-1.5 rounded-xl',
-                      'text-sm font-medium',
+                      'relative flex items-center justify-center gap-1.5',
+                      'px-2 py-1.5 rounded-xl',
+                      'text-[0.925rem] font-medium',
                       'transition-all duration-300 ease-out',
                       'hover:bg-emerald-500/5',
                       'group',
@@ -165,8 +165,8 @@ export default function Header() {
                     <div className="relative">
                       <item.icon
                         className={clsx(
-                          'w-4 h-4',
-                          'transition-all duration-300',
+                          'w-[1.1rem] h-[1.1rem]',
+                          'transition-transform duration-300',
                           'group-hover:scale-110',
                           isActive && [
                             'text-emerald-400',
@@ -177,7 +177,7 @@ export default function Header() {
                       {isActive && (
                         <div
                           className={clsx(
-                            'absolute -bottom-1 left-1/2 w-1 h-1',
+                            'absolute -bottom-[0.15rem] left-1/2 w-1 h-1',
                             'bg-emerald-400',
                             'rounded-full transform -translate-x-1/2',
                             'transition-all duration-300',
@@ -199,7 +199,7 @@ export default function Header() {
                       {isActive && (
                         <span
                           className={clsx(
-                            'absolute -bottom-0.5 left-0 w-full h-0.5',
+                            'absolute -bottom-0.5 left-0 w-full h-[0.1rem]',
                             'bg-gradient-to-r from-emerald-500/50 via-emerald-400/50 to-emerald-500/50',
                             'rounded-full transform scale-x-0 group-hover:scale-x-100',
                             'transition-transform duration-300',
@@ -221,11 +221,11 @@ export default function Header() {
         <button
           onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
           className={clsx(
-            'flex items-center justify-center w-12 h-12',
+            'flex items-center justify-center w-11 h-11',
             'rounded-xl',
             'bg-[#111111]/90 backdrop-blur-xl',
             'border border-gray-800/20',
-            'transition-all duration-500',
+            'transition-all duration-300',
             'hover:scale-105',
             'hover:shadow-lg hover:shadow-emerald-500/10',
             'active:scale-95',
@@ -233,71 +233,59 @@ export default function Header() {
             isMobileMenuOpen && ['bg-[#111111]', 'border-emerald-500/20']
           )}
         >
-          <div className="relative w-7 h-7">
+          <div className="relative w-6 h-6">
             {/* Hamburger Icon */}
             <div className="absolute inset-0 flex flex-col items-center justify-center gap-1.5">
               {/* Top line */}
               <span
                 className={clsx(
-                  'h-0.5 rounded-full',
-                  'transform transition-all duration-500 ease-in-out',
+                  'h-[0.1rem] rounded-full',
+                  'transform transition-all duration-300 ease-in-out',
                   'bg-gradient-to-r from-gray-400 via-emerald-400 to-gray-400',
                   'group-hover:from-emerald-400 group-hover:via-emerald-300 group-hover:to-emerald-400',
-                  isMobileMenuOpen ? 'w-0 rotate-[360deg] translate-y-2' : 'w-6'
+                  isMobileMenuOpen ? 'w-0 rotate-[360deg] translate-y-2' : 'w-5'
                 )}
               />
               {/* Middle line */}
               <span
                 className={clsx(
-                  'h-0.5 rounded-full',
+                  'h-[0.1rem] rounded-full',
                   'transform transition-all duration-300 ease-in-out',
                   'bg-gradient-to-r from-gray-400 via-emerald-400 to-gray-400',
                   'group-hover:from-emerald-400 group-hover:via-emerald-300 group-hover:to-emerald-400',
-                  isMobileMenuOpen ? 'w-6 rotate-45' : 'w-4'
+                  isMobileMenuOpen ? 'w-0' : 'w-4'
                 )}
               />
               {/* Bottom line */}
               <span
                 className={clsx(
-                  'h-0.5 rounded-full',
-                  'transform transition-all duration-500 ease-in-out',
+                  'h-[0.1rem] rounded-full',
+                  'transform transition-all duration-300 ease-in-out',
                   'bg-gradient-to-r from-gray-400 via-emerald-400 to-gray-400',
                   'group-hover:from-emerald-400 group-hover:via-emerald-300 group-hover:to-emerald-400',
-                  isMobileMenuOpen ? 'w-6 -rotate-45 -translate-y-2' : 'w-5'
+                  isMobileMenuOpen
+                    ? 'w-0 -rotate-[360deg] -translate-y-2'
+                    : 'w-5'
                 )}
               />
             </div>
-
-            {/* Close Icon Overlay */}
+            {/* Close Icon */}
             <div
               className={clsx(
                 'absolute inset-0 flex items-center justify-center',
-                'transition-all duration-500 ease-in-out',
-                isMobileMenuOpen
-                  ? 'opacity-100 rotate-180 scale-100'
-                  : 'opacity-0 rotate-90 scale-50'
+                'transition-opacity duration-300',
+                isMobileMenuOpen ? 'opacity-100' : 'opacity-0'
               )}
             >
-              <div className="relative w-6 h-6">
-                <span
-                  className={clsx(
-                    'absolute top-1/2 left-1/2 w-6 h-0.5 -translate-x-1/2 -translate-y-1/2',
-                    'bg-gradient-to-r from-emerald-400 via-emerald-300 to-emerald-400',
-                    'rounded-full transform rotate-45',
-                    'transition-all duration-300 ease-in-out',
-                    'group-hover:scale-110'
-                  )}
-                />
-                <span
-                  className={clsx(
-                    'absolute top-1/2 left-1/2 w-6 h-0.5 -translate-x-1/2 -translate-y-1/2',
-                    'bg-gradient-to-r from-emerald-400 via-emerald-300 to-emerald-400',
-                    'rounded-full transform -rotate-45',
-                    'transition-all duration-300 ease-in-out',
-                    'group-hover:scale-110'
-                  )}
-                />
-              </div>
+              <HiX
+                className={clsx(
+                  'w-6 h-6',
+                  'text-emerald-400',
+                  'transform transition-all duration-300',
+                  'group-hover:scale-110',
+                  'group-hover:rotate-90'
+                )}
+              />
             </div>
           </div>
         </button>
