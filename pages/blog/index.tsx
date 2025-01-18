@@ -159,10 +159,10 @@ const BlogPage: React.FC<BlogPageProps> = ({ blogPosts }) => {
       >
         {/* Header Section */}
         <div className="mt-24" data-fade="1">
-          <h1 className="font-sans mb-2 text-3xl md:text-4xl 2xl:text-5xl font-bold tracking-tight">
-            Personal <Accent>Blog</Accent>
+          <h1 className="font-sans text-center mb-2 text-3xl md:text-4xl 2xl:text-5xl font-bold tracking-tight">
+            Personal <span className="gradient-text">Blog</span>
           </h1>
-          <p className="text-sm md:text-base 2xl:text-lg font-light text-gray-400">
+          <p className="hero-text text-center">
             Thoughts, insights, and knowledge about law, technology, and crypto
             assets.
           </p>
@@ -222,7 +222,7 @@ const BlogPage: React.FC<BlogPageProps> = ({ blogPosts }) => {
                 setSelectedCategory(e.target.value);
                 setCurrentPage(1);
               }}
-              className="w-full bg-transparent text-sm text-gray-300 border border-gray-600
+              className="w-full bg-transparent text-sm text-gray-300 border-gradient
                 rounded-md pl-3 pr-10 py-2 outline-none focus:border-emerald-500
                 appearance-none cursor-pointer transition-colors"
             >

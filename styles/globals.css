@@ -22,9 +22,9 @@
   --color-list: #e2e8f0;
 
   --color-border: #374151;
-  --color-background: #111111;
+  --color-background: #0a0a0a;
   --color-hover: #1f1f1f;
-  --link-gradient: linear-gradient(45deg, #08c488 0%, #59fbbf 100%);
+  --link-gradient: linear-gradient(360deg, #08c488 50%, #59fbbf 100%);
   --link-gradient-button: linear-gradient(45deg, #08c488 25%, #59fbbf 100%);
   --link-gradient-normal: linear-gradient(45deg, #59fbbf 0%, #59fbbf 100%);
 
@@ -108,11 +108,11 @@ html {
   /* display: inline-block; */
   padding: 0.5rem 0.5rem;
 
-  border-radius: 0.2rem;
+  /* border-radius: 0.2rem; */
   border: 1px solid var(--color-border);
   overflow: hidden;
   /* transition: all 0.3s ease; */
-  border: 1px solid var(--color-border);
+  /* border: 1px solid var(--color-border); */
   /* box-shadow: 0px 0px 15px 0px rgb(151, 243, 128); */
 }
 
@@ -163,6 +163,7 @@ html {
   position: relative;
   text-decoration: none;
   background: var(--link-gradient);
+
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
@@ -332,4 +333,133 @@ blockquote {
   padding-left: 1rem;
   margin: 1.5rem 0;
   font-style: italic;
+}
+
+@layer base {
+  p {
+    @apply font-paragraf leading-loose text-base md:text-lg text-[#9C9C9C];
+  }
+
+  h1 {
+    @apply font-sans text-[1.875rem] md:text-[2.25rem] font-semibold text-white leading-tight;
+  }
+
+  h2 {
+    @apply font-sans text-[1.5rem] md:text-[1.875rem] font-semibold text-white leading-tight;
+  }
+
+  h3 {
+    @apply font-sans text-[1.25rem] md:text-[1.5rem] font-medium text-white leading-snug;
+  }
+
+  strong {
+    @apply font-semibold text-white;
+  }
+}
+
+@layer components {
+  .paragraph-text {
+    @apply font-paragraf leading-loose text-[0.9rem] md:text-[1rem] text-[#9C9C9C];
+  }
+
+  .excerpt {
+    @apply font-paragraf leading-relaxed text-[0.925rem] md:text-[1.025rem] text-[#9C9C9C];
+  }
+
+  .h1 {
+    @apply font-sans text-[1.875rem] md:text-[2.25rem] font-semibold text-white leading-tight;
+  }
+
+  .h2 {
+    @apply font-sans text-[1.5rem] md:text-[1.875rem] font-semibold text-white leading-tight;
+  }
+
+  .h3 {
+    @apply font-sans text-[1.25rem] md:text-[1.5rem] font-medium text-white leading-snug;
+  }
+
+  .b1 {
+    @apply font-paragraf text-[0.8rem] md:text-[0.9rem] text-[#9C9C9C] leading-relaxed;
+  }
+
+  .c1 {
+    @apply font-paragraf text-[0.75rem] md:text-[0.85rem] text-[#9C9C9C] leading-normal;
+  }
+}
+
+.hero-text {
+  font-size: 1rem;
+  line-height: 1.2;
+  font-weight: 400;
+  letter-spacing: -0.02em;
+  background: linear-gradient(
+    to right,
+    rgb(44, 43, 43) 0%,
+    rgb(229, 225, 225) 50%,
+    rgb(44, 43, 43) 100%
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  transition-property: color;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 150ms;
+}
+
+@media (max-width: 768px) {
+  .hero-text {
+    font-size: 2rem;
+    line-height: 1.3;
+  }
+}
+
+.gradient-border {
+  position: relative;
+  isolation: isolate;
+  border-radius: 0.75rem;
+  border: 1px solid transparent;
+  background-color: rgba(17, 17, 17, 0.3);
+}
+
+.gradient-border::before {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  /* border-radius: 0.75rem; */
+  padding: 1px;
+  background: linear-gradient(
+    to bottom right,
+    rgba(6, 78, 59, 0.7) 0%,
+    rgb(16, 185, 129) 62%,
+    rgba(6, 78, 59, 0.7) 100%
+  );
+  -webkit-mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  opacity: 0.6;
+  transition: opacity 0.2s;
+}
+
+.gradient-border:hover::before {
+  opacity: 0.8;
+}
+
+.gradient-text {
+  background: linear-gradient(
+    to bottom right,
+    #04855c 0%,
+    #59fbbf 50%,
+    #04855c 100%
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  transition-property: color;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 150ms;
 }

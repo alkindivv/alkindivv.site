@@ -8,6 +8,7 @@ module.exports = {
     extend: {
       fontFamily: {
         sans: [
+          'var(--font-sans)',
           'ui-sans-serif',
           'system-ui',
           'sans-serif',
@@ -16,6 +17,7 @@ module.exports = {
           'Segoe UI Symbol',
           'Noto Color Emoji',
         ],
+        paragraf: ['system-ui', 'ui-sans-serif', 'sans-serif'],
       },
       colors: {
         primary: '#059669',

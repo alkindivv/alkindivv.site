@@ -63,8 +63,8 @@ export default function TableOfContents({ headings }: TableOfContentsProps) {
   ];
 
   return (
-    <nav className="w-[180px] hidden sm:block shrink-0 text-left sticky top-24">
-      <ul className="space-y-3 text-sm">
+    <nav className="w-[240px] hidden sm:block border border-[#2323219b] rounded-lg p-4 shrink-0 text-left sticky top-24">
+      <ul className="space-y-3 text-[0.8rem]">
         {allHeadings.map((heading) => (
           <li
             key={heading.id}
@@ -85,8 +85,8 @@ export default function TableOfContents({ headings }: TableOfContentsProps) {
               className={`
                 group relative flex
                 hover:text-white
-                ${activeId === heading.id ? 'font-medium text-white' : 'text-gray-600'}
-                ${heading.level === 2 ? 'text-sm' : ' text-sm'}
+                ${activeId === heading.id ? ' text-white' : 'text-[#525252]'}
+                ${heading.level === 2 ? 'text-[0.8rem]' : ' text-[0.8rem]'}
               `}
             >
               <span

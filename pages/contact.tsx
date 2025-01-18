@@ -100,7 +100,7 @@ const ContactPage = () => {
           <div className="max-w-6xl mx-auto relative z-10">
             <div className="mx-auto text-center" data-fade="2">
               <h1 className="mb-1 text-left md:text-center 2xl:text-centre text-3xl md:text-4xl 2xl:text-5xl font-bold tracking-tight">
-                Let&apos;s <Accent>Connect</Accent>
+                Let's <span className="gradient-text">Connect</span>
               </h1>
               <p
                 className="text-left md:text-center 2xl:text-left text-sm md:text-base 2xl:text-lg font-light text-gray-400"

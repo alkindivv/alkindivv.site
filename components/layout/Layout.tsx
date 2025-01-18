@@ -51,7 +51,7 @@ const Layout: React.FC<LayoutProps> = ({
   }, [router]);
 
   return (
-    <div className="min-h-screen bg-[#111111]">
+    <div className="min-h-screen bg-[#0a0a0a]">
       <Head>
         <title>{title}</title>
         <meta

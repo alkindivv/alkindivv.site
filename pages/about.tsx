@@ -35,9 +35,9 @@ const AboutPage = () => {
         {/* Header Section */}
         <div className="mt-24 relative" data-fade="1">
           <h1 className="mb-2 text-3xl md:text-4xl 2xl:text-5xl font-bold tracking-tight">
-            About <Accent>Me</Accent>
+            About <span className="gradient-text">Me</span>
           </h1>
-          <p className="text-sm md:text-base 2xl:text-lg font-light leading-relaxed">
+          <p className="text-[0.95rem] md:text-[1.05rem] leading-relaxed">
             Learn more about my background, interests, and experiences.
           </p>
         </div>
@@ -55,44 +55,27 @@ const AboutPage = () => {
                 priority
               />
             </div>
-            {/* <div
-              className="flex justify-center md:justify-start gap-4 mt-6"
-              data-fade="3"
-            >
-              <Link href="/contact" className="gradient-button">
-                Contact Me
-              </Link>
-              <DimensionLink
-                href="https://www.fiverr.com/s/5r5xxG6"
-                className="no-gradient-button"
-              >
-                Hire on Fiverr
-              </DimensionLink>
-            </div> */}
           </div>
 
           {/* Text Content - Will flow around the image */}
           <div className="prose prose-invert max-w-none">
             <h2 className="text-2xl font-bold md:text-3xl mb-2">
-              Hi, I'm <Accent>AL KINDI</Accent>
+              Hi, I'm <span className="gradient-text">AL KINDI</span>
             </h2>
             <p
-              className="text-justify text-sm md:text-base 2xl:text-lg leading-relaxed "
+              className="text-justify paragraph-text leading-relaxed"
               data-fade="2"
             >
               a law graduate with a passion for writing and sharing knowledge. I
-              focus on exploring and analyzing legal topics such as{' '}
-              <AccentNormal>
-                capital markets & securities, mergers and acquisitions (M&A),
-                bankruptcy & insolvency,
-              </AccentNormal>{' '}
-              and the{' '}
+              focus on exploring and analyzing legal topics such as capital
+              markets & securities, mergers and acquisitions (M&A), bankruptcy &
+              insolvency, and the{' '}
               <AccentNormal>legal aspects of crypto assets</AccentNormal> in
               Indonesia.
             </p>
 
             <p
-              className="text-justify leading-relaxed text-sm md:text-base 2xl:text-lg font-light"
+              className="text-justify leading-relaxed paragraph-text"
               data-fade="3"
             >
               In my legal journey, I have completed the Pendidikan Khusus
@@ -454,7 +437,7 @@ const AboutPage = () => {
                   <ul className="space-y-2 text-gray-400 list-disc list-inside">
                     {Array.isArray(item.description) ? (
                       item.description.map((desc, i) => (
-                        <li key={i} className="text-gray-400">
+                        <li key={i} className="font-paragraf">
                           {desc}
                         </li>
                       ))

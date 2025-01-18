@@ -36,23 +36,14 @@ export default function HomePage() {
         {/* You can call me AL KINDI */}
         <div className="relative order-2" data-fade="2">
           <div className="text-3xl mb-2 md:text-4xl 2xl:text-5xl font-bold tracking-tight">
-            You can call me <Accent className="inline-block">AL KINDI</Accent>
+            You can call me <Accent className="gradient-text">AL KINDI</Accent>
           </div>
           {/* <div className="text-[11px] text-gray-300/60 font-light mt-1 mb-2 tracking-widest ">
             Known as <Accent className="inline-block">alkindivv</Accent> in the
             digital space
           </div> */}
         </div>
-        {/* Front-end Engineer text */}
-        <div className="relative order-3" data-fade="3">
-          <p className=" font-light text-sm md:text-base 2xl:text-lg text-gray-400 mb-4 md:mb-4 leading-relaxed">
-            <span className="inline-block">
-              <AccentNormal>Junior or Trainee Associate</AccentNormal>
-            </span>
-            {/* at{' '}
-            <DimensionLink href="#">Law Firm</DimensionLink> */}
-          </p>
-        </div>
+
         {/* Main paragraph */}
         <div className="relative order-4" data-fade="4">
           <p className=" leading-relaxed text-sm md:text-base 2xl:text-lg mb-4 md:mb-6 max-w-[800px]">
@@ -74,13 +65,13 @@ export default function HomePage() {
           <div className="flex gap-3 md:gap-4 mb-4 md:mb-4 2xl:mb-6">
             <Link
               href="/blog"
-              className="gradient-button font-semibold text-sm md:text-base 2xl:text-lg  px-3 md:px-3 py-1.5 md:py-2.5"
+              className="gradient-border font-semibold text-sm md:text-base 2xl:text-lg  px-3 md:px-3 py-1.5 md:py-2.5"
             >
               Read the blog
             </Link>
             <Link
               href="/about"
-              className="no-gradient-button font-semibold text-sm md:text-base 2xl:text-lg px-3 md:px-3 py-1.5 md:py-2.5"
+              className=" no-gradient-button font-semibold text-sm md:text-base 2xl:text-lg px-3 md:px-3 py-1.5 md:py-2.5"
             >
               Learn more about me
             </Link>
