@@ -7,6 +7,84 @@ import clsx from 'clsx';
 import DimensionLink from '@/components/common/DimensionLink';
 import Link from 'next/link';
 import AccentNormal from '@/components/shared/AccentNormal';
+
+// Data definitions
+const experiences = [
+  {
+    date: 'Nov 2023 — Present',
+    title: 'Trainee Associate',
+    company: 'Law Firm RR & Partners',
+    location: 'Jakarta, Indonesia',
+    description:
+      'Assisting in legal research, document drafting, and case analysis for various corporate and commercial matters. Focusing on capital market regulations, M&A transactions, and technology law.',
+    achievements: [
+      'Led multiple legal research projects on capital market regulations and fintech compliance',
+      'Drafted and reviewed various legal documents including contracts, memoranda, and legal opinions',
+      'Assisted in due diligence processes for M&A transactions',
+      'Conducted analysis on regulatory frameworks for crypto assets and blockchain technology',
+    ],
+    tags: [
+      'Legal Research',
+      'Document Drafting',
+      'Corporate Law',
+      'Capital Markets',
+    ],
+  },
+  {
+    date: 'Jan 2023 - Oct 2023',
+    title: 'Legal Research Assistant',
+    company: 'Technology Law Research Center',
+    description:
+      'Conducted comprehensive research on blockchain technology regulations, crypto assets, and their legal implications in Indonesia. Published several articles on legal tech innovation.',
+    tags: ['Legal Tech', 'Blockchain Law', 'Research', 'Publications'],
+  },
+  {
+    date: 'Jun 2022 - Dec 2022',
+    title: 'Legal Intern',
+    company: 'Corporate Law Firm',
+    description:
+      'Gained practical experience in corporate legal matters, including contract review, due diligence, and regulatory compliance. Assisted in preparing legal opinions and memoranda.',
+    tags: ['Corporate Law', 'Due Diligence', 'Contract Review', 'Compliance'],
+  },
+];
+
+const certifications = [
+  {
+    title: 'Capital Market Professional Basic 1',
+    issuer: 'Himpunan Konsultan Hukum Sektor Keuangan',
+    date: 'Not Yet',
+    link: 'https://fhp-edulaw.com/ppkhpm/',
+  },
+  {
+    title: 'Capital Market Professional Basic 2',
+    issuer: 'Himpunan Konsultan Hukum Sektor Keuangan',
+    date: 'Not Yet',
+    link: 'https://fhp-edulaw.com/ppkhpm/',
+  },
+  {
+    title: 'Certified Legal Auditor',
+    issuer: 'Asosiasi Auditor Hukum Indonesia',
+    date: 'Not Yet',
+    link: 'https://www.jimlyschool.com/diklat/profesi-auditor-hukum-jslg-dan-asahi/',
+  },
+  {
+    title: 'Receiver & Administrator of Bankruptcy',
+    issuer: 'Asosiasi Kurator dan Pengurus Indonesia',
+    date: '2022',
+    link: 'http://www.pendaftaran-akpi.or.id/',
+  },
+];
+
+const education = {
+  degree: 'Bachelor of Law',
+  school: 'Universitas Islam Indonesia',
+  year: '2019 - 2023',
+  achievements: [
+    'Graduated with Cumlaude Predicate (GPA: 3.59)',
+    'Focus on Corporate Law and Technology Law',
+  ],
+};
+
 const AboutPage = () => {
   const [isLoaded, setIsLoaded] = useState(false);
 
@@ -34,39 +112,124 @@ const AboutPage = () => {
       >
         {/* Header Section */}
         <div className="mt-24 relative" data-fade="1">
-          <h1 className="mb-2 text-3xl md:text-4xl 2xl:text-5xl font-bold tracking-tight">
+          <h1 className="text-center font-sans text-[2rem] sm:text-[2.5rem] md:text-[3rem] lg:text-[3.5rem] font-bold tracking-tight leading-tight">
             About <span className="gradient-text">Me</span>
           </h1>
-          <p className="text-[0.95rem] md:text-[1.05rem] leading-relaxed">
-            Learn more about my background, interests, and experiences.
+          <p className="hero-text leading-relaxed text-center text-[0.95rem] md:text-[1.05rem]">
+            My background, interests, and experiences.
           </p>
         </div>
 
         {/* Profile Section */}
         <div className="mt-8 max-w-6xl mx-auto relative" data-fade="2">
-          {/* Photo and Buttons Column - Fixed Width */}
+          {/* Photo Stack */}
           <div className="md:float-left md:w-[300px] lg:w-[400px] md:mr-8 mb-6 md:mb-0">
-            <div className="relative w-full aspect-square rounded-2xl overflow-hidden shadow-xl transform hover:scale-[1.02] transition-transform duration-300">
-              <Image
-                src="/images/AL-KINDI.png"
-                alt="AL KINDI"
-                fill
-                className="object-cover"
-                priority
-              />
+            <div className="relative w-full aspect-square group">
+              {/* Background Stack Frames */}
+              <div className="absolute inset-0 -z-10">
+                {/* Third Frame (Bottom) */}
+                {/* <div className="absolute inset-0 bg-black p-6 pb-20 border border-neutral-800 rotate-[15deg] translate-y-6" /> */}
+                {/* Second Frame (Middle) - This will match the hover photo */}
+                <div className="absolute inset-0 bg-black p-6 pb-20 border border-neutral-800 rotate-[8deg] translate-y-3" />
+                {/* First Frame (Top) */}
+                {/* <div className="absolute inset-0 bg-black p-6 pb-20 border border-neutral-800 rotate-[-8deg] translate-y-1" /> */}
+              </div>
+
+              {/* Front Photo (Default) */}
+              <div
+                className="relative bg-black p-6 pb-20 border border-neutral-800 shadow-md group-hover:opacity-0 group-hover:z-0"
+                style={{
+                  transform: 'rotate(-4.99902deg)',
+                }}
+              >
+                <figure className="relative overflow-hidden select-none">
+                  <div className="relative pt-[100%]">
+                    <div className="absolute inset-0">
+                      <Image
+                        src="/images/AL-KINDI.png"
+                        alt="AL KINDI Primary"
+                        fill
+                        className="object-cover"
+                        priority
+                      />
+                    </div>
+                  </div>
+                </figure>
+
+                {/* Signature */}
+                <div className="absolute bottom-6 -right-10 group-hover:opacity-0">
+                  <svg
+                    width="214"
+                    height="30"
+                    viewBox="0 0 114 39"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                    className="text-white"
+                  >
+                    <text
+                      x="10"
+                      y="30"
+                      fill="currentColor"
+                      fontSize="20"
+                      fontFamily="Apple Homemade"
+                    >
+                      Al Kindi
+                    </text>
+                  </svg>
+                </div>
+              </div>
+
+              {/* Background Photo (Shows on Hover) */}
+              <div
+                className="absolute inset-0 bg-black p-6 pb-20 border-neutral-800 border opacity-0 group-hover:opacity-100"
+                style={{
+                  zIndex: 2,
+                  transform: 'rotate(8deg) translateY(3px)',
+                }}
+              >
+                <figure className="relative overflow-hidden select-none">
+                  <div className="relative pt-[100%]">
+                    <div className="absolute inset-0">
+                      <Image
+                        src="/images/ALKINDI-bag.png"
+                        alt="AL KINDI Secondary"
+                        fill
+                        className="object-cover"
+                        priority
+                      />
+                    </div>
+                  </div>
+                </figure>
+              </div>
+
+              {/* Decorative Arrow */}
+              <svg
+                width="102"
+                height="28"
+                viewBox="0 0 102 28"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+                className="absolute z-10 top-[40%] -left-8"
+              >
+                <path
+                  d="M100.5 14H1.5M1.5 14C1.5 14 8.5 7 8.5 1M1.5 14C1.5 14 8.5 21 8.5 27"
+                  stroke="white"
+                  strokeWidth="1.5"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+              </svg>
             </div>
           </div>
 
-          {/* Text Content - Will flow around the image */}
+          {/* Text Content */}
           <div className="prose prose-invert max-w-none">
-            <h2 className="text-2xl font-bold md:text-3xl mb-2">
-              Hi, I'm <span className="gradient-text">AL KINDI</span>
-            </h2>
             <p
               className="text-justify paragraph-text leading-relaxed"
               data-fade="2"
             >
-              a law graduate with a passion for writing and sharing knowledge. I
+              Hello! you can call me AL or KINDI or whatever you like. :D I'm a
+              law graduate with a passion for writing and sharing knowledge. I
               focus on exploring and analyzing legal topics such as capital
               markets & securities, mergers and acquisitions (M&A), bankruptcy &
               insolvency, and the{' '}
@@ -75,33 +238,18 @@ const AboutPage = () => {
             </p>
 
             <p
-              className="text-justify leading-relaxed paragraph-text"
-              data-fade="3"
-            >
-              In my legal journey, I have completed the Pendidikan Khusus
-              Profesi Advokat (PKPA) from PERADI, strengthening my foundation in
-              legal practice. My academic achievements include graduating with
-              Cumlaude honors (GPA: 3.59) from the Faculty of Law, Universitas
-              Islam Indonesia, with a focus on Private law.
-            </p>
-
-            <p
-              className="text-justify leading-relaxed text-sm md:text-base 2xl:text-lg"
+              className="text-justify paragraph-text leading-relaxed"
               data-fade="4"
             >
-              During my academic years, I have participated in legal
-              competitions and activities, including legal research dan debate.
-              These experiences have sharpened my analytical skills and deepened
-              my understanding of practical legal issues. Currently i'm looking
-              for job as <AccentNormal>Trainee</AccentNormal> or{' '}
+              Currently i'm looking for job as{' '}
+              <AccentNormal>Trainee</AccentNormal> or{' '}
               <AccentNormal>Junior Associates</AccentNormal> so i can gain more
               experience in the field of law especially in the field of
-              corporate law, capital markets, mergers and acquisitions, and
-              bankruptcy.
+              corporate & business law.
             </p>
 
             <p
-              className="text-justify mt-8 leading-relaxed text-sm md:text-base 2xl:text-lg"
+              className="text-justify paragraph-text leading-relaxed"
               data-fade="5"
             >
               Since 2018, I have been deeply immersed in studying blockchain
@@ -113,7 +261,7 @@ const AboutPage = () => {
             </p>
 
             <p
-              className="text-justify leading-relaxed text-sm md:text-base 2xl:text-lg"
+              className="text-justify paragraph-text leading-relaxed"
               data-fade="6"
             >
               This blog is a platform where I bring together my expertise in law
@@ -121,333 +269,176 @@ const AboutPage = () => {
               in capital markets, M&A, bankruptcy, and crypto asset regulations.
             </p>
           </div>
-          <div className="clear-both"></div>
+          <div className="clear-both mb-20" />
+          <div
+            className="h-px bg-gradient-to-r from-transparent via-gray-800 to-transparent mb-5"
+            data-fade="9"
+          />
         </div>
 
-        {/* Current Focus Section */}
-        <section className="py-16">
-          <div className="max-w-6xl mx-auto">
-            <h2 className="text-3xl font-bold mb-12 text-center" data-fade="5">
-              Focus & <Accent>Interest</Accent>
-            </h2>
-            <div className="grid md:grid-cols-4 gap-8" data-fade="6">
-              {/* Corporate Law */}
-              <div className="group p-6 border border-gray-700 rounded-xl  hover:border-emerald-500/50 transition-all duration-300">
-                <div className="flex items-center gap-4 mb-6">
-                  <div className="p-3 bg-emerald-900/30 rounded-lg group-hover:bg-emerald-900/50 transition-colors">
-                    <svg
-                      className="w-6 h-6 text-emerald-500"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      stroke="currentColor"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"
-                      />
-                    </svg>
-                  </div>
-                  <h3 className="text-xl text-gray-400 font-semibold group-hover:text-emerald-400 transition-colors">
-                    Mergers & Acquisitions
-                  </h3>
-                </div>
-                <ul className="space-y-3 text-gray-400">
-                  <li className="flex items-center gap-2">
-                    <span className="w-1.5 h-1.5 bg-emerald-500 rounded-full"></span>
-                    Due Diligence & Compliance
-                  </li>
-                  <li className="flex items-center gap-2">
-                    <span className="w-1.5 h-1.5 bg-emerald-500 rounded-full"></span>
-                    Business Restructuring
-                  </li>
-                  <li className="flex items-center gap-2">
-                    <span className="w-1.5 h-1.5 bg-emerald-500 rounded-full"></span>
-                    Strategic Transactions
-                  </li>
-                </ul>
-              </div>
+        {/* Experience Section */}
+        <section className="pb-20">
+          <h2
+            className="  font-sans text-[1.5rem] md:text-[2.5rem] font-bold tracking-tight leading-tight mb-0 text-center"
+            data-fade="7"
+          >
+            <span className="gradient-text">Experiences</span>
+          </h2>
+          <div className="text-center">
+            <p className="hero-text mb-4 inline-block" data-fade="8">
+              Some experiences I've had in the past few years
+            </p>
+          </div>
+          <div
+            className="h-px bg-gradient-to-r from-transparent via-gray-800 to-transparent mb-14 mt-5"
+            data-fade="9"
+          />
 
-              {/* Capital Markets */}
-              <div className="group p-6 border border-gray-700 rounded-xl bg-gray-800/30 hover:border-emerald-500/50 transition-all duration-300">
-                <div className="flex items-center gap-4 mb-6">
-                  <div className="p-3 bg-emerald-900/30 rounded-lg group-hover:bg-emerald-900/50 transition-colors">
-                    <svg
-                      className="w-6 h-6 text-emerald-500"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      stroke="currentColor"
+          <div className="space-y-14">
+            {experiences.map((exp, index) => (
+              <div key={index} className="group">
+                {/* Main Content */}
+                <div className="grid grid-cols-1 md:grid-cols-[300px,1fr] gap-8 data-fade-8">
+                  {/* Left Column - Company */}
+                  <div>
+                    <div
+                      className="paragraph-text text-[0.9rem] md:text-[0.95rem] leading-relaxed tracking-wider mb-2"
+                      data-fade="10"
                     >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"
-                      />
-                    </svg>
+                      {exp.date}
+                    </div>
                   </div>
-                  <h3 className="text-xl font-semibold group-hover:text-emerald-400 transition-colors">
-                    Capital Markets
-                  </h3>
-                </div>
-                <ul className="space-y-3 text-gray-400">
-                  <li className="flex items-center gap-2">
-                    <span className="w-1.5 h-1.5 bg-emerald-500 rounded-full"></span>
-                    Securities Regulations
-                  </li>
-                  <li className="flex items-center gap-2">
-                    <span className="w-1.5 h-1.5 bg-emerald-500 rounded-full"></span>
-                    Financial Regulations
-                  </li>
-                  <li className="flex items-center gap-2">
-                    <span className="w-1.5 h-1.5 bg-emerald-500 rounded-full"></span>
-                    IPO Procedures
-                  </li>
-                </ul>
-              </div>
 
-              {/* Bankruptcy Law */}
-              <div className="group p-6 border border-gray-700 rounded-xl bg-gray-800/30 hover:border-emerald-500/50 transition-all duration-300">
-                <div className="flex items-center gap-4 mb-6">
-                  <div className="p-3 bg-emerald-900/30 rounded-lg group-hover:bg-emerald-900/50 transition-colors">
-                    <svg
-                      className="w-6 h-6 text-emerald-500"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      stroke="currentColor"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
-                      />
-                    </svg>
-                  </div>
-                  <h3 className="text-xl font-semibold group-hover:text-emerald-400 transition-colors">
-                    Bankruptcy
-                  </h3>
-                </div>
-                <ul className="space-y-3 text-gray-400">
-                  <li className="flex items-center gap-2">
-                    <span className="w-1.5 h-1.5 bg-emerald-500 rounded-full"></span>
-                    PKPU Procedures
-                  </li>
-                  <li className="flex items-center gap-2">
-                    <span className="w-1.5 h-1.5 bg-emerald-500 rounded-full"></span>
-                    Debt Restructuring
-                  </li>
-                  <li className="flex items-center gap-2">
-                    <span className="w-1.5 h-1.5 bg-emerald-500 rounded-full"></span>
-                    Asset Liquidation
-                  </li>
-                </ul>
-              </div>
-
-              {/* Crypto Regulations */}
-              <div className="group p-6 border border-gray-700 rounded-xl bg-gray-800/30 hover:border-emerald-500/50 transition-all duration-300">
-                <div className="flex items-center gap-4 mb-6">
-                  <div className="p-3 bg-emerald-900/30 rounded-lg group-hover:bg-emerald-900/50 transition-colors">
-                    <svg
-                      className="w-6 h-6 text-emerald-500"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      stroke="currentColor"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
-                      />
-                    </svg>
-                  </div>
-                  <h3 className="text-xl font-semibold group-hover:text-emerald-400 transition-colors">
-                    Crypto Assets
-                  </h3>
-                </div>
-                <ul className="space-y-3 text-gray-400">
-                  <li className="flex items-center gap-2">
-                    <span className="w-1.5 h-1.5 bg-emerald-500 rounded-full"></span>
-                    Digital Asset Laws
-                  </li>
-                  <li className="flex items-center gap-2">
-                    <span className="w-1.5 h-1.5 bg-emerald-500 rounded-full"></span>
-                    Regulatory Compliance
-                  </li>
-                  <li className="flex items-center gap-2">
-                    <span className="w-1.5 h-1.5 bg-emerald-500 rounded-full"></span>
-                    Trading Frameworks
-                  </li>
-                </ul>
-              </div>
-            </div>
-
-            {/* Progress Indicators */}
-            <div className="grid md:grid-cols-2 gap-8 mt-12" data-fade="7">
-              <div
-                className="p-6 border border-gray-700 rounded-xl bg-gray-800/30"
-                data-fade="8"
-              >
-                <h3 className="text-lg font-semibold mb-6">Current Progress</h3>
-                <div className="space-y-4 text-gray-400">
-                  {[
-                    { label: ' Mergers & Acquisitions', progress: 65 },
-                    { label: 'Capital Markets', progress: 60 },
-                    { label: 'Bankruptcy', progress: 40 },
-                    { label: 'Crypto Regulations', progress: 50 },
-                  ].map((item, idx) => (
-                    <div key={idx} className="space-y-2" data-fade={9 + idx}>
-                      <div className="flex justify-between text-sm">
-                        <span className="text-gray-400">{item.label}</span>
-                        <span className="text-emerald-500">
-                          {item.progress}%
-                        </span>
-                      </div>
-                      <div className="h-1.5 bg-gray-700 rounded-full overflow-hidden">
-                        <div
-                          className="h-full bg-emerald-500 rounded-full transition-all duration-1000"
-                          style={{ width: `${item.progress}%` }}
-                        />
+                  {/* Right Column */}
+                  <div className="space-y-4">
+                    {/* Date and Title */}
+                    <div>
+                      <h3
+                        className="font-sans leading-relaxed text-[1rem] md:text-[1.25rem] font-bold text-white mb-0"
+                        data-fade="11"
+                      >
+                        {exp.title}
+                      </h3>
+                      <div
+                        className="font-light text-[0.9rem] md:text-[0.975rem]"
+                        data-fade="12"
+                      >
+                        <DimensionLink href="#">{exp.company}</DimensionLink>
                       </div>
                     </div>
-                  ))}
-                </div>
-              </div>
 
-              <div
-                className="p-6 border border-gray-700 rounded-xl bg-gray-800/30"
-                data-fade="13"
-              >
-                <h3 className="text-lg font-semibold mb-6">
-                  Learning Resources
-                </h3>
-                <ul className="space-y-3 text-gray-400">
-                  {[
-                    'Legal Research Databases',
-                    'Professional Certifications',
-                    'Industry Publications',
-                    'Expert Consultations',
-                    'Academic Journals',
-                  ].map((resource, idx) => (
-                    <li
-                      key={idx}
-                      className="flex items-center gap-3 text-gray-400"
-                      data-fade={14 + idx}
+                    {/* Description */}
+                    <div
+                      className="paragraph-text leading-relaxed"
+                      data-fade="13"
                     >
+                      {exp.description}
+                    </div>
+
+                    {/* Achievements */}
+                    {exp.achievements && (
+                      <ul className="space-y-4" data-fade="14">
+                        {exp.achievements.map((achievement, i) => (
+                          <li
+                            key={i}
+                            className="flex gap-3 text-justify paragraph-text leading-relaxed"
+                            data-fade="15"
+                          >
+                            <span className="flex-shrink-0 w-1.5 h-1.5 rounded-full bg-emerald-500/30 border border-emerald-500/10 mt-2" />
+                            <span>{achievement}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    )}
+                  </div>
+                </div>
+                {/* <div
+                  className=" h-px bg-gradient-to-r from-transparent via-gray-800 to-transparent mt-6"
+                  data-fade="10"
+                /> */}
+              </div>
+            ))}
+          </div>
+        </section>
+
+        {/* Certifications */}
+        <section className="py-20">
+          <div
+            className="h-px bg-gradient-to-r from-transparent via-gray-800 to-transparent mb-5 mt-0"
+            data-fade="9"
+          />
+          <h2
+            className="font-sans text-[1.5rem] md:text-[2.5rem] font-bold tracking-tight leading-tight mb-0 text-center"
+            data-fade="11"
+          >
+            <span className="gradient-text">Certifications</span>
+          </h2>
+          <p className="text-center hero-text mb-4" data-fade="12">
+            I'm still learning and improving my skills, so i'm not yet certified
+            in any field yet, but i'll do my best to get certified in the next
+            few years.
+          </p>
+          <div
+            className="h-px bg-gradient-to-r from-transparent via-gray-800 to-transparent mb-14 mt-10"
+            data-fade="13"
+          />
+          <div className="space-y-8">
+            {certifications.map((cert, index) => (
+              <div key={index} className="group">
+                <div className="space-y-4">
+                  <div
+                    className="text-sm text-gray-400 tracking-wider"
+                    data-fade="14"
+                  >
+                    {cert.date}
+                  </div>
+                  <h3
+                    className="text-xl font-bold text-white group-hover:text-emerald-400 transition-colors"
+                    data-fade="15"
+                  >
+                    {cert.title}
+                  </h3>
+                  <div
+                    className="flex items-center gap-2 text-sm"
+                    data-fade="16"
+                  >
+                    <span className="font-medium text-emerald-400">
+                      {cert.issuer}
+                    </span>
+                  </div>
+                  {cert.link && (
+                    <a
+                      href={cert.link}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center text-sm text-emerald-400 hover:text-emerald-300 transition-colors group-hover:translate-x-1 duration-300"
+                      data-fade="17"
+                    >
+                      View Certificate
                       <svg
-                        className="w-5 h-5 text-emerald-500"
+                        className="w-4 h-4 ml-2 transition-transform group-hover:translate-x-1"
                         fill="none"
-                        viewBox="0 0 24 24"
                         stroke="currentColor"
+                        viewBox="0 0 24 24"
                       >
                         <path
                           strokeLinecap="round"
                           strokeLinejoin="round"
                           strokeWidth={2}
-                          d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
+                          d="M17 8l4 4m0 0l-4 4m4-4H3"
                         />
                       </svg>
-                      {resource}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* Education & Experience Section */}
-        <section className="py-16">
-          <div className="max-w-6xl mx-auto">
-            <h2 className="text-3xl text-center font-bold mb-8" data-fade="19">
-              Education & <Accent>Experience</Accent>
-            </h2>
-            <div className="space-y-8 ">
-              {[
-                {
-                  year: 'Nov 2023 - Sep 2024',
-                  title: 'Trainee Associate',
-                  organization: 'Law Firm RR & Partners',
-                  location: 'Jakarta',
-                  type: 'Experience',
-                  description: [
-                    'Assisted in legal drafting and filing of various legal documents, including lawsuits and warnings, ensuring compliance with court procedures.',
-                    'Conducted thorough legal research and case analysis for court submissions, utilizing legal databases and resources to support case arguments.',
-                    'Collaborated closely with senior associates and partners, gaining valuable insights and practical knowledge in the legal field.',
-                    'Participated in meetings and discussions to strategize case approaches, enhancing teamwork and communication skills within the firm.',
-                  ],
-                },
-                {
-                  year: 'Feb 2021 - Present',
-                  title: 'Freelance Developer',
-                  organization: 'Fiverr',
-                  location: 'Remote',
-                  type: 'Experience',
-                  description: [
-                    'Provide solutions for clients in the technology field.',
-                  ],
-                },
-                {
-                  year: 'Jan 2022 - Feb 2022',
-                  title: 'Legal Internship',
-                  organization: 'Multiple Law Firms',
-                  location: 'Yogyakarta',
-                  type: 'Experience',
-                  description: [
-                    'Completed a one-month internship at three law firms simultaneously: Ariyanto & Rekan, Wahyu Priyanka & Partners, and Erlan Nopri & Partners',
-                    'Gained insights and experience in legal drafting and research',
-                    'Prepared legal opinions and conducted due diligence',
-                    'Assisted in the management and establishment of a law firm',
-                  ],
-                },
-                {
-                  year: 'Aug 2019 - Aug 2023',
-                  title: 'Bachelor of Law',
-                  organization: 'Universitas Islam Indonesia',
-                  location: 'Yogyakarta',
-                  type: 'Education',
-                  description: [
-                    'Graduated with Cumlaude Predicate',
-                    'GPA: 3.59',
-                    'Focus on Corporate Law and Technology Law',
-                  ],
-                },
-              ].map((item, idx) => (
-                <div
-                  key={idx}
-                  className="p-6 border border-gray-700 rounded-xl bg-gray-800/30 hover:border-emerald-500/50 transition-all duration-300"
-                  data-fade={20 + idx}
-                >
-                  <div className="flex flex-wrap items-center gap-4 mb-4">
-                    <span className="text-emerald-400 font-mono">
-                      {item.year}
-                    </span>
-                    <span className="px-2 py-1 text-xs bg-emerald-900/30 rounded-full">
-                      {item.type}
-                    </span>
-                    <h3 className="text-xl font-semibold">{item.title}</h3>
-                    <div className="flex items-center gap-2 text-gray-400">
-                      <span>@{item.organization}</span>
-                      <span>•</span>
-                      <span>{item.location}</span>
-                    </div>
-                  </div>
-                  <ul className="space-y-2 text-gray-400 list-disc list-inside">
-                    {Array.isArray(item.description) ? (
-                      item.description.map((desc, i) => (
-                        <li key={i} className="font-paragraf">
-                          {desc}
-                        </li>
-                      ))
-                    ) : (
-                      <p className="text-gray-400">{item.description}</p>
-                    )}
-                  </ul>
+                    </a>
+                  )}
                 </div>
-              ))}
-            </div>
+                {/* {index !== certifications.length - 1 && (
+                  <div
+                    className="h-px bg-gradient-to-r from-transparent via-gray-800 to-transparent mt-8"
+                    data-fade="16"
+                  />
+                )} */}
+              </div>
+            ))}
           </div>
         </section>
       </main>

@@ -26,7 +26,7 @@ export default function DimensionLink({
   );
 
   const textStyles = {
-    background: 'var(--link-gradient)',
+    background: 'white)',
     WebkitBackgroundClip: 'text',
     backgroundClip: 'text',
     color: 'transparent',
@@ -35,7 +35,7 @@ export default function DimensionLink({
   const iconClasses = clsx(
     'inline-block w-[10px] h-[10px]',
     'transition-all duration-300 ease-out',
-    'text-[#0bd595] opacity-80',
+    'text-[#d0d2d7] opacity-80',
     '-translate-y-[1px]',
     'group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:opacity-100'
   );

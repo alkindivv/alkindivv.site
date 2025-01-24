@@ -27,16 +27,16 @@ export default function HomePage() {
         {/* <div className={styles.container}>
           <div className={styles.main}> */}
         {/* Hi! */}
-        <div className="mt-40 relative order-1" data-fade="1">
+        {/* <div className="mt-40 relative order-1" data-fade="1">
           <h2 className="text-2xl md:text-3xl 2xl:text-4xl font-bold tracking-tight mb-0 md:mb-0">
             Hi!
           </h2>
-        </div>
+        </div> */}
 
         {/* You can call me AL KINDI */}
-        <div className="relative order-2" data-fade="2">
-          <div className="text-3xl mb-2 md:text-4xl 2xl:text-5xl font-bold tracking-tight">
-            You can call me <Accent className="gradient-text">AL KINDI</Accent>
+        <div className="relative order-2 mt-40 pt-20" data-fade="2">
+          <div className="text-4xl mb-2 md:text-5xl 2xl:text-6xl font-bold tracking-tight">
+            I'm <Accent className="gradient-text">AL KINDI</Accent>
           </div>
           {/* <div className="text-[11px] text-gray-300/60 font-light mt-1 mb-2 tracking-widest ">
             Known as <Accent className="inline-block">alkindivv</Accent> in the
@@ -47,10 +47,9 @@ export default function HomePage() {
         {/* Main paragraph */}
         <div className="relative order-4" data-fade="4">
           <p className=" leading-relaxed text-sm md:text-base 2xl:text-lg mb-4 md:mb-6 max-w-[800px]">
-            I am passionate about law, focusing on capital markets, M&A,
-            bankruptcy, and crypto assets. I enjoy exploring the intersection of
-            law and technology to address complex challenges and share my
-            thoughts through blog writing on this website.
+            I am passionate about law, focusing my expertise in coroporate M&A,
+            capital market, restructing & insolvency and as well as crypto
+            assets regulation in Indonesia.
           </p>
         </div>
         {/* Guestbook text */}
@@ -71,7 +70,7 @@ export default function HomePage() {
             </Link>
             <Link
               href="/about"
-              className=" no-gradient-button font-semibold text-sm md:text-base 2xl:text-lg px-3 md:px-3 py-1.5 md:py-2.5"
+              className=" no-gradient-button rounded-md font-semibold text-sm md:text-base 2xl:text-lg px-3 md:px-3 py-1.5 md:py-2.5"
             >
               Learn more about me
             </Link>

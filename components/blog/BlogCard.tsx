@@ -178,7 +178,7 @@ const BlogCardContent = ({
   checkTagged?: (tag: string) => boolean;
   searchQuery?: string;
 }) => (
-  <div className="relative flex flex-col h-full rounded-xl border border-gray-700 overflow-hidden group transition-all duration-300">
+  <div className="relative flex flex-col h-full rounded-xl border border-gray-800  overflow-hidden  group transition-all duration-300">
     <div className="relative h-48 overflow-hidden">
       <Image
         src={post.featuredImage || ''}
@@ -233,11 +233,11 @@ const BlogCardContent = ({
         </div>
       </div>
 
-      <p className={styles.date}>
+      <p className=" font-paragraf text-[0.875rem] mb-1.5 font-semibold text-gray-100">
         {format(new Date(publishedDate), 'MMMM dd, yyyy')}
       </p>
 
-      <p className="text-sm md:text-base text-gray-400 line-clamp-2">
+      <p className="font-paragraf text-xs md:text-sm text-gray-400 line-clamp-2">
         <HighlightedText
           text={post.excerpt || ''}
           searchQuery={searchQuery || ''}

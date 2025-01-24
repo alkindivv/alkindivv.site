@@ -1,6 +1,14 @@
 /* Import Google Fonts */
 @import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap');
 
+/* Import Apple Homemade Font */
+@font-face {
+  font-family: 'Apple Homemade';
+  src: url('/fonts/AppleHomemade.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
 /* Tailwind Imports */
 @tailwind base;
 @tailwind components;
@@ -109,7 +117,7 @@ html {
   padding: 0.5rem 0.5rem;
 
   /* border-radius: 0.2rem; */
-  border: 1px solid var(--color-border);
+  border: 0.5px solid var(--color-border);
   overflow: hidden;
   /* transition: all 0.3s ease; */
   /* border: 1px solid var(--color-border); */
@@ -162,20 +170,21 @@ html {
 .dimension-link {
   position: relative;
   text-decoration: none;
-  background: var(--link-gradient);
+  /* background: var(--link-gradient); */
+  background: #d0d2d7;
 
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
   transition: all 0.3s ease;
-  font-weight: var(--font-semibold);
+  font-weight: var(--font-medium);
 }
 
 .dimension-link::before,
 .dimension-link::after {
   content: '';
   position: absolute;
-  bottom: -2px;
+  bottom: 0px;
   height: 1px;
   transition: width 0.3s ease;
 }
@@ -183,7 +192,7 @@ html {
 .dimension-link::before {
   left: 0;
   width: 100%;
-  background-image: radial-gradient(circle, #0bd595 40%, transparent 60%);
+  background-image: radial-gradient(circle, #6b7280 40%, transparent 60%);
   background-size: 2px 2px;
   background-position: bottom;
   opacity: 1;
@@ -192,7 +201,8 @@ html {
 .dimension-link::after {
   left: 0;
   width: 0;
-  background: var(--link-gradient);
+  /* background: var(--link-gradient); */
+  background: #d0d2d7;
 }
 
 .dimension-link:hover::after {
@@ -388,15 +398,15 @@ blockquote {
 }
 
 .hero-text {
-  font-size: 1rem;
+  font-size: 1.05rem;
   line-height: 1.2;
   font-weight: 400;
-  letter-spacing: -0.02em;
+  letter-spacing: -0.02rem;
   background: linear-gradient(
     to right,
-    rgb(44, 43, 43) 0%,
-    rgb(229, 225, 225) 50%,
-    rgb(44, 43, 43) 100%
+    rgb(63, 62, 62) 0%,
+    rgb(211, 208, 208) 50%,
+    rgb(63, 62, 62) 100%
   );
   -webkit-background-clip: text;
   background-clip: text;
@@ -408,7 +418,7 @@ blockquote {
 
 @media (max-width: 768px) {
   .hero-text {
-    font-size: 2rem;
+    font-size: 0.95rem;
     line-height: 1.3;
   }
 }
@@ -416,22 +426,21 @@ blockquote {
 .gradient-border {
   position: relative;
   isolation: isolate;
-  border-radius: 0.75rem;
-  border: 1px solid transparent;
-  background-color: rgba(17, 17, 17, 0.3);
+  border-radius: 0.5rem;
+  /* background-color: #111111; */
 }
 
 .gradient-border::before {
   content: '';
   position: absolute;
   inset: -1px;
-  /* border-radius: 0.75rem; */
+  border-radius: inherit;
   padding: 1px;
   background: linear-gradient(
     to bottom right,
-    rgba(6, 78, 59, 0.7) 0%,
-    rgb(16, 185, 129) 62%,
-    rgba(6, 78, 59, 0.7) 100%
+    rgba(23, 23, 23, 70%) 0%,
+    #505050 62%,
+    rgba(23, 23, 23, 70%) 100%
   );
   -webkit-mask:
     linear-gradient(#fff 0 0) content-box,
@@ -441,25 +450,139 @@ blockquote {
     linear-gradient(#fff 0 0);
   -webkit-mask-composite: xor;
   mask-composite: exclude;
-  opacity: 0.6;
-  transition: opacity 0.2s;
+  pointer-events: none;
 }
 
-.gradient-border:hover::before {
-  opacity: 0.8;
+.gradient-border select {
+  width: 100%;
+  background-color: transparent;
+  color: #f1f5f9;
+  border: none;
+  outline: none;
+}
+
+.gradient-border select:focus {
+  outline: none;
+}
+
+.gradient-border select option {
+  background-color: #111111;
+  color: #f1f5f9;
 }
 
 .gradient-text {
   background: linear-gradient(
     to bottom right,
-    #04855c 0%,
+    #026646 0%,
     #59fbbf 50%,
-    #04855c 100%
+    #026646 100%
   );
+
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
   transition-property: color;
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
   transition-duration: 150ms;
+}
+
+.isolate::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: var(--borderWidth);
+  background: var(--background);
+  -webkit-mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+}
+
+select {
+  z-index: 1;
+}
+
+select option {
+  background-color: #111111;
+  color: #f1f5f9;
+}
+
+.font-apple-homemade {
+  font-family: 'Apple Homemade', sans-serif;
+}
+
+/* Hero Illustration Card */
+.hero-illustration-card {
+  background: rgba(10, 10, 10, 0.5);
+  backdrop-filter: blur(10px);
+}
+
+.glass-icon {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(8px);
+}
+
+.gradient-box_gradientBorder__H_SK6 {
+  position: relative;
+  isolation: isolate;
+}
+
+/* Hero Grid Section */
+.hero-grid {
+  position: relative;
+  perspective: 1000px;
+  transform-style: preserve-3d;
+  background: linear-gradient(to bottom, rgba(8, 168, 117, 0.1), transparent);
+}
+
+.grid-container {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  transform: rotateX(60deg) rotateZ(-45deg);
+  transform-style: preserve-3d;
+}
+
+.grid-line {
+  position: absolute;
+  width: 100%;
+  height: 1px;
+  background: rgba(8, 168, 117, 0.1);
+  transform-style: preserve-3d;
+}
+
+.grid-line-vertical {
+  position: absolute;
+  width: 1px;
+  height: 100%;
+  background: rgba(8, 168, 117, 0.1);
+  transform-style: preserve-3d;
+}
+
+.floating-icon {
+  position: absolute;
+  transform-style: preserve-3d;
+  transition: all 0.3s ease;
+  animation: float 3s ease-in-out infinite;
+  filter: drop-shadow(0 0 15px rgba(8, 168, 117, 0.3));
+}
+
+.floating-icon:hover {
+  transform: translateZ(20px);
+}
+
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0) translateZ(0);
+  }
+  50% {
+    transform: translateY(-20px) translateZ(20px);
+  }
 }

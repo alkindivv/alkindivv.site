@@ -18,6 +18,7 @@ module.exports = {
           'Noto Color Emoji',
         ],
         paragraf: ['system-ui', 'ui-sans-serif', 'sans-serif'],
+        homemade: ['"Homemade Apple"', 'cursive'],
       },
       colors: {
         primary: '#059669',
