@@ -5,6 +5,7 @@ import Footer from './Footer';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
 import NProgress from 'nprogress';
+import clsx from 'clsx';
 
 interface LayoutProps {
   children: React.ReactNode;
@@ -51,7 +52,9 @@ const Layout: React.FC<LayoutProps> = ({
   }, [router]);
 
   return (
-    <div className="min-h-screen">
+    <div
+      className={clsx('min-h-screen', isHomePage && 'h-screen overflow-hidden')}
+    >
       <Head>
         <title>{title}</title>
         <meta
@@ -91,12 +94,20 @@ const Layout: React.FC<LayoutProps> = ({
         `}</style>
       </Head>
       <div
-        className={`layout-container ${
-          isLoading ? 'opacity-80' : 'opacity-100'
-        } transition-opacity duration-75 ease-in-out`}
+        className={clsx(
+          'layout-container',
+          isHomePage && 'h-screen overflow-hidden',
+          isLoading ? 'opacity-80' : 'opacity-100',
+          'transition-opacity duration-75 ease-in-out'
+        )}
       >
         <Header />
-        <main className={`${isLoading ? 'pointer-events-none' : ''}`}>
+        <main
+          className={clsx(
+            isLoading && 'pointer-events-none',
+            isHomePage && 'h-full overflow-hidden'
+          )}
+        >
           {children}
         </main>
         {!isHomePage && <Footer />}

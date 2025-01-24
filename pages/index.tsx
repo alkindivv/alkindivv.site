@@ -4,10 +4,7 @@ import Accent from '@/components/shared/Accent';
 import SEO from '@/components/shared/SEO';
 import SocialMedia from '@/components/social/SocialMedia';
 import Link from 'next/link';
-import Image from 'next/image';
 import clsx from 'clsx';
-import DimensionLink from '@/components/common/DimensionLink';
-import AccentNormal from '@/components/shared/AccentNormal';
 
 export default function HomePage() {
   const [isLoaded, setIsLoaded] = useState(false);
@@ -23,66 +20,52 @@ export default function HomePage() {
   return (
     <Layout isHomePage>
       <SEO />
-      <main className={clsx('content-spacing ', isLoaded && 'fade-wrapper')}>
-        {/* <div className={styles.container}>
-          <div className={styles.main}> */}
-        {/* Hi! */}
-        {/* <div className="mt-40 relative order-1" data-fade="1">
-          <h2 className="text-2xl md:text-3xl 2xl:text-4xl font-bold tracking-tight mb-0 md:mb-0">
-            Hi!
-          </h2>
-        </div> */}
-
-        {/* You can call me AL KINDI */}
-        <div className="relative order-2 mt-40 pt-20" data-fade="2">
-          <div className="text-4xl mb-2 md:text-5xl 2xl:text-6xl font-bold tracking-tight">
-            I'm <Accent className="gradient-text">AL KINDI</Accent>
+      <main
+        className={clsx(
+          'h-[70vh] overflow-hidden flex flex-col justify-center items-center ',
+          isLoaded && 'fade-wrapper'
+        )}
+      >
+        <div className="max-w-[1100px] w-full space-y-3">
+          {/* Name Section */}
+          <div className="relative" data-fade="2">
+            <div className="text-4xl md:text-5xl 2xl:text-6xl font-bold tracking-tight">
+              I'm <Accent className="gradient-text">AL KINDI</Accent>
+            </div>
           </div>
-          {/* <div className="text-[11px] text-gray-300/60 font-light mt-1 mb-2 tracking-widest ">
-            Known as <Accent className="inline-block">alkindivv</Accent> in the
-            digital space
-          </div> */}
-        </div>
 
-        {/* Main paragraph */}
-        <div className="relative order-4" data-fade="4">
-          <p className=" leading-relaxed text-sm md:text-base 2xl:text-lg mb-4 md:mb-6 max-w-[800px]">
-            I am passionate about law, focusing my expertise in coroporate M&A,
-            capital market, restructing & insolvency and as well as crypto
-            assets regulation in Indonesia.
-          </p>
-        </div>
-        {/* Guestbook text */}
-        {/* <div className="relative order-5" data-fade="5">
-          <p className=" font-light text-sm md:text-base 2xl:text-lg text-gray-300 mb-4 md:mb-4 2xl:mb-8">
-            Don't forget to sign my{' '}
-            <DimensionLink href="/guestbook">guestbook</DimensionLink>!
-          </p>
-        </div> */}
-        {/* Buttons Section */}
-        <div className="relative order-6" data-fade="6">
-          <div className="flex gap-3 md:gap-4 mb-4 md:mb-4 2xl:mb-6">
-            <Link
-              href="/blog"
-              className="gradient-border font-semibold text-sm md:text-base 2xl:text-lg  px-3 md:px-3 py-1.5 md:py-2.5"
-            >
-              Read the blog
-            </Link>
-            <Link
-              href="/about"
-              className=" no-gradient-button rounded-md font-semibold text-sm md:text-base 2xl:text-lg px-3 md:px-3 py-1.5 md:py-2.5"
-            >
-              Learn more about me
-            </Link>
+          {/* Main paragraph */}
+          <div className="relative" data-fade="4">
+            <p className="leading-relaxed text-sm md:text-base 2xl:text-lg max-w-[800px]">
+              I am passionate about law, focusing my expertise in coroporate
+              M&A, capital market, restructing & insolvency and as well as
+              crypto assets regulation in Indonesia.
+            </p>
+          </div>
+
+          {/* Buttons Section */}
+          <div className="relative" data-fade="6">
+            <div className="flex gap-3 md:gap-4">
+              <Link
+                href="/blog"
+                className="gradient-border font-semibold text-sm md:text-base 2xl:text-lg px-3 md:px-3 py-1.5 md:py-2.5"
+              >
+                Read the blog
+              </Link>
+              <Link
+                href="/about"
+                className="no-gradient-button rounded-md font-semibold text-sm md:text-base 2xl:text-lg px-3 md:px-3 py-1.5 md:py-2.5"
+              >
+                Learn more about me
+              </Link>
+            </div>
+          </div>
+
+          {/* Social Media Section */}
+          <div className="relative" data-fade="7">
+            <SocialMedia variant="default" />
           </div>
         </div>
-        {/* Social Media Section */}
-        <div className="mt-4" data-fade="7">
-          <SocialMedia variant="default" />
-        </div>
-
-        {/* </div>
-        </div> */}
       </main>
     </Layout>
   );

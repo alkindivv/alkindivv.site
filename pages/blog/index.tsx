@@ -154,12 +154,12 @@ const BlogPage: React.FC<BlogPageProps> = ({ blogPosts }) => {
 
       <main
         className={clsx(
-          'content-spacing fade-wrapper relative overflow-hidden',
+          'content-spacing max-w-[1100px] w-full fade-wrapper relative overflow-hidden',
           !isLoaded && 'opacity-0'
         )}
       >
         {/* Content */}
-        <div className="relative">
+        <div className="relative  ">
           {/* Header Section */}
           <div className=" pt-24 mb-1" data-fade="1">
             <div className="flex flex-col items-left justify-start space-y-6">

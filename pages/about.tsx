@@ -121,104 +121,18 @@ const AboutPage = () => {
         </div>
 
         {/* Profile Section */}
+
         <div className="mt-8 max-w-6xl mx-auto relative" data-fade="2">
-          {/* Photo Stack */}
+          {/* Photo and Buttons Column - Fixed Width */}
           <div className="md:float-left md:w-[300px] lg:w-[400px] md:mr-8 mb-6 md:mb-0">
-            <div className="relative w-full aspect-square group">
-              {/* Background Stack Frames */}
-              <div className="absolute inset-0 -z-10">
-                {/* Third Frame (Bottom) */}
-                {/* <div className="absolute inset-0 bg-black p-6 pb-20 border border-neutral-800 rotate-[15deg] translate-y-6" /> */}
-                {/* Second Frame (Middle) - This will match the hover photo */}
-                <div className="absolute inset-0 bg-black p-6 pb-20 border border-neutral-800 rotate-[8deg] translate-y-3" />
-                {/* First Frame (Top) */}
-                {/* <div className="absolute inset-0 bg-black p-6 pb-20 border border-neutral-800 rotate-[-8deg] translate-y-1" /> */}
-              </div>
-
-              {/* Front Photo (Default) */}
-              <div
-                className="relative bg-black p-6 pb-20 border border-neutral-800 shadow-md group-hover:opacity-0 group-hover:z-0"
-                style={{
-                  transform: 'rotate(-4.99902deg)',
-                }}
-              >
-                <figure className="relative overflow-hidden select-none">
-                  <div className="relative pt-[100%]">
-                    <div className="absolute inset-0">
-                      <Image
-                        src="/images/AL-KINDI.png"
-                        alt="AL KINDI Primary"
-                        fill
-                        className="object-cover"
-                        priority
-                      />
-                    </div>
-                  </div>
-                </figure>
-
-                {/* Signature */}
-                <div className="absolute bottom-6 -right-10 group-hover:opacity-0">
-                  <svg
-                    width="214"
-                    height="30"
-                    viewBox="0 0 114 39"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                    className="text-white"
-                  >
-                    <text
-                      x="10"
-                      y="30"
-                      fill="currentColor"
-                      fontSize="20"
-                      fontFamily="Apple Homemade"
-                    >
-                      Al Kindi
-                    </text>
-                  </svg>
-                </div>
-              </div>
-
-              {/* Background Photo (Shows on Hover) */}
-              <div
-                className="absolute inset-0 bg-black p-6 pb-20 border-neutral-800 border opacity-0 group-hover:opacity-100"
-                style={{
-                  zIndex: 2,
-                  transform: 'rotate(8deg) translateY(3px)',
-                }}
-              >
-                <figure className="relative overflow-hidden select-none">
-                  <div className="relative pt-[100%]">
-                    <div className="absolute inset-0">
-                      <Image
-                        src="/images/ALKINDI-bag.png"
-                        alt="AL KINDI Secondary"
-                        fill
-                        className="object-cover"
-                        priority
-                      />
-                    </div>
-                  </div>
-                </figure>
-              </div>
-
-              {/* Decorative Arrow */}
-              <svg
-                width="102"
-                height="28"
-                viewBox="0 0 102 28"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-                className="absolute z-10 top-[40%] -left-8"
-              >
-                <path
-                  d="M100.5 14H1.5M1.5 14C1.5 14 8.5 7 8.5 1M1.5 14C1.5 14 8.5 21 8.5 27"
-                  stroke="white"
-                  strokeWidth="1.5"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                />
-              </svg>
+            <div className="relative w-full aspect-square rounded-2xl overflow-hidden shadow-xl transform hover:scale-[1.02] transition-transform duration-300">
+              <Image
+                src="/images/AL-KINDI.png"
+                alt="AL KINDI"
+                fill
+                className="object-cover"
+                priority
+              />
             </div>
           </div>
 
@@ -228,11 +142,11 @@ const AboutPage = () => {
               className="text-justify paragraph-text leading-relaxed"
               data-fade="2"
             >
-              Hello! you can call me AL or KINDI or whatever you like. :D I'm a
-              law graduate with a passion for writing and sharing knowledge. I
-              focus on exploring and analyzing legal topics such as capital
-              markets & securities, mergers and acquisitions (M&A), bankruptcy &
-              insolvency, and the{' '}
+              Hello! you can call me <AccentNormal>AL</AccentNormal> or{' '}
+              <AccentNormal>KINDI</AccentNormal> I'm a law graduate with a
+              passion for writing and sharing knowledge. I focus on exploring
+              and analyzing legal topics such as capital markets & securities,
+              mergers and acquisitions (M&A), bankruptcy & insolvency, and the{' '}
               <AccentNormal>legal aspects of crypto assets</AccentNormal> in
               Indonesia.
             </p>
@@ -277,7 +191,7 @@ const AboutPage = () => {
         </div>
 
         {/* Experience Section */}
-        <section className="pb-20">
+        <section className="pb-5">
           <h2
             className="  font-sans text-[1.5rem] md:text-[2.5rem] font-bold tracking-tight leading-tight mb-0 text-center"
             data-fade="7"
@@ -302,7 +216,7 @@ const AboutPage = () => {
                   {/* Left Column - Company */}
                   <div>
                     <div
-                      className="paragraph-text text-[0.9rem] md:text-[0.95rem] leading-relaxed tracking-wider mb-2"
+                      className="paragraph-text text-[0.9rem] md:text-[0.95rem] leading-relaxed tracking-wider -mb-10 md:-mb-0"
                       data-fade="10"
                     >
                       {exp.date}
@@ -314,7 +228,7 @@ const AboutPage = () => {
                     {/* Date and Title */}
                     <div>
                       <h3
-                        className="font-sans leading-relaxed text-[1rem] md:text-[1.25rem] font-bold text-white mb-0"
+                        className="font-sans leading-relaxed text-[1.25rem] md:text-[1.5rem] font-bold text-white mb-0"
                         data-fade="11"
                       >
                         {exp.title}

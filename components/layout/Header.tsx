@@ -76,7 +76,7 @@ export default function Header() {
     >
       <div
         className={clsx(
-          'max-w-[1200px] mx-auto pr-8',
+          'max-w-[1200px] mx-auto md:pr-8 pr-2',
           'transition-all duration-300',
           scrolled ? 'py-2' : 'py-4'
         )}
