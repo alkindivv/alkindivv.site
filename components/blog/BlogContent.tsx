@@ -74,7 +74,7 @@ export const P = ({ children, className = '' }: TypographyProps) => (
 export const UL = ({ children, className = '' }: TypographyProps) => (
   <ul
     className={clsx(
-      'list-none pl-4 space-y-3 text-[0.95rem] md:text-[1.05rem] font-[system-ui] text-[#979ca7] mb-6',
+      'list-none pl-4 space-y-3 text-[0.95rem] md:text-[1.05rem] font-[system-ui] text-[#A3A3A3] mb-6',
       className
     )}
   >
@@ -85,7 +85,7 @@ export const UL = ({ children, className = '' }: TypographyProps) => (
 export const OL = ({ children, className = '' }: TypographyProps) => (
   <ol
     className={clsx(
-      'list-decimal pl-4 space-y-4 text-[0.95rem] md:text-[1.05rem] font-[system-ui] mb-6 leading-loose marker:text-[#979ca7]',
+      'list-decimal pl-4 space-y-4 text-[0.95rem] md:text-[1.05rem] font-[system-ui] mb-6 leading-loose marker:text-[#A3A3A3]',
       className
     )}
   >
@@ -96,7 +96,7 @@ export const OL = ({ children, className = '' }: TypographyProps) => (
 export const LI = ({ children, className = '' }: TypographyProps) => (
   <li
     className={clsx(
-      'text-[0.95rem] md:text-[1.05rem] font-[system-ui] text-[#979ca7] leading-loose pl-4 relative before:content-[""] before:absolute before:left-0 before:top-[0.6em] before:w-1 before:h-1 before:bg-[#747881] before:rounded-full',
+      'text-[0.95rem] md:text-[1.05rem] font-[system-ui] text-[#A3A3A3] leading-loose pl-4 relative before:content-[""] before:absolute before:left-0 before:top-[0.6em] before:w-1 before:h-1 before:bg-[#A3A3A3] before:rounded-full',
       className
     )}
   >

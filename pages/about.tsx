@@ -11,40 +11,40 @@ import AccentNormal from '@/components/shared/AccentNormal';
 // Data definitions
 const experiences = [
   {
-    date: 'Nov 2023 — Present',
+    date: 'Nov 2023 — Dec 2024',
     title: 'Trainee Associate',
     company: 'Law Firm RR & Partners',
-    location: 'Jakarta, Indonesia',
+    location: 'Jakarta',
     description:
-      'Assisting in legal research, document drafting, and case analysis for various corporate and commercial matters. Focusing on capital market regulations, M&A transactions, and technology law.',
+      'Assisting in legal research, document drafting, and case analysis for various corporate and commercial matters.',
     achievements: [
-      'Led multiple legal research projects on capital market regulations and fintech compliance',
-      'Drafted and reviewed various legal documents including contracts, memoranda, and legal opinions',
-      'Assisted in due diligence processes for M&A transactions',
-      'Conducted analysis on regulatory frameworks for crypto assets and blockchain technology',
-    ],
-    tags: [
-      'Legal Research',
-      'Document Drafting',
-      'Corporate Law',
-      'Capital Markets',
+      'Assisted in drafting and filing various legal documents, including lawsuits, warnings, and contracts, while ensuring compliance with applicable court procedures and legal standards',
+      'Conducted in-depth legal research and case analysis to support court submissions and legal opinions, utilizing legal databases and academic resources',
+      "Collaborated with senior associates in case strategy meetings, contributing to the preparation of legal arguments and solutions tailored to clients' needs",
     ],
   },
+
   {
-    date: 'Jan 2023 - Oct 2023',
-    title: 'Legal Research Assistant',
-    company: 'Technology Law Research Center',
-    description:
-      'Conducted comprehensive research on blockchain technology regulations, crypto assets, and their legal implications in Indonesia. Published several articles on legal tech innovation.',
-    tags: ['Legal Tech', 'Blockchain Law', 'Research', 'Publications'],
-  },
-  {
-    date: 'Jun 2022 - Dec 2022',
+    date: 'Jan 2022 — Feb 2022',
     title: 'Legal Intern',
-    company: 'Corporate Law Firm',
+    company:
+      'Ariyanto & Rekan, Wahyu Priyanka & Partners, Erlan Nopri & Partners',
+    location: 'Yogyakarta',
     description:
-      'Gained practical experience in corporate legal matters, including contract review, due diligence, and regulatory compliance. Assisted in preparing legal opinions and memoranda.',
-    tags: ['Corporate Law', 'Due Diligence', 'Contract Review', 'Compliance'],
+      'Completed a one-month internship at three law firms simultaneously, gaining comprehensive experience in various aspects of legal practice.',
+    achievements: [
+      'Gained insights and experience in legal drafting and research',
+      'Assisted in the management and establishment of a law firm',
+      'Learning how to preparing legal opinion for clients',
+    ],
+  },
+  {
+    date: 'Feb 2021 — Dec 2023',
+    title: 'Freelancer',
+    company: 'Fiverr',
+    location: 'Remote',
+    description:
+      'Improved English communication and negotiation skills through international client interactions on Fiverr.',
   },
 ];
 
@@ -146,9 +146,8 @@ const AboutPage = () => {
               <AccentNormal>KINDI</AccentNormal> I'm a law graduate with a
               passion for writing and sharing knowledge. I focus on exploring
               and analyzing legal topics such as capital markets & securities,
-              mergers and acquisitions (M&A), bankruptcy & insolvency, and the{' '}
-              <AccentNormal>legal aspects of crypto assets</AccentNormal> in
-              Indonesia.
+              mergers and acquisitions (M&A), bankruptcy & insolvency, and the
+              legal aspects of crypto assets in Indonesia.
             </p>
 
             <p
@@ -193,7 +192,7 @@ const AboutPage = () => {
         {/* Experience Section */}
         <section className="pb-5">
           <h2
-            className="  font-sans text-[1.5rem] md:text-[2.5rem] font-bold tracking-tight leading-tight mb-0 text-center"
+            className="  font-sans text-[1.75rem] md:text-[2.75rem] font-bold tracking-tight leading-tight mb-0 text-center"
             data-fade="7"
           >
             <span className="gradient-text">Experiences</span>

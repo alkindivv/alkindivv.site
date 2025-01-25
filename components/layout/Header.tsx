@@ -39,25 +39,21 @@ export default function Header() {
   const navItems = [
     {
       href: '/',
-      icon: HiHome,
       label: 'Home',
       description: 'Welcome to my forever work-in-progress!',
     },
     {
       href: '/blog',
-      icon: HiNewspaper,
       label: 'Blog',
       description: 'Thoughts, mental models, and tutorials',
     },
     {
       href: '/about',
-      icon: HiUser,
       label: 'About',
       description: 'Learn more about me',
     },
     {
       href: '/contact',
-      icon: HiMail,
       label: 'Contact',
       description: 'Get in touch with me',
     },
@@ -67,23 +63,20 @@ export default function Header() {
     <header
       className={clsx(
         'fixed top-0 left-0 right-0 z-50',
-        'bg-[#0a0a0a]',
         'transition-all duration-300 ease-in-out',
-        scrolled
-          ? 'h-14 shadow-lg shadow-black/10 border-b border-gray-700/50'
-          : 'h-16 bg-transparent'
+        scrolled ? 'h-14 bg-black/10 backdrop-blur-md ' : 'h-16 bg-transparent'
       )}
     >
       <div
         className={clsx(
-          'max-w-[1200px] mx-auto md:pr-8 pr-2',
+          'max-w-[1200px] mx-auto px-6',
           'transition-all duration-300',
           scrolled ? 'py-2' : 'py-4'
         )}
       >
         <div className="flex items-center justify-end h-full">
           {/* Desktop Navigation */}
-          <nav className="hidden md:flex items-center space-x-1">
+          <nav className="hidden md:flex items-center">
             {navItems.map((item) => {
               const isActive = router.pathname === item.href;
               return (
@@ -91,24 +84,16 @@ export default function Header() {
                   key={item.href}
                   href={item.href}
                   className={clsx(
-                    'relative px-4 py-2 rounded-lg',
+                    'relative px-5 py-2',
                     'text-sm font-medium',
                     'transition-all duration-200',
-                    'flex items-center space-x-2',
                     'hover:scale-105',
                     'group',
                     isActive
-                      ? 'text-emerald-400 '
+                      ? 'text-emerald-400'
                       : 'text-gray-300 hover:text-emerald-400'
                   )}
                 >
-                  <item.icon
-                    className={clsx(
-                      'w-4 h-4',
-                      'transition-transform duration-200',
-                      'group-hover:scale-110 group-hover:rotate-3'
-                    )}
-                  />
                   <span className="relative">
                     {item.label}
                     {isActive && (
@@ -124,7 +109,7 @@ export default function Header() {
           <button
             onClick={() => setIsMenuOpen(!isMenuOpen)}
             className={clsx(
-              'md:hidden p-2 rounded-lg ml-4',
+              'md:hidden p-2 rounded-lg',
               'transition-all duration-200',
               'text-gray-300 hover:text-emerald-400',
               'hover:bg-emerald-400/5',
@@ -186,7 +171,7 @@ export default function Header() {
                   href={item.href}
                   onClick={() => setIsMenuOpen(false)}
                   className={clsx(
-                    'flex items-center space-x-3 p-3 rounded-lg',
+                    'flex items-center p-3 rounded-lg',
                     'transition-all duration-200',
                     'hover:translate-x-1',
                     'group',
@@ -195,13 +180,6 @@ export default function Header() {
                       : 'text-gray-300 hover:bg-emerald-400/5 hover:text-emerald-400'
                   )}
                 >
-                  <item.icon
-                    className={clsx(
-                      'w-5 h-5',
-                      'transition-transform duration-200',
-                      'group-hover:scale-110 group-hover:rotate-3'
-                    )}
-                  />
                   <div>
                     <div className="font-medium">{item.label}</div>
                     <p className="text-xs text-gray-500 group-hover:text-emerald-400/70">

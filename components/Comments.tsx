@@ -20,23 +20,23 @@ const CommentItem: React.FC<CommentItemProps> = ({ comment, onReply }) => {
   const { data: session } = useSession();
 
   return (
-    <div className="flex flex-col space-y-4">
+    <div className="flex flex-col space-y-4 animate-fadeIn">
       {/* Main Comment */}
-      <div className="flex gap-3">
+      <div className="flex gap-4">
         <div className="flex flex-col items-center">
           <Image
             src={comment.author.image}
             alt={comment.author.name}
-            width={24}
-            height={24}
-            className="rounded-full"
+            width={32}
+            height={32}
+            className="rounded-full ring-2 ring-emerald-500/20"
           />
         </div>
         <div className="flex-1">
-          <div className="bg-[#0d1117] rounded-lg border border-gray-800 p-4">
-            <div className="flex items-center justify-between mb-2">
+          <div className="bg-[#0d1117]/80 backdrop-blur-sm rounded-xl border border-white/5 p-5 hover:border-emerald-500/20 transition-colors duration-300">
+            <div className="flex items-center justify-between mb-3">
               <div className="flex items-center gap-2">
-                <span className="text-sm font-medium text-gray-200">
+                <span className="text-sm font-medium text-gray-200 hover:text-emerald-500 transition-colors">
                   {comment.author.name}
                 </span>
                 <span className="text-xs text-gray-500">
@@ -46,46 +46,53 @@ const CommentItem: React.FC<CommentItemProps> = ({ comment, onReply }) => {
               {session && (
                 <button
                   onClick={() => onReply(comment.id)}
-                  className="text-sm text-gray-400 hover:text-emerald-500 transition-colors"
+                  className="text-sm text-gray-400 hover:text-emerald-500 transition-colors flex items-center gap-1"
                 >
-                  Reply
+                  <span className="text-xs">↩</span> Reply
                 </button>
               )}
             </div>
-            <div className="text-sm text-gray-300">{comment.content}</div>
+            <div className="text-sm text-gray-300 leading-relaxed">
+              {comment.content}
+            </div>
           </div>
         </div>
       </div>
 
       {/* Replies Section */}
       {comment.replies?.length > 0 && (
-        <div className="ml-8 pl-4 border-l-2 border-gray-800">
+        <div className="ml-10 pl-4 border-l border-gray-800">
           <button
             onClick={() => setShowReplies(!showReplies)}
-            className="text-sm text-gray-400 hover:text-emerald-500 transition-colors flex items-center gap-1 mb-4"
+            className="text-sm text-gray-400 hover:text-emerald-500 transition-colors flex items-center gap-1 mb-4 group"
           >
-            {showReplies ? '▼' : '▶'} {comment.replies.length} repl
+            <span
+              className={`transition-transform duration-300 ${showReplies ? 'rotate-90' : ''}`}
+            >
+              ›
+            </span>
+            {comment.replies.length} repl
             {comment.replies.length === 1 ? 'y' : 'ies'}
           </button>
 
           {showReplies && (
             <div className="space-y-4">
               {comment.replies.map((reply: any) => (
-                <div key={reply.id} className="flex gap-3">
+                <div key={reply.id} className="flex gap-4 animate-fadeIn">
                   <div className="flex flex-col items-center">
                     <Image
                       src={reply.author.image}
                       alt={reply.author.name}
-                      width={24}
-                      height={24}
-                      className="rounded-full"
+                      width={28}
+                      height={28}
+                      className="rounded-full ring-2 ring-emerald-500/20"
                     />
                   </div>
                   <div className="flex-1">
-                    <div className="bg-[#0d1117] rounded-lg border border-gray-800 p-4">
-                      <div className="flex items-center justify-between mb-2">
+                    <div className="bg-[#0d1117]/80 backdrop-blur-sm rounded-xl border border-white/5 p-5 hover:border-emerald-500/20 transition-colors duration-300">
+                      <div className="flex items-center justify-between mb-3">
                         <div className="flex items-center gap-2">
-                          <span className="text-sm font-medium text-gray-200">
+                          <span className="text-sm font-medium text-gray-200 hover:text-emerald-500 transition-colors">
                             {reply.author.name}
                           </span>
                           <span className="text-xs text-gray-500">
@@ -95,14 +102,14 @@ const CommentItem: React.FC<CommentItemProps> = ({ comment, onReply }) => {
                         {session && (
                           <button
                             onClick={() => onReply(comment.id)}
-                            className="text-sm text-gray-400 hover:text-emerald-500 transition-colors"
+                            className="text-sm text-gray-400 hover:text-emerald-500 transition-colors flex items-center gap-1"
                           >
-                            Reply
+                            <span className="text-xs">↩</span> Reply
                           </button>
                         )}
                       </div>
-                      <div className="text-sm text-gray-300">
-                        <span className="text-emerald-500 text-xs mb-2 block">
+                      <div className="text-sm text-gray-300 leading-relaxed">
+                        <span className="text-emerald-500/80 text-xs mb-2 block">
                           Replying to {comment.author.name}
                         </span>
                         {reply.content}
@@ -186,38 +193,40 @@ export default function Comments({ postSlug }: CommentsProps) {
       <div className="flex items-center justify-between mb-6">
         <div className="text-sm text-gray-400">
           {commentsCount} comments • {repliesCount} replies
-          <span className="text-gray-500 ml-2">— powered by giscus</span>
+          <span className="text-gray-500 ml-2 opacity-50">
+            — powered by giscus
+          </span>
         </div>
         <div className="flex gap-2">
-          <button className="px-3 py-1 text-sm bg-[#1c1c1c] text-gray-300 rounded-md hover:bg-[#252525]">
+          <button className="px-4 py-1.5 text-xs bg-[#1c1c1c]/80 text-gray-300 rounded-full hover:bg-[#252525] transition-colors">
             Oldest
           </button>
-          <button className="px-3 py-1 text-sm bg-[#1c1c1c] text-gray-300 rounded-md hover:bg-[#252525]">
+          <button className="px-4 py-1.5 text-xs bg-[#1c1c1c]/80 text-gray-300 rounded-full hover:bg-[#252525] transition-colors">
             Newest
           </button>
         </div>
       </div>
 
       {replyTo && (
-        <div className="flex items-center gap-2 text-sm text-gray-400 mb-2 bg-[#1c1c1c] p-2 rounded-lg">
+        <div className="flex items-center gap-2 text-sm text-gray-400 mb-2 bg-[#1c1c1c]/80 backdrop-blur-sm p-3 rounded-xl border border-white/5 animate-fadeIn">
           <span>Replying to comment</span>
           <button
             onClick={() => setReplyTo(null)}
-            className="text-emerald-500 hover:text-emerald-400 ml-auto"
+            className="text-emerald-500 hover:text-emerald-400 ml-auto transition-colors"
           >
             Cancel reply
           </button>
         </div>
       )}
 
-      <div className="bg-[#0d1117] rounded-lg border border-gray-800 overflow-hidden">
-        <div className="border-b border-gray-800">
+      <div className="bg-[#0d1117]/80 backdrop-blur-sm rounded-xl border border-white/5 overflow-hidden">
+        <div className="border-b border-white/5">
           <div className="flex">
             <button
               onClick={() => setActiveTab('write')}
-              className={`px-4 py-2 text-sm ${
+              className={`px-5 py-3 text-sm transition-colors ${
                 activeTab === 'write'
-                  ? 'text-white'
+                  ? 'text-white bg-white/5'
                   : 'text-gray-400 hover:text-gray-300'
               }`}
             >
@@ -225,9 +234,9 @@ export default function Comments({ postSlug }: CommentsProps) {
             </button>
             <button
               onClick={() => setActiveTab('preview')}
-              className={`px-4 py-2 text-sm ${
+              className={`px-5 py-3 text-sm transition-colors ${
                 activeTab === 'preview'
-                  ? 'text-white'
+                  ? 'text-white bg-white/5'
                   : 'text-gray-400 hover:text-gray-300'
               }`}
             >
@@ -236,7 +245,7 @@ export default function Comments({ postSlug }: CommentsProps) {
           </div>
         </div>
 
-        <div className="p-4">
+        <div className="p-5">
           <form onSubmit={handleSubmit} className="space-y-4">
             {activeTab === 'write' ? (
               <div className="relative">
@@ -246,44 +255,43 @@ export default function Comments({ postSlug }: CommentsProps) {
                   placeholder={
                     session ? 'Leave a comment' : 'Sign in to comment'
                   }
-                  className="w-full min-h-[150px] p-4 bg-[#0d1117] border border-gray-800 rounded-lg text-gray-300 placeholder-gray-500 focus:border-gray-700 focus:ring-0 resize-y text-sm"
+                  className="w-full min-h-[150px] p-4 bg-[#0d1117]/50 border border-white/5 rounded-xl text-gray-300 placeholder-gray-500 focus:border-emerald-500/20 focus:ring-0 resize-y text-sm transition-colors"
                   rows={6}
-                  disabled={!session}
+                  disabled={!session || isSubmitting}
                 />
               </div>
             ) : (
-              <div className="min-h-[150px] p-4 bg-[#0d1117] border border-gray-800 rounded-lg text-gray-300 text-sm">
+              <div className="min-h-[150px] p-4 bg-[#0d1117]/50 border border-white/5 rounded-xl text-gray-300 text-sm">
                 {comment || 'Nothing to preview'}
               </div>
             )}
 
-            {!session ? (
-              <div className="flex justify-end">
+            <div className="flex justify-end">
+              {session ? (
+                <button
+                  type="submit"
+                  disabled={!comment.trim() || isSubmitting}
+                  className="px-5 py-2 text-sm bg-emerald-500/10 text-emerald-500 rounded-xl hover:bg-emerald-500/20 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                >
+                  {isSubmitting ? 'Posting...' : 'Post Comment'}
+                </button>
+              ) : (
                 <button
                   type="button"
                   onClick={() => signIn('google')}
-                  className="flex items-center gap-2 px-4 py-2 bg-[#238636] text-white rounded-md hover:bg-[#2ea043] transition-colors text-sm"
+                  className="flex items-center gap-2 px-5 py-2 text-sm bg-white/5 text-gray-300 rounded-xl hover:bg-white/10 transition-colors"
                 >
-                  <FaGoogle className="text-lg" />
+                  <FaGoogle className="w-4 h-4" />
                   Sign in with Google
                 </button>
-              </div>
-            ) : (
-              <div className="flex justify-end">
-                <button
-                  type="submit"
-                  disabled={isSubmitting || !comment.trim()}
-                  className="px-4 py-2 bg-[#238636] text-white rounded-md hover:bg-[#2ea043] transition-colors disabled:opacity-50 disabled:cursor-not-allowed text-sm"
-                >
-                  Comment
-                </button>
-              </div>
-            )}
+              )}
+            </div>
           </form>
         </div>
       </div>
 
-      <div className="mt-6 space-y-4">
+      {/* Comments List */}
+      <div className="space-y-8">
         {comments?.map((comment: any) => (
           <CommentItem
             key={comment.id}
