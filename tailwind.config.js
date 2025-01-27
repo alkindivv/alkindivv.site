@@ -63,7 +63,8 @@ module.exports = {
               color: '#f8fafc',
             },
             blockquote: {
-              color: '#d1d5db',
+              color: '#D4D4D4 !important',
+              borderLeft: 'none',
             },
           },
         },

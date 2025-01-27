@@ -36,7 +36,7 @@ export const H2 = ({
 }) => (
   <h2
     id={id}
-    className="text-[1.25rem] text-[#E5E7EB] font-semibold scroll-mt-20 mb-6 relative leading-relaxed tracking-wide"
+    className="text-[1.45rem] text-[#E5E7EB] font-semibold scroll-mt-20 mb-6 relative leading-relaxed "
     {...props}
   >
     {children}
@@ -96,7 +96,7 @@ export const OL = ({ children, className = '' }: TypographyProps) => (
 export const LI = ({ children, className = '' }: TypographyProps) => (
   <li
     className={clsx(
-      'text-[0.95rem] md:text-[1.05rem] font-[system-ui] text-[#A3A3A3] leading-loose pl-4 relative before:content-[""] before:absolute before:left-0 before:top-[0.6em] before:w-1 before:h-1 before:bg-[#A3A3A3] before:rounded-full',
+      'text-[0.95rem] md:text-[1.05rem] font-[system-ui] text-[#A3A3A3] pl-4 relative before:content-[""] before:absolute before:left-0 before:top-[0.8rem] before:w-1 before:h-1 before:bg-[#A3A3A3] before:rounded-full',
       className
     )}
   >
@@ -118,7 +118,7 @@ export const Strong = ({ children, className = '' }: TypographyProps) => (
 export const BlockQuote = ({ children, className = '' }: TypographyProps) => (
   <blockquote
     className={clsx(
-      "pl-6 border-l-2 border-emerald-500/50 italic text-lg text-gray-300 my-8 relative before:content-['\"'] before:absolute before:-left-3 before:-top-4 before:text-4xl before:text-emerald-500/30 before:font-serif",
+      'pl-4 -mt-2 -mb-2 italic font-paragraf font-normal text-[0.95rem] md:text-[1.05rem] text-[#D4D4D4] [&>*]:!text-[#D4D4D4] leading-loose',
       className
     )}
   >
@@ -371,11 +371,15 @@ export const MDXComponents = {
       {children}
     </DimensionLink>
   ),
-  strong: ({ children }: { children: React.ReactNode }) => (
-    <Strong>{children}</Strong>
-  ),
   em: ({ children }: { children: React.ReactNode }) => (
-    <em className="italic">{children}</em>
+    <em className="text-[0.95rem] md:text-[1.05rem] font-paragraf text-[#A3A3A3] italic">
+      {children}
+    </em>
+  ),
+  strong: ({ children }: { children: React.ReactNode }) => (
+    <strong className="text-[0.95rem] md:text-[1.05rem] font-paragraf text-[#D4D4D4] font-semibold">
+      {children}
+    </strong>
   ),
   Image: ({ src, alt, width, height, ...props }: any) => (
     <div className="relative w-full aspect-[1.88/1] mb-12 -mt-10 md:mb-12 md:-mt-14 group cursor-zoom-in">

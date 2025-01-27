@@ -337,13 +337,11 @@ code {
   font-size: 0.875em;
 }
 
-blockquote {
+/* blockquote {
   color: var(--color-muted);
-  border-left: 3px solid var(--color-border);
-  padding-left: 1rem;
   margin: 1.5rem 0;
   font-style: italic;
-}
+} */
 
 @layer base {
   p {
