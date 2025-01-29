@@ -5,6 +5,7 @@ import SEO from '@/components/shared/SEO';
 import SocialMedia from '@/components/social/SocialMedia';
 import Link from 'next/link';
 import clsx from 'clsx';
+import { HiArrowDown, HiArrowRight } from 'react-icons/hi';
 
 export default function HomePage() {
   const [isLoaded, setIsLoaded] = useState(false);
@@ -44,13 +45,14 @@ export default function HomePage() {
           </div>
 
           {/* Buttons Section */}
-          <div className="relative" data-fade="6">
+          <div className="relative animate-bounce" data-fade="6">
             <div className="flex gap-3 md:gap-4">
               <Link
                 href="/blog"
-                className="gradient-border font-semibold text-sm md:text-base 2xl:text-lg px-3 md:px-3 py-1.5 md:py-2.5"
+                className="gradient-border font-semibold text-sm md:text-base 2xl:text-lg px-3 md:px-3 py-1.5 md:py-2.5 inline-flex items-center gap-2"
               >
                 Read the blog
+                <HiArrowDown className="w-4 h-4 animate-bounce" />
               </Link>
               <Link
                 href="/about"

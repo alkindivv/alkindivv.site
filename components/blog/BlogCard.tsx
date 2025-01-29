@@ -237,7 +237,7 @@ const BlogCardContent = ({
         {format(new Date(publishedDate), 'MMMM dd, yyyy')}
       </p>
 
-      <p className="font-paragraf text-xs md:text-sm text-gray-400 line-clamp-2">
+      <p className="font-paragraf text-xs md:text-sm paragraph-text line-clamp-2">
         <HighlightedText
           text={post.excerpt || ''}
           searchQuery={searchQuery || ''}

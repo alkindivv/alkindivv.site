@@ -7,7 +7,7 @@ import Image from 'next/image';
 
 export default function NotFound() {
   return (
-    <main className="min-h-screen bg-[#0a0a0a] flex items-center justify-center p-4">
+    <main className="min-h-screen bg-[#0a0a0a00] flex items-center justify-center p-4">
       <div className="w-full max-w-2xl mx-auto text-center relative">
         {/* Background Elements */}
         <div className="absolute inset-0 bg-gradient-to-b from-emerald-500/5 via-emerald-500/2 to-transparent" />

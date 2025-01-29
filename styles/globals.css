@@ -32,7 +32,7 @@
   --color-border: #374151;
   --color-background: #0a0a0a;
   --color-hover: #1f1f1f;
-  --link-gradient: linear-gradient(360deg, #08c488 50%, #59fbbf 100%);
+  --link-gradient: linear-gradient(45deg, #08c488 0%, #59fbbf 100%);
   --link-gradient-button: linear-gradient(45deg, #08c488 25%, #59fbbf 100%);
   --link-gradient-normal: linear-gradient(45deg, #59fbbf 0%, #59fbbf 100%);
 
@@ -397,8 +397,9 @@ code {
 
 .hero-text {
   font-size: 1.05rem;
+  font-weight: 500;
   line-height: 1.2;
-  font-weight: 400;
+
   letter-spacing: -0.02rem;
   background: linear-gradient(
     to right,

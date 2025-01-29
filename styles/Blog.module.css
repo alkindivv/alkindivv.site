@@ -30,7 +30,7 @@
   margin-bottom: 0.5rem;
   /* border-radius: 0.5rem;
   background-color: transparent; */
-  color: #d7d8db;
+  /* color: #d7d8db; */
   /* border: 1px solid #555b64; */
 }
 
@@ -149,7 +149,6 @@
   grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
   gap: 1rem;
   margin-top: 0.8rem;
- 
 }
 
 .blogActions {

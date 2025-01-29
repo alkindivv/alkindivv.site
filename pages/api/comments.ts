@@ -13,14 +13,26 @@ export default async function handler(
     const { postSlug } = req.query;
 
     try {
+      // First, get the post ID from slug
+      const post = await prisma.post.findUnique({
+        where: { slug: postSlug as string },
+        select: { id: true, authorId: true },
+      });
+
+      if (!post) {
+        return res.status(404).json({ error: 'Post not found' });
+      }
+
+      // Then get comments for this post
       const comments = await prisma.comment.findMany({
         where: {
-          postSlug: postSlug as string,
-          parentId: null,
+          postId: post.id,
+          parentId: null, // Only get top-level comments
         },
         include: {
           author: {
             select: {
+              id: true,
               name: true,
               image: true,
             },
@@ -29,13 +41,11 @@ export default async function handler(
             include: {
               author: {
                 select: {
+                  id: true,
                   name: true,
                   image: true,
                 },
               },
-            },
-            orderBy: {
-              createdAt: 'asc',
             },
           },
         },
@@ -44,7 +54,17 @@ export default async function handler(
         },
       });
 
-      return res.status(200).json(comments);
+      // Add isAuthor flag
+      const commentsWithFlags = comments.map((comment) => ({
+        ...comment,
+        isAuthor: comment.author.id === post.authorId,
+        replies: comment.replies.map((reply) => ({
+          ...reply,
+          isAuthor: reply.author.id === post.authorId,
+        })),
+      }));
+
+      return res.status(200).json(commentsWithFlags);
     } catch (error) {
       console.error('Error fetching comments:', error);
       return res.status(500).json({ error: 'Failed to fetch comments' });
@@ -59,66 +79,52 @@ export default async function handler(
     const { content, postSlug, parentId } = req.body;
 
     try {
-      const comment = await prisma.$transaction(async (tx) => {
-        // Check if post exists
-        let post = await tx.post.findUnique({
-          where: { slug: postSlug },
-        });
-
-        // Create post if it doesn't exist
-        if (!post) {
-          post = await tx.post.create({
-            data: {
-              slug: postSlug,
-              title: postSlug,
-            },
-          });
-        }
-
-        // Create comment with optional parentId
-        return await tx.comment.create({
-          data: {
-            content,
-            author: {
-              connect: {
-                email: session.user?.email!,
-              },
-            },
-            post: {
-              connect: {
-                slug: postSlug,
-              },
-            },
-            ...(parentId && {
-              parent: {
-                connect: {
-                  id: parentId,
-                },
-              },
-            }),
-          },
-          include: {
-            author: {
-              select: {
-                name: true,
-                image: true,
-              },
-            },
-            replies: {
-              include: {
-                author: {
-                  select: {
-                    name: true,
-                    image: true,
-                  },
-                },
-              },
-            },
-          },
-        });
+      // Get user
+      const user = await prisma.user.findUnique({
+        where: { email: session.user?.email! },
+        select: { id: true },
       });
 
-      return res.status(201).json(comment);
+      if (!user) {
+        return res.status(404).json({ error: 'User not found' });
+      }
+
+      // Get post
+      const post = await prisma.post.findUnique({
+        where: { slug: postSlug },
+        select: { id: true, authorId: true },
+      });
+
+      if (!post) {
+        return res.status(404).json({ error: 'Post not found' });
+      }
+
+      // Create comment
+      const comment = await prisma.comment.create({
+        data: {
+          content,
+          authorId: user.id,
+          postId: post.id,
+          ...(parentId && { parentId }),
+        },
+        include: {
+          author: {
+            select: {
+              id: true,
+              name: true,
+              image: true,
+            },
+          },
+        },
+      });
+
+      // Add isAuthor flag
+      const commentWithFlag = {
+        ...comment,
+        isAuthor: comment.author.id === post.authorId,
+      };
+
+      return res.status(201).json(commentWithFlag);
     } catch (error) {
       console.error('Error creating comment:', error);
       return res.status(500).json({ error: 'Failed to post comment' });
