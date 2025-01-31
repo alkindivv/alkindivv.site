@@ -6,6 +6,7 @@ import SocialMedia from '@/components/social/SocialMedia';
 import Link from 'next/link';
 import clsx from 'clsx';
 import { HiArrowDown, HiArrowRight } from 'react-icons/hi';
+import GlowingButton from '@/components/shared/GlowingButton';
 
 export default function HomePage() {
   const [isLoaded, setIsLoaded] = useState(false);
@@ -45,18 +46,18 @@ export default function HomePage() {
           </div>
 
           {/* Buttons Section */}
-          <div className="relative animate-bounce" data-fade="6">
+          <div className="relative" data-fade="6">
             <div className="flex gap-3 md:gap-4">
-              <Link
+              <GlowingButton
                 href="/blog"
-                className="gradient-border font-semibold text-sm md:text-base 2xl:text-lg px-3 md:px-3 py-1.5 md:py-2.5 inline-flex items-center gap-2"
+                className=" font-normal text-sm md:text-base 2xl:text-lg px-3 md:px-3 py-1.5 md:py-2.5 inline-flex items-center gap-2"
               >
                 Read the blog
-                <HiArrowDown className="w-4 h-4 animate-bounce" />
-              </Link>
+                {/* <HiArrowDown className="w-4 h-4 animate-bounce" /> */}
+              </GlowingButton>
               <Link
                 href="/about"
-                className="no-gradient-button rounded-md font-semibold text-sm md:text-base 2xl:text-lg px-3 md:px-3 py-1.5 md:py-2.5"
+                className="border border-neutral-800 rounded-lg font-normal text-sm md:text-base 2xl:text-lg px-3 md:px-3 py-1.5 md:py-2.5"
               >
                 Learn more about me
               </Link>

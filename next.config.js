@@ -9,7 +9,13 @@ const nextConfig = {
         hostname: 'images.unsplash.com',
       },
     ],
-    domains: ['lh3.googleusercontent.com', 'avatars.githubusercontent.com'],
+    deviceSizes: [640, 750, 828, 1080, 1200, 1920, 2048, 3840],
+    imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
+    domains: [
+      'lh3.googleusercontent.com',
+      'avatars.githubusercontent.com',
+      'your-image-domain.com',
+    ],
     formats: ['image/avif', 'image/webp'],
   },
   // experimental: {
@@ -74,6 +80,12 @@ const nextConfig = {
       },
     ];
   },
+  // Enable compression
+  compress: true,
+  // Enable production source maps
+  productionBrowserSourceMaps: false,
+  // Optimize fonts
+  optimizeFonts: true,
 };
 
 const withBundleAnalyzer = require('@next/bundle-analyzer')({

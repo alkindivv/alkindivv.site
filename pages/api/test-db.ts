@@ -1,23 +1,29 @@
-import type { NextApiRequest, NextApiResponse } from 'next';
-import prisma from '@/lib/prisma';
+// import { NextApiRequest, NextApiResponse } from 'next';
+// import nc from 'next-connect';
+// import cors from 'cors';
+// import prisma from '@/lib/prisma';
 
-export default async function handler(
-  req: NextApiRequest,
-  res: NextApiResponse
-) {
-  try {
-    // Test koneksi
-    await prisma.$connect();
+// const handler = nc<NextApiRequest, NextApiResponse>()
+//   .use(cors())
+//   .get(async (req, res) => {
+//     try {
+//       // Implement caching
+//       res.setHeader('Cache-Control', 's-maxage=3600, stale-while-revalidate');
 
-    // Test query
-    const views = await prisma.pageView.findMany();
+//       // Test koneksi
+//       await prisma.$connect();
 
-    return res.status(200).json({
-      status: 'Connected',
-      views: views,
-    });
-  } catch (error) {
-    console.error('Database error:', error);
-    return res.status(500).json({ error: 'Database error' });
-  }
-}
+//       // Test query
+//       const views = await prisma.pageView.findMany();
+
+//       return res.status(200).json({
+//         status: 'Connected',
+//         views: views,
+//       });
+//     } catch (error) {
+//       console.error('Database error:', error);
+//       return res.status(500).json({ error: 'Internal Server Error' });
+//     }
+//   });
+
+// export default handler;

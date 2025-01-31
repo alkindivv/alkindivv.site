@@ -125,11 +125,10 @@ const AboutPage = () => {
           />
           <Image
             alt=""
-            loading="lazy"
             width={1280}
             height={825}
             className="pointer-events-none select-none absolute w-full inset-0 h-[450px] object-cover z-[-1] opacity-40 mix-blend-overlay"
-            src="/images/textures/crumpled-paper.png"
+            src=""
           />
         </div>
 
@@ -248,7 +247,7 @@ const AboutPage = () => {
                   {/* Left Column - Company */}
                   <div>
                     <div
-                      className="paragraph-text text-[0.9rem] md:text-[0.95rem] leading-relaxed tracking-wider -mb-10 md:-mb-0"
+                      className="text-neutral-500 text-[0.9rem] md:text-[0.95rem] leading-relaxed  -mb-10 md:-mb-0"
                       data-fade="10"
                     >
                       {exp.date}
@@ -290,7 +289,7 @@ const AboutPage = () => {
                             className="flex gap-3 text-justify paragraph-text leading-relaxed"
                             data-fade="15"
                           >
-                            <span className="flex-shrink-0 w-1.5 h-1.5 rounded-full bg-emerald-500/30 border border-emerald-500/10 mt-2" />
+                            <span className="flex-shrink-0 w-1.5 h-1.5 rounded-full bg-[#9C9C9C] mt-2" />
                             <span>{achievement}</span>
                           </li>
                         ))}
@@ -303,52 +302,6 @@ const AboutPage = () => {
                   data-fade="10"
                 /> */}
               </div>
-            ))}
-          </div>
-        </section>
-
-        {/* Certifications */}
-        <section className="py-20">
-          <div
-            className="h-px bg-gradient-to-r from-transparent via-gray-800 to-transparent mb-5 mt-0"
-            data-fade="9"
-          />
-          <h2
-            className="font-sans text-[1.75rem] md:text-[2.75rem] font-bold tracking-tight leading-tight mb-0 text-center"
-            data-fade="11"
-          >
-            <span className="gradient-text">Certifications</span>
-          </h2>
-          <p className="text-center hero-text mb-4" data-fade="12">
-            Professional certifications and licenses that I have or planning to
-            achieve
-          </p>
-          <div
-            className="h-px bg-gradient-to-r from-transparent via-gray-800 to-transparent mb-14 mt-5"
-            data-fade="13"
-          />
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {certifications.map((cert, index) => (
-              <a
-                key={index}
-                href={cert.link}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="group relative p-6 bg-[#0a0a0a] rounded-2xl border border-gray-800 hover:border-emerald-500/20 transition-all duration-300"
-                data-fade={14 + index}
-              >
-                <div className="space-y-2">
-                  <h3 className="font-sans text-[1rem] font-bold text-white group-hover:text-emerald-400 transition-colors">
-                    {cert.title}
-                  </h3>
-                  <div className="text-[0.9rem] paragraph-text">
-                    {cert.issuer}
-                  </div>
-                  <div className="text-[0.85rem] font-semibold text-emerald-500">
-                    {cert.date}
-                  </div>
-                </div>
-              </a>
             ))}
           </div>
         </section>

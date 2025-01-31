@@ -19,13 +19,12 @@ import {
 } from 'react-icons/fa';
 import TableOfContents from '@/components/blog/TableOfContents';
 import RelatedArticles from '@/components/blog/RelatedArticles';
-import Comments from '@/components/Comments';
 import { usePageViews } from '@/lib/hooks/usePageViews';
 import { formatDate } from '@/lib/utils/date';
 import Breadcrumb from '@/components/shared/Breadcrumb';
 import Link from 'next/link';
 import clsx from 'clsx';
-import ShareButtons from '@/components/blog/ShareButtons';
+import dynamic from 'next/dynamic';
 
 interface BlogPostProps {
   frontMatter: {
@@ -43,6 +42,10 @@ interface BlogPostProps {
   mdxSource: any;
   allPosts: any[];
 }
+
+// Lazy load components yang tidak kritis
+const Comments = dynamic(() => import('@/components/Comments'));
+const ShareButtons = dynamic(() => import('@/components/blog/ShareButtons'));
 
 // Definisikan komponen MDX yang akan digunakan dengan ID
 const mdxComponents = {

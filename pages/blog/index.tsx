@@ -209,15 +209,15 @@ const BlogPage: React.FC<BlogPageProps> = ({ blogPosts }) => {
                       placeholder="Search articles..."
                       value={searchQuery}
                       onChange={(e) => setSearchQuery(e.target.value)}
-                      className="w-full bg-[#0a0a0a] text-gray-200 rounded-xl px-12 py-3.5 outline-none
-                        transition-all duration-300 text-sm md:text-base placeholder-gray-600
+                      className="w-full bg-[#0a0a0a] text-neutral-100 rounded-xl px-12 py-3.5 outline-none
+                        transition-all duration-300 text-sm md:text-base placeholder-neutral-600
                         focus:bg-[#111111] group-hover:bg-[#0f0f0f]"
                     />
                     <div className="absolute left-4 top-1/2 -translate-y-1/2">
-                      <HiSearch className="text-gray-500 text-lg" />
+                      <HiSearch className="text-neutral-500 text-lg" />
                     </div>
                     <div className="absolute right-4 top-1/2 -translate-y-1/2 flex items-center gap-2">
-                      <span className="px-2 py-1 rounded-md bg-[#1a1a1a00] text-xs text-emerald-500/70">
+                      <span className="px-2 py-1 rounded-md bg-[#1a1a1a00] text-xs text-neutral-500">
                         ⌘ S
                       </span>
                     </div>
@@ -246,11 +246,11 @@ const BlogPage: React.FC<BlogPageProps> = ({ blogPosts }) => {
                 {/* Topics */}
                 <div className="flex-grow">
                   <div className="flex items-center justify-between mb-3">
-                    <p className="text-sm text-gray-400">Choose topic:</p>
+                    <p className="text-sm text-neutral-100">Choose topic:</p>
                     {selectedTopic && (
                       <button
                         onClick={() => handleTopicClick(selectedTopic)}
-                        className="text-xs text-emerald-500 hover:text-emerald-400 transition-colors"
+                        className="text-xs text-neutral-100 hover:text-neutral-400 transition-colors"
                       >
                         Clear selection
                       </button>
@@ -262,7 +262,7 @@ const BlogPage: React.FC<BlogPageProps> = ({ blogPosts }) => {
                         key={topic}
                         onClick={() => handleTopicClick(topic)}
                         className={clsx(
-                          'px-2 py-1.5 text-sm border rounded-lg transition-all duration-300',
+                          'px-2 py-1 text-sm border rounded-lg transition-all duration-300',
                           selectedTopic === topic
                             ? 'border-emerald-500 bg-emerald-500/10 text-emerald-600'
                             : 'border-gray-800 hover:border-emerald-500/50 hover:bg-emerald-500/5 text-gray-400 hover:text-emerald-400'
@@ -358,7 +358,7 @@ const BlogPage: React.FC<BlogPageProps> = ({ blogPosts }) => {
                   ))}
                 </div>
               ) : (
-                <div className="text-center py-20 bg-[#0a0a0a]/50 rounded-xl border border-gray-800">
+                <div className="text-center py-20 bg-[#0a0a0a]/50 ">
                   <h3 className="text-xl font-bold mb-2">
                     Sorry, <Accent>no articles found</Accent>
                   </h3>
