@@ -149,13 +149,25 @@ export default function Footer() {
               </FooterSection>
 
               {/* Contact */}
-              <FooterSection title="Contact">
+              <FooterSection title="Articles">
                 <ul className="space-y-2">
                   <li className="text-neutral-50 text-sm">
-                    <span className="block text-white">Email</span>
+                    <Link href="/blog/law" className="block text-white">
+                      Law
+                    </Link>
                   </li>
                   <li className="text-neutral-400 text-sm">
-                    <span className="block text-white">Location</span>
+                    <Link href="/blog/hackintosh" className="block text-white">
+                      Hackintosh
+                    </Link>
+                  </li>
+                  <li className="text-neutral-400 text-sm">
+                    <Link
+                      href="/blog/cryptocurrency"
+                      className="block text-white"
+                    >
+                      Crypto
+                    </Link>
                   </li>
                 </ul>
               </FooterSection>

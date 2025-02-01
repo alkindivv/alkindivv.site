@@ -268,7 +268,7 @@ export default function BlogPost({
               placeholder="blur"
               blurDataURL={`data:image/svg+xml;base64,${toBase64(shimmer(700, 475))}`}
             />
-            <div className="absolute inset-0 bg-gradient-to-b from-[#0a0a0a]/30 via-[#0a0a0a]/10 to-[#0a0a0a]" />
+            <div className="absolute inset-0 bg-gradient-to-b from-[#0a0a0a]/5 via-[#0a0a0a]/0 to-[#0a0a0a]" />
           </div>
         </div>
 
