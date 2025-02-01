@@ -155,65 +155,65 @@ export default function BlogPost({
   ];
 
   // Add handleShare function
-  const handleShare = (platform: string) => {
-    const url = `https://alkindivv.site/blog/${frontMatter.category.toLowerCase()}/${frontMatter.slug}`;
-    const title = frontMatter.title;
-    const author = frontMatter.author;
-    const category = frontMatter.category;
+  // const handleShare = (platform: string) => {
+  //   const url = `https://alkindivv.site/blog/${frontMatter.category.toLowerCase()}/${frontMatter.slug}`;
+  //   const title = frontMatter.title;
+  //   const author = frontMatter.author;
+  //   const category = frontMatter.category;
 
-    switch (platform) {
-      case 'twitter':
-        const tweetText = `Saya baru saja membaca artikel menarik tentang ${category}:\n\n"${title}"\n\nOleh: ${author}\n\n`;
-        window.open(
-          `https://twitter.com/intent/tweet?text=${encodeURIComponent(tweetText)}&url=${encodeURIComponent(url)}`
-        );
-        break;
-      case 'facebook':
-        window.open(
-          `https://www.facebook.com/sharer/sharer.php?quote=${encodeURIComponent(`Artikel menarik tentang ${category}: "${title}"`)}&u=${encodeURIComponent(url)}`
-        );
-        break;
-      case 'linkedin':
-        const linkedinText = `Artikel menarik tentang ${category} yang ditulis oleh ${author}:\n\n"${title}"`;
-        window.open(
-          `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(url)}&summary=${encodeURIComponent(linkedinText)}`
-        );
-        break;
-      case 'whatsapp':
-        const whatsappText = `📚 *${title}*\n\nSaya menemukan artikel menarik tentang ${category} yang ditulis oleh ${author}. Baca selengkapnya di:\n\n`;
-        window.open(
-          `https://wa.me/?text=${encodeURIComponent(whatsappText + url)}`
-        );
-        break;
-      case 'copy':
-        navigator.clipboard.writeText(url);
-        const button = document.querySelector('[aria-label="Copy Link"]');
-        if (button) {
-          const parent = button.parentElement;
-          const notification = document.createElement('span');
-          notification.textContent = 'Link copied';
-          notification.className =
-            'text-xs text-emerald-400 absolute -bottom-6 left-1/2 -translate-x-1/2 whitespace-nowrap';
-          parent?.appendChild(notification);
+  //   switch (platform) {
+  //     case 'twitter':
+  //       const tweetText = `Saya baru saja membaca artikel menarik tentang ${category}:\n\n"${title}"\n\nOleh: ${author}\n\n`;
+  //       window.open(
+  //         `https://twitter.com/intent/tweet?text=${encodeURIComponent(tweetText)}&url=${encodeURIComponent(url)}`
+  //       );
+  //       break;
+  //     case 'facebook':
+  //       window.open(
+  //         `https://www.facebook.com/sharer/sharer.php?quote=${encodeURIComponent(`Artikel menarik tentang ${category}: "${title}"`)}&u=${encodeURIComponent(url)}`
+  //       );
+  //       break;
+  //     case 'linkedin':
+  //       const linkedinText = `Artikel menarik tentang ${category} yang ditulis oleh ${author}:\n\n"${title}"`;
+  //       window.open(
+  //         `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(url)}&summary=${encodeURIComponent(linkedinText)}`
+  //       );
+  //       break;
+  //     case 'whatsapp':
+  //       const whatsappText = `📚 *${title}*\n\nSaya menemukan artikel menarik tentang ${category} yang ditulis oleh ${author}. Baca selengkapnya di:\n\n`;
+  //       window.open(
+  //         `https://wa.me/?text=${encodeURIComponent(whatsappText + url)}`
+  //       );
+  //       break;
+  //     case 'copy':
+  //       navigator.clipboard.writeText(url);
+  //       const button = document.querySelector('[aria-label="Copy Link"]');
+  //       if (button) {
+  //         const parent = button.parentElement;
+  //         const notification = document.createElement('span');
+  //         notification.textContent = 'Link copied';
+  //         notification.className =
+  //           'text-xs text-emerald-400 absolute -bottom-6 left-1/2 -translate-x-1/2 whitespace-nowrap';
+  //         parent?.appendChild(notification);
 
-          button.className = button.className.replace(
-            'text-gray-400',
-            'text-emerald-400'
-          );
+  //         button.className = button.className.replace(
+  //           'text-gray-400',
+  //           'text-emerald-400'
+  //         );
 
-          setTimeout(() => {
-            button.className = button.className.replace(
-              'text-emerald-400',
-              'text-gray-400'
-            );
-            parent?.removeChild(notification);
-          }, 2000);
-        }
-        break;
-      default:
-        break;
-    }
-  };
+  //         setTimeout(() => {
+  //           button.className = button.className.replace(
+  //             'text-emerald-400',
+  //             'text-gray-400'
+  //           );
+  //           parent?.removeChild(notification);
+  //         }, 2000);
+  //       }
+  //       break;
+  //     default:
+  //       break;
+  //   }
+  // };
 
   return (
     <Layout>
@@ -496,7 +496,7 @@ export default function BlogPost({
           </div>
 
           {/* Share Section */}
-          <div
+          {/* <div
             className="mt-12 mb-8 flex flex-col items-center space-y-4"
             data-fade="10"
           >
@@ -546,7 +546,7 @@ export default function BlogPost({
               </div>
             </div>
             <div className="w-full h-px bg-gradient-to-r from-transparent via-gray-800/50 to-transparent" />
-          </div>
+          </div> */}
 
           {/* Comments & Related Articles */}
           <div className="mt-8 sm:mt-12 space-y-8 sm:space-y-12">
