@@ -137,7 +137,7 @@ export default function Header() {
           ></Link>
 
           {/* Desktop Navigation */}
-          <nav className="hidden md:flex items-center">
+          <nav className="hidden md:flex items-center space-x-1">
             {[
               ...navItems,
               {
@@ -158,7 +158,7 @@ export default function Header() {
                     <button
                       onClick={() => setIsMoreOpen(!isMoreOpen)}
                       className={clsx(
-                        'relative inline-flex items-center gap-1.5 px-3 py-2 rounded-xl',
+                        'relative inline-flex items-center gap-1.5 px-4 py-2 rounded-xl',
                         'text-sm font-medium',
                         'transition-all duration-300',
                         'hover:bg-emerald-500/5',
@@ -177,7 +177,7 @@ export default function Header() {
                     {/* Dropdown Menu */}
                     <div
                       className={clsx(
-                        'absolute right-0 mt-1 w-60 p-1.5',
+                        'absolute right-0 mt-2 w-64 p-2',
                         'bg-[#0a0a0a]/95 backdrop-blur-xl rounded-xl',
                         'border border-emerald-500/10',
                         'shadow-xl shadow-emerald-500/[0.05]',
@@ -186,7 +186,7 @@ export default function Header() {
                         'group-hover:opacity-100 group-hover:visible group-hover:translate-y-0'
                       )}
                     >
-                      <div className="space-y-0.5">
+                      <div className="space-y-1">
                         {item.dropdownItems?.map((dropdownItem) => (
                           <Link
                             key={dropdownItem.href}
@@ -217,10 +217,10 @@ export default function Header() {
                   key={item.href}
                   href={item.href}
                   className={clsx(
-                    'relative inline-flex items-center gap-2 px-3 py-2 rounded-xl',
+                    'relative inline-flex items-center gap-2 px-4 py-2 rounded-xl',
                     'text-sm font-medium',
                     'transition-all duration-300',
-
+                    'hover:bg-emerald-500/5',
                     'group',
                     isActive
                       ? 'text-emerald-400'
@@ -229,7 +229,7 @@ export default function Header() {
                 >
                   {item.label}
                   {isActive && (
-                    <span className="absolute -bottom-0 left-0 right-0 bg-emerald-400 rounded-full" />
+                    <span className="absolute -bottom-1 left-2 right-2 h-0.5 bg-emerald-400/50 rounded-full" />
                   )}
                 </Link>
               );

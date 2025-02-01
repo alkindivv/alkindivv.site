@@ -38,7 +38,7 @@ export default function HomePage() {
 
           {/* Main paragraph */}
           <div className="relative" data-fade="4">
-            <p className="leading-relaxed text-sm md:text-base 2xl:text-lg max-w-[800px]">
+            <p className="paragraph-text leading-relaxed text-sm md:text-base 2xl:text-lg max-w-[800px]">
               I am passionate about law, focusing my expertise in coroporate
               M&A, capital market, restructing & insolvency and as well as
               crypto assets regulation in Indonesia.

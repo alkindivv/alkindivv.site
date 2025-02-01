@@ -120,7 +120,7 @@ const ContactPage = () => {
               <h1 className="text-center font-sans text-[2rem] sm:text-[2.5rem] md:text-[3rem] lg:text-[3.5rem] font-bold tracking-tight leading-tight">
                 Let's <span className="gradient-text">Connect</span>
               </h1>
-              <p className="hero-text leading-relaxed text-center text-[0.95rem] md:text-[1.05rem]">
+              <p className="hero-text inline-block text-center text-[0.95rem] md:text-[1.05rem]">
                 Feel free to reach out — I'll be happy to help, answer your
                 questions, or simply say hi!
               </p>

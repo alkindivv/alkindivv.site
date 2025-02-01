@@ -140,7 +140,7 @@ const AboutPage = () => {
               <h1 className="text-center font-sans text-[2rem] sm:text-[2.5rem] md:text-[3rem] lg:text-[3.5rem] font-bold tracking-tight leading-tight">
                 About <span className="gradient-text">Me</span>
               </h1>
-              <p className="hero-text font-medium leading-relaxed text-center text-[0.95rem] md:text-[1.05rem]">
+              <p className="hero-text inline-block text-center text-[0.95rem] md:text-[1.05rem]">
                 My background, interests, and experiences.
               </p>
             </div>

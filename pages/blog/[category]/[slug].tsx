@@ -6,7 +6,7 @@ import { getPostBySlug, getAllPostSlugs, getAllPosts } from '@/lib/mdx';
 import { H1, MDXComponents } from '@/components/blog/BlogContent';
 import Accent from '@/components/shared/Accent';
 import SEO from '@/components/shared/SEO';
-import styles from '@/styles/Blog.module.css';
+
 import Image from 'next/image';
 import {
   FaClock,
@@ -17,14 +17,15 @@ import {
   FaTwitter,
   FaWhatsapp,
 } from 'react-icons/fa';
-import TableOfContents from '@/components/blog/TableOfContents';
-import RelatedArticles from '@/components/blog/RelatedArticles';
+
 import { usePageViews } from '@/lib/hooks/usePageViews';
 import { formatDate } from '@/lib/utils/date';
 import Breadcrumb from '@/components/shared/Breadcrumb';
 import Link from 'next/link';
 import clsx from 'clsx';
 import dynamic from 'next/dynamic';
+import { toBase64 } from '@/lib/utils/toBase64';
+import { shimmer } from '@/lib/utils/shimmer';
 
 interface BlogPostProps {
   frontMatter: {
@@ -44,8 +45,33 @@ interface BlogPostProps {
 }
 
 // Lazy load components yang tidak kritis
-const Comments = dynamic(() => import('@/components/Comments'));
-const ShareButtons = dynamic(() => import('@/components/blog/ShareButtons'));
+const Comments = dynamic(() => import('@/components/Comments'), {
+  loading: () => (
+    <div className="h-[200px] animate-pulse bg-gray-800 rounded-lg" />
+  ),
+  ssr: false,
+});
+const ShareButtons = dynamic(() => import('@/components/blog/ShareButtons'), {
+  ssr: false,
+});
+const TableOfContents = dynamic(
+  () => import('@/components/blog/TableOfContents'),
+  {
+    loading: () => (
+      <div className="h-[100px] animate-pulse bg-gray-800 rounded-lg" />
+    ),
+    ssr: false,
+  }
+);
+const RelatedArticles = dynamic(
+  () => import('@/components/blog/RelatedArticles'),
+  {
+    loading: () => (
+      <div className="h-[200px] animate-pulse bg-gray-800 rounded-lg" />
+    ),
+    ssr: false,
+  }
+);
 
 // Definisikan komponen MDX yang akan digunakan dengan ID
 const mdxComponents = {
@@ -211,7 +237,7 @@ export default function BlogPost({
         )}
       >
         {/* Hero Banner - Full Width */}
-        <div className="relative h-[20vh] sm:h-[30vh] w-screen -mx-[calc((100vw-100%)/2)] overflow-hidden">
+        {/* <div className="relative h-[20vh] sm:h-[30vh] w-screen -mx-[calc((100vw-100%)/2)] overflow-hidden">
           <div className="absolute inset-0 transform scale-110 motion-safe:animate-subtle-zoom">
             <Image
               src={frontMatter.featuredImage || ''}
@@ -219,8 +245,30 @@ export default function BlogPost({
               fill
               className="object-cover brightness-[0.3] transition-transform duration-[20s]"
               priority
+              sizes="100vw"
+              quality={75}
+              placeholder="blur"
+              blurDataURL={`data:image/svg+xml;base64,${toBase64(shimmer(700, 475))}`}
             />
-            <div className="absolute inset-0 bg-gradient-to-b from-[#0a0a0a]/10 via-[#0a0a0a]/10 to-[#0a0a0a]" />
+            <div className="absolute inset-0 bg-gradient-to-b from-[#0a0a0a]/10 via-[#0a0a0a]/30 to-[#0a0a0a]" />
+          </div>
+        </div> */}
+
+        {/* Hero Banner - Full Width */}
+        <div className="relative h-[30vh] sm:h-[40vh] w-screen -mx-[calc((100vw-100%)/2)] overflow-hidden">
+          <div className="absolute inset-0">
+            <Image
+              src={frontMatter.featuredImage || '/default-image.jpg'} // Gambar default jika kosong
+              alt={frontMatter.title || 'Featured Image'}
+              fill
+              className="object-cover object-center brightness-[0.4] transition-transform duration-[15s]"
+              sizes="100vw"
+              quality={80} // Sedikit dinaikkan untuk kualitas lebih baik
+              priority={!!frontMatter.featuredImage} // Hanya beri prioritas jika ada gambar
+              placeholder="blur"
+              blurDataURL={`data:image/svg+xml;base64,${toBase64(shimmer(700, 475))}`}
+            />
+            <div className="absolute inset-0 bg-gradient-to-b from-[#0a0a0a]/30 via-[#0a0a0a]/10 to-[#0a0a0a]" />
           </div>
         </div>
 
@@ -233,14 +281,6 @@ export default function BlogPost({
             <div className="mb-1" data-fade="2">
               <Breadcrumb items={breadcrumbItems} />
             </div>
-            {/* <div className="mb-2" data-fade="2">
-              <Link
-                href={`/blog/${frontMatter.category.toLowerCase()}`}
-                className="inline-block py-1.5 px-4 text-sm tracking-wider text-emerald-300 bg-emerald-900/30 hover:bg-emerald-900/50 rounded-full transition-colors"
-              >
-                {frontMatter.category.toLowerCase()}
-              </Link>
-            </div> */}
 
             {/* Title */}
             <h1
@@ -297,13 +337,13 @@ export default function BlogPost({
                 </span>
               </div>
 
-              <span className="flex items-center gap-2">
+              {/* <span className="flex items-center gap-2">
                 <ShareButtons
                   url={`https://alkindivv.site/blog/${frontMatter.category.toLowerCase()}/${frontMatter.slug}`}
                   title={frontMatter.title}
                   description={frontMatter.excerpt || ''}
                 />
-              </span>
+              </span> */}
             </div>
           </div>
 

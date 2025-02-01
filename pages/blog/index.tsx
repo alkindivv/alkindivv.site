@@ -188,7 +188,7 @@ const BlogPage: React.FC<BlogPageProps> = ({ blogPosts }) => {
               <h1 className="text-center font-sans text-[2rem] sm:text-[2.5rem] md:text-[3rem] lg:text-[3.5rem] font-bold tracking-tight leading-tight">
                 Personal <span className="gradient-text">Blog</span>
               </h1>
-              <p className="hero-text font-medium leading-relaxed text-center text-[0.95rem] md:text-[1.05rem]">
+              <p className="hero-text inline-block text-center text-[0.95rem] md:text-[1.05rem]">
                 Thoughts, Insights, and Opinions about Law, Tech, and Crypto
               </p>
             </div>
@@ -245,8 +245,8 @@ const BlogPage: React.FC<BlogPageProps> = ({ blogPosts }) => {
               <div className="space-y-6 -mt-10" data-fade="3">
                 {/* Topics */}
                 <div className="flex-grow">
-                  <div className="flex items-center justify-between mb-3">
-                    <p className="text-sm text-neutral-100">Choose topic:</p>
+                  <div className="flex items-center pl-1.5 justify-between mb-3 sm:mb-3">
+                    <p className="text-sm text-neutral-100">choose topic:</p>
                     {selectedTopic && (
                       <button
                         onClick={() => handleTopicClick(selectedTopic)}
@@ -265,7 +265,7 @@ const BlogPage: React.FC<BlogPageProps> = ({ blogPosts }) => {
                           'px-2 py-1 text-sm border rounded-lg transition-all duration-300',
                           selectedTopic === topic
                             ? 'border-emerald-500 bg-emerald-500/10 text-emerald-600'
-                            : 'border-gray-800 hover:border-emerald-500/50 hover:bg-emerald-500/5 text-gray-400 hover:text-emerald-400'
+                            : 'border-[#171717] hover:border-emerald-500/50 hover:bg-emerald-500/5 paragraph-text hover:text-emerald-400'
                         )}
                       >
                         <HighlightedText
