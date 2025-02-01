@@ -19,7 +19,14 @@ class MyDocument extends Document {
     return (
       <Html lang="id">
         <Head>
+          <link
+            rel="preload"
+            href="/styles/globals.css"
+            as="style"
+            crossOrigin="anonymous"
+          />
           <link rel="icon" href="/favicon.ico" />
+          <link rel="manifest" href="/site.webmanifest" />
           <meta charSet="utf-8" />
           <meta name="theme-color" content="#000000" />
           <meta
@@ -31,7 +38,7 @@ class MyDocument extends Document {
           <meta name="twitter:card" content="summary_large_image" />
           <meta name="twitter:site" content="@alkindivv" />
         </Head>
-        <body>
+        <body className="bg-[#0a0a0a] text-white">
           <Main />
           <NextScript />
         </body>

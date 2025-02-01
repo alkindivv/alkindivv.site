@@ -21,6 +21,7 @@
     "@tailwindcss/typography": "^0.5.15",
     "@vercel/analytics": "^1.2.2",
     "clsx": "^2.1.0",
+    "critters": "^0.0.23",
     "date-fns": "^3.3.1",
     "gray-matter": "^4.0.3",
     "lodash": "^4.17.21",
@@ -42,7 +43,7 @@
     "remark-html": "^16.0.1",
     "shiki": "^1.1.7",
     "swr": "^2.2.5",
-    "tailwind-merge": "^2.6.0"
+    "tailwind-merge": "^2.2.1"
   },
   "devDependencies": {
     "@next/bundle-analyzer": "^15.0.3",

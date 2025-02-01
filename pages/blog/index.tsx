@@ -162,7 +162,7 @@ const BlogPage: React.FC<BlogPageProps> = ({ blogPosts }) => {
       >
         <div
           aria-hidden="true"
-          className="h-[400px] w-[650px] rounded-full bg-gradient-to-r from-[#2E996C]/30 to-[#0F3324]/30 blur-[150px] absolute top-0 -translate-y-full rotate-45 origin-left z-[-2] left-[15%]"
+          className="h-[200px] w-[550px] rounded-full bg-gradient-to-r from-[#2E996C]/90 to-[#0F3324]/10 blur-[150px] absolute top-0 -translate-y-full rotate-55 origin-left z-[-2] left-[55%]"
         />
         <Image
           alt=""
@@ -170,13 +170,13 @@ const BlogPage: React.FC<BlogPageProps> = ({ blogPosts }) => {
           width={1280}
           height={825}
           className="pointer-events-none select-none absolute w-full inset-0 h-[450px] object-cover z-[-1] opacity-40 mix-blend-overlay"
-          src="/images/textures/crumpled-paper.png"
+          src="/images/textures/crumpled.jpg"
         />
       </div>
 
       <main
         className={clsx(
-          'content-spacing fade-wrapper relative overflow-hidden',
+          'content-spacing max-w-[1200px] w-full fade-wrapper relative overflow-hidden',
           !isLoaded && 'opacity-0'
         )}
       >
@@ -194,177 +194,143 @@ const BlogPage: React.FC<BlogPageProps> = ({ blogPosts }) => {
             </div>
 
             <div
-              className="h-px bg-gradient-to-r from-transparent via-gray-800 to-transparent mb-10 mt-5"
+              className="h-px bg-gradient-to-r from-transparent via-gray-500 to-transparent mb-10 mt-5"
               data-fade="2"
             />
 
-            {/* Search and Filter Section */}
-            <div className="mt-6" data-fade="2">
-              {/* Search Input */}
-              <div className="max-w-2xl mx-auto mb-12">
-                <div className="gradient-border p-[1px] rounded-xl hover:p-[1.5px] transition-all duration-300">
-                  <div className="relative group">
-                    <input
-                      type="text"
-                      placeholder="Search articles..."
-                      value={searchQuery}
-                      onChange={(e) => setSearchQuery(e.target.value)}
-                      className="w-full bg-[#0a0a0a] text-neutral-100 rounded-xl px-12 py-3.5 outline-none
-                        transition-all duration-300 text-sm md:text-base placeholder-neutral-600
-                        focus:bg-[#111111] group-hover:bg-[#0f0f0f]"
-                    />
-                    <div className="absolute left-4 top-1/2 -translate-y-1/2">
-                      <HiSearch className="text-neutral-500 text-lg" />
-                    </div>
-                    <div className="absolute right-4 top-1/2 -translate-y-1/2 flex items-center gap-2">
-                      <span className="px-2 py-1 rounded-md bg-[#1a1a1a00] text-xs text-neutral-500">
-                        ⌘ S
-                      </span>
-                    </div>
+            {/* Search Input */}
+            <div className="mt-2" data-fade="2">
+              <div className="relative mx-auto">
+                <div className="gradient-border">
+                  <input
+                    type="text"
+                    placeholder="Search articles..."
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
+                    className="w-full bg-transparent text-gray-200 rounded-xl px-12 py-2.5 outline-none
+                    transition-all duration-300 text-sm md:text-base placeholder-gray-500"
+                  />
+                  <div className="absolute left-4 top-1/2 -translate-y-1/2">
+                    <HiSearch className="text-gray-400 text-lg" />
+                  </div>
+                  <div className="absolute right-4 top-1/2 -translate-y-1/2 px-2 py-1 rounded-md bg-gray-800/50 text-xs text-gray-500">
+                    ⌘ S
                   </div>
                 </div>
                 {searchQuery && (
-                  <div className="mt-3 text-center">
-                    <p className="text-sm text-gray-400">
-                      Found {filteredAndSortedPosts.length} article
-                      {filteredAndSortedPosts.length !== 1 ? 's' : ''}
-                    </p>
-                    {filteredAndSortedPosts.length > 0 && (
-                      <button
-                        onClick={() => setSearchQuery('')}
-                        className="mt-2 text-xs text-emerald-500 hover:text-emerald-400 transition-colors"
-                      >
-                        Clear search
-                      </button>
-                    )}
-                  </div>
+                  <p className="mt-3 text-sm text-gray-400 text-center">
+                    Found {filteredAndSortedPosts.length} article
+                    {filteredAndSortedPosts.length !== 1 ? 's' : ''}
+                  </p>
                 )}
               </div>
+            </div>
 
-              {/* Filter Controls */}
-              <div className="space-y-6 -mt-10" data-fade="3">
-                {/* Topics */}
-                <div className="flex-grow">
-                  <div className="flex items-center pl-1.5 justify-between mb-3 sm:mb-3">
-                    <p className="text-sm text-neutral-100">choose topic:</p>
-                    {selectedTopic && (
-                      <button
-                        onClick={() => handleTopicClick(selectedTopic)}
-                        className="text-xs text-neutral-100 hover:text-neutral-400 transition-colors"
-                      >
-                        Clear selection
-                      </button>
+            {/* Topics Section */}
+            <div className="mt-2" data-fade="3">
+              <div className="flex flex-wrap gap-2 items-center">
+                <span className="text-sm text-gray-400">Choose topic:</span>
+                {topics.map((topic) => (
+                  <button
+                    key={topic}
+                    onClick={() => handleTopicClick(topic)}
+                    className={clsx(
+                      'px-1 py-0.5  text-gray-300 text-xs md:text-sm 2xl:text-sm rounded-md border transition-colors',
+                      selectedTopic === topic
+                        ? 'border-emerald-500 text-emerald-500'
+                        : 'border-transparent bg-[#1e1e1e]  text-gray-500 hover:border-emerald-500'
                     )}
-                  </div>
-                  <div className="flex flex-wrap gap-2">
-                    {topics.map((topic) => (
-                      <button
-                        key={topic}
-                        onClick={() => handleTopicClick(topic)}
-                        className={clsx(
-                          'px-2 py-1 text-sm border rounded-lg transition-all duration-300',
-                          selectedTopic === topic
-                            ? 'border-emerald-500 bg-emerald-500/10 text-emerald-600'
-                            : 'border-[#171717] hover:border-emerald-500/50 hover:bg-emerald-500/5 paragraph-text hover:text-emerald-400'
-                        )}
+                  >
+                    <HighlightedText text={topic} searchQuery={searchQuery} />
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            {/* Controls Section */}
+            <div
+              className="flex justify-between items-center mt-6 mb-2"
+              data-fade="4"
+            >
+              <div className="relative w-[140px]">
+                <div className="gradient-border ">
+                  <select
+                    value={selectedCategory}
+                    onChange={(e) => {
+                      setSelectedCategory(e.target.value);
+                      setCurrentPage(1);
+                    }}
+                    className="w-full bg-[#111111] text-sm text-gray-300
+                    rounded-xl pl-3 pr-10 py-2 outline-none
+                    appearance-none cursor-pointer transition-colors"
+                  >
+                    {categories.map((category) => (
+                      <option
+                        key={category.name}
+                        value={category.name}
+                        className="bg-[#111111]"
                       >
-                        <HighlightedText
-                          text={topic}
-                          searchQuery={searchQuery}
-                        />
-                      </button>
+                        {category.name}
+                      </option>
                     ))}
-                  </div>
+                  </select>
+                  <HiChevronRight className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none text-lg" />
                 </div>
+              </div>
 
-                {/* Controls Section */}
-                <div
-                  className="flex justify-between items-center"
-                  data-fade="4"
-                >
-                  <div className="relative w-[140px]">
-                    <div className="gradient-border p-[1px] rounded-xl">
-                      <select
-                        value={selectedCategory}
-                        onChange={(e) => {
-                          setSelectedCategory(e.target.value);
-                          setCurrentPage(1);
-                        }}
-                        className="w-full bg-[#111111] text-sm text-gray-300
-                          rounded-xl pl-3 pr-10 py-2 outline-none
-                          appearance-none cursor-pointer transition-colors"
+              <div className="relative w-[140px]">
+                <div className="gradient-border p-[1px] rounded-xl">
+                  <select
+                    value={sortOrder.id}
+                    onChange={(e) => {
+                      const selected = sortOptions.find(
+                        (opt) => opt.id === e.target.value
+                      );
+                      setSortOrder(selected || sortOptions[0]);
+                    }}
+                    className="w-full bg-[#111111] text-sm text-gray-300
+                    rounded-xl pl-3 pr-10 py-2 outline-none
+                    appearance-none cursor-pointer transition-colors"
+                  >
+                    {sortOptions.map((option) => (
+                      <option
+                        key={option.id}
+                        value={option.id}
+                        className="bg-[#111111]"
                       >
-                        {categories.map((category) => (
-                          <option
-                            key={category.name}
-                            value={category.name}
-                            className="bg-[#111111]"
-                          >
-                            {category.name}
-                          </option>
-                        ))}
-                      </select>
-                      <HiChevronRight className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none text-lg" />
-                    </div>
-                  </div>
-
-                  <div className="relative w-[140px]">
-                    <div className="gradient-border p-[1px] rounded-xl">
-                      <select
-                        value={sortOrder.id}
-                        onChange={(e) => {
-                          const selected = sortOptions.find(
-                            (opt) => opt.id === e.target.value
-                          );
-                          setSortOrder(selected || sortOptions[0]);
-                        }}
-                        className="w-full bg-[#111111] text-sm text-gray-300
-                          rounded-xl pl-3 pr-10 py-2 outline-none
-                          appearance-none cursor-pointer transition-colors"
-                      >
-                        {sortOptions.map((option) => (
-                          <option
-                            key={option.id}
-                            value={option.id}
-                            className="bg-[#111111]"
-                          >
-                            {option.name}
-                          </option>
-                        ))}
-                      </select>
-                      {React.createElement(sortOrder.icon, {
-                        className:
-                          'absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none text-lg',
-                      })}
-                    </div>
-                  </div>
+                        {option.name}
+                      </option>
+                    ))}
+                  </select>
+                  {React.createElement(sortOrder.icon, {
+                    className:
+                      'absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none text-lg',
+                  })}
                 </div>
               </div>
             </div>
 
             {/* Blog Grid */}
-            <div className="mt-6" data-fade="5">
+            <div className={styles.blogGrid} data-fade="5">
               {currentPosts.length > 0 ? (
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                  {currentPosts.map((post, index) => (
-                    <BlogCard
-                      key={post.slug}
-                      post={post}
-                      checkTagged={checkTagged}
-                      className="transition-all duration-500 hover:-translate-y-1 hover:shadow-xl hover:shadow-emerald-500/5"
-                      index={index}
-                      searchQuery={searchQuery}
-                    />
-                  ))}
-                </div>
+                currentPosts.map((post, index) => (
+                  <BlogCard
+                    key={post.slug}
+                    post={post}
+                    checkTagged={checkTagged}
+                    className="transition-all duration-300 hover:translate-y-[-0.5px]"
+                    index={index}
+                    searchQuery={searchQuery}
+                  />
+                ))
               ) : (
-                <div className="text-center py-20 bg-[#0a0a0a]/50 ">
-                  <h3 className="text-xl font-bold mb-2">
-                    Sorry, <Accent>no articles found</Accent>
+                <div className="col-span-full text-center py-10">
+                  <h3 className="text-sm md:text-2xl 2xl:text-3xl font-bold mb-1">
+                    Sorry, <Accent>article not found</Accent>
                   </h3>
-                  <p className="text-gray-400">
+                  <p className="text-xs md:text-sm 2xl:text-base text-gray-400">
                     No articles found for topic:{' '}
-                    <span className="text-emerald-400">{selectedTopic}</span>
+                    <Accent>{selectedTopic}</Accent>
                   </p>
                 </div>
               )}
@@ -372,21 +338,18 @@ const BlogPage: React.FC<BlogPageProps> = ({ blogPosts }) => {
 
             {/* Pagination */}
             {totalPages > 1 && (
-              <div
-                className="flex justify-center items-center mt-12 gap-2"
-                data-fade="6"
-              >
+              <div className="flex justify-center items-center mt-8 gap-2">
                 <button
                   onClick={() => handlePageChange(currentPage - 1)}
                   disabled={currentPage === 1}
                   className={clsx(
-                    'p-2 rounded-lg border transition-all duration-300',
+                    'p-2 rounded-md text-xs md:text-sm 2xl:text-base transition-colors',
                     currentPage === 1
-                      ? 'border-gray-800 text-gray-700 cursor-not-allowed'
-                      : 'border-gray-800 hover:border-emerald-500 text-gray-400 hover:text-emerald-400'
+                      ? 'border-gray-700 text-gray-700 cursor-not-allowed'
+                      : 'border-gray-600 text-gray-300 hover:border-emerald-500'
                   )}
                 >
-                  <HiChevronLeft className="w-5 h-5" />
+                  <HiChevronLeft className="text-xs" />
                 </button>
 
                 {Array.from({ length: totalPages }, (_, i) => i + 1).map(
@@ -395,10 +358,10 @@ const BlogPage: React.FC<BlogPageProps> = ({ blogPosts }) => {
                       key={page}
                       onClick={() => handlePageChange(page)}
                       className={clsx(
-                        'w-10 h-10 rounded-lg border text-sm transition-all duration-300',
+                        'px-3 py-1 text-xs md:text-sm 2xl:text-base rounded-md border transition-colors',
                         currentPage === page
-                          ? 'border-emerald-500 bg-emerald-500/10 text-emerald-400'
-                          : 'border-gray-800 hover:border-emerald-500 text-gray-400 hover:text-emerald-400'
+                          ? 'border-emerald-500 text-emerald-500'
+                          : 'border-gray-600 text-gray-300 hover:border-emerald-500'
                       )}
                     >
                       {page}
@@ -410,13 +373,13 @@ const BlogPage: React.FC<BlogPageProps> = ({ blogPosts }) => {
                   onClick={() => handlePageChange(currentPage + 1)}
                   disabled={currentPage === totalPages}
                   className={clsx(
-                    'p-2 rounded-lg border transition-all duration-300',
+                    'p-2 rounded-md transition-colors',
                     currentPage === totalPages
-                      ? 'border-gray-800 text-gray-700 cursor-not-allowed'
-                      : 'border-gray-800 hover:border-emerald-500 text-gray-400 hover:text-emerald-400'
+                      ? 'border-gray-700 text-gray-700 cursor-not-allowed'
+                      : 'border-gray-600 text-gray-300 hover:border-emerald-500'
                   )}
                 >
-                  <HiChevronRight className="w-5 h-5" />
+                  <HiChevronRight className="text-xs" />
                 </button>
               </div>
             )}

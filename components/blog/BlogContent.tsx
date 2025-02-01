@@ -1,10 +1,8 @@
-import React, { useEffect, useRef } from 'react';
+import React from 'react';
 import Image from 'next/image';
-import Link from 'next/link';
 import clsx from 'clsx';
 import DimensionLink from '@/components/common/DimensionLink';
-import AccentNormal from '@/components/shared/AccentNormal';
-import styles from '@/styles/Blog.module.css';
+
 import Accent from '@/components/shared/Accent';
 
 // Typography Components
@@ -85,7 +83,7 @@ export const UL = ({ children, className = '' }: TypographyProps) => (
 export const OL = ({ children, className = '' }: TypographyProps) => (
   <ol
     className={clsx(
-      'list-decimal pl-6 space-y-4 text-[0.95rem] md:text-[1.05rem] font-[system-ui] mb-6 leading-loose marker:text-[#A3A3A3]',
+      'list-decimal pl-5 space-y-4 text-[0.95rem] md:text-[1.05rem] font-[system-ui] mb-6 leading-loose marker:text-[#A3A3A3]',
       className
     )}
   >
@@ -149,99 +147,6 @@ export const Introduction = ({
     </div>
   </section>
 );
-
-const InlineScrollAnimation = ({ children }: { children: React.ReactNode }) => {
-  const elementRef = useRef<HTMLSpanElement>(null);
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('fade-in-start');
-            observer.unobserve(entry.target);
-          }
-        });
-      },
-      {
-        root: null,
-        rootMargin: '0px 0px -10% 0px',
-        threshold: [0, 0.1, 0.2],
-      }
-    );
-
-    const currentElement = elementRef.current;
-    if (currentElement) {
-      observer.observe(currentElement);
-    }
-
-    return () => {
-      if (currentElement) {
-        observer.unobserve(currentElement);
-      }
-    };
-  }, []);
-
-  return (
-    <span
-      ref={elementRef}
-      className="inline-block opacity-0 translate-y-2 transition-all duration-500 ease-out"
-      style={{ willChange: 'opacity, transform' }}
-    >
-      {children}
-    </span>
-  );
-};
-
-// Scroll Animation Component
-const ScrollAnimation = ({ children }: { children: React.ReactNode }) => {
-  const elementRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            setTimeout(() => {
-              entry.target.classList.add('fade-in-start');
-            }, 100);
-            observer.unobserve(entry.target);
-          }
-        });
-      },
-      {
-        rootMargin: '-20px 0px -80px 0px',
-        threshold: 0.1,
-      }
-    );
-
-    const currentElement = elementRef.current;
-    if (currentElement) {
-      observer.observe(currentElement);
-    }
-
-    return () => {
-      if (currentElement) {
-        observer.unobserve(currentElement);
-      }
-    };
-  }, []);
-
-  return (
-    <div
-      ref={elementRef}
-      className="content-block"
-      style={{
-        opacity: 0,
-        transform: 'translateY(20px)',
-        transition: 'all 0.6s cubic-bezier(0.16, 1, 0.3, 1)',
-        willChange: 'opacity, transform',
-      }}
-    >
-      {children}
-    </div>
-  );
-};
 
 export const CodeBlock = ({
   children,
@@ -390,7 +295,7 @@ export const MDXComponents = {
           fill
           className="object-contain"
           quality={100}
-          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw"
+          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 60vw"
           priority
           {...props}
         />

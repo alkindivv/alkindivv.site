@@ -197,12 +197,12 @@ const BlogCardContent = ({
                 className={clsx(
                   'inline-block',
                   'px-1 py-0.5 text-xs md:text-sm 2xl:text-sm',
-                  'rounded-md ',
-                  'bg-neutral-900  text-neutral-100',
+                  'rounded-md border',
+                  'bg-black border-gray-600 text-gray-200',
                   'hover:text-white',
                   'focus:outline-none focus-visible:ring focus-visible:ring-primary-300',
-                  checkTagged?.(tag) && 'bg-neutral-900  text-neutral-100',
-                  ''
+                  checkTagged?.(tag) && 'bg-emerald-500 text-white',
+                  'transition-colors'
                 )}
               >
                 <HighlightedText
@@ -233,11 +233,11 @@ const BlogCardContent = ({
         </div>
       </div>
 
-      <p className=" font-paragraf text-[0.875rem] mb-1.5 font-semibold text-neutral-100">
+      <p className=" font-paragraf text-[0.875rem] mb-1.5 font-semibold text-gray-100">
         {format(new Date(publishedDate), 'MMMM dd, yyyy')}
       </p>
 
-      <p className="font-paragraf text-xs md:text-sm paragraph-text line-clamp-3">
+      <p className="font-paragraf text-xs md:text-sm text-gray-400 line-clamp-2">
         <HighlightedText
           text={post.excerpt || ''}
           searchQuery={searchQuery || ''}

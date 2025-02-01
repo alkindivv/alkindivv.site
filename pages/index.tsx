@@ -5,8 +5,6 @@ import SEO from '@/components/shared/SEO';
 import SocialMedia from '@/components/social/SocialMedia';
 import Link from 'next/link';
 import clsx from 'clsx';
-import { HiArrowDown, HiArrowRight } from 'react-icons/hi';
-import GlowingButton from '@/components/shared/GlowingButton';
 
 export default function HomePage() {
   const [isLoaded, setIsLoaded] = useState(false);
@@ -38,7 +36,7 @@ export default function HomePage() {
 
           {/* Main paragraph */}
           <div className="relative" data-fade="4">
-            <p className="paragraph-text leading-relaxed text-sm md:text-base 2xl:text-lg max-w-[800px]">
+            <p className="leading-relaxed text-sm md:text-base 2xl:text-lg max-w-[800px]">
               I am passionate about law, focusing my expertise in coroporate
               M&A, capital market, restructing & insolvency and as well as
               crypto assets regulation in Indonesia.
@@ -48,16 +46,15 @@ export default function HomePage() {
           {/* Buttons Section */}
           <div className="relative" data-fade="6">
             <div className="flex gap-3 md:gap-4">
-              <GlowingButton
+              <Link
                 href="/blog"
-                className=" font-normal text-sm md:text-base 2xl:text-lg px-3 md:px-3 py-1.5 md:py-2.5 inline-flex items-center gap-2"
+                className="gradient-border font-semibold text-sm md:text-base 2xl:text-lg px-3 md:px-3 py-1.5 md:py-2.5"
               >
                 Read the blog
-                {/* <HiArrowDown className="w-4 h-4 animate-bounce" /> */}
-              </GlowingButton>
+              </Link>
               <Link
                 href="/about"
-                className="border border-neutral-800 rounded-lg font-normal text-sm md:text-base 2xl:text-lg px-3 md:px-3 py-1.5 md:py-2.5"
+                className="no-gradient-button rounded-md font-semibold text-sm md:text-base 2xl:text-lg px-3 md:px-3 py-1.5 md:py-2.5"
               >
                 Learn more about me
               </Link>

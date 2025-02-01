@@ -7,7 +7,6 @@ import clsx from 'clsx';
 import DimensionLink from '@/components/common/DimensionLink';
 import Link from 'next/link';
 import AccentNormal from '@/components/shared/AccentNormal';
-import Avatar from '@/components/common/Avatar';
 
 // Data definitions
 const experiences = [
@@ -49,43 +48,6 @@ const experiences = [
   },
 ];
 
-const certifications = [
-  {
-    title: 'Capital Market Professional Basic 1',
-    issuer: 'Himpunan Konsultan Hukum Sektor Keuangan',
-    date: 'Not Yet',
-    link: 'https://fhp-edulaw.com/ppkhpm/',
-  },
-  {
-    title: 'Capital Market Professional Basic 2',
-    issuer: 'Himpunan Konsultan Hukum Sektor Keuangan',
-    date: 'Not Yet',
-    link: 'https://fhp-edulaw.com/ppkhpm/',
-  },
-  {
-    title: 'Certified Legal Auditor',
-    issuer: 'Asosiasi Auditor Hukum Indonesia',
-    date: 'Not Yet',
-    link: 'https://www.jimlyschool.com/diklat/profesi-auditor-hukum-jslg-dan-asahi/',
-  },
-  {
-    title: 'Receiver & Administrator of Bankruptcy',
-    issuer: 'Asosiasi Kurator dan Pengurus Indonesia',
-    date: '2022',
-    link: 'http://www.pendaftaran-akpi.or.id/',
-  },
-];
-
-const education = {
-  degree: 'Bachelor of Law',
-  school: 'Universitas Islam Indonesia',
-  year: '2019 - 2023',
-  achievements: [
-    'Graduated with Cumlaude Predicate (GPA: 3.59)',
-    'Focus on Corporate Law and Technology Law',
-  ],
-};
-
 const AboutPage = () => {
   const [isLoaded, setIsLoaded] = useState(false);
 
@@ -105,36 +67,36 @@ const AboutPage = () => {
         banner="/images/AL-KINDI.png"
       />
 
+      {/* Background Effect */}
+      <div
+        className="absolute inset-0 overflow-hidden h-[450px] bg-neutral-950"
+        style={{
+          maskImage: 'linear-gradient(rgb(0, 0, 0) 80%, rgba(0, 0, 0, 0) 100%)',
+        }}
+      >
+        <div
+          aria-hidden="true"
+          className="h-[400px] w-[550px] rounded-full bg-gradient-to-r from-[#2E996C]/70 to-[#0F3324]/10 blur-[150px] absolute top-0 -translate-y-full rotate-45 origin-left z-[-2] left-[15%]"
+        />
+        <Image
+          alt=""
+          loading="lazy"
+          width={1280}
+          height={825}
+          className="pointer-events-none select-none absolute w-full inset-0 h-[450px] object-cover z-[-1] opacity-40 mix-blend-overlay"
+          src="/images/textures/crumpled-3.jpg"
+        />
+      </div>
+
       <main
         className={clsx(
           'content-spacing fade-wrapper',
           !isLoaded && 'opacity-0'
         )}
       >
-        {/* Background Effect */}
-        <div
-          className="absolute inset-0 overflow-hidden h-[450px] bg-neutral-950"
-          style={{
-            maskImage:
-              'linear-gradient(rgb(0, 0, 0) 80%, rgba(0, 0, 0, 0) 100%)',
-          }}
-        >
-          <div
-            aria-hidden="true"
-            className="h-[400px] w-[650px] rounded-full bg-gradient-to-r from-[#2E996C]/30 to-[#0F3324]/30 blur-[150px] absolute top-0 -translate-y-full rotate-45 origin-left z-[-2] left-[15%]"
-          />
-          <Image
-            alt=""
-            width={1280}
-            height={825}
-            className="pointer-events-none select-none absolute w-full inset-0 h-[450px] object-cover z-[-1] opacity-40 mix-blend-overlay"
-            src=""
-          />
-        </div>
-
         {/* Header Section */}
         <section className="min-h-screen pt-40 relative z-10">
-          <div className="mx-auto">
+          <div className="max-w-6xl mx-auto">
             {/* Header Section */}
             <div className="mt-10 relative space-y-1 text-center" data-fade="1">
               <h1 className="text-center font-sans text-[2rem] sm:text-[2.5rem] md:text-[3rem] lg:text-[3.5rem] font-bold tracking-tight leading-tight">
@@ -144,11 +106,12 @@ const AboutPage = () => {
                 My background, interests, and experiences.
               </p>
             </div>
-
             <div
-              className="h-px bg-gradient-to-r from-transparent via-gray-800 to-transparent mb-10 mt-5"
+              className="h-px bg-gradient-to-r from-transparent via-gray-600 to-transparent mb-10 mt-5"
               data-fade="2"
             />
+
+            {/* Profile Section */}
 
             <div className="mt-8 max-w-6xl mx-auto relative" data-fade="2">
               {/* Photo and Buttons Column - Fixed Width */}
@@ -214,95 +177,97 @@ const AboutPage = () => {
               </div>
               <div className="clear-both mb-20" />
               <div
-                className="h-px bg-gradient-to-r from-transparent via-gray-800 to-transparent mb-5"
+                className="h-px bg-gradient-to-r from-transparent via-gray-600 to-transparent mb-5"
                 data-fade="9"
               />
             </div>
-          </div>
-        </section>
 
-        {/* Experience Section */}
-        <section className="pb-5">
-          <h2
-            className="  font-sans text-[1.75rem] md:text-[2.75rem] font-bold tracking-tight leading-tight mb-0 text-center"
-            data-fade="7"
-          >
-            <span className="gradient-text">Experiences</span>
-          </h2>
-          <div className="text-center">
-            <p className="hero-text mb-4 inline-block" data-fade="8">
-              Some experiences I've had in the past few years
-            </p>
-          </div>
-          <div
-            className="h-px bg-gradient-to-r from-transparent via-gray-800 to-transparent mb-14 mt-5"
-            data-fade="9"
-          />
+            {/* Experience Section */}
+            <section className="pb-5">
+              <h2
+                className="  font-sans text-[1.75rem] md:text-[2.75rem] font-bold tracking-tight leading-tight mb-0 text-center"
+                data-fade="7"
+              >
+                <span className="gradient-text">Experiences</span>
+              </h2>
+              <div className="text-center">
+                <p className="hero-text mb-4 inline-block" data-fade="8">
+                  Some experiences I've had in the past few years
+                </p>
+              </div>
+              <div
+                className="h-px bg-gradient-to-r from-transparent via-gray-600 to-transparent mb-14 mt-5"
+                data-fade="9"
+              />
 
-          <div className="space-y-14">
-            {experiences.map((exp, index) => (
-              <div key={index} className="group">
-                {/* Main Content */}
-                <div className="grid grid-cols-1 md:grid-cols-[300px,1fr] gap-8 data-fade-8">
-                  {/* Left Column - Company */}
-                  <div>
-                    <div
-                      className="text-neutral-500 text-[0.9rem] md:text-[0.95rem] leading-relaxed  -mb-10 md:-mb-0"
-                      data-fade="10"
-                    >
-                      {exp.date}
-                    </div>
-                  </div>
+              <div className="space-y-14">
+                {experiences.map((exp, index) => (
+                  <div key={index} className="group">
+                    {/* Main Content */}
+                    <div className="grid grid-cols-1 md:grid-cols-[300px,1fr] gap-8 data-fade-8">
+                      {/* Left Column - Company */}
+                      <div>
+                        <div
+                          className="paragraph-text text-[0.9rem] md:text-[0.95rem] leading-relaxed tracking-wider -mb-10 md:-mb-0"
+                          data-fade="10"
+                        >
+                          {exp.date}
+                        </div>
+                      </div>
 
-                  {/* Right Column */}
-                  <div className="space-y-4">
-                    {/* Date and Title */}
-                    <div>
-                      <h3
-                        className="font-sans leading-relaxed text-[1.25rem] md:text-[1.5rem] font-bold text-white mb-0"
-                        data-fade="11"
-                      >
-                        {exp.title}
-                      </h3>
-                      <div
-                        className="font-light text-[0.9rem] md:text-[0.975rem]"
-                        data-fade="12"
-                      >
-                        <DimensionLink href="#">{exp.company}</DimensionLink>
+                      {/* Right Column */}
+                      <div className="space-y-4">
+                        {/* Date and Title */}
+                        <div>
+                          <h3
+                            className="font-sans leading-relaxed text-[1.25rem] md:text-[1.5rem] font-bold text-white mb-0"
+                            data-fade="11"
+                          >
+                            {exp.title}
+                          </h3>
+                          <div
+                            className="font-light text-[0.9rem] md:text-[0.975rem]"
+                            data-fade="12"
+                          >
+                            <DimensionLink href="#">
+                              {exp.company}
+                            </DimensionLink>
+                          </div>
+                        </div>
+
+                        {/* Description */}
+                        <div
+                          className="paragraph-text leading-relaxed"
+                          data-fade="13"
+                        >
+                          {exp.description}
+                        </div>
+
+                        {/* Achievements */}
+                        {exp.achievements && (
+                          <ul className="space-y-4" data-fade="14">
+                            {exp.achievements.map((achievement, i) => (
+                              <li
+                                key={i}
+                                className="flex gap-3 text-justify paragraph-text leading-relaxed"
+                                data-fade="15"
+                              >
+                                <span className="flex-shrink-0 w-1.5 h-1.5 rounded-full bg-emerald-500/30 border border-emerald-500/10 mt-2" />
+                                <span>{achievement}</span>
+                              </li>
+                            ))}
+                          </ul>
+                        )}
                       </div>
                     </div>
-
-                    {/* Description */}
-                    <div
-                      className="paragraph-text leading-relaxed"
-                      data-fade="13"
-                    >
-                      {exp.description}
-                    </div>
-
-                    {/* Achievements */}
-                    {exp.achievements && (
-                      <ul className="space-y-4" data-fade="14">
-                        {exp.achievements.map((achievement, i) => (
-                          <li
-                            key={i}
-                            className="flex gap-3 text-justify paragraph-text leading-relaxed"
-                            data-fade="15"
-                          >
-                            <span className="flex-shrink-0 w-1.5 h-1.5 rounded-full bg-[#9C9C9C] mt-2" />
-                            <span>{achievement}</span>
-                          </li>
-                        ))}
-                      </ul>
-                    )}
-                  </div>
-                </div>
-                {/* <div
+                    {/* <div
                   className=" h-px bg-gradient-to-r from-transparent via-gray-800 to-transparent mt-6"
                   data-fade="10"
                 /> */}
+                  </div>
+                ))}
               </div>
-            ))}
+            </section>
           </div>
         </section>
       </main>

@@ -6,26 +6,17 @@ import { getPostBySlug, getAllPostSlugs, getAllPosts } from '@/lib/mdx';
 import { H1, MDXComponents } from '@/components/blog/BlogContent';
 import Accent from '@/components/shared/Accent';
 import SEO from '@/components/shared/SEO';
-
+import styles from '@/styles/Blog.module.css';
 import Image from 'next/image';
-import {
-  FaClock,
-  FaEye,
-  FaFacebook,
-  FaLink,
-  FaLinkedin,
-  FaTwitter,
-  FaWhatsapp,
-} from 'react-icons/fa';
-
+import { FaClock, FaEye } from 'react-icons/fa';
+import TableOfContents from '@/components/blog/TableOfContents';
+import RelatedArticles from '@/components/blog/RelatedArticles';
+import Comments from '@/components/Comments';
 import { usePageViews } from '@/lib/hooks/usePageViews';
 import { formatDate } from '@/lib/utils/date';
 import Breadcrumb from '@/components/shared/Breadcrumb';
 import Link from 'next/link';
 import clsx from 'clsx';
-import dynamic from 'next/dynamic';
-import { toBase64 } from '@/lib/utils/toBase64';
-import { shimmer } from '@/lib/utils/shimmer';
 
 interface BlogPostProps {
   frontMatter: {
@@ -43,35 +34,6 @@ interface BlogPostProps {
   mdxSource: any;
   allPosts: any[];
 }
-
-// Lazy load components yang tidak kritis
-const Comments = dynamic(() => import('@/components/Comments'), {
-  loading: () => (
-    <div className="h-[200px] animate-pulse bg-gray-800 rounded-lg" />
-  ),
-  ssr: false,
-});
-const ShareButtons = dynamic(() => import('@/components/blog/ShareButtons'), {
-  ssr: false,
-});
-const TableOfContents = dynamic(
-  () => import('@/components/blog/TableOfContents'),
-  {
-    loading: () => (
-      <div className="h-[100px] animate-pulse bg-gray-800 rounded-lg" />
-    ),
-    ssr: false,
-  }
-);
-const RelatedArticles = dynamic(
-  () => import('@/components/blog/RelatedArticles'),
-  {
-    loading: () => (
-      <div className="h-[200px] animate-pulse bg-gray-800 rounded-lg" />
-    ),
-    ssr: false,
-  }
-);
 
 // Definisikan komponen MDX yang akan digunakan dengan ID
 const mdxComponents = {
@@ -104,7 +66,6 @@ export default function BlogPost({
   >([]);
   const [isLoaded, setIsLoaded] = useState(false);
   const articleContentRef = useRef<HTMLDivElement>(null);
-  // const { views } = usePageViews(frontMatter.slug);
   const views = usePageViews(frontMatter.slug, true);
 
   // Add isLoaded effect
@@ -154,67 +115,6 @@ export default function BlogPost({
     { label: frontMatter.title },
   ];
 
-  // Add handleShare function
-  // const handleShare = (platform: string) => {
-  //   const url = `https://alkindivv.site/blog/${frontMatter.category.toLowerCase()}/${frontMatter.slug}`;
-  //   const title = frontMatter.title;
-  //   const author = frontMatter.author;
-  //   const category = frontMatter.category;
-
-  //   switch (platform) {
-  //     case 'twitter':
-  //       const tweetText = `Saya baru saja membaca artikel menarik tentang ${category}:\n\n"${title}"\n\nOleh: ${author}\n\n`;
-  //       window.open(
-  //         `https://twitter.com/intent/tweet?text=${encodeURIComponent(tweetText)}&url=${encodeURIComponent(url)}`
-  //       );
-  //       break;
-  //     case 'facebook':
-  //       window.open(
-  //         `https://www.facebook.com/sharer/sharer.php?quote=${encodeURIComponent(`Artikel menarik tentang ${category}: "${title}"`)}&u=${encodeURIComponent(url)}`
-  //       );
-  //       break;
-  //     case 'linkedin':
-  //       const linkedinText = `Artikel menarik tentang ${category} yang ditulis oleh ${author}:\n\n"${title}"`;
-  //       window.open(
-  //         `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(url)}&summary=${encodeURIComponent(linkedinText)}`
-  //       );
-  //       break;
-  //     case 'whatsapp':
-  //       const whatsappText = `📚 *${title}*\n\nSaya menemukan artikel menarik tentang ${category} yang ditulis oleh ${author}. Baca selengkapnya di:\n\n`;
-  //       window.open(
-  //         `https://wa.me/?text=${encodeURIComponent(whatsappText + url)}`
-  //       );
-  //       break;
-  //     case 'copy':
-  //       navigator.clipboard.writeText(url);
-  //       const button = document.querySelector('[aria-label="Copy Link"]');
-  //       if (button) {
-  //         const parent = button.parentElement;
-  //         const notification = document.createElement('span');
-  //         notification.textContent = 'Link copied';
-  //         notification.className =
-  //           'text-xs text-emerald-400 absolute -bottom-6 left-1/2 -translate-x-1/2 whitespace-nowrap';
-  //         parent?.appendChild(notification);
-
-  //         button.className = button.className.replace(
-  //           'text-gray-400',
-  //           'text-emerald-400'
-  //         );
-
-  //         setTimeout(() => {
-  //           button.className = button.className.replace(
-  //             'text-emerald-400',
-  //             'text-gray-400'
-  //           );
-  //           parent?.removeChild(notification);
-  //         }, 2000);
-  //       }
-  //       break;
-  //     default:
-  //       break;
-  //   }
-  // };
-
   return (
     <Layout>
       <SEO
@@ -237,38 +137,18 @@ export default function BlogPost({
         )}
       >
         {/* Hero Banner - Full Width */}
-        {/* <div className="relative h-[20vh] sm:h-[30vh] w-screen -mx-[calc((100vw-100%)/2)] overflow-hidden">
+        <div className="relative h-[30vh] sm:h-[40vh] w-screen -mx-[calc((100vw-100%)/2)] overflow-hidden">
           <div className="absolute inset-0 transform scale-110 motion-safe:animate-subtle-zoom">
             <Image
               src={frontMatter.featuredImage || ''}
               alt={frontMatter.title}
               fill
-              className="object-cover brightness-[0.3] transition-transform duration-[20s]"
-              priority
-              sizes="100vw"
-              quality={75}
-              placeholder="blur"
-              blurDataURL={`data:image/svg+xml;base64,${toBase64(shimmer(700, 475))}`}
+              sizes="(max-width: 640px) 100vw, (max-width: 1024px) 100vw, 100vw"
+              className="object-cover brightness-[0.4] transition-transform duration-[20s]"
+              loading="eager"
+              quality={90}
             />
-            <div className="absolute inset-0 bg-gradient-to-b from-[#0a0a0a]/10 via-[#0a0a0a]/30 to-[#0a0a0a]" />
-          </div>
-        </div> */}
-
-        {/* Hero Banner - Full Width */}
-        <div className="relative h-[30vh] sm:h-[40vh] w-screen -mx-[calc((100vw-100%)/2)] overflow-hidden">
-          <div className="absolute inset-0">
-            <Image
-              src={frontMatter.featuredImage || '/default-image.jpg'} // Gambar default jika kosong
-              alt={frontMatter.title || 'Featured Image'}
-              fill
-              className="object-cover object-center brightness-[0.4] transition-transform duration-[15s]"
-              sizes="100vw"
-              quality={80} // Sedikit dinaikkan untuk kualitas lebih baik
-              priority={!!frontMatter.featuredImage} // Hanya beri prioritas jika ada gambar
-              placeholder="blur"
-              blurDataURL={`data:image/svg+xml;base64,${toBase64(shimmer(700, 475))}`}
-            />
-            <div className="absolute inset-0 bg-gradient-to-b from-[#0a0a0a]/5 via-[#0a0a0a]/0 to-[#0a0a0a]" />
+            <div className="absolute inset-0 bg-gradient-to-b from-[#0a0a0a]/5 via-[#0a0a0a]/50 to-[#0a0a0a]" />
           </div>
         </div>
 
@@ -281,10 +161,18 @@ export default function BlogPost({
             <div className="mb-1" data-fade="2">
               <Breadcrumb items={breadcrumbItems} />
             </div>
+            {/* <div className="mb-2" data-fade="2">
+              <Link
+                href={`/blog/${frontMatter.category.toLowerCase()}`}
+                className="inline-block py-1.5 px-4 text-sm tracking-wider text-emerald-300 bg-emerald-900/30 hover:bg-emerald-900/50 rounded-full transition-colors"
+              >
+                {frontMatter.category.toLowerCase()}
+              </Link>
+            </div> */}
 
             {/* Title */}
             <h1
-              className="text-3xl md:text-4xl  font-bold text-white leading-[1.15] tracking-tight mb-2 sm:mb-2"
+              className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-[1.15] tracking-tight mb-2 sm:mb-2"
               data-fade="3"
             >
               {frontMatter.title}
@@ -292,7 +180,7 @@ export default function BlogPost({
 
             {/* Excerpt */}
             <p
-              className="text-[0.825rem] md:text-[0.925rem] font-paragraf leading-relaxed tracking-wide text-[#A3A3A3] max-w-4xl"
+              className="text-[0.825rem] md:text-[0.925rem] font-paragraf leading-relaxed tracking-wide text-[#A3A3A3] max-w-3xl"
               data-fade="4"
             >
               {frontMatter.excerpt}
@@ -311,7 +199,10 @@ export default function BlogPost({
                   src="/images/AL-KINDI.png"
                   alt={frontMatter.author}
                   fill
+                  sizes="(max-width: 640px) 3rem, (max-width: 768px) 3rem, 6rem"
                   className="object-cover"
+                  loading="eager"
+                  quality={90}
                 />
               </div>
               <div>
@@ -324,26 +215,19 @@ export default function BlogPost({
               </div>
             </div>
 
-            {/* Stats & Share */}
-            <div className="flex items-center gap-6">
-              <div className="flex items-center gap-6 text-xs sm:text-sm font-paragraf text-[#A3A3A3]">
-                <span className="flex items-center gap-2">
-                  <FaEye className="w-4 h-4" />
-                  {views} views
-                </span>
-                <span className="flex items-center gap-2">
-                  <FaClock className="w-4 h-4" />
-                  {frontMatter.readingTime} min read
-                </span>
-              </div>
-
-              {/* <span className="flex items-center gap-2">
-                <ShareButtons
-                  url={`https://alkindivv.site/blog/${frontMatter.category.toLowerCase()}/${frontMatter.slug}`}
-                  title={frontMatter.title}
-                  description={frontMatter.excerpt || ''}
-                />
-              </span> */}
+            {/* Stats */}
+            <div
+              className="flex items-center gap-6 text-xs sm:text-sm font-paragraf text-[#A3A3A3]"
+              data-fade="5"
+            >
+              <span className="flex items-center gap-2">
+                <FaEye className="w-4 h-4" />
+                {views} views
+              </span>
+              <span className="flex items-center font-paragraf text-[#A3A3A3] gap-2">
+                <FaClock className="w-4 h-4" />
+                {frontMatter.readingTime} min read
+              </span>
             </div>
           </div>
 
@@ -388,7 +272,7 @@ export default function BlogPost({
                 {/* Author Bio */}
                 <div className="relative group">
                   {/* Gradient Border */}
-                  <div className="absolute -inset-[1px]  rounded-2xl opacity-0 group-hover:opacity-100 transition-all duration-700" />
+                  <div className="absolute -inset-[1px] bg-gradient-to-r from-emerald-500/0 via-emerald-500/10 to-emerald-500/0 rounded-2xl opacity-0 group-hover:opacity-100 transition-all duration-700" />
 
                   {/* Content Container */}
                   <div className="relative flex flex-col sm:flex-row gap-6 sm:gap-8 p-6 sm:p-8 bg-[#0a0a0a]/90 backdrop-blur-md rounded-2xl border border-white/[0.05]">
@@ -403,7 +287,10 @@ export default function BlogPost({
                           src="/images/AL-KINDI.png"
                           alt={frontMatter.author}
                           fill
-                          className="object-cover brightness-[0.97]"
+                          sizes="(max-width: 640px) 3rem, (max-width: 768px) 3rem, 6rem"
+                          className="object-cover"
+                          loading="eager"
+                          quality={90}
                         />
                       </div>
                     </div>
@@ -423,7 +310,7 @@ export default function BlogPost({
                       </div>
 
                       {/* Bio */}
-                      <p className="text-[13px] sm:text-[14px] text-[#A3A3A3] leading-relaxed font-paragraf">
+                      <p className="text-[13px] sm:text-[14px] text-[#A3A3A3]leading-relaxed font-paragraf">
                         Focus on corporate law, capital markets, and bankruptcy.
                         Passionate about the intersection of law and technology,
                         exploring innovative solutions in legal practice.
@@ -495,72 +382,27 @@ export default function BlogPost({
             </aside>
           </div>
 
-          {/* Share Section */}
-          {/* <div
-            className="mt-12 mb-8 flex flex-col items-center space-y-4"
-            data-fade="10"
-          >
-            <div className="w-full h-px bg-gradient-to-r from-transparent via-gray-800/50 to-transparent" />
-            <div className="flex items-center gap-3">
-              <span className="text-sm md:text-base  text-[#A3A3A3]">
-                Share this article:
-              </span>
-              <div className="flex items-center gap-2">
-                <button
-                  onClick={() => handleShare('twitter')}
-                  className="p-2 text-gray-400 hover:text-[#1DA1F2] transition-colors"
-                  aria-label="Share on Twitter"
-                >
-                  <FaTwitter className="w-4 h-4" />
-                </button>
-                <button
-                  onClick={() => handleShare('facebook')}
-                  className="p-2 text-gray-400 hover:text-[#4267B2] transition-colors"
-                  aria-label="Share on Facebook"
-                >
-                  <FaFacebook className="w-4 h-4" />
-                </button>
-                <button
-                  onClick={() => handleShare('linkedin')}
-                  className="p-2 text-gray-400 hover:text-[#0077B5] transition-colors"
-                  aria-label="Share on LinkedIn"
-                >
-                  <FaLinkedin className="w-4 h-4" />
-                </button>
-                <button
-                  onClick={() => handleShare('whatsapp')}
-                  className="p-2 text-gray-400 hover:text-[#25D366] transition-colors"
-                  aria-label="Share on WhatsApp"
-                >
-                  <FaWhatsapp className="w-4 h-4" />
-                </button>
-                <div className="relative">
-                  <button
-                    onClick={() => handleShare('copy')}
-                    className="p-2 text-gray-400 hover:text-emerald-400 transition-colors"
-                    aria-label="Copy Link"
-                  >
-                    <FaLink className="w-4 h-4" />
-                  </button>
-                </div>
-              </div>
-            </div>
-            <div className="w-full h-px bg-gradient-to-r from-transparent via-gray-800/50 to-transparent" />
-          </div> */}
-
           {/* Comments & Related Articles */}
-          <div className="mt-8 sm:mt-12 space-y-8 sm:space-y-12">
+          <div className="mt-8 sm:mt-12 space-y-8 sm:space-y-12 transition-all duration-500 ease-in-out">
             {/* Comments Section */}
-            <div>
+            <div className="fade-in-bottom">
+              <h2 className="text-base sm:text-xl font-bold mb-4 sm:mb-6">
+                <Accent>Comments</Accent>
+              </h2>
               <Comments postSlug={frontMatter.slug} />
             </div>
 
             {/* Related Articles */}
-            <div>
+            <div className="fade-in-bottom">
               <h2 className="text-base sm:text-xl font-bold mb-4 sm:mb-6">
                 <Accent>Related Articles</Accent>
               </h2>
-              <RelatedArticles currentPost={frontMatter} allPosts={allPosts} />
+              <div className="transition-all duration-300 ease-in-out transform hover:translate-y-0">
+                <RelatedArticles
+                  currentPost={frontMatter}
+                  allPosts={allPosts}
+                />
+              </div>
             </div>
           </div>
         </div>

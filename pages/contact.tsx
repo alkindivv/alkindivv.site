@@ -3,7 +3,6 @@ import Layout from '@/components/layout/Layout';
 import Accent from '@/components/shared/Accent';
 import SEO from '@/components/shared/SEO';
 import SocialMediaContact from '@/components/social/SocialMediaContact';
-import Image from 'next/image';
 
 import clsx from 'clsx';
 import { FaEnvelope } from 'react-icons/fa';
@@ -11,6 +10,7 @@ import { FaWhatsapp } from 'react-icons/fa';
 import { SiFiverr } from 'react-icons/si';
 import dynamic from 'next/dynamic';
 import emailjs from '@emailjs/browser';
+import Image from 'next/image';
 
 const ContactPage = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -109,7 +109,7 @@ const ContactPage = () => {
             width={1280}
             height={825}
             className="pointer-events-none select-none absolute w-full inset-0 h-[450px] object-cover z-[-1] opacity-40 mix-blend-overlay"
-            src=""
+            src="/images/textures/crumpled.jpg"
           />
         </div>
 
@@ -125,14 +125,16 @@ const ContactPage = () => {
                 questions, or simply say hi!
               </p>
             </div>
+          </div>
 
-            <div
-              className="h-px bg-gradient-to-r from-transparent via-gray-800 to-transparent mb-10 mt-5"
-              data-fade="2"
-            />
+          <div
+            className="h-px bg-gradient-to-r from-transparent via-gray-600 to-transparent mb-10 mt-5"
+            data-fade="2"
+          />
 
-            {/* Contact Grid */}
-            <div className="mt-20 mx-auto" data-fade="4">
+          {/* Contact Grid */}
+          <div className="mt-20 mx-auto" data-fade="4">
+            <div className="max-w-6xl mx-auto">
               <div className="grid md:grid-cols-3 gap-6 h-full">
                 {/* Contact Info Column */}
                 <div className="flex flex-col gap-6 h-full" data-fade="5">
@@ -292,7 +294,7 @@ const ContactPage = () => {
                             required
                             rows={6}
                             className="w-full px-3 sm:px-4 py-2.5 sm:py-3.5 text-sm sm:text-base border bg-transparent border-gray-700 rounded-lg focus:outline-none focus:border-emerald-500/50 transition-colors resize-none"
-                            placeholder="Send me a message..."
+                            placeholder="Tell me about your project..."
                           />
                         </div>
 

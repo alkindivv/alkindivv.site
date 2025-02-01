@@ -8,75 +8,51 @@ interface RelatedArticlesProps {
   allPosts: BlogPost[];
 }
 
-const RelatedArticles: React.FC<RelatedArticlesProps> = ({
-  currentPost,
-  allPosts,
-}) => {
-  // Calculate relevance score for each post
-  const getRelevanceScore = (post: BlogPost) => {
-    let score = 0;
+const RelatedArticles = ({ currentPost, allPosts }: RelatedArticlesProps) => {
+  const router = useRouter();
 
-    // Same category gets highest score
-    if (post.category === currentPost.category) {
-      score += 5;
-    }
-
-    // Matching tags
-    const currentTags = new Set(currentPost.tags || []);
-    (post.tags || []).forEach((tag) => {
-      if (currentTags.has(tag)) {
-        score += 2;
-      }
-    });
-
-    // Recent posts get a bonus
-    const postDate = new Date(post.date);
-    const currentDate = new Date();
-    const daysDifference =
-      (currentDate.getTime() - postDate.getTime()) / (1000 * 3600 * 24);
-    if (daysDifference < 30) {
-      score += 1;
-    }
-
-    return score;
-  };
-
-  // Get related posts
+  // Filter related posts based on tags and category
   const relatedPosts = allPosts
-    .filter((post) => post.slug !== currentPost.slug) // Exclude current post
-    .map((post) => ({
-      ...post,
-      relevanceScore: getRelevanceScore(post),
-    }))
-    .sort((a, b) => b.relevanceScore - a.relevanceScore)
-    .slice(0, 3); // Get top 3 related posts
+    .filter((post) => {
+      if (post.slug === currentPost.slug) return false;
 
-  const handlePostClick = () => {
-    // Reset scroll position
-    window.scrollTo(0, 0);
+      const hasMatchingTag = currentPost.tags?.some((tag) =>
+        post.tags?.includes(tag)
+      );
+      const isSameCategory = post.category === currentPost.category;
 
-    // Clear any existing observers
-    const observers = (window as any).__observers__;
-    if (observers) {
-      Object.values(observers).forEach((observer: any) => {
-        observer.disconnect();
-      });
-      (window as any).__observers__ = {};
-    }
+      return hasMatchingTag || isSameCategory;
+    })
+    .slice(0, 3);
+
+  const handlePostClick = (slug: string, category: string) => {
+    // Add fade out effect before navigation
+    document.body.classList.add('loading');
+    setTimeout(() => {
+      router.push(`/blog/${category.toLowerCase()}/${slug}`);
+    }, 300);
   };
 
   return (
     <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-      {relatedPosts.map((post) => (
-        <div key={post.slug} className="cursor-pointer">
+      {relatedPosts.map((post, index) => (
+        <div
+          key={post.slug}
+          className="transform transition-all duration-300 ease-in-out hover:-translate-y-1"
+          style={{ animationDelay: `${index * 0.1}s` }}
+        >
           <BlogCard
             post={post}
-            className="transition-all duration-300"
-            onClick={handlePostClick}
-            isRelated={true}
+            onClick={() => handlePostClick(post.slug, post.category)}
+            isRelated
           />
         </div>
       ))}
+      {relatedPosts.length === 0 && (
+        <p className="text-gray-400 text-center py-8">
+          No related articles found.
+        </p>
+      )}
     </div>
   );
 };

@@ -15,99 +15,99 @@
   will-change: opacity, transform;
 }
 
-[data-fade='1'] {
+[data-fade="1"] {
   animation-delay: 0ms;
 }
 
-[data-fade='2'] {
+[data-fade="2"] {
   animation-delay: 150ms;
 }
 
-[data-fade='3'] {
+[data-fade="3"] {
   animation-delay: 300ms;
 }
 
-[data-fade='4'] {
+[data-fade="4"] {
   animation-delay: 450ms;
 }
 
-[data-fade='5'] {
+[data-fade="5"] {
   animation-delay: 600ms;
 }
 
-[data-fade='6'] {
+[data-fade="6"] {
   animation-delay: 750ms;
 }
 
-[data-fade='7'] {
+[data-fade="7"] {
   animation-delay: 900ms;
 }
 
-[data-fade='8'] {
+[data-fade="8"] {
   animation-delay: 1050ms;
 }
 
-[data-fade='9'] {
+[data-fade="9"] {
   animation-delay: 1200ms;
 }
 
-[data-fade='10'] {
+[data-fade="10"] {
   animation-delay: 1350ms;
 }
 
-[data-fade='11'] {
+[data-fade="11"] {
   animation-delay: 1500ms;
 }
 
-[data-fade='12'] {
+[data-fade="12"] {
   animation-delay: 1650ms;
 }
 
-[data-fade='13'] {
+[data-fade="13"] {
   animation-delay: 1800ms;
 }
 
-[data-fade='14'] {
+[data-fade="14"] {
   animation-delay: 1950ms;
 }
 
-[data-fade='15'] {
+[data-fade="15"] {
   animation-delay: 2100ms;
 }
 
-[data-fade='16'] {
+[data-fade="16"] {
   animation-delay: 2250ms;
 }
 
-[data-fade='17'] {
+[data-fade="17"] {
   animation-delay: 2400ms;
 }
 
-[data-fade='18'] {
+[data-fade="18"] {
   animation-delay: 2550ms;
 }
 
-[data-fade='19'] {
+[data-fade="19"] {
   animation-delay: 2700ms;
 }
 
-[data-fade='20'] {
+[data-fade="20"] {
   animation-delay: 2850ms;
 }
 
-[data-fade='21'] {
+[data-fade="21"] {
   animation-delay: 3000ms;
 }
 
-[data-fade='22'] {
+[data-fade="22"] {
   animation-delay: 3150ms;
 }
 
-[data-fade='23'] {
+[data-fade="23"] {
   animation-delay: 3300ms;
 }
 
-[data-fade='24'] {
+[data-fade="24"] {
   animation-delay: 3450ms;
 }
 

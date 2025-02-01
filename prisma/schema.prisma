@@ -16,21 +16,13 @@ model PageView {
 }
 
 model Post {
-  id          String    @id @default(cuid())
-  slug        String    @unique
-  title       String
-  content     String?
-  excerpt     String?
-  category    String?
-  tags        String[]
-  author      User      @relation(fields: [authorId], references: [id])
-  authorId    String
-  comments    Comment[]
-  createdAt   DateTime  @default(now())
-  updatedAt   DateTime  @updatedAt
-  publishedAt DateTime?
-  featured    Boolean   @default(false)
-  views       Int       @default(0)
+  id        String    @id @default(cuid())
+  slug      String    @unique
+  title     String
+  content   String?
+  comments  Comment[]
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
 }
 
 model Comment {
@@ -40,21 +32,20 @@ model Comment {
   updatedAt DateTime  @updatedAt
   author    User      @relation(fields: [authorId], references: [id])
   authorId  String
-  post      Post      @relation(fields: [postId], references: [id])
-  postId    String
-  parent    Comment?  @relation("CommentReplies", fields: [parentId], references: [id])
+  post      Post      @relation(fields: [postSlug], references: [slug])
+  postSlug  String
   parentId  String?
+  parent    Comment?  @relation("CommentReplies", fields: [parentId], references: [id])
   replies   Comment[] @relation("CommentReplies")
 }
 
 model User {
   id            String    @id @default(cuid())
   name          String?
-  email         String    @unique
+  email         String?   @unique
   emailVerified DateTime?
   image         String?
   comments      Comment[]
-  posts         Post[]
   accounts      Account[]
   sessions      Session[]
 }
