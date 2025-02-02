@@ -9,14 +9,14 @@ export default function NotFound() {
     <main className="min-h-screen bg-[#0a0a0a] flex items-center justify-center p-4">
       <div className="w-full max-w-2xl mx-auto text-center relative">
         {/* Background Elements */}
-        <div className="absolute inset-0 bg-gradient-to-b from-emerald-500/5 via-emerald-500/2 to-transparent" />
+        <div className="absolute inset-0 bg-transparent" />
         <div className="absolute inset-0 opacity-10 bg-[radial-gradient(#ffffff33_1px,transparent_1px)] [background-size:16px_16px]" />
 
         {/* Content */}
         <div className="relative space-y-8">
           {/* 404 Text */}
-          <h1 className="text-8xl md:text-9xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-emerald-500/80 via-emerald-400 to-emerald-500/80 font-apple-homemade">
-            404
+          <h1 className="text-8xl md:text-9xl  gradient-text">
+            <Accent>404</Accent>
           </h1>
 
           {/* Icon */}

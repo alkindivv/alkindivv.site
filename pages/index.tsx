@@ -4,7 +4,7 @@ import Accent from '@/components/shared/Accent';
 import SEO from '@/components/shared/SEO';
 import SocialMedia from '@/components/social/SocialMedia';
 import Link from 'next/link';
-
+import GlowingButton from '@/components/shared/GlowingButton';
 export default function HomePage() {
   return (
     <Layout isHomePage>
@@ -30,12 +30,8 @@ export default function HomePage() {
           {/* Buttons Section */}
           <div className="relative" data-fade="6">
             <div className="flex gap-3 md:gap-4">
-              <Link
-                href="/blog"
-                className="gradient-border font-semibold text-sm md:text-base 2xl:text-lg px-3 md:px-3 py-1.5 md:py-2.5"
-              >
-                Read the blog
-              </Link>
+              <GlowingButton href="/blog">Read the blog</GlowingButton>
+
               <Link
                 href="/about"
                 className="no-gradient-button rounded-md font-semibold text-sm md:text-base 2xl:text-lg px-3 md:px-3 py-1.5 md:py-2.5"

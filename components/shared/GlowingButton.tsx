@@ -86,7 +86,9 @@ const GlowingButton = React.forwardRef<HTMLButtonElement, GlowingButtonProps>(
     const baseStyles = cn(
       'relative group inline-flex items-center gap-3',
       'gradient-border bg-black/90 hover:bg-black/80',
-      'backdrop-blur-sm supports-[backdrop-filter]:bg-black/90',
+      'backdrop-blur-sm supports-[backdrop-filter]:bg-transparent',
+      // 'gradient-border bg-transparent hover:bg-white/5',
+      // 'backdrop-blur-sm supports-[backdrop-filter]:bg-transparent',
       'transition-all duration-300 ease-out',
       disabled && 'opacity-50 cursor-not-allowed pointer-events-none',
       variant === 'default' && 'px-4 py-3 rounded-xl',

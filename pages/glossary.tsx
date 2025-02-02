@@ -12,18 +12,24 @@ const legalTerms = [
     term: 'Perseroan Terbatas (PT)',
     definition:
       'Badan hukum yang merupakan persekutuan modal, didirikan berdasarkan perjanjian, melakukan kegiatan usaha dengan modal dasar yang seluruhnya terbagi dalam saham.',
+    example:
+      'PT Gojek Indonesia didirikan sebagai perseroan terbatas pada tahun 2010. Sebagai PT, Gojek dapat menerbitkan saham untuk pendanaan, memiliki aset atas nama perusahaan, dan memiliki tanggung jawab terbatas dimana pemegang saham hanya bertanggung jawab sebatas modal yang disetor.',
     tags: ['Hukum Perusahaan', 'Badan Hukum'],
   },
   {
     term: 'Merger',
     definition:
       'Perbuatan hukum yang dilakukan oleh satu perseroan atau lebih untuk menggabungkan diri dengan perseroan lain yang telah ada dan selanjutnya perseroan yang menggabungkan diri menjadi bubar.',
+    example:
+      'Merger antara Gojek dan Tokopedia pada tahun 2021 membentuk GoTo Group. Dalam proses ini, kedua perusahaan menggabungkan operasional, aset, dan struktur organisasi mereka menjadi satu entitas baru.',
     tags: ['Merger & Akuisisi', 'Restrukturisasi'],
   },
   {
     term: 'Kepailitan',
     definition:
       'Suatu keadaan di mana debitor tidak mampu untuk melakukan pembayaran terhadap utang-utang dari para kreditornya.',
+    example:
+      'Kasus kepailitan PT Asuransi Jiwasraya pada tahun 2020, dimana perusahaan tidak mampu membayar klaim nasabah senilai triliunan rupiah, menyebabkan pengadilan menyatakan perusahaan pailit dan menunjuk kurator untuk mengelola aset-asetnya.',
     tags: ['Hukum Kepailitan', 'Utang Piutang'],
   },
   {
@@ -32,12 +38,7 @@ const legalTerms = [
       'Dokumen resmi yang dibuat oleh atau di hadapan notaris menurut bentuk dan tata cara yang ditetapkan oleh undang-undang.',
     tags: ['Dokumen Hukum', 'Notaris'],
   },
-  {
-    term: 'Due Diligence',
-    definition:
-      'Pemeriksaan secara menyeluruh terhadap suatu perusahaan untuk menilai aset dan kewajiban serta potensi risiko sebelum melakukan transaksi bisnis.',
-    tags: ['Merger & Akuisisi', 'Audit'],
-  },
+
   {
     term: 'Force Majeure',
     definition:
@@ -169,11 +170,11 @@ export default function Glossary() {
             </div>
 
             {/* Main Content with Sidebar Layout */}
-            <div className="relative mt-12 flex flex-col lg:flex-row gap-8">
-              {/* Main Content */}
-              <div className="flex-1  mx-auto lg:mx-0">
+            <div className="relative mt-12">
+              {/* Search and Filters */}
+              <div className="mb-8">
                 {/* Search Bar */}
-                <div className="mb-12" data-fade="3">
+                <div className="mb-8" data-fade="3">
                   <div className="gradient-border p-[1px] rounded-xl hover:p-[1.5px] transition-all duration-300">
                     <div className="relative group">
                       <input
@@ -213,104 +214,8 @@ export default function Glossary() {
                   )}
                 </div>
 
-                {/* Active Filters */}
-                {(selectedTags.length > 0 || selectedLetter || searchTerm) && (
-                  <div className="flex flex-wrap gap-2 items-center mb-8">
-                    <span className="text-sm text-gray-400">
-                      Active Filters:
-                    </span>
-                    {selectedTags.map((tag) => (
-                      <button
-                        key={tag}
-                        onClick={() => handleTagSelect(tag)}
-                        className="px-3 py-1 text-sm bg-emerald-500/10 text-emerald-400 rounded-full
-                               hover:bg-emerald-500/20 transition-colors flex items-center gap-1"
-                      >
-                        {tag}
-                        <HiX className="w-3 h-3" />
-                      </button>
-                    ))}
-                    {selectedLetter && (
-                      <button
-                        onClick={() => setSelectedLetter('')}
-                        className="px-3 py-1 text-sm bg-emerald-500/10 text-emerald-400 rounded-full
-                               hover:bg-emerald-500/20 transition-colors flex items-center gap-1"
-                      >
-                        Huruf: {selectedLetter}
-                        <HiX className="w-3 h-3" />
-                      </button>
-                    )}
-                    <button
-                      onClick={resetFilters}
-                      className="text-sm text-gray-500 hover:text-emerald-400 transition-colors ml-auto"
-                    >
-                      Reset All
-                    </button>
-                  </div>
-                )}
-
-                {/* Glossary Terms */}
-                <div className="space-y-4" data-fade="5">
-                  {filteredTerms.map((item) => (
-                    <div key={item.term} className="group ">
-                      <button
-                        onClick={() =>
-                          setExpandedTerm(
-                            expandedTerm === item.term ? null : item.term
-                          )
-                        }
-                        className="w-full flex items-center justify-between p-4 border border-gray-900
-                                rounded-lg hover:border-gray-600/50 transition-colors text-left"
-                      >
-                        <div className="space-y-1 pr-4">
-                          <h3 className="text-base font-semibold tracking-wide text-gray-200 group-hover:text-emerald-400 transition-colors">
-                            {item.term}
-                          </h3>
-                          <p
-                            className={clsx(
-                              'text-sm paragraph-text transition-all duration-200',
-                              expandedTerm === item.term ? '' : 'line-clamp-2'
-                            )}
-                          >
-                            {item.definition}
-                          </p>
-                          {expandedTerm === item.term && (
-                            <div className="flex flex-wrap gap-2 mt-3 pt-3 border-t border-gray-800">
-                              {item.tags.map((tag) => (
-                                <span
-                                  key={tag}
-                                  className="px-2 py-1 text-xs bg-emerald-500/5 text-emerald-400/80 rounded"
-                                >
-                                  {tag}
-                                </span>
-                              ))}
-                            </div>
-                          )}
-                        </div>
-                        <HiChevronRight
-                          className={clsx(
-                            'flex-shrink-0 w-5 h-5 text-gray-500 group-hover:text-emerald-400 transition-transform duration-200',
-                            expandedTerm === item.term && 'rotate-90'
-                          )}
-                        />
-                      </button>
-                    </div>
-                  ))}
-
-                  {/* Empty State */}
-                  {filteredTerms.length === 0 && (
-                    <div className="text-center py-12 transition-opacity duration-200">
-                      <p className="">
-                        <Accent>No results found</Accent>
-                      </p>
-                    </div>
-                  )}
-                </div>
-              </div>
-
-              {/* Sidebar Filter */}
-              <div className="lg:w-72 lg:flex-shrink-0" data-fade="6">
-                <div className="sticky top-24  border border-[#2323219b] rounded-lg  p-6 space-y-6">
+                {/* Mobile Filters */}
+                <div className="lg:hidden space-y-6 mb-8">
                   {/* Alphabet Filter */}
                   <div className="space-y-3">
                     <div className="text-sm font-semibold text-gray-200">
@@ -352,12 +257,179 @@ export default function Glossary() {
                             'px-1.5 py-1 text-xs paragraph-text rounded-lg transition-colors',
                             selectedTags.includes(tag)
                               ? 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/20'
-                              : 'text-[#525252]  hover:text-emerald-400 hover:border-emerald-500/20'
+                              : 'text-[#525252] hover:text-emerald-400 hover:border-emerald-500/20'
                           )}
                         >
                           {tag}
                         </button>
                       ))}
+                    </div>
+                  </div>
+                </div>
+
+                {/* Active Filters */}
+                {(selectedTags.length > 0 || selectedLetter || searchTerm) && (
+                  <div className="flex flex-wrap gap-2 items-center mb-8">
+                    <span className="text-sm text-gray-400">
+                      Active Filters:
+                    </span>
+                    {selectedTags.map((tag) => (
+                      <button
+                        key={tag}
+                        onClick={() => handleTagSelect(tag)}
+                        className="px-3 py-1 text-sm bg-emerald-500/10 text-emerald-400 rounded-full
+                               hover:bg-emerald-500/20 transition-colors flex items-center gap-1"
+                      >
+                        {tag}
+                        <HiX className="w-3 h-3" />
+                      </button>
+                    ))}
+                    {selectedLetter && (
+                      <button
+                        onClick={() => setSelectedLetter('')}
+                        className="px-3 py-1 text-sm bg-emerald-500/10 text-emerald-400 rounded-full
+                               hover:bg-emerald-500/20 transition-colors flex items-center gap-1"
+                      >
+                        Huruf: {selectedLetter}
+                        <HiX className="w-3 h-3" />
+                      </button>
+                    )}
+                    <button
+                      onClick={resetFilters}
+                      className="text-sm text-gray-500 hover:text-emerald-400 transition-colors ml-auto"
+                    >
+                      Reset All
+                    </button>
+                  </div>
+                )}
+              </div>
+
+              <div className="flex flex-col lg:flex-row gap-8">
+                {/* Main Content */}
+                <div className="flex-1 mx-auto lg:mx-0">
+                  {/* Glossary Terms */}
+                  <div className="space-y-4" data-fade="5">
+                    {filteredTerms.map((item) => (
+                      <div key={item.term} className="group ">
+                        <button
+                          onClick={() =>
+                            setExpandedTerm(
+                              expandedTerm === item.term ? null : item.term
+                            )
+                          }
+                          className="w-full flex items-center justify-between p-4 border border-gray-900
+                                  rounded-lg transition-colors text-left"
+                        >
+                          <div className="space-y-1 pr-4">
+                            <h3 className="text-base font-semibold tracking-wide text-gray-200 group-hover:text-emerald-400 transition-colors">
+                              {item.term}
+                            </h3>
+                            <p
+                              className={clsx(
+                                'text-sm paragraph-text transition-all duration-200',
+                                expandedTerm === item.term ? '' : 'line-clamp-2'
+                              )}
+                            >
+                              {item.definition}
+                            </p>
+                            {expandedTerm === item.term && (
+                              <div className="space-y-4 mt-3 pt-3 border-t border-gray-800">
+                                <div className="bg-transparent border border-transparent p-4">
+                                  <h4 className="text-sm text-neutral-500 mb-2">
+                                    example
+                                  </h4>
+                                  <p className="text-sm text-neutral-400 leading-relaxed">
+                                    {item.example}
+                                  </p>
+                                </div>
+                                <div className="flex flex-wrap gap-2">
+                                  {item.tags.map((tag) => (
+                                    <span
+                                      key={tag}
+                                      className="px-2 py-1 text-xs font-sans tracking-wide bg-transparent font-medium text-neutral-500 rounded"
+                                    >
+                                      {tag}
+                                    </span>
+                                  ))}
+                                </div>
+                              </div>
+                            )}
+                          </div>
+                          <HiChevronRight
+                            className={clsx(
+                              'flex-shrink-0 w-5 h-5 text-gray-500 group-hover:text-emerald-400 transition-transform duration-200',
+                              expandedTerm === item.term && 'rotate-90'
+                            )}
+                          />
+                        </button>
+                      </div>
+                    ))}
+
+                    {/* Empty State */}
+                    {filteredTerms.length === 0 && (
+                      <div className="text-center py-12 transition-opacity duration-200">
+                        <p className="">
+                          <Accent>No results found</Accent>
+                        </p>
+                      </div>
+                    )}
+                  </div>
+                </div>
+
+                {/* Desktop Sidebar Filter */}
+                <div
+                  className="hidden lg:block lg:w-72 lg:flex-shrink-0"
+                  data-fade="6"
+                >
+                  <div className="sticky top-24 border border-[#2323219b] rounded-lg p-6 space-y-6">
+                    {/* Alphabet Filter */}
+                    <div className="space-y-3">
+                      <div className="text-sm font-semibold text-gray-200">
+                        Filter Huruf
+                      </div>
+                      <div className="flex flex-wrap gap-2">
+                        {alphabet.map((letter) => (
+                          <button
+                            key={letter}
+                            onClick={() =>
+                              setSelectedLetter(
+                                selectedLetter === letter ? '' : letter
+                              )
+                            }
+                            className={clsx(
+                              'w-8 h-8 rounded-full flex items-center justify-center text-xs text-[#525252]transition-colors',
+                              selectedLetter === letter
+                                ? 'bg-emerald-500/10 text-[#525252] border border-emerald-500/20'
+                                : 'text-[#525252] hover:text-emerald-400 hover:bg-emerald-500/5'
+                            )}
+                          >
+                            {letter}
+                          </button>
+                        ))}
+                      </div>
+                    </div>
+
+                    {/* Tags Filter */}
+                    <div className="space-y-3 pt-4 border-t border-gray-800">
+                      <div className="text-sm font-semibold text-gray-200">
+                        Filter Kategori
+                      </div>
+                      <div className="flex flex-wrap gap-2">
+                        {uniqueTags.map((tag) => (
+                          <button
+                            key={tag}
+                            onClick={() => handleTagSelect(tag)}
+                            className={clsx(
+                              'px-1.5 py-1 text-xs paragraph-text rounded-lg transition-colors',
+                              selectedTags.includes(tag)
+                                ? 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/20'
+                                : 'text-[#525252] hover:text-emerald-400 hover:border-emerald-500/20'
+                            )}
+                          >
+                            {tag}
+                          </button>
+                        ))}
+                      </div>
                     </div>
                   </div>
                 </div>

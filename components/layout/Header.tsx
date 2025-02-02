@@ -96,7 +96,7 @@ export default function Header() {
     {
       href: '/books',
       label: 'Books',
-      description: 'Book Collections',
+      description: 'My Book Collections',
       icon: HiBookOpen,
     },
     {
@@ -108,7 +108,7 @@ export default function Header() {
     {
       href: '/resources',
       label: 'Resources',
-      description: 'Book Collections',
+      description: 'Resources and templates',
       icon: HiBookOpen,
     },
     {
@@ -138,11 +138,13 @@ export default function Header() {
           {/* Logo */}
           <Link
             href="/"
-            className="text-xl font-bold tracking-tight hover:text-emerald-400 transition-colors"
-          ></Link>
+            className="text-sm hover:text-emerald-400 transition-colors"
+          >
+            <span className="gradient-text font-apple-homemade"></span>
+          </Link>
 
           {/* Desktop Navigation */}
-          <nav className="hidden md:flex items-center space-x-1">
+          <nav className="hidden md:flex items-center gap-1">
             {[
               ...navItems,
               {
@@ -163,7 +165,7 @@ export default function Header() {
                     <button
                       onClick={() => setIsMoreOpen(!isMoreOpen)}
                       className={clsx(
-                        'relative inline-flex items-center gap-1.5 px-4 py-2 rounded-xl',
+                        'relative inline-flex items-center gap-1.5 px-3 py-2 rounded-lg',
                         'text-sm font-medium',
                         'transition-all duration-300',
                         'hover:bg-emerald-500/5',
@@ -222,11 +224,10 @@ export default function Header() {
                   key={item.href}
                   href={item.href}
                   className={clsx(
-                    'relative inline-flex items-center gap-2 px-4 py-2 rounded-xl',
+                    'relative inline-flex items-center gap-1.5 px-3 py-2 rounded-lg',
                     'text-sm font-medium',
                     'transition-all duration-300',
-                    // 'hover:bg-emerald-500/5',
-                    'group',
+                    'hover:bg-emerald-500/5',
                     isActive
                       ? 'text-emerald-400'
                       : 'text-gray-300 hover:text-emerald-400'
@@ -234,7 +235,7 @@ export default function Header() {
                 >
                   {item.label}
                   {isActive && (
-                    <span className="absolute -bottom-1 left-2 right-2 h-0.5  rounded-full" />
+                    <span className="absolute -bottom-1 left-2 right-2 h-0.5 rounded-full" />
                   )}
                 </Link>
               );
@@ -245,11 +246,10 @@ export default function Header() {
           <button
             onClick={() => setIsMenuOpen(!isMenuOpen)}
             className={clsx(
-              'md:hidden p-2 rounded-xl',
+              'md:hidden p-2 rounded-lg',
               'transition-all duration-300',
               'text-gray-400 hover:text-emerald-400',
-              'hover:bg-emerald-500/5',
-              'focus:outline-none'
+              'hover:bg-emerald-500/5'
             )}
             aria-label="Toggle menu"
           >

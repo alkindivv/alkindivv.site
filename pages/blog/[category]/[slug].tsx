@@ -321,7 +321,7 @@ export default function BlogPost({
                           href="https://twitter.com/alkindivv"
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="flex items-center gap-2 text-[13px] text-gray-400/80 hover:text-emerald-400/90 transition-colors duration-300"
+                          className="flex items-center gap-2 text-[13px] text-gray-400/80 transition-colors duration-300"
                         >
                           <svg
                             className="w-3.5 h-3.5"
