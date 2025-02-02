@@ -1,14 +1,12 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useRef } from 'react';
 import Layout from '@/components/layout/Layout';
 import Accent from '@/components/shared/Accent';
 import SEO from '@/components/shared/SEO';
 import SocialMediaContact from '@/components/social/SocialMediaContact';
 
-import clsx from 'clsx';
 import { FaEnvelope } from 'react-icons/fa';
 import { FaWhatsapp } from 'react-icons/fa';
 import { SiFiverr } from 'react-icons/si';
-import dynamic from 'next/dynamic';
 import emailjs from '@emailjs/browser';
 import Image from 'next/image';
 
@@ -18,16 +16,7 @@ const ContactPage = () => {
     null
   );
   const [statusMessage, setStatusMessage] = useState('');
-  const [isLoaded, setIsLoaded] = useState(false);
   const formRef = useRef<HTMLFormElement>(null);
-
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setIsLoaded(true);
-    }, 200);
-
-    return () => clearTimeout(timer);
-  }, []);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -85,12 +74,7 @@ const ContactPage = () => {
         description="Get in touch with AL KINDI for legal consultations, collaborations, or inquiries about capital markets, M&A, bankruptcy, and crypto regulations. Available through email, WhatsApp, or professional platforms."
       />
 
-      <main
-        className={clsx(
-          'content-spacing fade-wrapper',
-          !isLoaded && 'opacity-0'
-        )}
-      >
+      <main className="content-spacing">
         {/* Background Effect */}
         <div
           className="absolute inset-0 overflow-hidden h-[450px] bg-neutral-950"
@@ -169,7 +153,6 @@ const ContactPage = () => {
                           target="_blank"
                           rel="noopener noreferrer"
                           className="group flex items-center gap-4 p-4 border border-gray-700 rounded-lg hover:border-emerald-500/50 hover:bg-emerald-900/10 transition-all duration-300"
-                          data-fade={`${7 + idx}`}
                         >
                           <div className="p-2 bg-emerald-900/30 rounded-lg group-hover:bg-emerald-900/50 transition-colors">
                             <contact.icon className="text-xl text-emerald-500" />
@@ -199,7 +182,6 @@ const ContactPage = () => {
                         target="_blank"
                         rel="noopener noreferrer"
                         className="group flex items-center gap-4 p-4 border border-gray-700 rounded-lg hover:border-emerald-500/50 hover:bg-emerald-900/10 transition-all duration-300"
-                        data-fade="10"
                       >
                         <div className="p-2 bg-emerald-900/30 rounded-lg group-hover:bg-emerald-900/50 transition-colors">
                           <SiFiverr className="text-xl text-emerald-500" />

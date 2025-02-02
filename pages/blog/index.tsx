@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import Layout from '@/components/layout/Layout';
 import styles from '@/styles/Blog.module.css';
 import { GetStaticProps } from 'next';
@@ -10,11 +10,10 @@ import {
   HiChevronLeft,
   HiChevronRight,
   HiSearch,
-  HiOutlineDocumentText,
 } from 'react-icons/hi';
 import clsx from 'clsx';
 import { IconType } from 'react-icons/lib';
-import { getAllPosts, getAllCategories } from '@/lib/mdx';
+import { getAllPosts } from '@/lib/mdx';
 import { BlogPost } from '@/types/blog';
 import SEO from '@/components/shared/SEO';
 import HighlightedText from '@/components/shared/HighlightedText';
@@ -75,17 +74,8 @@ const BlogPage: React.FC<BlogPageProps> = ({ blogPosts }) => {
   const [selectedTopic, setSelectedTopic] = useState<string | null>(null);
   const [selectedCategory, setSelectedCategory] = useState('All Categories');
   const [sortOrder, setSortOrder] = useState<SortOption>(sortOptions[0]);
-  const [isLoaded, setIsLoaded] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const [searchQuery, setSearchQuery] = useState('');
-
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setIsLoaded(true);
-    }, 200);
-
-    return () => clearTimeout(timer);
-  }, []);
 
   const handleTopicClick = (topic: string) => {
     setSelectedTopic(selectedTopic === topic ? null : topic);
@@ -176,8 +166,7 @@ const BlogPage: React.FC<BlogPageProps> = ({ blogPosts }) => {
 
       <main
         className={clsx(
-          'content-spacing max-w-[1200px] w-full fade-wrapper relative overflow-hidden',
-          !isLoaded && 'opacity-0'
+          'content-spacing max-w-[1200px] w-full relative overflow-hidden'
         )}
       >
         {/* Content */}

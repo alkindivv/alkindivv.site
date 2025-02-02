@@ -4,9 +4,8 @@ interface SchemaProps {
   url: string;
   siteName: string;
   image: string;
-  type: 'website' | 'article';
+  type: 'article' | 'website';
   date?: string;
-  author?: string;
   category?: string;
   tags?: string[];
   wordCount?: number;
@@ -20,104 +19,64 @@ export function generateSchema({
   image,
   type,
   date,
-  author = 'AL KINDI',
   category,
   tags,
   wordCount,
 }: SchemaProps) {
-  const personSchema = {
-    '@type': 'Person',
-    '@id': `${url}/#/schema/person/alkindi`,
-    name: author,
-    url: `${url}/about`,
-    image: {
-      '@type': 'ImageObject',
-      url: `${url}/images/ALKINDI-bg.PNG`,
-      contentUrl: `${url}/images/ALKINDI-bg.PNG`,
-    },
-    description:
-      'Trainee Associate with focus on corporate law, capital markets, and bankruptcy',
-    jobTitle: 'Trainee Associate',
-    sameAs: [
-      'https://twitter.com/alkindivv',
-      'https://linkedin.com/in/alkindivv',
-      'https://github.com/alkindivv',
-    ],
-  };
-
-  const organizationSchema = {
-    '@type': 'Organization',
-    '@id': `${url}/#/schema/organization/alkindivv`,
-    name: siteName,
-    url: url,
-    logo: {
-      '@type': 'ImageObject',
-      url: `${url}/images/logo.png`,
-      contentUrl: `${url}/images/logo.png`,
-    },
-    sameAs: [
-      'https://twitter.com/alkindivv',
-      'https://linkedin.com/in/alkindivv',
-      'https://github.com/alkindivv',
-    ],
-  };
-
-  const baseSchema = {
+  const schema = {
     '@context': 'https://schema.org',
-    '@type': type === 'article' ? 'BlogPosting' : 'WebSite',
-    '@id': `${url}${type === 'article' ? '/blog' : ''}/#website`,
-    url,
+    '@type': type === 'article' ? 'Article' : 'WebSite',
     name: title,
+    headline: title,
     description,
-    publisher: organizationSchema,
-    author: personSchema,
-    image: {
-      '@type': 'ImageObject',
-      url: image,
-      contentUrl: image,
-    },
-    inLanguage: 'id-ID',
-    potentialAction: [
-      {
-        '@type': 'SearchAction',
-        target: {
-          '@type': 'EntryPoint',
-          urlTemplate: `${url}/search?q={search_term_string}`,
-        },
-        'query-input': 'required name=search_term_string',
+    url,
+    image,
+    publisher: {
+      '@type': 'Organization',
+      name: siteName,
+      logo: {
+        '@type': 'ImageObject',
+        url: 'https://alkindivv.site/logo.png',
       },
-    ],
+    },
+    author: {
+      '@type': 'Person',
+      name: 'AL KINDI',
+      url: 'https://alkindivv.site',
+      jobTitle: 'Legal Technology Expert',
+      sameAs: [
+        'https://twitter.com/alkindivv',
+        'https://linkedin.com/in/alkindivv',
+        'https://github.com/alkindivv',
+      ],
+    },
   };
 
   if (type === 'article') {
     return {
-      '@context': 'https://schema.org',
-      '@type': 'Article',
-      '@id': `${url}/blog/${category}/${url.split('/').pop()}#article`,
-      isPartOf: {
-        '@id': `${url}/#website`,
-      },
-      author: personSchema,
-      publisher: organizationSchema,
-      headline: title,
-      description: description,
+      ...schema,
       datePublished: date,
       dateModified: date,
+      articleSection: category,
+      keywords: tags?.join(', '),
+      wordCount,
       mainEntityOfPage: {
         '@type': 'WebPage',
         '@id': url,
       },
-      image: {
-        '@type': 'ImageObject',
-        url: image,
-        contentUrl: image,
-      },
-      articleSection: category,
-      keywords: tags?.join(', '),
-      wordCount,
-      inLanguage: 'id-ID',
     };
   }
 
-  return baseSchema;
+  return {
+    ...schema,
+    potentialAction: {
+      '@type': 'SearchAction',
+      target: {
+        '@type': 'EntryPoint',
+        urlTemplate:
+          'https://alkindivv.site/blog/search?q={search_term_string}',
+      },
+      'query-input': 'required name=search_term_string',
+    },
+  };
 }

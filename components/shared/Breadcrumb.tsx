@@ -1,7 +1,6 @@
 import React from 'react';
 import Link from 'next/link';
 import { HiChevronRight, HiHome } from 'react-icons/hi';
-import Accent from './Accent';
 
 export interface BreadcrumbItem {
   label: string;

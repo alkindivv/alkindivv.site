@@ -102,17 +102,6 @@ export const LI = ({ children, className = '' }: TypographyProps) => (
   </li>
 );
 
-export const Strong = ({ children, className = '' }: TypographyProps) => (
-  <strong
-    className={clsx(
-      'text-[0.95rem] md:text-[1.05rem] font-paragraf text-[#D4D4D4]',
-      className
-    )}
-  >
-    {children}
-  </strong>
-);
-
 export const BlockQuote = ({ children, className = '' }: TypographyProps) => (
   <blockquote
     className={clsx(
@@ -286,7 +275,7 @@ export const MDXComponents = {
       {children}
     </strong>
   ),
-  Image: ({ src, alt, width, height, ...props }: any) => (
+  Image: ({ src, alt, width: _width, height: _height, ...props }: any) => (
     <div className="relative w-full aspect-[1.88/1] mb-12 -mt-10 md:mb-12 md:-mt-14 group cursor-zoom-in">
       <div className="absolute inset-0">
         <Image

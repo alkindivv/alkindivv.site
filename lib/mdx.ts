@@ -62,11 +62,8 @@ export async function getAllPosts(): Promise<BlogPost[]> {
         const source = fs.readFileSync(filePath, 'utf8');
         const { data, content } = matter(source);
         const rawSlug = file.replace(/\.mdx$/, '');
-
-        // Use the file name as the slug to maintain consistency
         const slug = rawSlug;
 
-        // Validate required fields
         if (!data.title) {
           console.warn(`Missing title in ${filePath}`);
           continue;
@@ -77,10 +74,8 @@ export async function getAllPosts(): Promise<BlogPost[]> {
           continue;
         }
 
-        // Add dummy views for testing sorting
         const views = Math.floor(Math.random() * 1000);
 
-        // Ensure all required fields are present with fallbacks
         const post: BlogPost = {
           title: data.title,
           date: new Date(data.date).toISOString(),
@@ -104,58 +99,9 @@ export async function getAllPosts(): Promise<BlogPost[]> {
     }
   }
 
-  // Sort posts by date in descending order
   return posts.sort(
     (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
   );
-}
-
-// Get posts by tag
-export async function getPostsByTag(tag: string): Promise<BlogPost[]> {
-  const allPosts = await getAllPosts();
-  return allPosts.filter((post) => post.tags?.includes(tag));
-}
-
-// Get related posts
-export async function getRelatedPosts(
-  currentPost: BlogPost,
-  limit: number = 3
-): Promise<BlogPost[]> {
-  const allPosts = await getAllPosts();
-
-  return allPosts
-    .filter((post) => post.slug !== currentPost.slug)
-    .map((post) => ({
-      ...post,
-      relevanceScore: calculateRelevanceScore(post, currentPost),
-    }))
-    .sort((a, b) => b.relevanceScore - a.relevanceScore)
-    .slice(0, limit);
-}
-
-// Helper function to calculate post relevance
-function calculateRelevanceScore(
-  post: BlogPost,
-  currentPost: BlogPost
-): number {
-  let score = 0;
-
-  // Same category
-  if (post.category === currentPost.category) score += 5;
-
-  // Matching tags
-  const currentTags = new Set(currentPost.tags || []);
-  (post.tags || []).forEach((tag) => {
-    if (currentTags.has(tag)) score += 2;
-  });
-
-  // Recent posts (within 30 days)
-  const daysDiff =
-    (new Date().getTime() - new Date(post.date).getTime()) /
-    (1000 * 60 * 60 * 24);
-  if (daysDiff <= 30) score += 1;
-
-  return score;
 }
 
 // Get all post slugs for static paths

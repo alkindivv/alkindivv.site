@@ -1,31 +1,15 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import Layout from '@/components/layout/Layout';
 import Accent from '@/components/shared/Accent';
 import SEO from '@/components/shared/SEO';
 import SocialMedia from '@/components/social/SocialMedia';
 import Link from 'next/link';
-import clsx from 'clsx';
 
 export default function HomePage() {
-  const [isLoaded, setIsLoaded] = useState(false);
-
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setIsLoaded(true);
-    }, 200);
-
-    return () => clearTimeout(timer);
-  }, []);
-
   return (
     <Layout isHomePage>
       <SEO />
-      <main
-        className={clsx(
-          'h-[70vh] overflow-hidden flex flex-col justify-center items-center ',
-          isLoaded && 'fade-wrapper'
-        )}
-      >
+      <main className="h-[70vh] overflow-hidden flex flex-col justify-center items-center">
         <div className="max-w-[1100px] w-full space-y-3">
           {/* Name Section */}
           <div className="relative" data-fade="2">

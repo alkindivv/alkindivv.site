@@ -1,8 +1,8 @@
 import '@/styles/globals.css';
 import '@/styles/animations.css';
-import { useEffect } from 'react';
+
 import type { AppProps } from 'next/app';
-import { useRouter } from 'next/router';
+
 import { SessionProvider } from 'next-auth/react';
 import { Analytics } from '@vercel/analytics/react';
 import { DefaultSeo } from 'next-seo';
@@ -16,7 +16,7 @@ const SEO = dynamic(() => import('@/components/shared/SEO'), {
 const defaultSEOConfig = {
   title: 'AL KINDI - Personal Website and Blog',
   description:
-    'Explore insights about law, technology, and their intersection. Articles about corporate law, capital markets, and legal tech innovations.',
+    'Explore insights about law, technology, and their intersection. Articles about corporate mergers and acquisitions, capital markets, restructuring & insolvency, and legal tech innovations.',
   canonical: 'https://alkindivv.site',
   openGraph: {
     type: 'website',
@@ -68,27 +68,7 @@ const defaultSEOConfig = {
 };
 
 function MyApp({ Component, pageProps }: AppProps) {
-  const router = useRouter();
-
-  // Add loading indicator
-  useEffect(() => {
-    const handleStart = () => {
-      document.body.classList.add('loading');
-    };
-    const handleComplete = () => {
-      document.body.classList.remove('loading');
-    };
-
-    router.events.on('routeChangeStart', handleStart);
-    router.events.on('routeChangeComplete', handleComplete);
-    router.events.on('routeChangeError', handleComplete);
-
-    return () => {
-      router.events.off('routeChangeStart', handleStart);
-      router.events.off('routeChangeComplete', handleComplete);
-      router.events.off('routeChangeError', handleComplete);
-    };
-  }, [router.events]);
+  // const router = useRouter();
 
   return (
     <SessionProvider>

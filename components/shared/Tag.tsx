@@ -1,6 +1,4 @@
 import React from 'react';
-import Link from 'next/link';
-import clsx from 'clsx';
 import styles from '@/styles/Blog.module.css';
 
 interface TagProps {

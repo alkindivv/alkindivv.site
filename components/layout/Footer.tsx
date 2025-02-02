@@ -1,159 +1,208 @@
-import React, { useState } from 'react';
+import React from 'react';
 import Link from 'next/link';
-import { FaGithub, FaLinkedin, FaTwitter } from 'react-icons/fa';
-import Accent from '@/components/shared/Accent';
-import PrivacyAndTnc from '@/components/shared/PrivacyAndTnc';
+import { FaLinkedinIn } from 'react-icons/fa';
+import { FaXTwitter } from 'react-icons/fa6';
+import { FiGithub } from 'react-icons/fi';
+import GlowingButton from '@/components/shared/GlowingButton';
 
-const Footer = () => {
-  const [isPrivacyOpen, setIsPrivacyOpen] = useState(false);
-  const [isTermsOpen, setIsTermsOpen] = useState(false);
+const socialLinks = [
+  {
+    href: 'https://github.com/alkindivv',
+    icon: FiGithub,
+    label: 'GitHub',
+    color: 'text-neutral-500',
+  },
+  {
+    href: 'https://linkedin.com/in/alkindivv',
+    icon: FaLinkedinIn,
+    label: 'LinkedIn',
+    color: 'text-neutral-500',
+  },
+  {
+    href: 'https://twitter.com/alkindivv',
+    icon: FaXTwitter,
+    label: 'Twitter',
+    color: 'text-neutral-500',
+  },
+] as const;
 
+const quickLinks = [
+  { name: 'Home', href: '/' },
+  { name: 'About', href: '/about' },
+  { name: 'Blog', href: '/blog' },
+  { name: 'Contact', href: '/contact' },
+] as const;
+
+const resourceLinks = [
+  { name: 'Glossary', href: '/glossary' },
+  { name: 'Books', href: '/resources' },
+  { name: 'Wishlist', href: '/wishlist' },
+  { name: 'Docs', href: '/docs' },
+] as const;
+
+function FooterSection({
+  title,
+  children,
+  className,
+}: {
+  title: string | React.ReactNode;
+  children: React.ReactNode;
+  className?: string;
+}) {
   return (
-    <footer className="mt-20 border-t border-gray-800" data-fade="10">
-      <div className="max-w-6xl mx-auto py-12">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
-          {/* Brand Section */}
-          <div className="space-y-4">
-            <h3 className="text-xl font-bold">
-              <Accent>AL KINDI</Accent>
-            </h3>
-            <p className="text-sm text-gray-400">
-              Bridging the gap between legal frameworks and blockchain
-              technology.
-            </p>
-            <div className="flex space-x-4">
-              <a
-                href="https://github.com/alkindivv"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-gray-400 hover:text-emerald-500 transition-colors"
-              >
-                <FaGithub size={20} />
-              </a>
-              <a
-                href="https://linkedin.com/in/alkindivv"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-gray-400 hover:text-emerald-500 transition-colors"
-              >
-                <FaLinkedin size={20} />
-              </a>
-              <a
-                href="https://twitter.com/alkindivv"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-gray-400 hover:text-emerald-500 transition-colors"
-              >
-                <FaTwitter size={20} />
-              </a>
-            </div>
-          </div>
+    <div className={className}>
+      <h3 className="text-sm font-medium text-neutral-500 mb-4">{title}</h3>
+      {children}
+    </div>
+  );
+}
 
-          {/* Quick Links */}
-          <div>
-            <h3 className="text-sm font-semibold uppercase tracking-wider mb-4">
-              Quick Links
-            </h3>
-            <ul className="space-y-2">
-              {[
-                { name: 'Home', href: '/' },
-                { name: 'About', href: '/about' },
-                { name: 'Blog', href: '/blog' },
-                { name: 'Contact', href: '/contact' },
-              ].map((link) => (
-                <li key={link.name}>
-                  <Link
-                    href={link.href}
-                    className="text-gray-400 hover:text-emerald-500 transition-colors text-sm"
-                  >
-                    {link.name}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
+export default function Footer() {
+  return (
+    <footer className="mt-20 bg-neutral-950">
+      {/* Top Border Gradient */}
+      <div className="h-px bg-gradient-to-r from-transparent via-gray-600 to-transparent" />
 
-          {/* Services */}
-          <div>
-            <h3 className="text-sm font-semibold uppercase tracking-wider mb-4">
-              Services
-            </h3>
-            <ul className="space-y-2">
-              {[
-                'Legal Consulting',
-                'Smart Contract Development',
-                'Hackintosh Installation',
-                'Web Development',
-              ].map((service) => (
-                <li
-                  key={service}
-                  className="text-gray-400 hover:text-emerald-500 transition-colors text-sm"
+      <div className="mx-auto max-w-7xl">
+        <div className="mx-auto max-w-[1150px] px-0 py-20">
+          <div className="grid grid-cols-1 md:grid-cols-[1.5fr,0.8fr,0.8fr,0.8fr,2fr] gap-12 md:gap-6">
+            {/* Brand */}
+            <div className="space-y-12 md:space-y-0">
+              <FooterSection
+                title={
+                  <span className="text-lg font-semibold bg-clip-text text-transparent bg-gradient-to-r from-white to-white">
+                    AL KINDI
+                  </span>
+                }
+              >
+                <p className="text-sm text-neutral-500 max-w-[280px] mb-4">
+                  Specializing in corporate Mergers & Acquisitions (M&A),
+                  Capital Markets, Bankruptcy & Insolvency
+                </p>
+                <div className="flex gap-4">
+                  {socialLinks.map((social) => (
+                    <a
+                      key={social.label}
+                      href={social.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-neutral-400 hover:text-white transition-colors"
+                      aria-label={social.label}
+                    >
+                      <social.icon size={20} />
+                    </a>
+                  ))}
+                </div>
+              </FooterSection>
+
+              {/* Newsletter untuk Mobile */}
+              <div className="md:hidden">
+                <FooterSection
+                  title={
+                    <span className="text-lg font-semibold bg-clip-text text-transparent bg-gradient-to-r from-white to-white">
+                      Subscribe to AL KINDI's blog newsletter
+                    </span>
+                  }
                 >
-                  {service}
-                </li>
-              ))}
-            </ul>
-          </div>
+                  <p className="text-sm text-neutral-500 max-w-[280px] mb-4">
+                    Don't miss out 😉. Get an email whenever I post, no spam.
+                  </p>
+                  <GlowingButton href="https://alkindi.substack.com">
+                    Subscribe Now
+                  </GlowingButton>
+                </FooterSection>
+              </div>
+            </div>
 
-          {/* Contact Info */}
-          <div>
-            <h3 className="text-sm font-semibold uppercase tracking-wider mb-4">
-              Contact
-            </h3>
-            <ul className="space-y-2">
-              <li className="text-gray-400 text-sm">
-                <span className="block text-emerald-500">Email</span>
-                law.alkindi@gmail.com
-              </li>
-              <li className="text-gray-400 text-sm">
-                <span className="block text-emerald-500">Location</span>
-                Jakarta, Indonesia
-              </li>
-              <li className="text-gray-400 text-sm">
-                <span className="block text-emerald-500">Working Hours</span>
-                Mon - Fri, 9:00 - 17:00 WIB
-              </li>
-            </ul>
+            {/* Links Section */}
+            <div className="grid grid-cols-2 sm:grid-cols-3 gap-8 md:gap-6 md:col-span-3">
+              {/* Quick Links */}
+              <FooterSection title="General">
+                <ul className="space-y-2">
+                  {quickLinks.map((link) => (
+                    <li key={link.name}>
+                      <Link
+                        href={link.href}
+                        className="text-neutral-50 hover:text-white transition-colors text-sm"
+                      >
+                        {link.name}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </FooterSection>
+
+              {/* Resources */}
+              <FooterSection title="Resources">
+                <ul className="space-y-2">
+                  {resourceLinks.map((link) => (
+                    <li key={link.name}>
+                      <Link
+                        href={link.href}
+                        className="text-neutral-50 hover:text-white transition-colors text-sm"
+                      >
+                        {link.name}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </FooterSection>
+
+              {/* Contact */}
+              <FooterSection title="Articles">
+                <ul className="space-y-2">
+                  <li className="text-neutral-50 text-sm">
+                    <Link href="/blog/law" className="block text-white">
+                      Law
+                    </Link>
+                  </li>
+                  <li className="text-neutral-400 text-sm">
+                    <Link href="/blog/hackintosh" className="block text-white">
+                      Hackintosh
+                    </Link>
+                  </li>
+                  <li className="text-neutral-400 text-sm">
+                    <Link
+                      href="/blog/cryptocurrency"
+                      className="block text-white"
+                    >
+                      Crypto
+                    </Link>
+                  </li>
+                </ul>
+              </FooterSection>
+            </div>
+
+            {/* Newsletter untuk Desktop */}
+            <div className="hidden md:block">
+              <FooterSection
+                title={
+                  <span className="text-lg font-semibold bg-clip-text text-transparent bg-gradient-to-r from-white to-white">
+                    Subscribe to AL KINDI's blog newsletter
+                  </span>
+                }
+              >
+                <p className="text-sm text-neutral-500 max-w-[280px] mb-4">
+                  Don't miss out 😉. Get an email whenever I post, no spam.
+                </p>
+                <GlowingButton href="https://alkindi.substack.com">
+                  Subscribe Now
+                </GlowingButton>
+              </FooterSection>
+            </div>
           </div>
         </div>
 
-        {/* Bottom Bar */}
-        <div className="border-t border-gray-800 mt-12 pt-8">
-          <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
-            <p className="text-sm text-gray-400">
-              © {new Date().getFullYear()} Al Kindi. All rights reserved.
+        {/* Copyright */}
+        <div className="h-px bg-gradient-to-r from-transparent via-gray-600 to-transparent">
+          <div className="mx-auto max-w-[1200px] px-4 py-8">
+            <p className="text-neutral-500 text-sm text-center">
+              Copyright © {new Date().getFullYear()} AL KINDI. All rights
+              reserved.
             </p>
-            <div className="flex space-x-6">
-              <button
-                onClick={() => setIsPrivacyOpen(true)}
-                className="text-sm text-gray-400 hover:text-emerald-500 transition-colors"
-              >
-                Privacy Policy
-              </button>
-              <button
-                onClick={() => setIsTermsOpen(true)}
-                className="text-sm text-gray-400 hover:text-emerald-500 transition-colors"
-              >
-                Terms of Service
-              </button>
-            </div>
           </div>
         </div>
       </div>
-
-      {/* Modals */}
-      <PrivacyAndTnc
-        type="privacy"
-        isOpen={isPrivacyOpen}
-        onClose={() => setIsPrivacyOpen(false)}
-      />
-      <PrivacyAndTnc
-        type="terms"
-        isOpen={isTermsOpen}
-        onClose={() => setIsTermsOpen(false)}
-      />
     </footer>
   );
-};
-
-export default Footer;
+}

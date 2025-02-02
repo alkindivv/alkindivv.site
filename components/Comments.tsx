@@ -4,7 +4,6 @@ import Image from 'next/image';
 import { format } from 'date-fns';
 import useSWR, { mutate } from 'swr';
 import { FaGoogle } from 'react-icons/fa';
-import { BiUpvote } from 'react-icons/bi';
 
 interface CommentsProps {
   postSlug: string;
@@ -133,7 +132,7 @@ export default function Comments({ postSlug }: CommentsProps) {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [activeTab, setActiveTab] = useState('write');
 
-  const { data: comments, error } = useSWR(
+  const { data: comments, error: _error } = useSWR(
     `/api/comments?postSlug=${postSlug}`,
     async (url) => {
       const res = await fetch(url);

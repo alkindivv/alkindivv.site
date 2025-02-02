@@ -12,7 +12,9 @@
     "fix": "npm run lint:fix && npm run format",
     "analyze": "depcheck",
     "find-deadcode": "ts-prune",
-    "unused-exports": "ts-unused-exports tsconfig.json"
+    "unused-exports": "ts-unused-exports tsconfig.json",
+    "find-unused-css": "purgecss --css .next/static/css/*.css --content .next/server/**/*.html .next/static/chunks/**/*.js --output .next/static/css/purged/",
+    "analyze-css": "npx stylelint \"**/*.{css,scss}\" --custom-syntax postcss-scss"
   },
   "dependencies": {
     "@emailjs/browser": "^3.11.0",
@@ -61,6 +63,9 @@
     "postcss": "^8.4.21",
     "prettier": "^3.3.3",
     "prisma": "^5.22.0",
+    "purgecss": "^5.0.0",
+    "stylelint": "^15.11.0",
+    "stylelint-config-standard": "^34.0.0",
     "tailwindcss": "^3.3.0",
     "ts-prune": "^0.10.3",
     "ts-unused-exports": "^10.1.0",

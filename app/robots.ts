@@ -5,15 +5,7 @@ export default function robots(): MetadataRoute.Robots {
     rules: {
       userAgent: '*',
       allow: '/',
-      disallow: [
-        '/api/',
-        '/private/',
-        '/_next/',
-        '/static/',
-        '/admin/',
-        '/draft/',
-        '/preview/',
-      ],
+      disallow: ['/api/*', '/admin/*', '/_next/*', '/*.json$', '/*.xml$'],
     },
     sitemap: 'https://alkindivv.site/sitemap.xml',
   };

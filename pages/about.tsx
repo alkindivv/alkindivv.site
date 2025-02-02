@@ -1,11 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import Image from 'next/image';
 import Layout from '@/components/layout/Layout';
-import Accent from '@/components/shared/Accent';
 import SEO from '@/components/shared/SEO';
 import clsx from 'clsx';
 import DimensionLink from '@/components/common/DimensionLink';
-import Link from 'next/link';
 import AccentNormal from '@/components/shared/AccentNormal';
 
 // Data definitions
@@ -49,16 +47,6 @@ const experiences = [
 ];
 
 const AboutPage = () => {
-  const [isLoaded, setIsLoaded] = useState(false);
-
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setIsLoaded(true);
-    }, 200);
-
-    return () => clearTimeout(timer);
-  }, []);
-
   return (
     <Layout>
       <SEO
@@ -88,12 +76,7 @@ const AboutPage = () => {
         />
       </div>
 
-      <main
-        className={clsx(
-          'content-spacing fade-wrapper',
-          !isLoaded && 'opacity-0'
-        )}
-      >
+      <main className={clsx('content-spacing')}>
         {/* Header Section */}
         <section className="min-h-screen pt-40 relative z-10">
           <div className="max-w-6xl mx-auto">

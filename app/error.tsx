@@ -1,10 +1,23 @@
+'use client';
+
 import * as React from 'react';
 import { RiAlarmWarningFill } from 'react-icons/ri';
 import { FiArrowLeft } from 'react-icons/fi';
 import Accent from '@/components/shared/Accent';
 import Link from 'next/link';
 
-export default function NotFound() {
+export default function Error({
+  error,
+  reset,
+}: {
+  error: Error & { digest?: string };
+  reset: () => void;
+}) {
+  React.useEffect(() => {
+    // Log the error to an error reporting service
+    console.error(error);
+  }, [error]);
+
   return (
     <main className="min-h-screen bg-[#0a0a0a] flex items-center justify-center p-4">
       <div className="w-full max-w-2xl mx-auto text-center relative">
@@ -14,9 +27,9 @@ export default function NotFound() {
 
         {/* Content */}
         <div className="relative space-y-8">
-          {/* 404 Text */}
+          {/* 500 Text */}
           <h1 className="text-8xl md:text-9xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-emerald-500/80 via-emerald-400 to-emerald-500/80 font-apple-homemade">
-            404
+            500
           </h1>
 
           {/* Icon */}
@@ -30,17 +43,23 @@ export default function NotFound() {
           {/* Message */}
           <div className="space-y-4">
             <h2 className="text-2xl md:text-3xl font-bold text-white">
-              Page Not Found
+              Server Error
             </h2>
             <p className="text-gray-400 max-w-md mx-auto">
-              The page you're looking for is currently under{' '}
-              <Accent>Development</Accent> or doesn't exist. Check the URL or go
-              back to the homepage.
+              Oops! Something went wrong on our server.{' '}
+              <Accent>Please try again later</Accent> or contact us if the
+              problem persists.
             </p>
           </div>
 
-          {/* Back Button */}
-          <div className="pt-4">
+          {/* Action Buttons */}
+          <div className="pt-4 flex items-center justify-center gap-4">
+            <button
+              onClick={reset}
+              className="inline-flex items-center gap-2 px-6 py-3 rounded-lg bg-emerald-500/10 text-emerald-400 hover:bg-emerald-500/20 transition-all duration-200 group"
+            >
+              Try Again
+            </button>
             <Link
               href="/"
               className="inline-flex items-center gap-2 px-6 py-3 rounded-lg bg-emerald-500/10 text-emerald-400 hover:bg-emerald-500/20 transition-all duration-200 group"

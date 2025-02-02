@@ -1,6 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import { HiOutlineMenu } from 'react-icons/hi';
-import Accent from '../shared/Accent';
 
 interface TOCHeading {
   id: string;

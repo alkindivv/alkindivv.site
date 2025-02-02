@@ -1,10 +1,3 @@
-export interface ReadingTimeResult {
-  text: string;
-  minutes: number;
-  time: number;
-  words: number;
-}
-
 export interface BlogPost {
   // Required fields
   title: string;

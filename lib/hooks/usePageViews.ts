@@ -7,10 +7,14 @@ export function usePageViews(slug: string, increment: boolean = false) {
   const viewIncrementedRef = useRef(false);
 
   // Gunakan SWR untuk fetch dan cache data
-  const { data, error } = useSWR(`/api/page-views/?slug=${slug}`, fetcher, {
-    revalidateOnFocus: false,
-    dedupingInterval: 60000, // Cache selama 1 menit
-  });
+  const { data, error: _error } = useSWR(
+    `/api/page-views/?slug=${slug}`,
+    fetcher,
+    {
+      revalidateOnFocus: false,
+      dedupingInterval: 60000, // Cache selama 1 menit
+    }
+  );
 
   // Increment view once if increment is true
   useEffect(() => {
