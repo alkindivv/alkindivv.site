@@ -31,11 +31,13 @@ export default function HomePage() {
           {/* Buttons Section */}
           <div className="relative" data-fade="6">
             <div className="flex gap-3 md:gap-4">
-              <GlowingButton href="/blog">Read the blog</GlowingButton>
+              <GlowingButton variant="small" href="/blog">
+                Read the blog
+              </GlowingButton>
 
               <Link
                 href="/about"
-                className=" border border-[#313131] font-normal px-4 py-3 rounded-xl"
+                className=" border border-[#313131] text-sm md:text-base px-2 py-3 rounded-xl"
               >
                 Learn more about me
               </Link>

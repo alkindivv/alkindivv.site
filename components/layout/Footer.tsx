@@ -183,7 +183,7 @@ export default function Footer() {
                 }
               >
                 <p className="text-sm text-neutral-500 max-w-[280px] mb-4">
-                  Don't miss out 😉. Get an email whenever I post, no spam.
+                  Don't miss out!. Get an email whenever I post, no spam ✌️
                 </p>
                 <GlowingButton
                   variant="small"
