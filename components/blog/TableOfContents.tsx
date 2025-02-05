@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from 'react';
+import { useRouter } from 'next/router';
+import clsx from 'clsx';
 
 interface TOCHeading {
   id: string;
@@ -11,6 +13,7 @@ interface TableOfContentsProps {
 }
 
 export default function TableOfContents({ headings }: TableOfContentsProps) {
+  const router = useRouter();
   const [activeId, setActiveId] = useState<string>('introduction');
 
   useEffect(() => {
@@ -60,26 +63,29 @@ export default function TableOfContents({ headings }: TableOfContentsProps) {
     ...headings,
   ];
 
+  const handleClick = (e: React.MouseEvent<HTMLAnchorElement>, id: string) => {
+    e.preventDefault();
+    const element = document.getElementById(id);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+      // Update URL without triggering navigation
+      window.history.pushState({}, '', `${router.asPath.split('#')[0]}#${id}`);
+    }
+  };
+
   return (
     <nav className="w-[240px] hidden sm:block border border-[#2323219b] rounded-lg p-4 shrink-0 text-left sticky top-24">
       <ul className="space-y-3 text-[0.8rem]">
-        {allHeadings.map((heading) => (
+        {allHeadings.map((heading, index) => (
           <li
-            key={heading.id}
+            key={`${heading.id}-${index}`}
             style={{
               paddingLeft: `${(heading.level - 2) * 1.5}rem`,
             }}
           >
             <a
               href={`#${heading.id}`}
-              onClick={(e) => {
-                e.preventDefault();
-                document.getElementById(heading.id)?.scrollIntoView({
-                  behavior: 'smooth',
-                  block: 'start',
-                  inline: 'nearest',
-                });
-              }}
+              onClick={(e) => handleClick(e, heading.id)}
               className={`
                 group relative flex
                 hover:text-white/90

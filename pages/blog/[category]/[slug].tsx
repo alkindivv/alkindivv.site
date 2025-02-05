@@ -16,6 +16,7 @@ import { formatDate } from '@/lib/utils/date';
 import Breadcrumb from '@/components/shared/Breadcrumb';
 import Link from 'next/link';
 import clsx from 'clsx';
+import ArticleNewsletterPopup from '@/components/blog/ArticleNewsletterPopup';
 
 interface BlogPostProps {
   frontMatter: {
@@ -406,6 +407,7 @@ export default function BlogPost({
           </div>
         </div>
       </main>
+      <ArticleNewsletterPopup slug={frontMatter.slug} />
     </Layout>
   );
 }

@@ -178,16 +178,17 @@ export default function Footer() {
               <FooterSection
                 title={
                   <span className="text-lg font-semibold bg-clip-text text-transparent bg-gradient-to-r from-white to-white">
-                    Subscribe to AL KINDI's blog newsletter
+                    Subscribe to my blog newsletter
                   </span>
                 }
               >
                 <p className="text-sm text-neutral-500 max-w-[280px] mb-4">
-                  Don't miss out!. Get an email whenever I post, no spam ✌️
+                  Don't miss out my latest articles!. Get an email whenever I
+                  post, no spam ✌️
                 </p>
                 <GlowingButton
                   variant="small"
-                  href="https://alkindi.substack.com"
+                  href="https://alkindivv.substack.com/subscribe?next=https%3A%2F%2Fsubstack.com%2F%40alkindivv&utm_source=profile-page&utm_medium=web&utm_campaign=substack_profile&just_signed_up=true"
                 >
                   Subscribe Now
                 </GlowingButton>

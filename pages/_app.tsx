@@ -2,11 +2,11 @@ import '@/styles/globals.css';
 import '@/styles/animations.css';
 
 import type { AppProps } from 'next/app';
-
 import { SessionProvider } from 'next-auth/react';
 import { Analytics } from '@vercel/analytics/react';
 import { DefaultSeo } from 'next-seo';
 import dynamic from 'next/dynamic';
+import Head from 'next/head';
 
 // Dynamic imports for non-critical components
 const SEO = dynamic(() => import('@/components/shared/SEO'), {
@@ -68,10 +68,11 @@ const defaultSEOConfig = {
 };
 
 function MyApp({ Component, pageProps }: AppProps) {
-  // const router = useRouter();
-
   return (
     <SessionProvider>
+      <Head>
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+      </Head>
       <DefaultSeo {...defaultSEOConfig} />
       <SEO />
       <main>
