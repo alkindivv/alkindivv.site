@@ -185,7 +185,10 @@ export default function Footer() {
                 <p className="text-sm text-neutral-500 max-w-[280px] mb-4">
                   Don't miss out 😉. Get an email whenever I post, no spam.
                 </p>
-                <GlowingButton href="https://alkindi.substack.com">
+                <GlowingButton
+                  variant="small"
+                  href="https://alkindi.substack.com"
+                >
                   Subscribe Now
                 </GlowingButton>
               </FooterSection>
@@ -196,7 +199,7 @@ export default function Footer() {
         {/* Copyright */}
         <div className="h-px bg-gradient-to-r from-transparent via-gray-600 to-transparent">
           <div className="mx-auto max-w-[1200px] px-4 py-8">
-            <p className="text-neutral-500 text-sm text-center">
+            <p className="text-neutral-500 text-xs md:text-sm text-center">
               Copyright © {new Date().getFullYear()} AL KINDI. All rights
               reserved.
             </p>

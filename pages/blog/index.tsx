@@ -202,7 +202,7 @@ const BlogPage: React.FC<BlogPageProps> = ({ blogPosts }) => {
                   <div className="absolute left-4 top-1/2 -translate-y-1/2">
                     <HiSearch className="text-gray-400 text-lg" />
                   </div>
-                  <div className="absolute right-4 top-1/2 -translate-y-1/2 px-2 py-1 rounded-md bg-gray-800/50 text-xs text-gray-500">
+                  <div className="absolute right-4 top-1/2 -translate-y-1/2 px-2 py-1 rounded-md  text-xs text-gray-500">
                     ⌘ S
                   </div>
                 </div>

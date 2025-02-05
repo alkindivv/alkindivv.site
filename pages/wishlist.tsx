@@ -168,10 +168,16 @@ export default function WishlistPage() {
         <div className="container max-w-3xl mx-auto px-4">
           {/* Header */}
           <div className="mt-14 relative space-y-4 text-center">
-            <h1 className="-mb-3 text-center font-sans text-[2rem] sm:text-[2.5rem] md:text-[3rem] lg:text-[3.5rem] font-bold tracking-tight leading-tight">
+            <h1
+              className="-mb-3 text-center font-sans text-[2rem] sm:text-[2.5rem] md:text-[3rem] lg:text-[3.5rem] font-bold tracking-tight leading-tight"
+              data-fade="1"
+            >
               My <span className="gradient-text">Wishlist</span>
             </h1>
-            <p className="hero-text leading-relaxed text-center text-[0.95rem] md:text-[1.05rem]">
+            <p
+              className="hero-text leading-relaxed text-center text-[0.95rem] md:text-[1.05rem]"
+              data-fade="2"
+            >
               Things I want to achieve and experience in life
             </p>
           </div>
@@ -179,7 +185,7 @@ export default function WishlistPage() {
           <div className="h-px bg-gradient-to-r from-transparent via-gray-800 to-transparent mb-14 mt-3" />
 
           {/* Content */}
-          <div className="mt-20 mx-auto">
+          <div className="mt-20 mx-auto" data-fade="3">
             <div className="divide-y divide-gray-900">
               {wishlistItems.map((item) => (
                 <WishlistCard key={item.id} {...item} />
@@ -187,7 +193,10 @@ export default function WishlistPage() {
             </div>
 
             {/* Progress */}
-            <div className="mt-8 text-sm text-gray-600 text-right">
+            <div
+              className="mt-8 text-sm text-gray-600 text-right"
+              data-fade="4"
+            >
               {completedCount} out of {totalCount} completed.
             </div>
           </div>

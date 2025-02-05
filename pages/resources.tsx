@@ -185,9 +185,8 @@ export default function ResourcesPage() {
               <h1 className="text-4xl md:text-5xl font-bold">
                 Legal <span className="gradient-text">Resources</span>
               </h1>
-              <p className="text-gray-400 max-w-2xl mx-auto">
-                Access professional legal templates, educational materials, and
-                resources to support your legal practice and business needs.
+              <p className="hero-text max-w-2xl mx-auto">
+                Explore a complete repository of legal documents and resources
               </p>
             </div>
 

@@ -56,24 +56,6 @@ const books: Book[] = [
       'Prosedur kepailitan',
     ],
   },
-  {
-    id: 3,
-    title: 'Design Patterns',
-    author: 'Erich Gamma, Richard Helm, Ralph Johnson, John Vlissides',
-    coverImage: '/images/books/design-patterns.jpg',
-    publishYear: '1994',
-    category: 'Software Engineering',
-    description:
-      'Mengulas pola desain dalam pengembangan software berorientasi objek, menyajikan solusi untuk masalah desain yang umum ditemui.',
-    readStatus: 'Rencana Dibaca',
-    personalThoughts:
-      'Buku ini direkomendasikan oleh mentor saya untuk memperdalam pemahaman tentang arsitektur software.',
-    keyTakeaways: [
-      'Fundamental design patterns dalam OOP',
-      'Solusi untuk masalah desain yang umum',
-      'Best practices dalam arsitektur software',
-    ],
-  },
 ];
 
 const readStatuses = ['All', 'Selesai', 'Sedang Dibaca', 'Rencana Dibaca'];
@@ -114,9 +96,8 @@ export default function BooksPage() {
               <h1 className="text-4xl md:text-5xl font-bold">
                 Reading <span className="gradient-text">Notes</span>
               </h1>
-              <p className="text-gray-400 max-w-2xl mx-auto">
-                Catatan pembelajaran dan ringkasan dari buku-buku yang saya baca
-                tentang hukum, bisnis, dan teknologi.
+              <p className="hero-text inline-block max-w-2xl mx-auto">
+                My personal reading books
               </p>
             </div>
 

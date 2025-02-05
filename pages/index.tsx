@@ -5,6 +5,7 @@ import SEO from '@/components/shared/SEO';
 import SocialMedia from '@/components/social/SocialMedia';
 import Link from 'next/link';
 import GlowingButton from '@/components/shared/GlowingButton';
+
 export default function HomePage() {
   return (
     <Layout isHomePage>
@@ -20,7 +21,7 @@ export default function HomePage() {
 
           {/* Main paragraph */}
           <div className="relative" data-fade="4">
-            <p className="leading-relaxed text-sm md:text-base 2xl:text-lg max-w-[800px]">
+            <p className="  paragraph-text leading-relaxed text-sm md:text-base 2xl:text-lg max-w-[800px]">
               I am passionate about law, focusing my expertise in coroporate
               M&A, capital market, restructing & insolvency and as well as
               crypto assets regulation in Indonesia.
@@ -34,7 +35,7 @@ export default function HomePage() {
 
               <Link
                 href="/about"
-                className="no-gradient-button rounded-md font-semibold text-sm md:text-base 2xl:text-lg px-3 md:px-3 py-1.5 md:py-2.5"
+                className=" border border-[#313131] font-normal px-4 py-3 rounded-xl"
               >
                 Learn more about me
               </Link>
@@ -43,7 +44,7 @@ export default function HomePage() {
 
           {/* Social Media Section */}
           <div className="relative" data-fade="7">
-            <SocialMedia variant="default" />
+            <SocialMedia />
           </div>
         </div>
       </main>

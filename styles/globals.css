@@ -398,6 +398,7 @@ code {
 .hero-text {
   font-size: 1.05rem;
   line-height: 1.2;
+  display: inline-block;
   font-weight: 400;
   letter-spacing: -0.02rem;
   background: linear-gradient(

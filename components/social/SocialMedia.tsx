@@ -1,35 +1,35 @@
 import React from 'react';
-import { HiDocumentText } from 'react-icons/hi';
-import { BiLogoLinkedinSquare } from 'react-icons/bi';
-import { VscGithubAlt, VscTwitter } from 'react-icons/vsc';
+import { FiGithub } from 'react-icons/fi';
+import { FaLinkedinIn } from 'react-icons/fa';
+import { FaXTwitter } from 'react-icons/fa6';
 
-interface SocialMediaProps {
-  variant?: 'default' | 'contact';
-}
+import { IoDocumentTextSharp } from 'react-icons/io5';
 
-export default function SocialMedia({
-  variant: _variant = 'default',
-}: SocialMediaProps) {
+export default function SocialMedia() {
   const socialLinks = [
     {
-      icon: HiDocumentText,
+      icon: IoDocumentTextSharp,
       text: 'Resume',
       href: '/resume.pdf',
+      hoverColor: 'hover:text-emerald-400',
     },
     {
-      icon: VscTwitter,
-      text: '@alkindivv',
+      icon: FaXTwitter,
+      text: 'Twitter',
       href: 'https://twitter.com/alkindivv',
+      hoverColor: 'hover:text-white',
     },
     {
-      icon: BiLogoLinkedinSquare,
-      text: 'AL KINDI',
-      href: 'https://www.linkedin.com/in/alkindivv/',
-    },
-    {
-      icon: VscGithubAlt,
-      text: '0xalkindivv.eth',
+      icon: FiGithub,
+      text: 'Github',
       href: 'https://github.com/alkindivv',
+      hoverColor: 'hover:text-violet-400',
+    },
+    {
+      icon: FaLinkedinIn,
+      text: 'LinkedIn',
+      href: 'https://www.linkedin.com/in/alkindivv/',
+      hoverColor: 'hover:text-blue-400',
     },
   ];
 
@@ -43,8 +43,8 @@ export default function SocialMedia({
           rel="noopener noreferrer"
           className="flex items-center gap-1 md:gap-1 text-gray-400 hover:text-emerald-500 transition-colors"
         >
-          <link.icon className="text-sm md:text-base lg:text-lg text-gray-400" />
-          <span className="font-medium text-sm lg:text-base 2xl:text-lg text-gray-400 hover:text-emerald-500">
+          <link.icon className="text-base md:text-lg paragraph-text" />
+          <span className="font-medium text-sm md:text-lg paragraph-text hover:text-emerald-500">
             {link.text}
           </span>
         </a>
