@@ -113,7 +113,7 @@ export default function Footer() {
                     Don't miss out my latest articles!. Get an email whenever I
                     post, no spam ✌️
                   </p>
-                  <GlowingButton href="https://alkindi.substack.com">
+                  <GlowingButton href="https://alkindivv.substack.com/subscribe?utm_source=article-popup&utm_medium=web&utm_campaign=article-popup">
                     Subscribe Now
                   </GlowingButton>
                 </FooterSection>
