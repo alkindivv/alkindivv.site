@@ -125,9 +125,9 @@ const BlogCard = ({
               {/* Content */}
               <div className="flex-1 p-4 flex flex-col">
                 {/* Meta Info */}
-                <div className="flex items-center gap-3 text-sm text-neutral-400 mb-2 transition-colors group-hover:text-neutral-300">
+                <div className="flex items-center gap-3 text-sm text-[#737373] mb-2 transition-colors group-hover:text-neutral-300">
                   <time className="flex items-center gap-1">
-                    <HiOutlineClock className="inline w-[1.1rem] h-[1.1rem]" />
+                    <HiOutlineClock className="inline w-[1rem] h-[1rem]" />
                     <Accent className="text-xs md:text-sm">
                       {post.readingTime} min read
                     </Accent>
@@ -149,7 +149,7 @@ const BlogCard = ({
                 </h2>
 
                 {/* Date */}
-                <p className="text-xs md:text-sm text-neutral-300 font-medium mb-2 transition-colors group-hover:text-neutral-200">
+                <p className="text-xs md:text-sm text-[#737373] font-medium mb-2 transition-colors group-hover:text-neutral-200">
                   {format(new Date(post.date), 'MMMM dd, yyyy')}
                 </p>
 

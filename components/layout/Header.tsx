@@ -85,10 +85,10 @@ export default function Header() {
       icon: HiUser,
     },
     {
-      href: '/contact',
-      label: 'Contact',
-      description: 'Get in touch with me',
-      icon: HiMail,
+      href: '/glossary',
+      label: 'Glossary',
+      description: 'Legal Glossary',
+      icon: GoLaw,
     },
   ];
 
@@ -100,10 +100,10 @@ export default function Header() {
       icon: HiBookOpen,
     },
     {
-      href: '/glossary',
-      label: 'Glossary',
-      description: 'Legal Glossary',
-      icon: GoLaw,
+      href: '/contact',
+      label: 'Contact',
+      description: 'Get in touch with me',
+      icon: HiMail,
     },
     {
       href: '/resources',
