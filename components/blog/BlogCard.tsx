@@ -42,63 +42,62 @@ const BlogCard = ({
   const views = usePageViews(post.slug);
 
   useEffect(() => {
+    let rafId: number;
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            if (cardRef.current) {
-              cardRef.current.style.opacity = '1';
-              cardRef.current.style.transform = 'translateY(0)';
-            }
+          if (entry.isIntersecting && cardRef.current) {
+            rafId = requestAnimationFrame(() => {
+              cardRef.current?.classList.add('animate-in');
+            });
             observer.unobserve(entry.target);
           }
         });
       },
-      { threshold: 0.1 }
+      {
+        threshold: 0.1,
+        rootMargin: '50px',
+      }
     );
 
     if (cardRef.current) {
       observer.observe(cardRef.current);
     }
 
-    return () => observer.disconnect();
+    return () => {
+      observer.disconnect();
+      if (rafId) cancelAnimationFrame(rafId);
+    };
   }, []);
 
   const handleClick = async (e: React.MouseEvent) => {
     e.preventDefault();
+    onClick?.();
 
     try {
-      // Call parent onClick if provided
-      onClick?.();
-
       if (isRelated) {
-        // Reset scroll and clear observers
         window.scrollTo(0, 0);
-        const observers = (window as any).__observers__;
-        if (observers) {
-          Object.values(observers).forEach((observer: any) => {
-            observer.disconnect();
-          });
-          (window as any).__observers__ = {};
-        }
-
-        // Force a hard navigation for related posts
         await router.push(`/blog/${post.category.toLowerCase()}/${post.slug}`);
         router.reload();
       } else {
-        // Normal navigation
         window.location.href = `/blog/${post.category.toLowerCase()}/${post.slug}`;
       }
     } catch (error) {
       console.error('Failed to navigate:', error);
-      // If error, still navigate to the article
       window.location.href = `/blog/${post.category.toLowerCase()}/${post.slug}`;
     }
   };
 
   return (
-    <article ref={cardRef} className={className}>
-      <div className="relative flex flex-col h-full max-h-[1000px]">
+    <article
+      ref={cardRef}
+      className={clsx(
+        className,
+        'opacity-0 translate-y-4',
+        'transition-all duration-500 ease-out'
+      )}
+    >
+      <div className="relative flex flex-col h-full">
         <Link
           href={`/blog/${post.category.toLowerCase()}/${post.slug}`}
           className="block h-full group focus:outline-none focus-visible:ring focus-visible:ring-primary-300"
@@ -115,6 +114,7 @@ const BlogCard = ({
                     src={post.featuredImage}
                     alt={post.title}
                     fill
+                    sizes="(min-width: 768px) 33vw, 100vw"
                     className="object-cover transition-transform duration-500 group-hover:scale-110"
                     priority={_index !== undefined && _index < 3}
                   />
