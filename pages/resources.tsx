@@ -169,7 +169,7 @@ export default function ResourcesPage() {
           />
           <Image
             alt=""
-            loading="lazy"
+            priority
             width={1280}
             height={825}
             className="pointer-events-none select-none absolute w-full inset-0 h-[450px] object-cover z-[-1] opacity-40 mix-blend-overlay"
@@ -179,7 +179,7 @@ export default function ResourcesPage() {
 
         {/* Content */}
         <section className="min-h-screen pt-40 relative z-10">
-          <div className="max-w-6xl mx-auto px-4">
+          <div className=" mx-auto ">
             {/* Header */}
             <div className="text-center space-y-4" data-fade="1">
               <h1 className="text-4xl md:text-5xl font-bold">
@@ -206,7 +206,7 @@ export default function ResourcesPage() {
                       'p-6 rounded-xl border transition-all duration-300 text-left group hover:bg-[#111111]',
                       activeCategory === category.id
                         ? 'border-emerald-500/20 bg-emerald-500/5'
-                        : 'border-gray-800 hover:border-emerald-500/20'
+                        : 'border-neutral-800 hover:border-emerald-500/20'
                     )}
                     data-fade={4 + idx}
                   >
@@ -215,10 +215,10 @@ export default function ResourcesPage() {
                         <category.icon className="w-6 h-6 text-emerald-500" />
                       </div>
                       <div>
-                        <h3 className="font-semibold text-lg text-gray-200 group-hover:text-emerald-400 transition-colors">
+                        <h3 className="font-semibold text-lg text-neutral-50 group-hover:text-emerald-400 transition-colors">
                           {category.name}
                         </h3>
-                        <p className="mt-1 text-sm text-gray-400">
+                        <p className="mt-1 text-sm paragraph-text ">
                           {category.description}
                         </p>
                       </div>
@@ -237,11 +237,11 @@ export default function ResourcesPage() {
                       className="mb-12 last:mb-0"
                       data-fade={8 + idx}
                     >
-                      <div className="border-b border-gray-800 pb-4 mb-6">
-                        <h2 className="text-xl font-bold text-gray-200">
+                      <div className="border-b border-neutral-800 pb-4 mb-6">
+                        <h2 className="text-xl font-bold text-neutral-50">
                           {section.title}
                         </h2>
-                        <p className="mt-1 text-sm text-gray-400">
+                        <p className="mt-1 text-sm paragraph-text ">
                           {section.description}
                         </p>
                       </div>
@@ -250,26 +250,21 @@ export default function ResourcesPage() {
                         {section.resources.map((resource, resourceIdx) => (
                           <div
                             key={resourceIdx}
-                            className="group bg-[#0a0a0a] border border-gray-800 rounded-xl p-6 hover:border-emerald-500/20 hover:bg-[#111111] transition-all duration-300"
+                            className="group bg-[#0a0a0a] border border-neutral-800 rounded-xl p-6 hover:border-emerald-500/20 hover:bg-[#111111] transition-all duration-300"
                             data-fade={10 + resourceIdx}
                           >
                             <div className="flex items-start justify-between">
                               <div className="space-y-1">
-                                <h3 className="font-medium text-gray-200 group-hover:text-emerald-400 transition-colors">
+                                <h3 className="font-medium text-neutral-50 group-hover:text-emerald-400 transition-colors">
                                   {resource.name}
                                 </h3>
                                 {'type' in resource && (
-                                  <p className="text-sm text-gray-500">
+                                  <p className="text-sm paragraph-text ">
                                     {resource.type} • {resource.size}
                                   </p>
                                 )}
-                                {/* {'author' in resource && (
-                                  <p className="text-sm text-gray-500">
-                                    {resource.author} • {resource.year}
-                                  </p>
-                                )} */}
                                 {'provider' in resource && (
-                                  <p className="text-sm text-gray-500">
+                                  <p className="text-sm paragraph-text ">
                                     {resource.provider} • {resource.duration}
                                   </p>
                                 )}

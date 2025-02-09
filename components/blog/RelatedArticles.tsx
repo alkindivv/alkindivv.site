@@ -1,7 +1,6 @@
 import React from 'react';
 import BlogCard from './BlogCard';
 import { BlogPost } from '@/types/blog';
-import { useRouter } from 'next/router';
 
 interface RelatedArticlesProps {
   currentPost: BlogPost;
@@ -9,8 +8,6 @@ interface RelatedArticlesProps {
 }
 
 const RelatedArticles = ({ currentPost, allPosts }: RelatedArticlesProps) => {
-  const router = useRouter();
-
   // Filter related posts based on tags and category
   const relatedPosts = allPosts
     .filter((post) => {
@@ -25,16 +22,8 @@ const RelatedArticles = ({ currentPost, allPosts }: RelatedArticlesProps) => {
     })
     .slice(0, 3);
 
-  const handlePostClick = (slug: string, category: string) => {
-    // Add fade out effect before navigation
-    document.body.classList.add('loading');
-    setTimeout(() => {
-      router.push(`/blog/${category.toLowerCase()}/${slug}`);
-    }, 300);
-  };
-
   return (
-    <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+    <div className="grid gap-2 md:grid-cols-2 lg:grid-cols-3">
       {relatedPosts.map((post, index) => (
         <div
           key={post.slug}
@@ -43,8 +32,7 @@ const RelatedArticles = ({ currentPost, allPosts }: RelatedArticlesProps) => {
         >
           <BlogCard
             post={post}
-            onClick={() => handlePostClick(post.slug, post.category)}
-            isRelated
+            className="h-full bg-transparent border border-neutral-800 hover:border-neutral-700 rounded-lg transition-all duration-300"
           />
         </div>
       ))}

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import Layout from '@/components/layout/Layout';
-import styles from '@/styles/Blog.module.css';
+// import styles from '@/styles/Blog.module.css';
 import { GetStaticProps } from 'next';
 import BlogCard from '@/components/blog/BlogCard';
 import Accent from '@/components/shared/Accent';
@@ -21,12 +21,12 @@ import Image from 'next/image';
 
 const POSTS_PER_PAGE = 9;
 
-const categories = [
-  { name: 'All Categories', path: '/blog/' },
-  { name: 'Law', path: '/blog/law/' },
-  { name: 'Cryptocurrency', path: '/blog/cryptocurrency/' },
-  { name: 'Hackintosh', path: '/blog/hackintosh/' },
-];
+// const categories = [
+//   { name: 'All Categories', path: '/blog/' },
+//   { name: 'Law', path: '/blog/law/' },
+//   { name: 'Cryptocurrency', path: '/blog/cryptocurrency/' },
+//   { name: 'Hackintosh', path: '/blog/hackintosh/' },
+// ];
 
 const topics = [
   'law',
@@ -72,8 +72,8 @@ const sortOptions: SortOption[] = [
 
 const BlogPage: React.FC<BlogPageProps> = ({ blogPosts }) => {
   const [selectedTopic, setSelectedTopic] = useState<string | null>(null);
-  const [selectedCategory, setSelectedCategory] = useState('All Categories');
-  const [sortOrder, setSortOrder] = useState<SortOption>(sortOptions[0]);
+  const [selectedCategory] = useState('All Categories');
+  const [sortOrder] = useState<SortOption>(sortOptions[0]);
   const [currentPage, setCurrentPage] = useState(1);
   const [searchQuery, setSearchQuery] = useState('');
 
@@ -156,11 +156,11 @@ const BlogPage: React.FC<BlogPageProps> = ({ blogPosts }) => {
         />
         <Image
           alt=""
-          loading="lazy"
           width={1280}
           height={825}
           className="pointer-events-none select-none absolute w-full inset-0 h-[450px] object-cover z-[-1] opacity-40 mix-blend-overlay"
           src="/images/textures/crumpled.jpg"
+          priority
         />
       </div>
 
@@ -173,36 +173,33 @@ const BlogPage: React.FC<BlogPageProps> = ({ blogPosts }) => {
         <section className="min-h-screen pt-40 relative z-10">
           <div className="max-w-6xl mx-auto">
             {/* Header Section */}
-            <div className="mt-10 relative space-y-1 text-center" data-fade="1">
-              <h1 className="text-center font-sans text-[2rem] sm:text-[2.5rem] md:text-[3rem] lg:text-[3.5rem] font-bold tracking-tight leading-tight">
+            <div className="mt-0 relative space-y-2 text-center" data-fade="1">
+              <h1 className="text-4xl md:text-6xl font-bold tracking-tight leading-tight">
                 Personal <span className="gradient-text">Blog</span>
               </h1>
-              <p className="hero-text inline-block text-center text-[0.95rem] md:text-[1.05rem]">
+              <p className="text-sm md:text-lg hero-text max-w-2xl mx-auto">
                 Thoughts, Insights, and Opinions about Law, Tech, and Crypto
               </p>
+              <div className=" h-px max-w-md mx-auto bg-gradient-to-r from-transparent via-gray-800 to-transparent" />
             </div>
 
-            <div
-              className="h-px bg-gradient-to-r from-transparent via-gray-500 to-transparent mb-10 mt-5"
-              data-fade="2"
-            />
-
             {/* Search Input */}
-            <div className="mt-2" data-fade="2">
-              <div className="relative mx-auto">
-                <div className="gradient-border">
+            <div className="mt-8 mb-8" data-fade="2">
+              <div className="relative mx-auto max-w-2xl">
+                <div className="relative">
                   <input
                     type="text"
                     placeholder="Search articles..."
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
-                    className="w-full bg-transparent text-gray-200 rounded-xl px-12 py-2.5 outline-none
-                    transition-all duration-300 text-sm md:text-base placeholder-gray-500"
+                    className="w-full bg-[#111111] text-neutral-200 rounded-xl px-12 py-3
+                    border border-gray-800/50 hover:border-emerald-500/50 focus:border-emerald-700
+                    outline-none transition-all duration-300 text-sm md:text-base placeholder-neutral-600"
                   />
                   <div className="absolute left-4 top-1/2 -translate-y-1/2">
                     <HiSearch className="text-gray-400 text-lg" />
                   </div>
-                  <div className="absolute right-4 top-1/2 -translate-y-1/2 px-2 py-1 rounded-md  text-xs text-gray-500">
+                  <div className="absolute right-4 top-1/2 -translate-y-1/2 px-2 py-1 rounded-md ] text-xs text-neutral-600">
                     ⌘ S
                   </div>
                 </div>
@@ -216,18 +213,20 @@ const BlogPage: React.FC<BlogPageProps> = ({ blogPosts }) => {
             </div>
 
             {/* Topics Section */}
-            <div className="mt-2" data-fade="3">
+            <div className="mt-6 mb-8" data-fade="3">
               <div className="flex flex-wrap gap-2 items-center">
-                <span className="text-sm text-gray-400">Choose topic:</span>
+                <span className="text-xs md:text-sm text-neutral-50 mr-2">
+                  choose topic:
+                </span>
                 {topics.map((topic) => (
                   <button
                     key={topic}
                     onClick={() => handleTopicClick(topic)}
                     className={clsx(
-                      'px-1 py-0.5  text-gray-300 text-xs md:text-sm 2xl:text-sm rounded-md border transition-colors',
+                      'px-1.5 py-1 text-xs rounded-lg md:text-sm transition-all duration-300',
                       selectedTopic === topic
-                        ? 'border-emerald-500 text-emerald-500'
-                        : 'border-transparent bg-[#1e1e1e]  text-gray-500 hover:border-emerald-500'
+                        ? 'border-emerald-500 text-neutral-50 bg-emerald-500/10'
+                        : ' bg-[#17171799] font-medium text-[#737373] hover:text-neutral-50'
                     )}
                   >
                     <HighlightedText text={topic} searchQuery={searchQuery} />
@@ -237,7 +236,7 @@ const BlogPage: React.FC<BlogPageProps> = ({ blogPosts }) => {
             </div>
 
             {/* Controls Section */}
-            <div
+            {/* <div
               className="flex justify-between items-center mt-6 mb-2"
               data-fade="4"
             >
@@ -297,17 +296,48 @@ const BlogPage: React.FC<BlogPageProps> = ({ blogPosts }) => {
                   })}
                 </div>
               </div>
-            </div>
+            </div> */}
 
             {/* Blog Grid */}
-            <div className={styles.blogGrid} data-fade="5">
+            {/* <div
+              className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 mt-8"
+              data-fade="4"
+            >
+              {currentPosts.map((post, index) => (
+                <BlogCard
+                  key={post.slug}
+                  post={post}
+                  className="h-full bg-transparent border border-neutral-800 hover:border-neutral-700 rounded-lg transition-all  duration-300 hover:translate-y-[-0.5px]"
+                  checkTagged={checkTagged}
+                  index={index}
+                  searchQuery={searchQuery}
+                />
+              ))
+
+               ) : (
+                <div className="col-span-full text-center py-10">
+                  <h3 className="text-sm md:text-2xl 2xl:text-3xl font-bold mb-1">
+                    Sorry, <Accent>article not found</Accent>
+                  </h3>
+                  <p className="text-xs md:text-sm 2xl:text-base text-gray-400">
+                    No articles found for topic:{' '}
+                    <Accent>{selectedTopic}</Accent>
+                  </p>
+                </div>
+              )}
+            </div> */}
+
+            <div
+              className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 mt-8"
+              data-fade="4"
+            >
               {currentPosts.length > 0 ? (
                 currentPosts.map((post, index) => (
                   <BlogCard
                     key={post.slug}
                     post={post}
+                    className="h-full bg-transparent border border-neutral-800 hover:border-neutral-700 rounded-lg transition-all duration-300 hover:translate-y-[-0.5px]"
                     checkTagged={checkTagged}
-                    className="transition-all duration-300 hover:translate-y-[-0.5px]"
                     index={index}
                     searchQuery={searchQuery}
                   />
@@ -327,18 +357,21 @@ const BlogPage: React.FC<BlogPageProps> = ({ blogPosts }) => {
 
             {/* Pagination */}
             {totalPages > 1 && (
-              <div className="flex justify-center items-center mt-8 gap-2">
+              <div
+                className="flex justify-center items-center mt-12 gap-2"
+                data-fade="6"
+              >
                 <button
                   onClick={() => handlePageChange(currentPage - 1)}
                   disabled={currentPage === 1}
                   className={clsx(
-                    'p-2 rounded-md text-xs md:text-sm 2xl:text-base transition-colors',
+                    'p-2.5 rounded-lg border transition-all duration-300',
                     currentPage === 1
-                      ? 'border-gray-700 text-gray-700 cursor-not-allowed'
-                      : 'border-gray-600 text-gray-300 hover:border-emerald-500'
+                      ? 'border-gray-800 text-gray-600 cursor-not-allowed'
+                      : 'border-gray-800 text-gray-400 hover:border-emerald-500/50 hover:text-emerald-500'
                   )}
                 >
-                  <HiChevronLeft className="text-xs" />
+                  <HiChevronLeft className="w-5 h-5" />
                 </button>
 
                 {Array.from({ length: totalPages }, (_, i) => i + 1).map(
@@ -347,10 +380,10 @@ const BlogPage: React.FC<BlogPageProps> = ({ blogPosts }) => {
                       key={page}
                       onClick={() => handlePageChange(page)}
                       className={clsx(
-                        'px-3 py-1 text-xs md:text-sm 2xl:text-base rounded-md border transition-colors',
+                        'px-4 py-2 text-sm rounded-lg border transition-all duration-300',
                         currentPage === page
-                          ? 'border-emerald-500 text-emerald-500'
-                          : 'border-gray-600 text-gray-300 hover:border-emerald-500'
+                          ? 'border-emerald-500 bg-emerald-500/10 text-emerald-500'
+                          : 'border-gray-800 text-gray-400 hover:border-emerald-500/50 hover:text-emerald-500'
                       )}
                     >
                       {page}
@@ -362,13 +395,13 @@ const BlogPage: React.FC<BlogPageProps> = ({ blogPosts }) => {
                   onClick={() => handlePageChange(currentPage + 1)}
                   disabled={currentPage === totalPages}
                   className={clsx(
-                    'p-2 rounded-md transition-colors',
+                    'p-2.5 rounded-lg border transition-all duration-300',
                     currentPage === totalPages
-                      ? 'border-gray-700 text-gray-700 cursor-not-allowed'
-                      : 'border-gray-600 text-gray-300 hover:border-emerald-500'
+                      ? 'border-gray-800 text-gray-600 cursor-not-allowed'
+                      : 'border-gray-800 text-gray-400 hover:border-emerald-500/50 hover:text-emerald-500'
                   )}
                 >
-                  <HiChevronRight className="text-xs" />
+                  <HiChevronRight className="w-5 h-5" />
                 </button>
               </div>
             )}

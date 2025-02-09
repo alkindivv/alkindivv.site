@@ -7,7 +7,7 @@ import { MDXComponents } from '@/components/blog/BlogContent';
 import Accent from '@/components/shared/Accent';
 import SEO from '@/components/shared/SEO';
 import Image from 'next/image';
-import { FaClock, FaEye } from 'react-icons/fa';
+
 import TableOfContents from '@/components/blog/TableOfContents';
 import RelatedArticles from '@/components/blog/RelatedArticles';
 import Comments from '@/components/Comments';
@@ -17,6 +17,7 @@ import Breadcrumb from '@/components/shared/Breadcrumb';
 import Link from 'next/link';
 import clsx from 'clsx';
 import ArticleNewsletterPopup from '@/components/blog/ArticleNewsletterPopup';
+import { HiOutlineClock, HiOutlineEye } from 'react-icons/hi';
 
 interface BlogPostProps {
   frontMatter: {
@@ -194,7 +195,7 @@ export default function BlogPost({
           >
             {/* Author & Date */}
             <div className="flex items-center gap-4">
-              <div className="relative w-12 h-12 overflow-hidden rounded-full ring-2 ring-emerald-500/30">
+              <div className="relative w-12 h-12 overflow-hidden rounded-full ring-5 ">
                 <Image
                   src="/images/AL-KINDI.png"
                   alt={frontMatter.author}
@@ -206,10 +207,10 @@ export default function BlogPost({
                 />
               </div>
               <div>
-                <div className="text-sm sm:text-base font-paragraf">
-                  <Accent>{frontMatter.author}</Accent>
+                <div className="text-sm sm:text-base font-paragraf font-semibold gradient-text">
+                  {frontMatter.author}
                 </div>
-                <div className="text-xs sm:text-sm font-paragraf text-[#A3A3A3]">
+                <div className="text-xs md:text-xs font-paragraf text-neutral-300">
                   {formattedDate}
                 </div>
               </div>
@@ -217,16 +218,20 @@ export default function BlogPost({
 
             {/* Stats */}
             <div
-              className="flex items-center gap-6 text-xs sm:text-sm font-paragraf text-[#A3A3A3]"
+              className="flex items-center gap-3 text-xs sm:text-sm font-paragraf text-[#A3A3A3]"
               data-fade="5"
             >
               <span className="flex items-center gap-2">
-                <FaEye className="w-4 h-4" />
-                {views} views
+                <HiOutlineEye className="w-4 h-4 text-neutral-600" />
+                <span className="text-xs md:text-xs text-neutral-300 font-paragraf">
+                  {views} views
+                </span>
               </span>
-              <span className="flex items-center font-paragraf text-[#A3A3A3] gap-2">
-                <FaClock className="w-4 h-4" />
-                {frontMatter.readingTime} min read
+              <span className="flex items-center gap-2">
+                <HiOutlineClock className="w-4 h-4 text-neutral-600" />
+                <span className="text-xs md:text-xs text-neutral-300 font-paragraf">
+                  {frontMatter.readingTime} min read
+                </span>
               </span>
             </div>
           </div>

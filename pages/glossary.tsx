@@ -148,7 +148,7 @@ export default function Glossary() {
 
           <Image
             alt=""
-            loading="lazy"
+            priority
             width={1280}
             height={825}
             className="pointer-events-none select-none absolute w-full inset-0 h-[450px] object-cover z-[-1] opacity-40 mix-blend-overlay"

@@ -68,11 +68,11 @@ const AboutPage = () => {
         />
         <Image
           alt=""
-          loading="lazy"
           width={1280}
           height={825}
           className="pointer-events-none select-none absolute w-full inset-0 h-[450px] object-cover z-[-1] opacity-40 mix-blend-overlay"
           src="/images/textures/crumpled-3.jpg"
+          priority
         />
       </div>
 
@@ -89,10 +89,7 @@ const AboutPage = () => {
                 My background, interests, and experiences.
               </p>
             </div>
-            <div
-              className="h-px bg-gradient-to-r from-transparent via-gray-600 to-transparent mb-10 mt-5"
-              data-fade="2"
-            />
+            <div className="mt-5  h-px max-w-md mx-auto bg-gradient-to-r from-transparent via-gray-800 to-transparent" />
 
             {/* Profile Section */}
 

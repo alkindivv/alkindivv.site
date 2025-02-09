@@ -43,6 +43,7 @@
     "remark": "^15.0.1",
     "remark-gfm": "^4.0.0",
     "remark-html": "^16.0.1",
+    "rss": "^1.2.2",
     "shiki": "^1.1.7",
     "swr": "^2.2.5",
     "tailwind-merge": "^2.2.1"
@@ -53,6 +54,7 @@
     "@types/node": "^20",
     "@types/nprogress": "^0.2.3",
     "@types/react": "^18",
+    "@types/rss": "^0.0.32",
     "@typescript-eslint/eslint-plugin": "^7.1.0",
     "@typescript-eslint/parser": "^7.1.0",
     "autoprefixer": "^10.4.14",

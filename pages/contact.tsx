@@ -87,7 +87,7 @@ const ContactPage = () => {
           />
           <Image
             alt=""
-            loading="lazy"
+            priority
             width={1280}
             height={825}
             className="pointer-events-none select-none absolute w-full inset-0 h-[450px] object-cover z-[-1] opacity-40 mix-blend-overlay"
@@ -142,7 +142,7 @@ const ContactPage = () => {
                         type="text"
                         name="user_name"
                         required
-                        className="w-full bg-transparent border-b border-gray-800 hover:border-emerald-500/50 focus:border-emerald-500 transition-colors px-0 py-2 text-sm sm:text-base focus:outline-none focus:ring-0 placeholder:text-neutral-600"
+                        className="w-full bg-transparent border-b border-dotted border-neutral-700 hover:border-neutral-600 focus:border-neutral-500 transition-colors px-0 py-2 text-sm sm:text-base focus:outline-none focus:ring-0 placeholder:text-neutral-600"
                         placeholder="Your name"
                       />
                     </div>
@@ -151,7 +151,7 @@ const ContactPage = () => {
                         type="email"
                         name="user_email"
                         required
-                        className="w-full bg-transparent border-b border-gray-800 hover:border-emerald-500/50 focus:border-emerald-500 transition-colors px-0 py-2 text-sm sm:text-base focus:outline-none focus:ring-0 placeholder:text-neutral-600"
+                        className="w-full bg-transparent border-b border-dotted border-neutral-700 hover:border-neutral-600 focus:border-neutral-500 transition-colors px-0 py-2 text-sm sm:text-base focus:outline-none focus:ring-0 placeholder:text-neutral-600"
                         placeholder="your@email.com"
                       />
                     </div>
@@ -162,7 +162,7 @@ const ContactPage = () => {
                       type="text"
                       name="subject"
                       required
-                      className="w-full bg-transparent border-b border-gray-800 hover:border-emerald-500/50 focus:border-emerald-500 transition-colors px-0 py-2 text-sm sm:text-base focus:outline-none focus:ring-0 placeholder:text-neutral-600"
+                      className="w-full bg-transparent border-b border-dotted border-neutral-700 hover:border-neutral-600 focus:border-neutral-500 transition-colors px-0 py-2 text-sm sm:text-base focus:outline-none focus:ring-0 placeholder:text-neutral-600"
                       placeholder="Subject"
                     />
                   </div>
@@ -172,7 +172,7 @@ const ContactPage = () => {
                       name="message"
                       required
                       rows={6}
-                      className="w-full bg-transparent border-b border-gray-800 hover:border-emerald-500/50 focus:border-emerald-500 transition-colors px-0 py-2 text-sm sm:text-base focus:outline-none focus:ring-0 resize-none placeholder:text-neutral-600"
+                      className="w-full bg-transparent  border-b border-dotted border-neutral-700 hover:border-neutral-600 focus:border-neutral-500 transition-colors px-0 py-2 text-sm sm:text-base focus:outline-none focus:ring-0 resize-none placeholder:text-neutral-600"
                       placeholder="Your message"
                     />
                   </div>

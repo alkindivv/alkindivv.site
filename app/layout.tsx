@@ -1,7 +1,10 @@
 import type { Metadata } from 'next';
 import './globals.css';
 
+const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://alkindivv.site';
+
 export const metadata: Metadata = {
+  metadataBase: new URL(baseUrl),
   title: {
     default: 'AL KINDI - Law, Technology & Blockchain Expert',
     template: '%s | AL KINDI',
@@ -132,6 +135,12 @@ export default function RootLayout({
           href="/favicon-16x16.png"
         />
         <link rel="manifest" href="/site.webmanifest" />
+        <link
+          rel="alternate"
+          type="application/rss+xml"
+          title="AL KINDI Blog RSS Feed"
+          href="/feed.xml"
+        />
         <meta name="theme-color" content="#111111" />
       </head>
       <body className="bg-black text-white">{children}</body>

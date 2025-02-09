@@ -46,7 +46,7 @@ const defaultSEOConfig = {
       content: 'width=device-width, initial-scale=1, maximum-scale=5',
     },
     {
-      name: 'apple-mobile-web-app-capable',
+      name: 'mobile-web-app-capable',
       content: 'yes',
     },
     {
@@ -72,6 +72,7 @@ function MyApp({ Component, pageProps }: AppProps) {
     <SessionProvider>
       <Head>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta name="mobile-web-app-capable" content="yes" />
       </Head>
       <DefaultSeo {...defaultSEOConfig} />
       <SEO />

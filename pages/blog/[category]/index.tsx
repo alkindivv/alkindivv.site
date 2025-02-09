@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { GetStaticPaths, GetStaticProps } from 'next';
 import Layout from '@/components/layout/Layout';
 import { getAllPosts, getAllCategories } from '@/lib/mdx';
-import { BlogPost, BlogCategory } from '@/types/blog';
+import { BlogPost } from '@/types/blog';
 import SEO from '@/components/shared/SEO';
 import BlogCard from '@/components/blog/BlogCard';
 import { HiSearch, HiCalendar, HiClock, HiEye } from 'react-icons/hi';
@@ -11,6 +11,12 @@ import Tag from '@/components/shared/Tag';
 import clsx from 'clsx';
 import HighlightedText from '@/components/shared/HighlightedText';
 import Breadcrumb from '@/components/shared/Breadcrumb';
+
+interface BlogCategory {
+  name: string;
+  slug: string;
+  description: string;
+}
 
 interface CategoryPageProps {
   posts: BlogPost[];
@@ -104,11 +110,11 @@ export default function CategoryPage({ posts, category }: CategoryPageProps) {
                   className="!block !p-5 !h-auto bg-[#111111] border border-gray-800 hover:border-gray-700 rounded-lg
                   transition"
                   searchQuery={searchQuery}
-                  customContent={(
-                    post,
-                    views,
-                    readingTimeMinutes,
-                    publishedDate
+                  _customContent={(
+                    post: BlogPost,
+                    views: number | string,
+                    readingTimeMinutes: number,
+                    publishedDate: string
                   ) => (
                     <div className="flex flex-col md:flex-row justify-between items-start gap-4">
                       <div className="flex-grow">
@@ -146,7 +152,7 @@ export default function CategoryPage({ posts, category }: CategoryPageProps) {
                           />
                         </p>
                         <div className="mt-4 flex flex-wrap gap-2">
-                          {post.tags?.map((tag) => (
+                          {post.tags?.map((tag: string) => (
                             <Tag
                               key={tag}
                               variant="default"

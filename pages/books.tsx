@@ -80,7 +80,7 @@ export default function BooksPage() {
         <div className="absolute inset-0 overflow-hidden h-[450px] bg-neutral-950">
           <Image
             alt=""
-            loading="lazy"
+            priority
             width={1280}
             height={825}
             className="pointer-events-none select-none absolute w-full inset-0 h-[450px] object-cover z-[-1] opacity-20"

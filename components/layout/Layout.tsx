@@ -63,8 +63,6 @@ const Layout: React.FC<LayoutProps> = ({
         />
         <link rel="icon" href="/favicon.ico" />
 
-        <link rel="preload" as="style" href="/styles/globals.css" />
-
         {/* Custom styles untuk NProgress */}
         <style>{`
           #nprogress {

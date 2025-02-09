@@ -1,8 +1,6 @@
 import React from 'react';
 import Link from 'next/link';
-import { FaLinkedinIn } from 'react-icons/fa';
-import { FaXTwitter } from 'react-icons/fa6';
-import { FiGithub } from 'react-icons/fi';
+import { FiGithub, FiLinkedin, FiMail, FiTwitter } from 'react-icons/fi';
 import GlowingButton from '@/components/shared/GlowingButton';
 
 const socialLinks = [
@@ -14,14 +12,20 @@ const socialLinks = [
   },
   {
     href: 'https://linkedin.com/in/alkindivv',
-    icon: FaLinkedinIn,
+    icon: FiLinkedin,
     label: 'LinkedIn',
     color: 'text-neutral-500',
   },
   {
     href: 'https://twitter.com/alkindivv',
-    icon: FaXTwitter,
+    icon: FiTwitter,
     label: 'Twitter',
+    color: 'text-neutral-500',
+  },
+  {
+    href: 'mailto:alkindi@gmail.com',
+    icon: FiMail,
+    label: 'Email',
     color: 'text-neutral-500',
   },
 ] as const;
@@ -38,6 +42,7 @@ const resourceLinks = [
   { name: 'Books', href: '/resources' },
   { name: 'Wishlist', href: '/wishlist' },
   { name: 'Docs', href: '/docs' },
+  { name: 'RSS', href: '/feed.xml' },
 ] as const;
 
 function FooterSection({
@@ -105,7 +110,8 @@ export default function Footer() {
                   }
                 >
                   <p className="text-sm text-neutral-500 max-w-[280px] mb-4">
-                    Don't miss out 😉. Get an email whenever I post, no spam.
+                    Don't miss out my latest articles!. Get an email whenever I
+                    post, no spam ✌️
                   </p>
                   <GlowingButton href="https://alkindi.substack.com">
                     Subscribe Now

@@ -93,7 +93,7 @@ const GlowingButton = React.forwardRef<HTMLButtonElement, GlowingButtonProps>(
       disabled && 'opacity-50 cursor-not-allowed pointer-events-none',
       variant === 'default' && 'px-4 py-3 rounded-xl',
       variant === 'small' &&
-        'px-3 py-2 text-sm rounded-lg md:px-4 md:py-3 md:text-base md:rounded-xl',
+        'px-3 py-2 text-sm rounded-lg md:px-3 md:py-2.5 md:text-base md:rounded-xl',
       className
     );
 

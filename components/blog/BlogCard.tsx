@@ -5,7 +5,6 @@ import { HiOutlineClock, HiOutlineEye } from 'react-icons/hi';
 import Link from 'next/link';
 import Accent from '@/components/shared/Accent';
 import Tag from '@/components/shared/Tag';
-import styles from '@/styles/Blog.module.css';
 import clsx from 'clsx';
 import useSWR from 'swr';
 import { BlogPost } from '@/types/blog';
@@ -19,7 +18,7 @@ interface BlogCardProps {
   onClick?: () => void;
   index?: number;
   isRelated?: boolean;
-  customContent?: (
+  _customContent?: (
     post: BlogPost,
     views: number | string,
     readingTimeMinutes: number,
@@ -35,7 +34,7 @@ const BlogCard = ({
   onClick,
   index: _index,
   isRelated = false,
-  customContent,
+  _customContent: customContent,
   searchQuery = '',
 }: BlogCardProps) => {
   const cardRef = useRef<HTMLElement>(null);
@@ -57,6 +56,7 @@ const BlogCard = ({
   );
 
   const views = viewsData?.views ?? '–';
+  const publishedDate = post.date;
 
   useEffect(() => {
     mutate();
@@ -75,9 +75,7 @@ const BlogCard = ({
           }
         });
       },
-      {
-        threshold: 0.1,
-      }
+      { threshold: 0.1 }
     );
 
     if (cardRef.current) {
@@ -87,164 +85,146 @@ const BlogCard = ({
     return () => observer.disconnect();
   }, []);
 
-  const readingTimeMinutes = post.readingTime;
-  const publishedDate = post.date;
+  const handleClick = async (e: React.MouseEvent) => {
+    // Prevent default link behavior
+    e.preventDefault();
 
-  const handleClick = async () => {
-    if (isRelated) {
-      // Reset scroll and clear observers
-      window.scrollTo(0, 0);
-      const observers = (window as any).__observers__;
-      if (observers) {
-        Object.values(observers).forEach((observer: any) => {
-          observer.disconnect();
-        });
-        (window as any).__observers__ = {};
+    try {
+      // Optimistic update
+      const currentViews = viewsData?.views ?? 0;
+      mutate({ views: currentViews + 1 }, false);
+
+      // Update views di server
+      const response = await fetch(`/api/page-views/?slug=${post.slug}`, {
+        method: 'POST',
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to update views');
       }
-    }
 
-    // Call parent onClick if provided
-    onClick?.();
+      // Call parent onClick if provided
+      onClick?.();
 
-    if (isRelated) {
-      // Force a hard navigation for related posts
-      await router.push(`/blog/${post.category.toLowerCase()}/${post.slug}`);
-      router.reload();
+      if (isRelated) {
+        // Reset scroll and clear observers
+        window.scrollTo(0, 0);
+        const observers = (window as any).__observers__;
+        if (observers) {
+          Object.values(observers).forEach((observer: any) => {
+            observer.disconnect();
+          });
+          (window as any).__observers__ = {};
+        }
+
+        // Force a hard navigation for related posts
+        await router.push(`/blog/${post.category.toLowerCase()}/${post.slug}`);
+        router.reload();
+      } else {
+        // Normal navigation
+        window.location.href = `/blog/${post.category.toLowerCase()}/${post.slug}`;
+      }
+    } catch (error) {
+      console.error('Failed to update views:', error);
+      // If error, still navigate to the article
+      window.location.href = `/blog/${post.category.toLowerCase()}/${post.slug}`;
     }
   };
 
   return (
-    <article
-      ref={cardRef}
-      className={`${styles.card} ${className}`}
-      style={{
-        opacity: 0,
-        transform: 'translateY(10px)',
-        transition: 'all 0.3s ease-out',
-      }}
-      onClick={handleClick}
-    >
-      {!isRelated ? (
+    <article ref={cardRef} className={className}>
+      <div className="relative flex flex-col h-full max-h-[1000px]">
         <Link
           href={`/blog/${post.category.toLowerCase()}/${post.slug}`}
-          className="block h-full focus:outline-none focus-visible:ring focus-visible:ring-primary-300"
+          className="block h-full group focus:outline-none focus-visible:ring focus-visible:ring-primary-300"
+          onClick={handleClick}
         >
           {customContent ? (
-            customContent(post, views, readingTimeMinutes, publishedDate)
+            customContent(post, views, post.readingTime, publishedDate)
           ) : (
-            <BlogCardContent
-              post={post}
-              views={views}
-              readingTimeMinutes={readingTimeMinutes}
-              publishedDate={publishedDate}
-              checkTagged={checkTagged}
-              searchQuery={searchQuery}
-            />
+            <>
+              {/* Featured Image */}
+              {post.featuredImage && (
+                <div className="relative h-[130px] md:h-[170px] overflow-hidden rounded-t-lg">
+                  <Image
+                    src={post.featuredImage}
+                    alt={post.title}
+                    fill
+                    className="object-cover transition-transform duration-500 group-hover:scale-110"
+                    priority={_index !== undefined && _index < 3}
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-b from-[#0a0a0a]/5 via-[#0a0a0a]/50 to-[#0a0a0a] opacity-60 transition-opacity duration-500 group-hover:opacity-90" />
+                  {/* <div className="absolute inset-0 bg-gradient-to-b from-[#0a0a0a]/5 via-[#0a0a0a]/10 to-[#0a0a0a]" /> */}
+                </div>
+              )}
+
+              {/* Content */}
+              <div className="flex-1 p-4 flex flex-col">
+                {/* Meta Info */}
+                <div className="flex items-center gap-3 text-sm text-neutral-400 mb-2 transition-colors group-hover:text-neutral-300">
+                  <time className="flex items-center gap-1">
+                    <HiOutlineClock className="inline w-[1.1rem] h-[1.1rem]" />
+                    <Accent className="text-xs md:text-sm">
+                      {post.readingTime} min read
+                    </Accent>
+                  </time>
+                  <div className="flex items-center gap-1">
+                    <HiOutlineEye className="inline w-[1.1rem] h-[1.1rem]" />
+                    <Accent className="text-xs md:text-sm">
+                      {views} views
+                    </Accent>
+                  </div>
+                </div>
+
+                {/* Title */}
+                <h2 className="text-base md:text-lg font-semibold text-neutral-50 mb-1 line-clamp-2 transition-colors group-hover:text-white">
+                  <HighlightedText
+                    text={post.title}
+                    searchQuery={searchQuery}
+                  />
+                </h2>
+
+                {/* Date */}
+                <p className="text-xs md:text-sm text-neutral-300 font-medium mb-2 transition-colors group-hover:text-neutral-200">
+                  {format(new Date(publishedDate), 'MMMM dd, yyyy')}
+                </p>
+
+                {/* Excerpt */}
+                <p className="text-xs md:text-sm text-neutral-400 mb-3 line-clamp-2 md:line-clamp-3 transition-colors group-hover:text-neutral-300">
+                  <HighlightedText
+                    text={post.excerpt || ''}
+                    searchQuery={searchQuery}
+                  />
+                </p>
+
+                {/* Tags */}
+                <div className="flex flex-wrap gap-1.5 mt-auto">
+                  {post.tags?.map((tag) => (
+                    <Tag
+                      key={tag}
+                      variant={checkTagged?.(tag) ? 'gradient' : 'default'}
+                      className={clsx(
+                        'text-xs md:text-sm px-2 py-0.5',
+                        'rounded-md',
+                        'bg-[#17171799] text-[#737373]',
+                        'hover:text-emerald-500 hover:border-emerald-500/50',
+                        'transition-colors',
+                        'group-hover:text-neutral-300',
+                        checkTagged?.(tag) &&
+                          'bg-emerald-500/20 text-emerald-100'
+                      )}
+                    >
+                      <HighlightedText text={tag} searchQuery={searchQuery} />
+                    </Tag>
+                  ))}
+                </div>
+              </div>
+            </>
           )}
         </Link>
-      ) : (
-        <div className="block h-full">
-          {customContent ? (
-            customContent(post, views, readingTimeMinutes, publishedDate)
-          ) : (
-            <BlogCardContent
-              post={post}
-              views={views}
-              readingTimeMinutes={readingTimeMinutes}
-              publishedDate={publishedDate}
-              checkTagged={checkTagged}
-              searchQuery={searchQuery}
-            />
-          )}
-        </div>
-      )}
+      </div>
     </article>
   );
 };
-
-// Separate component for card content to avoid duplication
-const BlogCardContent = ({
-  post,
-  views,
-  readingTimeMinutes,
-  publishedDate,
-  checkTagged,
-  searchQuery,
-}: {
-  post: BlogPost;
-  views: number | string;
-  readingTimeMinutes: number;
-  publishedDate: string;
-  checkTagged?: (tag: string) => boolean;
-  searchQuery?: string;
-}) => (
-  <div className="relative flex flex-col h-full rounded-xl border border-gray-800  overflow-hidden  group transition-all duration-300">
-    <div className="relative h-48 overflow-hidden">
-      <Image
-        src={post.featuredImage || ''}
-        alt={post.title}
-        fill
-        className="object-cover transform group-hover:scale-105 transition-transform duration-500"
-      />
-      <div className="absolute inset-0 bg-gradient-to-t from-gray-900/80 via-gray-900/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-      <div className="absolute inset-0 backdrop-blur-[0px] opacity-0 group-hover:opacity-100 transition-all duration-300" />
-      <div className="absolute bottom-0.5 right-1.5 flex flex-wrap gap-1 justify-end">
-        {Array.isArray(post.tags)
-          ? post.tags.filter(Boolean).map((tag) => (
-              <Tag
-                key={tag}
-                variant={checkTagged?.(tag) ? 'gradient' : 'default'}
-                className={clsx(
-                  'inline-block',
-                  'px-1 py-0.5 text-xs md:text-sm 2xl:text-sm',
-                  'rounded-md border',
-                  'bg-black border-gray-600 text-gray-200',
-                  'hover:text-white',
-                  'focus:outline-none focus-visible:ring focus-visible:ring-primary-300',
-                  checkTagged?.(tag) && 'bg-emerald-500 text-white',
-                  'transition-colors'
-                )}
-              >
-                <HighlightedText
-                  text={tag || ''}
-                  searchQuery={searchQuery || ''}
-                />
-              </Tag>
-            ))
-          : null}
-      </div>
-    </div>
-
-    <div className={styles.content}>
-      <h4 className={styles.title}>
-        <HighlightedText text={post.title} searchQuery={searchQuery || ''} />
-      </h4>
-
-      <div className={styles.meta}>
-        <div className="flex items-center gap-4">
-          <div className="flex items-center gap-1">
-            <HiOutlineClock className="text-base" />
-            <Accent>{readingTimeMinutes} min read</Accent>
-          </div>
-          <div className="flex items-center gap-1">
-            <HiOutlineEye className="text-base" />
-            <Accent>{views} views</Accent>
-          </div>
-        </div>
-      </div>
-
-      <p className=" font-paragraf text-[0.875rem] mb-1.5 font-semibold text-gray-100">
-        {format(new Date(publishedDate), 'MMMM dd, yyyy')}
-      </p>
-
-      <p className="font-paragraf text-xs md:text-sm text-gray-400 line-clamp-2">
-        <HighlightedText
-          text={post.excerpt || ''}
-          searchQuery={searchQuery || ''}
-        />
-      </p>
-    </div>
-  </div>
-);
 
 export default BlogCard;
