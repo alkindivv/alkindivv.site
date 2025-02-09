@@ -70,7 +70,7 @@ export default function HomePage() {
 
               {/* Social Links */}
               <div className="flex items-center gap-4" data-fade="5">
-                <div className="flex items-center gap-1 py-1 px-1 rounded-full bg-white/[0.02] backdrop-blur-sm">
+                <div className="flex items-center gap-1 py-1 px-1 rounded-full">
                   <SocialMedia />
                 </div>
                 {/* <div className="h-px max-w-[120px] md:max-w-[340px] w-full bg-gradient-to-r from-emerald-300 via-emerald-500 to-transparent" /> */}
