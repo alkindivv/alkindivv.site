@@ -142,6 +142,15 @@ export default function BlogPost({
     }, 100); // Delay kecil untuk memastikan konten sudah dimuat
   }, [mdxSource]); // Rerun effect ketika konten berubah
 
+  const [isLoaded, setIsLoaded] = useState(false);
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setIsLoaded(true);
+    }, 200);
+
+    return () => clearTimeout(timer);
+  }, []);
+
   // Format tanggal - Optimize dengan useMemo
   const formattedDate = useMemo(
     () => formatDate(frontMatter.date),
@@ -172,13 +181,8 @@ export default function BlogPost({
         tags={frontMatter.tags}
         readingTime={frontMatter.readingTime}
       />
-      <main
-        className={clsx(
-          'content-spacing'
-          // isTransitioning ? 'opacity-0' : 'opacity-100',
-          // 'transition-opacity duration-300'
-        )}
-      >
+
+      <main className={clsx('content-spacing', !isLoaded && 'opacity-0')}>
         {/* Hero Banner - Optimize dengan priority loading */}
         <div className="relative h-[30vh] sm:h-[40vh] w-screen -mx-[calc((100vw-100%)/2)] overflow-hidden">
           <div className="absolute inset-0 transform scale-110">
