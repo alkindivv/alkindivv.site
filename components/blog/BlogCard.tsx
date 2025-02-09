@@ -6,10 +6,10 @@ import Link from 'next/link';
 import Accent from '@/components/shared/Accent';
 import Tag from '@/components/shared/Tag';
 import clsx from 'clsx';
-import useSWR from 'swr';
 import { BlogPost } from '@/types/blog';
 import { useRouter } from 'next/router';
 import HighlightedText from '@/components/shared/HighlightedText';
+import { usePageViews } from '@/lib/hooks/usePageViews';
 
 interface BlogCardProps {
   post: BlogPost;
@@ -39,28 +39,7 @@ const BlogCard = ({
 }: BlogCardProps) => {
   const cardRef = useRef<HTMLElement>(null);
   const router = useRouter();
-
-  const { data: viewsData, mutate } = useSWR(
-    `/api/page-views/?slug=${post.slug}`,
-    async (url) => {
-      const res = await fetch(url);
-      if (!res.ok) throw new Error('Failed to fetch views');
-      return res.json();
-    },
-    {
-      refreshInterval: 30000,
-      revalidateOnFocus: false,
-      dedupingInterval: 5000,
-      revalidateOnMount: true,
-    }
-  );
-
-  const views = viewsData?.views ?? '–';
-  const publishedDate = post.date;
-
-  useEffect(() => {
-    mutate();
-  }, [mutate]);
+  const views = usePageViews(post.slug);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -86,23 +65,9 @@ const BlogCard = ({
   }, []);
 
   const handleClick = async (e: React.MouseEvent) => {
-    // Prevent default link behavior
     e.preventDefault();
 
     try {
-      // Optimistic update
-      const currentViews = viewsData?.views ?? 0;
-      mutate({ views: currentViews + 1 }, false);
-
-      // Update views di server
-      const response = await fetch(`/api/page-views/?slug=${post.slug}`, {
-        method: 'POST',
-      });
-
-      if (!response.ok) {
-        throw new Error('Failed to update views');
-      }
-
       // Call parent onClick if provided
       onClick?.();
 
@@ -125,7 +90,7 @@ const BlogCard = ({
         window.location.href = `/blog/${post.category.toLowerCase()}/${post.slug}`;
       }
     } catch (error) {
-      console.error('Failed to update views:', error);
+      console.error('Failed to navigate:', error);
       // If error, still navigate to the article
       window.location.href = `/blog/${post.category.toLowerCase()}/${post.slug}`;
     }
@@ -140,7 +105,7 @@ const BlogCard = ({
           onClick={handleClick}
         >
           {customContent ? (
-            customContent(post, views, post.readingTime, publishedDate)
+            customContent(post, views, post.readingTime, post.date)
           ) : (
             <>
               {/* Featured Image */}
@@ -154,7 +119,6 @@ const BlogCard = ({
                     priority={_index !== undefined && _index < 3}
                   />
                   <div className="absolute inset-0 bg-gradient-to-b from-[#0a0a0a]/5 via-[#0a0a0a]/50 to-[#0a0a0a] opacity-60 transition-opacity duration-500 group-hover:opacity-90" />
-                  {/* <div className="absolute inset-0 bg-gradient-to-b from-[#0a0a0a]/5 via-[#0a0a0a]/10 to-[#0a0a0a]" /> */}
                 </div>
               )}
 
@@ -186,7 +150,7 @@ const BlogCard = ({
 
                 {/* Date */}
                 <p className="text-xs md:text-sm text-neutral-300 font-medium mb-2 transition-colors group-hover:text-neutral-200">
-                  {format(new Date(publishedDate), 'MMMM dd, yyyy')}
+                  {format(new Date(post.date), 'MMMM dd, yyyy')}
                 </p>
 
                 {/* Excerpt */}

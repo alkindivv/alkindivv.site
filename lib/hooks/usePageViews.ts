@@ -3,20 +3,22 @@ import { useEffect, useRef } from 'react';
 
 const fetcher = (url: string) => fetch(url).then((res) => res.json());
 
+// Konfigurasi SWR yang konsisten untuk semua penggunaan
+const SWR_CONFIG = {
+  revalidateOnFocus: true,
+  revalidateOnReconnect: true,
+  refreshInterval: 5000, // Polling setiap 5 detik
+  dedupingInterval: 2000, // Deduping interval yang lebih pendek
+  keepPreviousData: true,
+};
+
+// Key untuk cache SWR
+export const getViewsKey = (slug: string) => `/api/page-views/?slug=${slug}`;
+
 export function usePageViews(slug: string, increment: boolean = false) {
   const viewIncrementedRef = useRef(false);
 
-  // Gunakan SWR dengan konfigurasi yang lebih optimal
-  const { data, error: _error } = useSWR(
-    `/api/page-views/?slug=${slug}`,
-    fetcher,
-    {
-      revalidateOnFocus: false,
-      dedupingInterval: 60000, // Cache selama 1 menit
-      keepPreviousData: true, // Gunakan data sebelumnya saat revalidasi
-      errorRetryCount: 2, // Batasi retry saat error
-    }
-  );
+  const { data } = useSWR(getViewsKey(slug), fetcher, SWR_CONFIG);
 
   // Increment view sekali saja
   useEffect(() => {
@@ -25,13 +27,9 @@ export function usePageViews(slug: string, increment: boolean = false) {
       viewIncrementedRef.current = true;
 
       try {
-        // Optimistic update
+        // Optimistic update untuk semua instance yang menggunakan slug yang sama
         const currentViews = data?.views ?? 0;
-        mutate(
-          `/api/page-views/?slug=${slug}`,
-          { views: currentViews + 1 },
-          false
-        );
+        await mutate(getViewsKey(slug), { views: currentViews + 1 }, false);
 
         // Gunakan AbortController untuk membatalkan request jika komponen unmount
         const controller = new AbortController();
@@ -47,14 +45,16 @@ export function usePageViews(slug: string, increment: boolean = false) {
         if (!res.ok) throw new Error('Failed to increment view');
 
         const newData = await res.json();
-        mutate(`/api/page-views/?slug=${slug}`, newData);
+
+        // Update cache dengan data baru
+        await mutate(getViewsKey(slug), newData, true);
 
         return () => controller.abort();
-      } catch (error) {
-        if (error.name === 'AbortError') return;
+      } catch (error: unknown) {
+        if (error instanceof Error && error.name === 'AbortError') return;
         console.error('Failed to increment view:', error);
-        // Rollback optimistic update jika gagal
-        mutate(`/api/page-views/?slug=${slug}`);
+        // Rollback optimistic update
+        await mutate(getViewsKey(slug));
       }
     };
 

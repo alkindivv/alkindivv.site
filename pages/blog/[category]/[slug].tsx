@@ -15,7 +15,7 @@ import { usePageViews } from '@/lib/hooks/usePageViews';
 import { formatDate } from '@/lib/utils/date';
 import Breadcrumb from '@/components/shared/Breadcrumb';
 import Link from 'next/link';
-import clsx from 'clsx';
+// import clsx from 'clsx';
 // import ArticleNewsletterPopup from '@/components/blog/ArticleNewsletterPopup';
 import { HiOutlineClock, HiOutlineEye } from 'react-icons/hi';
 import dynamic from 'next/dynamic';
@@ -100,8 +100,8 @@ export default function BlogPost({
   const articleContentRef = useRef<HTMLDivElement>(null);
   const views = usePageViews(frontMatter.slug, true);
 
-  // Extract headings from content - Optimize dengan useMemo
-  const extractHeadings = useMemo(() => {
+  // Fungsi untuk mengekstrak headings
+  const extractHeadings = () => {
     if (!articleContentRef.current) return [];
 
     const elements = Array.from(
@@ -122,11 +122,31 @@ export default function BlogPost({
       title: element.textContent || '',
       level: Number(element.tagName.charAt(1)),
     }));
-  }, [articleContentRef.current]);
+  };
 
   useEffect(() => {
-    setHeadings(extractHeadings);
-  }, [extractHeadings]);
+    // Tunggu sampai konten dimuat
+    setTimeout(() => {
+      if (articleContentRef.current) {
+        // Ekstrak headings awal
+        setHeadings(extractHeadings());
+
+        // Set up observer untuk memantau perubahan
+        const observer = new MutationObserver(() => {
+          setHeadings(extractHeadings());
+        });
+
+        // Mulai observasi
+        observer.observe(articleContentRef.current, {
+          childList: true,
+          subtree: true,
+          characterData: true,
+        });
+
+        return () => observer.disconnect();
+      }
+    }, 100); // Delay kecil untuk memastikan konten sudah dimuat
+  }, [mdxSource]); // Rerun effect ketika konten berubah
 
   // Format tanggal - Optimize dengan useMemo
   const formattedDate = useMemo(
