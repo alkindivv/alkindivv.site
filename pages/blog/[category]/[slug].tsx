@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState, useMemo } from 'react';
 import { GetStaticProps, GetStaticPaths } from 'next';
 import { MDXRemote } from 'next-mdx-remote';
 import Layout from '@/components/layout/Layout';
@@ -65,22 +65,12 @@ export default function BlogPost({
   const [headings, setHeadings] = useState<
     Array<{ id: string; title: string; level: number }>
   >([]);
-  const [isLoaded, setIsLoaded] = useState(false);
   const articleContentRef = useRef<HTMLDivElement>(null);
   const views = usePageViews(frontMatter.slug, true);
 
-  // Add isLoaded effect
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setIsLoaded(true);
-    }, 200);
-
-    return () => clearTimeout(timer);
-  }, []);
-
-  // Extract headings from content
-  useEffect(() => {
-    if (!articleContentRef.current) return;
+  // Extract headings from content - Optimize dengan useMemo
+  const extractHeadings = useMemo(() => {
+    if (!articleContentRef.current) return [];
 
     const elements = Array.from(
       articleContentRef.current.querySelectorAll('h2, h3')
@@ -95,17 +85,22 @@ export default function BlogPost({
         elem.textContent !== 'Contact'
     );
 
-    const items = elements.map((element) => ({
+    return elements.map((element) => ({
       id: element.id,
       title: element.textContent || '',
       level: Number(element.tagName.charAt(1)),
     }));
+  }, [articleContentRef.current]);
 
-    setHeadings(items);
-  }, []);
+  useEffect(() => {
+    setHeadings(extractHeadings);
+  }, [extractHeadings]);
 
-  // Format tanggal
-  const formattedDate = formatDate(frontMatter.date);
+  // Format tanggal - Optimize dengan useMemo
+  const formattedDate = useMemo(
+    () => formatDate(frontMatter.date),
+    [frontMatter.date]
+  );
 
   const breadcrumbItems = [
     { label: 'Blog', href: '/blog' },
@@ -131,23 +126,18 @@ export default function BlogPost({
         tags={frontMatter.tags}
         readingTime={frontMatter.readingTime}
       />
-      <main
-        className={clsx(
-          'content-spacing fade-wrapper',
-          !isLoaded && 'opacity-0'
-        )}
-      >
-        {/* Hero Banner - Full Width */}
+      <main className="content-spacing">
+        {/* Hero Banner - Optimize dengan priority loading */}
         <div className="relative h-[30vh] sm:h-[40vh] w-screen -mx-[calc((100vw-100%)/2)] overflow-hidden">
-          <div className="absolute inset-0 transform scale-110 motion-safe:animate-subtle-zoom">
+          <div className="absolute inset-0 transform scale-110">
             <Image
               src={frontMatter.featuredImage || ''}
               alt={frontMatter.title}
               fill
-              sizes="(max-width: 640px) 100vw, (max-width: 1024px) 100vw, 100vw"
-              className="object-cover brightness-[0.4] transition-transform duration-[20s]"
-              loading="eager"
-              quality={90}
+              sizes="100vw"
+              className="object-cover brightness-[0.4]"
+              priority={true}
+              quality={75}
             />
             <div className="absolute inset-0 bg-gradient-to-b from-[#0a0a0a]/5 via-[#0a0a0a]/50 to-[#0a0a0a]" />
           </div>
