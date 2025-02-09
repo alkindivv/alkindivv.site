@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Layout from '@/components/layout/Layout';
 // import styles from '@/styles/Blog.module.css';
 import { GetStaticProps } from 'next';
@@ -86,6 +86,8 @@ const BlogPage: React.FC<BlogPageProps> = ({ blogPosts }) => {
   const [currentPage, setCurrentPage] = useState(1);
   const [searchQuery, setSearchQuery] = useState('');
 
+  const [isLoaded, setIsLoaded] = useState(false);
+
   const handleTopicClick = (topic: string) => {
     setSelectedTopic(selectedTopic === topic ? null : topic);
     setCurrentPage(1); // Reset to first page when changing topic
@@ -148,6 +150,14 @@ const BlogPage: React.FC<BlogPageProps> = ({ blogPosts }) => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setIsLoaded(true);
+    }, 200);
+
+    return () => clearTimeout(timer);
+  }, []);
+
   return (
     <Layout>
       <SEO templateTitle="Blog" />
@@ -175,7 +185,8 @@ const BlogPage: React.FC<BlogPageProps> = ({ blogPosts }) => {
 
       <main
         className={clsx(
-          'content-spacing max-w-[1200px] w-full relative overflow-hidden'
+          'content-spacing max-w-[1200px] w-full relative overflow-hidden',
+          !isLoaded && 'opacity-0'
         )}
       >
         {/* Content */}
@@ -235,7 +246,7 @@ const BlogPage: React.FC<BlogPageProps> = ({ blogPosts }) => {
                       'px-1.5 py-1 text-xs rounded-lg md:text-sm transition-all duration-300',
                       selectedTopic === topic
                         ? 'border-emerald-500 text-neutral-50 bg-emerald-500/10'
-                        : ' bg-[#17171799] font-medium text-[#737373] hover:text-neutral-50'
+                        : ' bg-[#17171799] font-medium text-[#7e7e7e] hover:text-neutral-50'
                     )}
                   >
                     <HighlightedText text={topic} searchQuery={searchQuery} />

@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState, useMemo } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { GetStaticProps, GetStaticPaths } from 'next';
 import { MDXRemote } from 'next-mdx-remote';
 import Layout from '@/components/layout/Layout';
@@ -6,19 +6,17 @@ import { getPostBySlug, getAllPostSlugs, getAllPosts } from '@/lib/mdx';
 import { MDXComponents } from '@/components/blog/BlogContent';
 import Accent from '@/components/shared/Accent';
 import SEO from '@/components/shared/SEO';
+
 import Image from 'next/image';
-import { useRouter } from 'next/router';
-import clsx from 'clsx';
+
 import TableOfContents from '@/components/blog/TableOfContents';
 import RelatedArticles from '@/components/blog/RelatedArticles';
 import Comments from '@/components/Comments';
-import { usePageViews } from '@/lib/hooks/usePageViews';
-import { formatDate } from '@/lib/utils/date';
 import Breadcrumb from '@/components/shared/Breadcrumb';
+import clsx from 'clsx';
+import { HiOutlineEye, HiOutlineClock } from 'react-icons/hi';
 import Link from 'next/link';
 import ArticleNewsletterPopup from '@/components/blog/ArticleNewsletterPopup';
-import { HiOutlineClock, HiOutlineEye } from 'react-icons/hi';
-
 interface BlogPostProps {
   frontMatter: {
     title: string;
@@ -62,41 +60,17 @@ export default function BlogPost({
   mdxSource,
   allPosts,
 }: BlogPostProps) {
-  const [isTransitioning, setIsTransitioning] = useState(false);
-  const router = useRouter();
   const [headings, setHeadings] = useState<
     Array<{ id: string; title: string; level: number }>
   >([]);
   const articleContentRef = useRef<HTMLDivElement>(null);
-  const views = usePageViews(frontMatter.slug, true);
+  const [] = useState(false);
+  const [views, setViews] = useState(0);
+  const viewIncrementedRef = useRef(false);
 
-  // Handle smooth transitions
+  // Extract headings from content
   useEffect(() => {
-    const handleStart = () => {
-      setIsTransitioning(true);
-      document.body.classList.add('fade-out');
-    };
-
-    const handleComplete = () => {
-      setIsTransitioning(false);
-      document.body.classList.remove('fade-out');
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    };
-
-    router.events.on('routeChangeStart', handleStart);
-    router.events.on('routeChangeComplete', handleComplete);
-    router.events.on('routeChangeError', handleComplete);
-
-    return () => {
-      router.events.off('routeChangeStart', handleStart);
-      router.events.off('routeChangeComplete', handleComplete);
-      router.events.off('routeChangeError', handleComplete);
-    };
-  }, [router]);
-
-  // Fungsi untuk mengekstrak headings
-  const extractHeadings = () => {
-    if (!articleContentRef.current) return [];
+    if (!articleContentRef.current) return;
 
     const elements = Array.from(
       articleContentRef.current.querySelectorAll('h2, h3')
@@ -111,51 +85,72 @@ export default function BlogPost({
         elem.textContent !== 'Contact'
     );
 
-    return elements.map((element) => ({
+    const items = elements.map((element) => ({
       id: element.id,
       title: element.textContent || '',
       level: Number(element.tagName.charAt(1)),
     }));
-  };
 
-  useEffect(() => {
-    // Tunggu sampai konten dimuat
-    setTimeout(() => {
-      if (articleContentRef.current) {
-        // Ekstrak headings awal
-        setHeadings(extractHeadings());
-
-        // Set up observer untuk memantau perubahan
-        const observer = new MutationObserver(() => {
-          setHeadings(extractHeadings());
-        });
-
-        // Mulai observasi
-        observer.observe(articleContentRef.current, {
-          childList: true,
-          subtree: true,
-          characterData: true,
-        });
-
-        return () => observer.disconnect();
-      }
-    }, 100); // Delay kecil untuk memastikan konten sudah dimuat
-  }, [mdxSource]); // Rerun effect ketika konten berubah
-
-  const [isLoaded, setIsLoaded] = useState(false);
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setIsLoaded(true);
-    }, 200);
-
-    return () => clearTimeout(timer);
+    setHeadings(items);
   }, []);
 
-  // Format tanggal - Optimize dengan useMemo
-  const formattedDate = useMemo(
-    () => formatDate(frontMatter.date),
-    [frontMatter.date]
-  );
+  // Convert readingTime to number
+  // const readingTimeMinutes = !frontMatter.readingTime
+  //   ? 0
+  //   : typeof frontMatter.readingTime === 'number'
+  //     ? frontMatter.readingTime
+  //     : 0;
+
+  // Format tanggal
+  const formattedDate = new Date(frontMatter.date).toLocaleDateString('en-US', {
+    month: 'long',
+    day: 'numeric',
+    year: 'numeric',
+  });
+
+  // Fetch initial views
+  useEffect(() => {
+    const fetchViews = async () => {
+      try {
+        const res = await fetch(`/api/page-views/?slug=${frontMatter.slug}`);
+        const data = await res.json();
+        setViews(data.views);
+      } catch (error) {
+        console.error('Failed to fetch views:', error);
+      }
+    };
+
+    fetchViews();
+  }, [frontMatter.slug]);
+
+  // Increment view once
+  useEffect(() => {
+    const incrementView = async () => {
+      if (viewIncrementedRef.current) return;
+      viewIncrementedRef.current = true;
+
+      try {
+        const res = await fetch('/api/page-views', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            slug: frontMatter.slug,
+          }),
+        });
+
+        if (res.ok) {
+          const data = await res.json();
+          setViews(data.views);
+        }
+      } catch (error) {
+        console.error('Failed to increment view:', error);
+      }
+    };
+
+    incrementView();
+  }, [frontMatter.slug]);
 
   const breadcrumbItems = [
     { label: 'Blog', href: '/blog' },
@@ -182,20 +177,21 @@ export default function BlogPost({
         readingTime={frontMatter.readingTime}
       />
 
-      <main className={clsx('content-spacing', !isLoaded && 'opacity-0')}>
+      <main className={clsx('content-spacing')}>
         {/* Hero Banner - Optimize dengan priority loading */}
-        <div className="relative h-[30vh] sm:h-[40vh] w-screen -mx-[calc((100vw-100%)/2)] overflow-hidden">
+        <div className="relative h-[30vh] md:h-[40vh] w-screen -mx-[calc((100vw-100%)/2)] overflow-hidden">
           <div className="absolute inset-0 transform scale-110">
             <Image
               src={frontMatter.featuredImage || ''}
               alt={frontMatter.title}
               fill
               sizes="100vw"
-              className="object-cover brightness-[0.4]"
+              className="object-cover brightness-[0.5] contrast-[1.1]"
               priority={true}
               quality={75}
             />
-            <div className="absolute inset-0 bg-gradient-to-b from-[#0a0a0a]/5 via-[#0a0a0a]/50 to-[#0a0a0a]" />
+            <div className="absolute inset-0 bg-gradient-to-b from-[#0a0a0a]/0 via-[#0a0a0a]/60 to-[#0a0a0a]" />
+            {/* <div className="absolute inset-0 bg-[#0a0a0a]/10" /> */}
           </div>
         </div>
 
@@ -227,7 +223,7 @@ export default function BlogPost({
 
             {/* Excerpt */}
             <p
-              className="text-[0.825rem] md:text-[0.925rem] font-paragraf leading-relaxed tracking-wide text-[#A3A3A3] max-w-3xl"
+              className="text-[0.825rem] md:text-[0.925rem] font-paragraf leading-relaxed tracking-wide text-[#A3A3A3] "
               data-fade="4"
             >
               {frontMatter.excerpt}
@@ -268,14 +264,14 @@ export default function BlogPost({
               data-fade="5"
             >
               <span className="flex items-center gap-2">
-                <HiOutlineEye className="w-4 h-4 text-neutral-600" />
-                <span className="text-xs md:text-xs text-neutral-300 font-paragraf">
+                <HiOutlineEye className="w-4 h-4 text-emerald-600" />
+                <span className="text-xs md:text-md text-neutral-300 font-paragraf">
                   {views} views
                 </span>
               </span>
               <span className="flex items-center gap-2">
-                <HiOutlineClock className="w-4 h-4 text-neutral-600" />
-                <span className="text-xs md:text-xs text-neutral-300 font-paragraf">
+                <HiOutlineClock className="w-4 h-4 text-emerald-600" />
+                <span className="text-xs md:text-md text-neutral-300 font-paragraf">
                   {frontMatter.readingTime} min read
                 </span>
               </span>
@@ -323,14 +319,14 @@ export default function BlogPost({
                 {/* Author Bio */}
                 <div className="relative group">
                   {/* Gradient Border */}
-                  <div className="absolute -inset-[1px] bg-gradient-to-r from-emerald-500/0 via-emerald-500/10 to-emerald-500/0 rounded-2xl opacity-0 group-hover:opacity-100 transition-all duration-700" />
+                  {/* <div className="absolute -inset-[1px] bg-gradient-to-r from-emerald-500/0 via-emerald-500/10 to-emerald-500/0 rounded-2xl opacity-0 group-hover:opacity-100 transition-all duration-700" /> */}
 
                   {/* Content Container */}
                   <div className="relative flex flex-col sm:flex-row gap-6 sm:gap-8 p-6 sm:p-8 bg-[#0a0a0a]/90 backdrop-blur-md rounded-2xl border border-white/[0.05]">
                     {/* Author Image Container */}
                     <div className="relative sm:flex-shrink-0">
                       {/* Image Glow Effect */}
-                      <div className="absolute -inset-0.5 bg-gradient-to-br from-emerald-500/30 to-emerald-500/0 rounded-xl blur-sm opacity-0 group-hover:opacity-20 transition-all duration-700" />
+                      {/* <div className="absolute -inset-0.5 bg-gradient-to-br from-emerald-500/30 to-emerald-500/0 rounded-xl blur-sm opacity-0 group-hover:opacity-20 transition-all duration-700" /> */}
 
                       {/* Image */}
                       <div className="relative w-16 h-16 sm:w-24 sm:h-24 overflow-hidden rounded-xl ring-1 ring-white/[0.05]">

@@ -33,7 +33,7 @@ export default function Breadcrumb({ items }: BreadcrumbProps) {
                 {item.label}
               </Link>
             ) : (
-              <span className="px-1.5 py-1 text-emerald-500 rounded-md line-clamp-1 font-medium">
+              <span className="px-1.5 py-1 gradient-text rounded-md line-clamp-1 font-medium">
                 {item.label}
               </span>
             )}

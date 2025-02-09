@@ -3,7 +3,7 @@ import Image from 'next/image';
 import { format } from 'date-fns';
 import { HiOutlineClock, HiOutlineEye } from 'react-icons/hi';
 import Link from 'next/link';
-import Accent from '@/components/shared/Accent';
+
 import Tag from '@/components/shared/Tag';
 import clsx from 'clsx';
 import { BlogPost } from '@/types/blog';
@@ -91,7 +91,7 @@ const BlogCard = ({
       await router.push(href, undefined, { scroll: false });
 
       // Scroll ke atas dengan smooth
-      window.scrollTo({ top: 0, behavior: 'smooth' });
+      // window.scrollTo({ top: 0, behavior: 'smooth' });
 
       // Hapus class fade out
       document.body.classList.remove('fade-out');
@@ -127,7 +127,7 @@ const BlogCard = ({
             <>
               {/* Featured Image */}
               {post.featuredImage && (
-                <div className="relative h-[150px] md:h-[170px] overflow-hidden rounded-t-lg">
+                <div className="relative h-48 overflow-hidden rounded-t-lg">
                   <Image
                     src={post.featuredImage}
                     alt={post.title}
@@ -136,20 +136,46 @@ const BlogCard = ({
                     className="object-cover transition-transform duration-500 group-hover:scale-110"
                     priority={_index !== undefined && _index < 3}
                   />
-                  <div className="absolute inset-0 bg-gradient-to-b from-[#0a0a0a]/5 via-[#0a0a0a]/50 to-[#0a0a0a] opacity-60 transition-opacity duration-500 group-hover:opacity-90" />
+
+                  {/* Overlay Gradient */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-gray-900/80 via-gray-900/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                  <div className="absolute inset-0 backdrop-blur-[0px] opacity-0 group-hover:opacity-100 transition-all duration-300" />
+
+                  {/* Tags */}
+                  <div className="absolute bottom-0.5 right-1.5 flex flex-wrap gap-1 justify-end">
+                    {Array.isArray(post.tags)
+                      ? post.tags.map((tag) => (
+                          <Tag
+                            key={tag}
+                            variant={
+                              checkTagged?.(tag) ? 'gradient' : 'default'
+                            }
+                            className={clsx(
+                              'text-xs md:text-sm px-2 py-1',
+                              'rounded-md',
+                              'bg-[#171717] text-[#9e9e9e]',
+                              'hover:text-emerald-500 hover:border-neutral-500/50',
+                              'transition-colors',
+                              'group-hover:text-neutral-300',
+                              checkTagged?.(tag) && ' text-white'
+                            )}
+                          >
+                            {tag}
+                          </Tag>
+                        ))
+                      : null}
+                  </div>
                 </div>
               )}
 
-              {/* Content */}
-
               {/* Date */}
               <div className="flex-1 p-4 flex flex-col">
-                <p className="text-xs md:text-sm text-[#737373] mb-2 transition-colors group-hover:text-neutral-200">
+                <p className="text-xs md:text-sm text-neutral-400  paragraph-text mb-2 transition-colors group-hover:text-neutral-300">
                   {format(new Date(post.date), 'MMMM dd, yyyy')}
                 </p>
 
                 {/* Title */}
-                <h2 className="text-lg md:text-xl font-semibold text-neutral-50 mb-3 line-clamp-2 transition-colors group-hover:text-white">
+                <h2 className="text-base md:text-lg font-semibold text-neutral-50 mb-3 line-clamp-2 transition-colors group-hover:text-white">
                   <HighlightedText
                     text={post.title}
                     searchQuery={searchQuery}
@@ -159,13 +185,13 @@ const BlogCard = ({
                 {/* Meta Info */}
                 <div className="flex items-center gap-2 mb-4">
                   <div className="flex items-center gap-1">
-                    <HiOutlineClock className="w-4 h-4 text-emerald-500" />
+                    <HiOutlineClock className="w-3.5 h-3.5 text-emerald-600" />
                     <p className="text-xs md:text-sm text-neutral-50 font-medium">
                       {post.readingTime} min read
                     </p>
                   </div>
                   <div className="flex items-center gap-1">
-                    <HiOutlineEye className="w-4 h-4 text-emerald-500" />
+                    <HiOutlineEye className="w-4 h-4 text-emerald-600" />
                     <p className="text-xs md:text-sm text-neutral-200 font-medium">
                       {views} views
                     </p>
@@ -173,7 +199,7 @@ const BlogCard = ({
                 </div>
 
                 {/* Excerpt */}
-                <p className="text-sm md:text-base text-neutral-400 mb-6 line-clamp-3 transition-colors group-hover:text-neutral-300">
+                <p className="text-xs md:text-sm text-neutral-400 mb-0 line-clamp-3 transition-colors group-hover:text-neutral-300">
                   <HighlightedText
                     text={post.excerpt || ''}
                     searchQuery={searchQuery}
@@ -181,7 +207,7 @@ const BlogCard = ({
                 </p>
 
                 {/* Tags */}
-                <div className="flex flex-wrap gap-2 mt-auto">
+                {/* <div className="flex flex-wrap gap-2 mt-auto">
                   {post.tags?.map((tag) => (
                     <Tag
                       key={tag}
@@ -200,7 +226,7 @@ const BlogCard = ({
                       <HighlightedText text={tag} searchQuery={searchQuery} />
                     </Tag>
                   ))}
-                </div>
+                </div> */}
               </div>
             </>
           )}
