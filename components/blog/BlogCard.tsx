@@ -72,19 +72,37 @@ const BlogCard = ({
 
   const handleClick = async (e: React.MouseEvent) => {
     e.preventDefault();
-    onClick?.();
+
+    if (onClick) {
+      onClick();
+      return;
+    }
+
+    const href = `/blog/${post.category.toLowerCase()}/${post.slug}`;
 
     try {
+      // Tambahkan class untuk animasi fade out
+      document.body.classList.add('fade-out');
+
+      // Tunggu animasi fade out selesai
+      await new Promise((resolve) => setTimeout(resolve, 300));
+
+      // Navigasi ke halaman artikel
+      await router.push(href, undefined, { scroll: false });
+
+      // Scroll ke atas dengan smooth
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+
+      // Hapus class fade out
+      document.body.classList.remove('fade-out');
+
+      // Reload hanya jika ini adalah related article
       if (isRelated) {
-        window.scrollTo(0, 0);
-        await router.push(`/blog/${post.category.toLowerCase()}/${post.slug}`);
         router.reload();
-      } else {
-        window.location.href = `/blog/${post.category.toLowerCase()}/${post.slug}`;
       }
     } catch (error) {
       console.error('Failed to navigate:', error);
-      window.location.href = `/blog/${post.category.toLowerCase()}/${post.slug}`;
+      window.location.href = href;
     }
   };
 

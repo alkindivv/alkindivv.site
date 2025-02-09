@@ -7,7 +7,8 @@ import { MDXComponents } from '@/components/blog/BlogContent';
 import Accent from '@/components/shared/Accent';
 import SEO from '@/components/shared/SEO';
 import Image from 'next/image';
-
+import { useRouter } from 'next/router';
+import clsx from 'clsx';
 import TableOfContents from '@/components/blog/TableOfContents';
 import RelatedArticles from '@/components/blog/RelatedArticles';
 import Comments from '@/components/Comments';
@@ -15,41 +16,8 @@ import { usePageViews } from '@/lib/hooks/usePageViews';
 import { formatDate } from '@/lib/utils/date';
 import Breadcrumb from '@/components/shared/Breadcrumb';
 import Link from 'next/link';
-// import clsx from 'clsx';
 import ArticleNewsletterPopup from '@/components/blog/ArticleNewsletterPopup';
 import { HiOutlineClock, HiOutlineEye } from 'react-icons/hi';
-// import dynamic from 'next/dynamic';
-// const TableOfContents = dynamic(
-//   () => import('@/components/blog/TableOfContents'),
-//   {
-//     ssr: false,
-//     loading: () => (
-//       <div className="animate-pulse bg-gray-800 h-48 rounded-lg" />
-//     ),
-//   }
-// );
-
-// const Comments = dynamic(() => import('@/components/Comments'), {
-//   ssr: false,
-//   loading: () => <div className="animate-pulse bg-gray-800 h-32 rounded-lg" />,
-// });
-
-// const RelatedArticles = dynamic(
-//   () => import('@/components/blog/RelatedArticles'),
-//   {
-//     ssr: false,
-//     loading: () => (
-//       <div className="animate-pulse bg-gray-800 h-48 rounded-lg" />
-//     ),
-//   }
-// );
-
-// const ArticleNewsletterPopup = dynamic(
-//   () => import('@/components/blog/ArticleNewsletterPopup'),
-//   {
-//     ssr: false,
-//   }
-// );
 
 interface BlogPostProps {
   frontMatter: {
@@ -94,11 +62,37 @@ export default function BlogPost({
   mdxSource,
   allPosts,
 }: BlogPostProps) {
+  const [isTransitioning, setIsTransitioning] = useState(false);
+  const router = useRouter();
   const [headings, setHeadings] = useState<
     Array<{ id: string; title: string; level: number }>
   >([]);
   const articleContentRef = useRef<HTMLDivElement>(null);
   const views = usePageViews(frontMatter.slug, true);
+
+  // Handle smooth transitions
+  useEffect(() => {
+    const handleStart = () => {
+      setIsTransitioning(true);
+      document.body.classList.add('fade-out');
+    };
+
+    const handleComplete = () => {
+      setIsTransitioning(false);
+      document.body.classList.remove('fade-out');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    };
+
+    router.events.on('routeChangeStart', handleStart);
+    router.events.on('routeChangeComplete', handleComplete);
+    router.events.on('routeChangeError', handleComplete);
+
+    return () => {
+      router.events.off('routeChangeStart', handleStart);
+      router.events.off('routeChangeComplete', handleComplete);
+      router.events.off('routeChangeError', handleComplete);
+    };
+  }, [router]);
 
   // Fungsi untuk mengekstrak headings
   const extractHeadings = () => {
@@ -178,7 +172,13 @@ export default function BlogPost({
         tags={frontMatter.tags}
         readingTime={frontMatter.readingTime}
       />
-      <main className="content-spacing">
+      <main
+        className={clsx(
+          'content-spacing'
+          // isTransitioning ? 'opacity-0' : 'opacity-100',
+          // 'transition-opacity duration-300'
+        )}
+      >
         {/* Hero Banner - Optimize dengan priority loading */}
         <div className="relative h-[30vh] sm:h-[40vh] w-screen -mx-[calc((100vw-100%)/2)] overflow-hidden">
           <div className="absolute inset-0 transform scale-110">
