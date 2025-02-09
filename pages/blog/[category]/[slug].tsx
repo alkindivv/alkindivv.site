@@ -8,16 +8,48 @@ import Accent from '@/components/shared/Accent';
 import SEO from '@/components/shared/SEO';
 import Image from 'next/image';
 
-import TableOfContents from '@/components/blog/TableOfContents';
-import RelatedArticles from '@/components/blog/RelatedArticles';
-import Comments from '@/components/Comments';
+// import TableOfContents from '@/components/blog/TableOfContents';
+// import RelatedArticles from '@/components/blog/RelatedArticles';
+// import Comments from '@/components/Comments';
 import { usePageViews } from '@/lib/hooks/usePageViews';
 import { formatDate } from '@/lib/utils/date';
 import Breadcrumb from '@/components/shared/Breadcrumb';
 import Link from 'next/link';
 import clsx from 'clsx';
-import ArticleNewsletterPopup from '@/components/blog/ArticleNewsletterPopup';
+// import ArticleNewsletterPopup from '@/components/blog/ArticleNewsletterPopup';
 import { HiOutlineClock, HiOutlineEye } from 'react-icons/hi';
+import dynamic from 'next/dynamic';
+const TableOfContents = dynamic(
+  () => import('@/components/blog/TableOfContents'),
+  {
+    ssr: false,
+    loading: () => (
+      <div className="animate-pulse bg-gray-800 h-48 rounded-lg" />
+    ),
+  }
+);
+
+const Comments = dynamic(() => import('@/components/Comments'), {
+  ssr: false,
+  loading: () => <div className="animate-pulse bg-gray-800 h-32 rounded-lg" />,
+});
+
+const RelatedArticles = dynamic(
+  () => import('@/components/blog/RelatedArticles'),
+  {
+    ssr: false,
+    loading: () => (
+      <div className="animate-pulse bg-gray-800 h-48 rounded-lg" />
+    ),
+  }
+);
+
+const ArticleNewsletterPopup = dynamic(
+  () => import('@/components/blog/ArticleNewsletterPopup'),
+  {
+    ssr: false,
+  }
+);
 
 interface BlogPostProps {
   frontMatter: {
