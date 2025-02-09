@@ -393,6 +393,56 @@ code {
   .c1 {
     @apply font-paragraf text-[0.75rem] md:text-[0.85rem] text-[#9C9C9C] leading-normal;
   }
+
+  .blog-card {
+    @apply relative flex flex-col gap-4 lg:flex-row-reverse lg:gap-6 lg:items-center py-3;
+  }
+
+  .blog-card-image {
+    @apply isolate z-[1] pointer-events-none overflow-hidden rounded-md lg:max-w-44 lg:w-full;
+  }
+
+  .blog-card-content {
+    @apply w-full;
+  }
+
+  .blog-card-title {
+    @apply relative mt-3 text-xl font-semibold;
+  }
+
+  .blog-card-title-overlay {
+    @apply bg-gradient-to-r from-emerald-500/30 via-emerald-500/90 to-emerald-500/30
+           box-decoration-clone group-hover:opacity-30 opacity-0 transition text-transparent;
+  }
+
+  .blog-card-meta {
+    @apply flex items-center gap-2 text-xs text-neutral-400;
+  }
+
+  .blog-card-icon {
+    @apply w-4 h-4 text-emerald-500 shrink-0;
+  }
+
+  .blog-card-tag {
+    @apply inline-block rounded-md px-1.5 py-0.5 text-xs font-medium
+           bg-neutral-900 text-neutral-400 transition-colors
+           hover:bg-emerald-500/10 hover:text-emerald-400;
+  }
+}
+
+/* Image Hover Effect */
+.group:hover .blog-card-image img {
+  @apply scale-110;
+}
+
+/* Title Hover Effect */
+.group:hover .blog-card-title {
+  @apply text-emerald-500;
+}
+
+/* Card Hover Effect */
+.blog-card-wrapper {
+  @apply hover:bg-white/[0.02] rounded-lg transition-colors;
 }
 
 .hero-text {

@@ -11,6 +11,10 @@ import Tag from '@/components/shared/Tag';
 import clsx from 'clsx';
 import HighlightedText from '@/components/shared/HighlightedText';
 import Breadcrumb from '@/components/shared/Breadcrumb';
+import Link from 'next/link';
+import Image from 'next/image';
+import { HiOutlineClock, HiOutlineEye } from 'react-icons/hi2';
+import { usePageViews } from '@/lib/hooks/usePageViews';
 
 interface BlogCategory {
   name: string;
@@ -59,140 +63,141 @@ export default function CategoryPage({ posts, category }: CategoryPageProps) {
         title={`${category.name} Articles - Al Kindi`}
         description={category.description}
       />
-      <main
-        className={clsx(
-          'content-spacing fade-wrapper',
-          !isLoaded && 'opacity-0'
-        )}
-      >
-        <section className="bg-dark">
-          <div className="layout py-3">
-            {/* Breadcrumb */}
+      <main className={clsx('content-spacing', !isLoaded && 'opacity-0')}>
+        <section className="min-h-screen pt-40">
+          <div className="max-w-6xl mx-auto">
+            {/* Header Section */}
+            <div className="mb-6">
+              <Breadcrumb items={breadcrumbItems} />
+            </div>
 
-            <h1 className="mb-2 text-3xl md:text-4xl 2xl:text-5xl font-bold tracking-tight">
-              <Accent>{category.name}</Accent> Articles
-            </h1>
-            <p className="mt-2text-sm md:text-base 2xl:text-lg font-light text-gray-400 leading-relaxed">
-              {category.description}
-            </p>
+            <div className="mt-0 relative space-y-2" data-fade="1">
+              <h1 className="text-4xl md:text-5xl font-bold tracking-tight leading-tight">
+                <Accent>{category.name}</Accent> Articles
+              </h1>
+              <p className="text-sm md:text-base text-neutral-400 max-w-2xl">
+                {category.description}
+              </p>
+              <div className="h-px max-w-md bg-gradient-to-r from-transparent via-gray-800 to-transparent" />
+            </div>
 
-            {/* Search Section */}
-            <div className="mt-8">
-              <div className="relative">
+            {/* Search Input */}
+            <div className="mt-8 mb-8" data-fade="2">
+              <div className="relative mx-auto max-w-2xl">
                 <input
                   type="text"
                   placeholder="Search articles..."
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
-                  className="w-full px-4 py-2 pl-10 bg-[#111111] border border-gray-800 rounded-lg
-                            text-gray-200 placeholder-gray-400 focus:outline-none focus:border-emerald-500
-                            transition-colors"
+                  className="w-full bg-[#111111] text-neutral-200 rounded-xl px-12 py-3
+                    border border-gray-800/50 hover:border-emerald-500/50 focus:border-emerald-700
+                    outline-none transition-all duration-300 text-sm md:text-base placeholder-neutral-600"
                 />
-                <HiSearch className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 text-lg" />
+                <HiSearch className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 text-lg" />
+                {searchQuery && (
+                  <p className="mt-3 text-sm text-gray-400 text-center">
+                    Found {filteredPosts.length} article
+                    {filteredPosts.length !== 1 ? 's' : ''}
+                  </p>
+                )}
               </div>
-              {searchQuery && (
-                <p className="mt-2 text-sm text-gray-400">
-                  Found {filteredPosts.length} article
-                  {filteredPosts.length !== 1 ? 's' : ''}
-                </p>
-              )}
-            </div>
-            <div className="mb-6">
-              <Breadcrumb items={breadcrumbItems} />
             </div>
 
-            {/* Articles List */}
-            <div className="mt-8 space-y-4">
-              {filteredPosts.map((post) => (
-                <BlogCard
-                  key={post.slug}
-                  post={post}
-                  className="!block !p-5 !h-auto bg-[#111111] border border-gray-800 hover:border-gray-700 rounded-lg
-                  transition"
-                  searchQuery={searchQuery}
-                  _customContent={(
-                    post: BlogPost,
-                    views: number | string,
-                    readingTimeMinutes: number,
-                    publishedDate: string
-                  ) => (
-                    <div className="flex flex-col md:flex-row justify-between items-start gap-4">
-                      <div className="flex-grow">
-                        <div className="flex flex-wrap items-center gap-2 md:gap-x-3">
-                          <time className="text-sm text-gray-400 flex items-center gap-1">
-                            <HiCalendar className="inline" />
-                            {new Date(publishedDate).toLocaleDateString(
-                              'id-ID',
-                              {
+            {/* Blog Posts List */}
+            <div className="space-y-8 mt-12" data-fade="3">
+              {filteredPosts.length > 0 ? (
+                filteredPosts.map((post) => {
+                  const views = usePageViews(post.slug);
+
+                  return (
+                    <Link
+                      key={post.slug}
+                      href={`/blog/${post.category.toLowerCase()}/${post.slug}`}
+                      className="group block"
+                    >
+                      <article className="flex flex-col gap-4 lg:flex-row-reverse lg:gap-6 lg:items-center py-3 hover:bg-white/[0.02] rounded-lg transition-colors">
+                        {/* Image */}
+                        <figure className="isolate z-[1] pointer-events-none overflow-hidden rounded-md lg:max-w-44 lg:w-full">
+                          <div className="relative pt-[60%]">
+                            <div className="absolute left-0 top-0 w-full h-full">
+                              <Image
+                                src={post.featuredImage || ''}
+                                alt={post.title}
+                                fill
+                                className="object-cover transition-transform duration-500 group-hover:scale-110"
+                                sizes="(min-width: 1024px) 176px, 100vw"
+                              />
+                            </div>
+                          </div>
+                        </figure>
+
+                        {/* Content */}
+                        <div className="w-full">
+                          <div className="flex items-center gap-3">
+                            <p className="text-sm text-neutral-400">
+                              {new Date(post.date).toLocaleDateString('id-ID', {
+                                year: 'numeric',
                                 month: 'long',
                                 day: 'numeric',
-                                year: 'numeric',
-                              }
-                            )}
-                          </time>
-                          <span className="text-sm text-gray-400 flex items-center gap-1">
-                            <HiClock className="inline" />
-                            <Accent>{readingTimeMinutes} min read</Accent>
-                          </span>
-                          <span className="text-sm text-gray-400 flex items-center gap-1">
-                            <HiEye className="inline" />
-                            <Accent>{views} views</Accent>
-                          </span>
-                        </div>
-                        <h2 className="mt-2 text-xl font-semibold text-white group-hover:text-emerald-500 transition">
-                          <HighlightedText
-                            text={post.title}
-                            searchQuery={searchQuery}
-                          />
-                        </h2>
-                        <p className="mt-2 text-gray-400 line-clamp-2">
-                          <HighlightedText
-                            text={post.description || post.excerpt || ''}
-                            searchQuery={searchQuery}
-                          />
-                        </p>
-                        <div className="mt-4 flex flex-wrap gap-2">
-                          {post.tags?.map((tag: string) => (
-                            <Tag
-                              key={tag}
-                              variant="default"
-                              className={clsx(
-                                'inline-block',
-                                'px-1 py-0.5 text-xs md:text-sm',
-                                'rounded-md border',
-                                'bg-black border-gray-600 text-gray-200',
-                                'hover:text-white',
-                                'focus:outline-none focus-visible:ring focus-visible:ring-primary-300',
-                                'transition-colors'
-                              )}
-                            >
-                              <HighlightedText
-                                text={tag || ''}
-                                searchQuery={searchQuery}
-                              />
-                            </Tag>
-                          ))}
-                        </div>
-                      </div>
-                      {post.featuredImage && (
-                        <div className="w-full md:w-auto md:ml-4 md:flex-shrink-0 order-first md:order-last">
-                          <img
-                            src={post.featuredImage}
-                            alt={post.title}
-                            className="w-full h-48 md:w-24 md:h-24 object-cover rounded-lg"
-                          />
-                        </div>
-                      )}
-                    </div>
-                  )}
-                />
-              ))}
+                              })}
+                            </p>
+                          </div>
 
-              {/* No Results Message */}
-              {searchQuery && filteredPosts.length === 0 && (
-                <div className="text-center py-8">
-                  <p className="text-lg sm:text-xl 2xl:text-2xl font-semibold">
-                    Sorry, <Accent>Article not found.</Accent>
+                          <h3 className="mt-3 text-xl font-semibold relative group-hover:text-emerald-500 transition-colors">
+                            <span
+                              className="bg-gradient-to-r from-emerald-500/30 via-emerald-500/90 to-emerald-500/30 box-decoration-clone group-hover:opacity-30 opacity-0 transition text-transparent"
+                              aria-hidden="true"
+                            >
+                              {post.title}
+                            </span>
+                            <span className="absolute left-0 top-0">
+                              {post.title}
+                            </span>
+                          </h3>
+
+                          <p className="text-sm text-neutral-400 mt-1 line-clamp-2">
+                            {post.description || post.excerpt}
+                          </p>
+
+                          <div className="flex justify-between mt-5 flex-col gap-4 lg:flex-row lg:items-center">
+                            <div className="flex items-center gap-5">
+                              <div className="flex items-center gap-2">
+                                <HiOutlineClock className="w-4 h-4 text-emerald-500" />
+                                <p className="text-xs text-neutral-400">
+                                  {post.readingTime} min read
+                                </p>
+                              </div>
+                              <div className="flex items-center gap-2">
+                                <HiOutlineEye className="w-4 h-4 text-emerald-500" />
+                                <p className="text-xs text-neutral-400">
+                                  {views} views
+                                </p>
+                              </div>
+                            </div>
+
+                            <div className="flex flex-wrap gap-2">
+                              {post.tags?.map((tag) => (
+                                <span
+                                  key={tag}
+                                  className="inline-block rounded-md px-1.5 py-0.5 text-xs font-medium bg-neutral-900 text-neutral-400 transition-colors"
+                                >
+                                  {tag}
+                                </span>
+                              ))}
+                            </div>
+                          </div>
+                        </div>
+                      </article>
+                    </Link>
+                  );
+                })
+              ) : (
+                <div className="text-center py-10">
+                  <h3 className="text-xl font-bold mb-1">
+                    Sorry, <Accent>article not found</Accent>
+                  </h3>
+                  <p className="text-sm text-neutral-400">
+                    No articles found for your search query
                   </p>
                 </div>
               )}

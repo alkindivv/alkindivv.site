@@ -109,7 +109,7 @@ const BlogCard = ({
             <>
               {/* Featured Image */}
               {post.featuredImage && (
-                <div className="relative h-[130px] md:h-[170px] overflow-hidden rounded-t-lg">
+                <div className="relative h-[150px] md:h-[170px] overflow-hidden rounded-t-lg">
                   <Image
                     src={post.featuredImage}
                     alt={post.title}
@@ -123,38 +123,39 @@ const BlogCard = ({
               )}
 
               {/* Content */}
+
+              {/* Date */}
               <div className="flex-1 p-4 flex flex-col">
-                {/* Meta Info */}
-                <div className="flex items-center gap-3 text-sm text-[#737373] mb-2 transition-colors group-hover:text-neutral-300">
-                  <time className="flex items-center gap-1">
-                    <HiOutlineClock className="inline w-[1rem] h-[1rem]" />
-                    <Accent className="text-xs md:text-sm">
-                      {post.readingTime} min read
-                    </Accent>
-                  </time>
-                  <div className="flex items-center gap-1">
-                    <HiOutlineEye className="inline w-[1.1rem] h-[1.1rem]" />
-                    <Accent className="text-xs md:text-sm">
-                      {views} views
-                    </Accent>
-                  </div>
-                </div>
+                <p className="text-xs md:text-sm text-[#737373] mb-2 transition-colors group-hover:text-neutral-200">
+                  {format(new Date(post.date), 'MMMM dd, yyyy')}
+                </p>
 
                 {/* Title */}
-                <h2 className="text-base md:text-lg font-semibold text-neutral-50 mb-1 line-clamp-2 transition-colors group-hover:text-white">
+                <h2 className="text-lg md:text-xl font-semibold text-neutral-50 mb-3 line-clamp-2 transition-colors group-hover:text-white">
                   <HighlightedText
                     text={post.title}
                     searchQuery={searchQuery}
                   />
                 </h2>
 
-                {/* Date */}
-                <p className="text-xs md:text-sm text-[#737373] font-medium mb-2 transition-colors group-hover:text-neutral-200">
-                  {format(new Date(post.date), 'MMMM dd, yyyy')}
-                </p>
+                {/* Meta Info */}
+                <div className="flex items-center gap-2 mb-4">
+                  <div className="flex items-center gap-1">
+                    <HiOutlineClock className="w-4 h-4 text-emerald-500" />
+                    <p className="text-xs md:text-sm text-neutral-50 font-medium">
+                      {post.readingTime} min read
+                    </p>
+                  </div>
+                  <div className="flex items-center gap-1">
+                    <HiOutlineEye className="w-4 h-4 text-emerald-500" />
+                    <p className="text-xs md:text-sm text-neutral-200 font-medium">
+                      {views} views
+                    </p>
+                  </div>
+                </div>
 
                 {/* Excerpt */}
-                <p className="text-xs md:text-sm text-neutral-400 mb-3 line-clamp-2 md:line-clamp-3 transition-colors group-hover:text-neutral-300">
+                <p className="text-sm md:text-base text-neutral-400 mb-6 line-clamp-3 transition-colors group-hover:text-neutral-300">
                   <HighlightedText
                     text={post.excerpt || ''}
                     searchQuery={searchQuery}
@@ -162,13 +163,13 @@ const BlogCard = ({
                 </p>
 
                 {/* Tags */}
-                <div className="flex flex-wrap gap-1.5 mt-auto">
+                <div className="flex flex-wrap gap-2 mt-auto">
                   {post.tags?.map((tag) => (
                     <Tag
                       key={tag}
                       variant={checkTagged?.(tag) ? 'gradient' : 'default'}
                       className={clsx(
-                        'text-xs md:text-sm px-2 py-0.5',
+                        'text-xs md:text-sm px-2 py-1',
                         'rounded-md',
                         'bg-[#17171799] text-[#737373]',
                         'hover:text-emerald-500 hover:border-emerald-500/50',
