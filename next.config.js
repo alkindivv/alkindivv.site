@@ -18,11 +18,26 @@ const nextConfig = {
     workerThreads: true,
     optimizeCss: true,
   },
+  env: {
+    NEXT_PUBLIC_BASE_URL:
+      process.env.NODE_ENV === 'production'
+        ? 'https://alkindivv.site'
+        : 'http://localhost:3000',
+  },
   poweredByHeader: false,
   compress: true,
   swcMinify: true,
   compiler: {
     removeConsole: process.env.NODE_ENV === 'production',
+  },
+  webpack: (config, { isServer }) => {
+    if (!isServer) {
+      config.resolve.fallback = {
+        ...config.resolve.fallback,
+        fs: false,
+      };
+    }
+    return config;
   },
 };
 

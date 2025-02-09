@@ -122,18 +122,23 @@ export default function CategoryPage({ posts, category }: CategoryPageProps) {
     return () => clearTimeout(timer);
   }, []);
 
-  const filteredPosts = posts.filter((post) => {
-    const searchContent = [
-      post.title,
-      post.description,
-      post.excerpt,
-      ...(post.tags || []),
-    ]
-      .join(' ')
-      .toLowerCase();
+  const filteredPosts = posts
+    .filter((post) => {
+      const searchContent = [
+        post.title,
+        post.description,
+        post.excerpt,
+        ...(post.tags || []),
+      ]
+        .join(' ')
+        .toLowerCase();
 
-    return searchContent.includes(searchQuery.toLowerCase());
-  });
+      return searchContent.includes(searchQuery.toLowerCase());
+    })
+    .sort((a, b) => {
+      // Selalu urutkan berdasarkan tanggal terbaru
+      return new Date(b.date).getTime() - new Date(a.date).getTime();
+    });
 
   const breadcrumbItems = [
     { label: 'Blog', href: '/blog' },
@@ -211,8 +216,8 @@ export default function CategoryPage({ posts, category }: CategoryPageProps) {
 }
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  const categories = getAllCategories();
-  const paths = categories.map((category) => ({
+  const categories = await getAllCategories();
+  const paths = categories.map((category: BlogCategory) => ({
     params: { category: category.slug },
   }));
 
@@ -223,8 +228,10 @@ export const getStaticPaths: GetStaticPaths = async () => {
 };
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
-  const categories = getAllCategories();
-  const category = categories.find((cat) => cat.slug === params?.category);
+  const categories = await getAllCategories();
+  const category = categories.find(
+    (cat: BlogCategory) => cat.slug === params?.category
+  );
 
   if (!category) {
     return {

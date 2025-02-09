@@ -1,3 +1,4 @@
+import { NextSeo } from 'next-seo';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import { generateSchema } from '@/lib/schema';
@@ -67,79 +68,85 @@ export default function Seo(props: SeoProps) {
   });
 
   return (
-    <Head>
-      <title>{meta.title}</title>
-      <meta name="robots" content={meta.robots} />
-      <meta name="description" content={meta.description} />
-      <meta name="author" content="AL KINDI" />
+    <>
+      <Head>
+        <title>{meta.title}</title>
+        <meta name="robots" content={meta.robots} />
+        <meta name="description" content={meta.description} />
+        <meta name="author" content="AL KINDI" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-      {/* Canonical */}
-      <link rel="canonical" href={canonicalUrl} />
+        {/* Favicon */}
+        <link rel="icon" href="/favicon.ico" />
+        <link
+          rel="apple-touch-icon"
+          sizes="180x180"
+          href="/apple-touch-icon.png"
+        />
+        <link rel="manifest" href="/site.webmanifest" />
+        <meta name="theme-color" content="#0a0a0a" />
 
-      {/* Open Graph */}
-      <meta property="og:url" content={canonicalUrl} />
-      <meta property="og:type" content={props.isBlog ? 'article' : 'website'} />
-      <meta property="og:site_name" content={meta.siteName} />
-      <meta property="og:title" content={meta.title} />
-      <meta property="og:description" content={meta.description} />
-      <meta property="og:image" content={props.banner || meta.image} />
-      <meta property="og:image:alt" content={meta.title} />
-      <meta property="og:locale" content="id_ID" />
-      {props.date && (
-        <meta property="article:published_time" content={props.date} />
-      )}
-
-      {/* Twitter */}
-      <meta name="twitter:card" content="summary_large_image" />
-      <meta name="twitter:site" content="@alkindivv" />
-      <meta name="twitter:creator" content="@alkindivv" />
-      <meta name="twitter:title" content={meta.title} />
-      <meta name="twitter:description" content={meta.description} />
-      <meta name="twitter:image" content={props.banner || meta.image} />
-
-      {/* Additional Meta */}
-      {props.isBlog && (
-        <>
-          <meta property="article:author" content="AL KINDI" />
-          <meta property="article:section" content={props.category} />
-          {props.tags?.map((tag) => (
-            <meta key={tag} property="article:tag" content={tag} />
-          ))}
+        {/* Open Graph */}
+        <meta property="og:url" content={canonicalUrl} />
+        <meta
+          property="og:type"
+          content={props.isBlog ? 'article' : 'website'}
+        />
+        <meta property="og:site_name" content={meta.siteName} />
+        <meta property="og:title" content={meta.title} />
+        <meta property="og:description" content={meta.description} />
+        <meta property="og:image" content={props.banner || meta.image} />
+        <meta property="og:image:alt" content={meta.title} />
+        <meta property="og:locale" content="id_ID" />
+        {props.date && (
           <meta property="article:published_time" content={props.date} />
-          <meta property="article:modified_time" content={props.date} />
-        </>
-      )}
+        )}
 
-      {/* Schema.org */}
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify(schema),
+        {/* Twitter */}
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:site" content="@alkindivv" />
+        <meta name="twitter:creator" content="@alkindivv" />
+        <meta name="twitter:title" content={meta.title} />
+        <meta name="twitter:description" content={meta.description} />
+        <meta name="twitter:image" content={props.banner || meta.image} />
+
+        {/* Additional Meta */}
+        {props.isBlog && (
+          <>
+            <meta property="article:author" content="AL KINDI" />
+            <meta property="article:section" content={props.category} />
+            {props.tags?.map((tag) => (
+              <meta key={tag} property="article:tag" content={tag} />
+            ))}
+            <meta property="article:published_time" content={props.date} />
+            <meta property="article:modified_time" content={props.date} />
+          </>
+        )}
+
+        {/* Schema.org */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(schema),
+          }}
+        />
+      </Head>
+      <NextSeo
+        title={meta.title}
+        description={meta.description}
+        openGraph={{
+          title: meta.title,
+          description: meta.description,
+          images: [{ url: props.banner || meta.image }],
+          site_name: meta.siteName,
+        }}
+        twitter={{
+          handle: '@alkindivv',
+          site: '@alkindivv',
+          cardType: 'summary_large_image',
         }}
       />
-
-      {/* Favicons */}
-      <link rel="icon" href="/favicon.ico" />
-      <link
-        rel="apple-touch-icon"
-        sizes="180x180"
-        href="/apple-touch-icon.png"
-      />
-      <link
-        rel="icon"
-        type="image/png"
-        sizes="32x32"
-        href="/favicon-32x32.png"
-      />
-      <link
-        rel="icon"
-        type="image/png"
-        sizes="16x16"
-        href="/favicon-16x16.png"
-      />
-      <link rel="manifest" href="/site.webmanifest" />
-      <meta name="theme-color" content="#111111" />
-    </Head>
+    </>
   );
 }
 

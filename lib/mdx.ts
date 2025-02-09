@@ -1,159 +1,104 @@
 import { BlogPost, BlogCategory } from '@/types/blog';
-import fs from 'fs';
-import matter from 'gray-matter';
-import path from 'path';
-import readingTime from 'reading-time';
 import { serialize } from 'next-mdx-remote/serialize';
 import remarkGfm from 'remark-gfm';
 import rehypeSlug from 'rehype-slug';
 import rehypePrettyCode from 'rehype-pretty-code';
+import path from 'path';
+import readingTime from 'reading-time';
+import matter from 'gray-matter';
+import { promises as FSPromises } from 'fs';
+
+// Import fs dengan tipe yang benar
+let fs: typeof FSPromises;
+if (typeof window === 'undefined') {
+  fs = FSPromises;
+}
 
 const BLOG_DIR = path.join(process.cwd(), 'content/blog');
 
+// Helper function to ensure server-side execution
+const ensureServerSide = () => {
+  if (typeof window !== 'undefined') {
+    throw new Error('This function can only be called on the server side');
+  }
+  if (!fs) {
+    throw new Error('fs module is not available');
+  }
+};
+
 // Get all categories
-export function getAllCategories(): BlogCategory[] {
-  const categories = fs
-    .readdirSync(BLOG_DIR)
-    .filter((file) => fs.statSync(path.join(BLOG_DIR, file)).isDirectory());
+export async function getAllCategories(): Promise<BlogCategory[]> {
+  ensureServerSide();
+  const categories = await fs!.readdir(BLOG_DIR);
+  const validCategories = [];
 
-  return categories.map((category) => {
-    const categoryPath = path.join(BLOG_DIR, category);
-    const postCount = fs
-      .readdirSync(categoryPath)
-      .filter((file) => file.endsWith('.mdx')).length;
+  for (const category of categories) {
+    const stats = await fs!.stat(path.join(BLOG_DIR, category));
+    if (stats.isDirectory()) {
+      const categoryPath = path.join(BLOG_DIR, category);
+      const files = await fs!.readdir(categoryPath);
+      const postCount = files.filter((file) => file.endsWith('.mdx')).length;
+      const categoryName = category.charAt(0).toUpperCase() + category.slice(1);
 
-    const categoryName = category.charAt(0).toUpperCase() + category.slice(1);
+      validCategories.push({
+        name: categoryName,
+        description: `Articles about ${categoryName.toLowerCase()} by AL KINDI`,
+        slug: category.toLowerCase(),
+        count: postCount,
+      });
+    }
+  }
 
-    return {
-      name: categoryName,
-      description: `Articles about ${categoryName.toLowerCase()} by AL KINDI`,
-      slug: category.toLowerCase(),
-      count: postCount,
-    };
-  });
-}
-
-// Helper function to create SEO-friendly slug
-function createSEOSlug(text: string): string {
-  return text
-    .toLowerCase()
-    .replace(/[&]/g, '-and-') // Replace & with 'and'
-    .replace(/[()]/g, '') // Remove parentheses
-    .replace(/[^a-z0-9]+/g, '-') // Replace non-alphanumeric with hyphens
-    .replace(/^-+|-+$/g, '') // Remove leading/trailing hyphens
-    .replace(/--+/g, '-'); // Replace multiple hyphens with single hyphen
+  return validCategories;
 }
 
 // Get all posts
 export async function getAllPosts(): Promise<BlogPost[]> {
-  const categories = fs.readdirSync(BLOG_DIR);
-  const posts: BlogPost[] = [];
+  ensureServerSide();
+  const categories = await fs!.readdir(BLOG_DIR);
+  const posts = [];
 
   for (const category of categories) {
     const categoryPath = path.join(BLOG_DIR, category);
-    if (!fs.statSync(categoryPath).isDirectory()) continue;
+    const stats = await fs!.stat(categoryPath);
+    if (!stats.isDirectory()) continue;
 
-    const files = fs.readdirSync(categoryPath);
+    const files = await fs!.readdir(categoryPath);
     for (const file of files) {
       if (!file.endsWith('.mdx')) continue;
 
-      try {
-        const filePath = path.join(categoryPath, file);
-        const source = fs.readFileSync(filePath, 'utf8');
-        const { data, content } = matter(source);
-        const rawSlug = file.replace(/\.mdx$/, '');
-        const slug = rawSlug;
+      const filePath = path.join(categoryPath, file);
+      const source = await fs!.readFile(filePath, 'utf8');
+      const { data, content } = matter(source);
 
-        if (!data.title) {
-          console.warn(`Missing title in ${filePath}`);
-          continue;
-        }
+      if (!data.title || !data.date) continue;
 
-        if (!data.date) {
-          console.warn(`Missing date in ${filePath}`);
-          continue;
-        }
-
-        const views = Math.floor(Math.random() * 1000);
-
-        const post: BlogPost = {
-          title: data.title,
-          date: new Date(data.date).toISOString(),
-          author: data.author || 'AL KINDI',
-          category: createSEOSlug(data.category || category),
-          excerpt: data.excerpt || content.slice(0, 200) + '...',
-          description:
-            data.description || data.excerpt || content.slice(0, 200) + '...',
-          tags: Array.isArray(data.tags) ? data.tags : [],
-          featuredImage: data.featuredImage || null,
-          slug,
-          readingTime: Math.ceil(readingTime(content).minutes),
-          views,
-        };
-
-        posts.push(post);
-      } catch (error) {
-        console.error(`Error processing ${file}:`, error);
-        continue;
-      }
+      posts.push({
+        title: data.title,
+        date: new Date(data.date).toISOString(),
+        author: data.author || 'AL KINDI',
+        category: category.toLowerCase(),
+        excerpt: data.excerpt || content.slice(0, 200) + '...',
+        description:
+          data.description || data.excerpt || content.slice(0, 200) + '...',
+        tags: Array.isArray(data.tags) ? data.tags : [],
+        featuredImage: data.featuredImage || null,
+        slug: file.replace(/\.mdx$/, ''),
+        readingTime: Math.ceil(readingTime(content).minutes),
+      });
     }
   }
 
-  return posts.sort(
-    (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
-  );
-}
-
-// Get all post slugs for static paths
-export function getAllPostSlugs() {
-  const categories = fs
-    .readdirSync(BLOG_DIR)
-    .filter((file) => fs.statSync(path.join(BLOG_DIR, file)).isDirectory());
-
-  const paths = categories.flatMap((category) => {
-    const categoryPath = path.join(BLOG_DIR, category);
-    const posts = fs
-      .readdirSync(categoryPath)
-      .filter((filename) => filename.endsWith('.mdx'));
-
-    return posts.map((filename) => ({
-      params: {
-        category: category.toLowerCase(),
-        slug: filename.replace(/\.mdx$/, ''),
-      },
-    }));
-  });
-
-  return paths;
+  return posts;
 }
 
 // Get a single post by category and slug
 export async function getPostBySlug(category: string, slug: string) {
+  ensureServerSide();
+  const fullPath = path.join(BLOG_DIR, category, `${slug}.mdx`);
+
   try {
-    const fullPath = path.join(BLOG_DIR, category, `${slug}.mdx`);
-
-    // Check if file exists
-    if (!fs.existsSync(fullPath)) {
-      // Try to find post with old slug
-      const posts = await getAllPosts();
-      const post = posts.find(
-        (p) => createSEOSlug(p.title) === slug || p.slug === slug
-      );
-
-      if (post) {
-        // Return redirect info if found with different slug
-        return {
-          redirect: {
-            destination: `/blog/${post.category}/${post.slug}`,
-            permanent: true,
-          },
-        };
-      }
-
-      throw new Error('Post not found');
-    }
-
-    const fileContents = fs.readFileSync(fullPath, 'utf8');
+    const fileContents = await fs!.readFile(fullPath, 'utf8');
     const { data: frontMatter, content } = matter(fileContents);
 
     const mdxSource = await serialize(content, {
@@ -167,12 +112,7 @@ export async function getPostBySlug(category: string, slug: string) {
               theme: 'one-dark-pro',
               onVisitLine(node: any) {
                 if (node.children.length === 0) {
-                  node.children = [
-                    {
-                      type: 'text',
-                      value: ' ',
-                    },
-                  ];
+                  node.children = [{ type: 'text', value: ' ' }];
                 }
               },
               onVisitHighlightedLine(node: any) {
@@ -193,11 +133,23 @@ export async function getPostBySlug(category: string, slug: string) {
       frontMatter: {
         ...frontMatter,
         readingTime: Math.ceil(readingTime(content).minutes),
+        slug,
       },
       mdxSource,
     };
   } catch (error) {
-    console.error(`Error getting post ${category}/${slug}:`, error);
-    throw error;
+    throw new Error('Post not found');
   }
+}
+
+// Get all post slugs for static paths
+export async function getAllPostSlugs() {
+  ensureServerSide();
+  const posts = await getAllPosts();
+  return posts.map((post) => ({
+    params: {
+      category: post.category.toLowerCase(),
+      slug: post.slug,
+    },
+  }));
 }

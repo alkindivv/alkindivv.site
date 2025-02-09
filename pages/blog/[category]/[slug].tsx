@@ -6,6 +6,8 @@ import { getPostBySlug, getAllPostSlugs, getAllPosts } from '@/lib/mdx';
 import { MDXComponents } from '@/components/blog/BlogContent';
 import Accent from '@/components/shared/Accent';
 import SEO from '@/components/shared/SEO';
+import { Metadata } from 'next';
+import type { BlogPost } from '@/types/blog';
 
 import Image from 'next/image';
 
@@ -17,21 +19,20 @@ import clsx from 'clsx';
 import { HiOutlineEye, HiOutlineClock } from 'react-icons/hi';
 import Link from 'next/link';
 import ArticleNewsletterPopup from '@/components/blog/ArticleNewsletterPopup';
+
+interface FrontMatter extends Omit<BlogPost, 'readingTime'> {
+  readingTime?: number;
+}
+
 interface BlogPostProps {
-  frontMatter: {
-    title: string;
-    date: string;
-    author: string;
-    excerpt?: string;
-    tags?: string[];
-    featuredImage?: string;
-    category: string;
-    views?: number;
-    slug: string;
-    readingTime: number;
-  };
+  frontMatter: FrontMatter;
   mdxSource: any;
-  allPosts: any[];
+  allPosts: BlogPost[];
+}
+
+interface BreadcrumbItem {
+  label: string;
+  href?: string;
 }
 
 // Definisikan komponen MDX yang akan digunakan dengan ID
@@ -152,7 +153,7 @@ export default function BlogPost({
     incrementView();
   }, [frontMatter.slug]);
 
-  const breadcrumbItems = [
+  const breadcrumbItems: BreadcrumbItem[] = [
     { label: 'Blog', href: '/blog' },
     {
       label: frontMatter.category,
@@ -240,7 +241,7 @@ export default function BlogPost({
               <div className="relative w-12 h-12 overflow-hidden rounded-full ring-5 ">
                 <Image
                   src="/images/AL-KINDI.png"
-                  alt={frontMatter.author}
+                  alt={frontMatter.author || 'AL KINDI'}
                   fill
                   sizes="(max-width: 640px) 3rem, (max-width: 768px) 3rem, 6rem"
                   className="object-cover"
@@ -332,7 +333,7 @@ export default function BlogPost({
                       <div className="relative w-16 h-16 sm:w-24 sm:h-24 overflow-hidden rounded-xl ring-1 ring-white/[0.05]">
                         <Image
                           src="/images/AL-KINDI.png"
-                          alt={frontMatter.author}
+                          alt={frontMatter.author || 'AL KINDI'}
                           fill
                           sizes="(max-width: 640px) 3rem, (max-width: 768px) 3rem, 6rem"
                           className="object-cover"
@@ -446,7 +447,10 @@ export default function BlogPost({
               </h2>
               <div className="transition-all duration-300 ease-in-out transform hover:translate-y-0">
                 <RelatedArticles
-                  currentPost={frontMatter}
+                  currentPost={{
+                    ...frontMatter,
+                    readingTime: frontMatter.readingTime || 0,
+                  }}
                   allPosts={allPosts}
                 />
               </div>
@@ -460,7 +464,7 @@ export default function BlogPost({
 }
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  const paths = getAllPostSlugs();
+  const paths = await getAllPostSlugs();
   return {
     paths,
     fallback: false,
@@ -483,5 +487,37 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
       mdxSource,
       allPosts,
     },
+    revalidate: 60 * 60, // Revalidate setiap 1 jam
   };
 };
+
+export async function generateMetadata({
+  params,
+}: {
+  params: { category: string; slug: string };
+}): Promise<Metadata> {
+  const { frontMatter } = await getPostBySlug(params.category, params.slug);
+  const fm = frontMatter as FrontMatter;
+  const defaultImage = 'https://alkindivv.site/images/default.png';
+
+  return {
+    title: `${fm.title} | AL KINDI`,
+    description: fm.excerpt || `${fm.title} - Article by ${fm.author}`,
+    openGraph: {
+      title: fm.title,
+      description: fm.excerpt || '',
+      images: [{ url: fm.featuredImage || defaultImage }],
+      type: 'article',
+      authors: [fm.author],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: fm.title,
+      description: fm.excerpt || '',
+      images: [{ url: fm.featuredImage || defaultImage }],
+    },
+    other: {
+      'Cache-Control': 'public, s-maxage=3600, stale-while-revalidate=86400',
+    },
+  };
+}

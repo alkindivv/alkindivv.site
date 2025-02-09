@@ -4,20 +4,16 @@ import Layout from '@/components/layout/Layout';
 import { GetStaticProps } from 'next';
 import BlogCard from '@/components/blog/BlogCard';
 import Accent from '@/components/shared/Accent';
-import {
-  HiCalendar,
-  HiEye,
-  HiChevronLeft,
-  HiChevronRight,
-  HiSearch,
-} from 'react-icons/hi';
+import { HiChevronLeft, HiChevronRight, HiSearch } from 'react-icons/hi';
 import clsx from 'clsx';
-import { IconType } from 'react-icons/lib';
+// import { IconType } from 'react-icons/lib';
 import { getAllPosts } from '@/lib/mdx';
 import { BlogPost } from '@/types/blog';
 import SEO from '@/components/shared/SEO';
 import HighlightedText from '@/components/shared/HighlightedText';
 import Image from 'next/image';
+// import Link from 'next/link';
+// import { usePageViews } from '@/lib/hooks/usePageViews';
 
 const POSTS_PER_PAGE = 9;
 
@@ -60,46 +56,29 @@ interface BlogPageProps {
   blogPosts: BlogPost[];
 }
 
-interface SortOption {
-  id: string;
-  name: string;
-  icon: IconType;
-}
-
-const sortOptions: SortOption[] = [
-  {
-    id: 'date',
-    name: 'Sort by date',
-    icon: HiCalendar,
-  },
-  {
-    id: 'views',
-    name: 'Sort by views',
-    icon: HiEye,
-  },
-];
+// interface SortOption {
+//   id: string;
+//   name: string;
+//   icon: IconType;
+// }
 
 const BlogPage: React.FC<BlogPageProps> = ({ blogPosts }) => {
   const [selectedTopic, setSelectedTopic] = useState<string | null>(null);
-  const [selectedCategory] = useState('All Categories');
-  const [sortOrder] = useState<SortOption>(sortOptions[0]);
   const [currentPage, setCurrentPage] = useState(1);
   const [searchQuery, setSearchQuery] = useState('');
-
   const [isLoaded, setIsLoaded] = useState(false);
 
   const handleTopicClick = (topic: string) => {
     setSelectedTopic(selectedTopic === topic ? null : topic);
-    setCurrentPage(1); // Reset to first page when changing topic
+    setCurrentPage(1);
   };
 
   const checkTagged = (tag: string) => {
     return selectedTopic === tag.toLowerCase();
   };
 
-  const filteredAndSortedPosts = blogPosts
+  const filteredPosts = blogPosts
     .filter((post) => {
-      // Filter by search query
       const searchContent = [
         post.title,
         post.description,
@@ -109,41 +88,25 @@ const BlogPage: React.FC<BlogPageProps> = ({ blogPosts }) => {
         .join(' ')
         .toLowerCase();
       const matchesSearch = searchContent.includes(searchQuery.toLowerCase());
-
-      // Filter by topic
       const topicMatch =
         !selectedTopic ||
         post.tags?.some(
           (tag) => tag.toLowerCase() === selectedTopic.toLowerCase()
         );
 
-      // Filter by category
-      const categoryMatch =
-        selectedCategory === 'All Categories' ||
-        post.category?.toLowerCase() === selectedCategory.toLowerCase();
-
-      return matchesSearch && topicMatch && categoryMatch;
+      return matchesSearch && topicMatch;
     })
     .sort((a, b) => {
-      if (sortOrder.id === 'date') {
-        const dateA = new Date(a.date).getTime();
-        const dateB = new Date(b.date).getTime();
-        return dateB - dateA;
-      }
-      if (sortOrder.id === 'views') {
-        const viewsA = a.views || 0;
-        const viewsB = b.views || 0;
-        return viewsB - viewsA;
-      }
-      return 0;
+      // Selalu urutkan berdasarkan tanggal terbaru
+      return new Date(b.date).getTime() - new Date(a.date).getTime();
     });
 
   // Pagination calculations
-  const totalPosts = filteredAndSortedPosts.length;
+  const totalPosts = filteredPosts.length;
   const totalPages = Math.ceil(totalPosts / POSTS_PER_PAGE);
   const startIndex = (currentPage - 1) * POSTS_PER_PAGE;
   const endIndex = startIndex + POSTS_PER_PAGE;
-  const currentPosts = filteredAndSortedPosts.slice(startIndex, endIndex);
+  const currentPosts = filteredPosts.slice(startIndex, endIndex);
 
   const handlePageChange = (pageNumber: number) => {
     setCurrentPage(pageNumber);
@@ -225,8 +188,8 @@ const BlogPage: React.FC<BlogPageProps> = ({ blogPosts }) => {
                 </div>
                 {searchQuery && (
                   <p className="mt-3 text-sm text-gray-400 text-center">
-                    Found {filteredAndSortedPosts.length} article
-                    {filteredAndSortedPosts.length !== 1 ? 's' : ''}
+                    Found {filteredPosts.length} article
+                    {filteredPosts.length !== 1 ? 's' : ''}
                   </p>
                 )}
               </div>
@@ -319,34 +282,6 @@ const BlogPage: React.FC<BlogPageProps> = ({ blogPosts }) => {
             </div> */}
 
             {/* Blog Grid */}
-            {/* <div
-              className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 mt-8"
-              data-fade="4"
-            >
-              {currentPosts.map((post, index) => (
-                <BlogCard
-                  key={post.slug}
-                  post={post}
-                  className="h-full bg-transparent border border-neutral-800 hover:border-neutral-700 rounded-lg transition-all  duration-300 hover:translate-y-[-0.5px]"
-                  checkTagged={checkTagged}
-                  index={index}
-                  searchQuery={searchQuery}
-                />
-              ))
-
-               ) : (
-                <div className="col-span-full text-center py-10">
-                  <h3 className="text-sm md:text-2xl 2xl:text-3xl font-bold mb-1">
-                    Sorry, <Accent>article not found</Accent>
-                  </h3>
-                  <p className="text-xs md:text-sm 2xl:text-base text-gray-400">
-                    No articles found for topic:{' '}
-                    <Accent>{selectedTopic}</Accent>
-                  </p>
-                </div>
-              )}
-            </div> */}
-
             <div
               className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 mt-8"
               data-fade="4"
@@ -356,10 +291,9 @@ const BlogPage: React.FC<BlogPageProps> = ({ blogPosts }) => {
                   <BlogCard
                     key={post.slug}
                     post={post}
-                    className="h-full bg-transparent border border-neutral-800 hover:border-neutral-700 rounded-lg transition-all duration-300 hover:translate-y-[-0.5px]"
+                    searchQuery={searchQuery}
                     checkTagged={checkTagged}
                     index={index}
-                    searchQuery={searchQuery}
                   />
                 ))
               ) : (
@@ -440,4 +374,5 @@ export const getStaticProps: GetStaticProps = async () => {
     },
   };
 };
+
 export default BlogPage;
