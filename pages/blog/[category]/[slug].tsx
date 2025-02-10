@@ -1,3 +1,178 @@
+// import React, { useEffect, useState, useRef } from 'react';
+// import { GetStaticProps, GetStaticPaths } from 'next';
+// import { MDXRemote } from 'next-mdx-remote';
+// import Layout from '@/components/layout/Layout';
+// import { getPostBySlug, getAllPostSlugs, getAllPosts } from '@/lib/mdx';
+// import { MDXComponents } from '@/components/blog/BlogContent';
+// import Accent from '@/components/shared/Accent';
+// import SEO from '@/components/shared/SEO';
+// import { Metadata } from 'next';
+// import type { BlogPost } from '@/types/blog';
+
+// import Image from 'next/image';
+
+// import TableOfContents from '@/components/blog/TableOfContents';
+// import RelatedArticles from '@/components/blog/RelatedArticles';
+// import Comments from '@/components/Comments';
+// import Breadcrumb from '@/components/shared/Breadcrumb';
+// import clsx from 'clsx';
+// import { HiOutlineEye, HiOutlineClock } from 'react-icons/hi';
+// import Link from 'next/link';
+// import ArticleNewsletterPopup from '@/components/blog/ArticleNewsletterPopup';
+
+// interface FrontMatter extends Omit<BlogPost, 'readingTime'> {
+//   readingTime?: number;
+// }
+
+// interface BlogPostProps {
+//   frontMatter: FrontMatter;
+//   mdxSource: any;
+//   allPosts: BlogPost[];
+// }
+
+// interface BreadcrumbItem {
+//   label: string;
+//   href?: string;
+// }
+
+// // Definisikan komponen MDX yang akan digunakan dengan ID
+// const mdxComponents = {
+//   ...MDXComponents,
+//   h2: ({ children, ...props }: any) => {
+//     const id = children
+//       ?.toString()
+//       .toLowerCase()
+//       .replace(/[^a-z0-9]+/g, '-')
+//       .replace(/(^-|-$)/g, '');
+//     return MDXComponents.h2({ ...props, id, children });
+//   },
+//   h3: ({ children, ...props }: any) => {
+//     const id = children
+//       ?.toString()
+//       .toLowerCase()
+//       .replace(/[^a-z0-9]+/g, '-')
+//       .replace(/(^-|-$)/g, '');
+//     return MDXComponents.h3({ ...props, id, children });
+//   },
+// };
+
+// export default function BlogPost({
+//   frontMatter,
+//   mdxSource,
+//   allPosts,
+// }: BlogPostProps) {
+//   const [headings, setHeadings] = useState<
+//     Array<{ id: string; title: string; level: number }>
+//   >([]);
+//   const articleContentRef = useRef<HTMLDivElement>(null);
+//   const [] = useState(false);
+//   const [views, setViews] = useState(0);
+//   const viewIncrementedRef = useRef(false);
+
+//   // Extract headings from content
+//   useEffect(() => {
+//     if (!articleContentRef.current) return;
+
+//     const elements = Array.from(
+//       articleContentRef.current.querySelectorAll('h2, h3')
+//     ).filter(
+//       (elem): elem is HTMLElement =>
+//         elem instanceof HTMLElement &&
+//         elem.textContent !== 'Table of Contents' &&
+//         elem.textContent !== 'Related Articles' &&
+//         elem.textContent !== 'AL KINDI' &&
+//         elem.textContent !== 'Quick Links' &&
+//         elem.textContent !== 'Services' &&
+//         elem.textContent !== 'Contact'
+//     );
+
+//     const items = elements.map((element) => ({
+//       id: element.id,
+//       title: element.textContent || '',
+//       level: Number(element.tagName.charAt(1)),
+//     }));
+
+//     setHeadings(items);
+//   }, []);
+
+//   // Convert readingTime to number
+//   // const readingTimeMinutes = !frontMatter.readingTime
+//   //   ? 0
+//   //   : typeof frontMatter.readingTime === 'number'
+//   //     ? frontMatter.readingTime
+//   //     : 0;
+
+//   // Format tanggal
+//   const formattedDate = new Date(frontMatter.date).toLocaleDateString('en-US', {
+//     month: 'long',
+//     day: 'numeric',
+//     year: 'numeric',
+//   });
+
+//   // Fetch initial views
+//   useEffect(() => {
+//     const fetchViews = async () => {
+//       try {
+//         const res = await fetch(`/api/page-views/?slug=${frontMatter.slug}`);
+//         const data = await res.json();
+//         // Pastikan kita mendapatkan number
+//         if (typeof data.views === 'number') {
+//           setViews(data.views);
+//         } else if (
+//           typeof data.views === 'object' &&
+//           data.views[frontMatter.slug]
+//         ) {
+//           setViews(data.views[frontMatter.slug]);
+//         } else {
+//           setViews(0);
+//         }
+//       } catch (error) {
+//         console.error('Failed to fetch views:', error);
+//         setViews(0);
+//       }
+//     };
+
+//     fetchViews();
+//   }, [frontMatter.slug]);
+
+//   // Increment view once
+//   useEffect(() => {
+//     const incrementView = async () => {
+//       if (viewIncrementedRef.current) return;
+//       viewIncrementedRef.current = true;
+
+//       try {
+//         const res = await fetch('/api/page-views', {
+//           method: 'POST',
+//           headers: {
+//             'Content-Type': 'application/json',
+//           },
+//           body: JSON.stringify({
+//             slug: frontMatter.slug,
+//           }),
+//         });
+
+//         if (res.ok) {
+//           const data = await res.json();
+//           setViews(data.views);
+//         }
+//       } catch (error) {
+//         console.error('Failed to increment view:', error);
+//       }
+//     };
+
+//     incrementView();
+//   }, [frontMatter.slug]);
+
+//   const breadcrumbItems: BreadcrumbItem[] = [
+//     { label: 'Blog', href: '/blog' },
+//     {
+//       label: frontMatter.category,
+//       href: `/blog/${frontMatter.category.toLowerCase()}`,
+//     },
+//     { label: frontMatter.title },
+//   ];
+
 import React, { useEffect, useState, useRef } from 'react';
 import { GetStaticProps, GetStaticPaths } from 'next';
 import { MDXRemote } from 'next-mdx-remote';
@@ -19,6 +194,7 @@ import clsx from 'clsx';
 import { HiOutlineEye, HiOutlineClock } from 'react-icons/hi';
 import Link from 'next/link';
 import ArticleNewsletterPopup from '@/components/blog/ArticleNewsletterPopup';
+import { usePageViews } from '@/lib/hooks/usePageViews';
 
 interface FrontMatter extends Omit<BlogPost, 'readingTime'> {
   readingTime?: number;
@@ -66,8 +242,7 @@ export default function BlogPost({
   >([]);
   const articleContentRef = useRef<HTMLDivElement>(null);
   const [] = useState(false);
-  const [views, setViews] = useState(0);
-  const viewIncrementedRef = useRef(false);
+  const views = usePageViews(frontMatter.slug, true);
 
   // Extract headings from content
   useEffect(() => {
@@ -95,63 +270,12 @@ export default function BlogPost({
     setHeadings(items);
   }, []);
 
-  // Convert readingTime to number
-  // const readingTimeMinutes = !frontMatter.readingTime
-  //   ? 0
-  //   : typeof frontMatter.readingTime === 'number'
-  //     ? frontMatter.readingTime
-  //     : 0;
-
   // Format tanggal
   const formattedDate = new Date(frontMatter.date).toLocaleDateString('en-US', {
     month: 'long',
     day: 'numeric',
     year: 'numeric',
   });
-
-  // Fetch initial views
-  useEffect(() => {
-    const fetchViews = async () => {
-      try {
-        const res = await fetch(`/api/page-views/?slug=${frontMatter.slug}`);
-        const data = await res.json();
-        setViews(data.views);
-      } catch (error) {
-        console.error('Failed to fetch views:', error);
-      }
-    };
-
-    fetchViews();
-  }, [frontMatter.slug]);
-
-  // Increment view once
-  useEffect(() => {
-    const incrementView = async () => {
-      if (viewIncrementedRef.current) return;
-      viewIncrementedRef.current = true;
-
-      try {
-        const res = await fetch('/api/page-views', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            slug: frontMatter.slug,
-          }),
-        });
-
-        if (res.ok) {
-          const data = await res.json();
-          setViews(data.views);
-        }
-      } catch (error) {
-        console.error('Failed to increment view:', error);
-      }
-    };
-
-    incrementView();
-  }, [frontMatter.slug]);
 
   const breadcrumbItems: BreadcrumbItem[] = [
     { label: 'Blog', href: '/blog' },

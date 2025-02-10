@@ -3,6 +3,11 @@ import { useEffect, useRef } from 'react';
 
 const fetcher = (url: string) => fetch(url).then((res) => res.json());
 
+interface PageViewsResponse {
+  views: number | Record<string, number>;
+  error?: string;
+}
+
 // Konfigurasi SWR yang konsisten untuk semua penggunaan
 const SWR_CONFIG = {
   revalidateOnFocus: true,
@@ -18,7 +23,11 @@ export const getViewsKey = (slug: string) => `/api/page-views/?slug=${slug}`;
 export function usePageViews(slug: string, increment: boolean = false) {
   const viewIncrementedRef = useRef(false);
 
-  const { data } = useSWR(getViewsKey(slug), fetcher, SWR_CONFIG);
+  const { data } = useSWR<PageViewsResponse>(
+    getViewsKey(slug),
+    fetcher,
+    SWR_CONFIG
+  );
 
   // Increment view sekali saja
   useEffect(() => {
@@ -28,7 +37,7 @@ export function usePageViews(slug: string, increment: boolean = false) {
 
       try {
         // Optimistic update untuk semua instance yang menggunakan slug yang sama
-        const currentViews = data?.views ?? 0;
+        const currentViews = typeof data?.views === 'number' ? data.views : 0;
         await mutate(getViewsKey(slug), { views: currentViews + 1 }, false);
 
         // Gunakan AbortController untuk membatalkan request jika komponen unmount
@@ -61,5 +70,8 @@ export function usePageViews(slug: string, increment: boolean = false) {
     incrementView();
   }, [slug, data, increment]);
 
-  return data?.views ?? 0;
+  // Pastikan selalu mengembalikan number
+  if (!data?.views) return 0;
+  if (typeof data.views === 'number') return data.views;
+  return data.views[slug] || 0;
 }
