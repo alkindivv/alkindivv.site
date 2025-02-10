@@ -27,7 +27,7 @@ const BlogCard = ({
   searchQuery = '',
 }: BlogCardProps) => {
   const router = useRouter();
-  const views = usePageViews(post.slug);
+  const views = usePageViews(post.slug, false);
 
   const handleClick = async (e: React.MouseEvent) => {
     e.preventDefault();
@@ -35,10 +35,6 @@ const BlogCard = ({
 
     try {
       await router.push(href);
-      // Reload hanya jika ini adalah related article untuk memperbarui views
-      if (isRelated) {
-        router.reload();
-      }
     } catch (error) {
       console.error('Failed to navigate:', error);
       window.location.href = href;

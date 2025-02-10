@@ -22,6 +22,11 @@ export const authOptions: NextAuthOptions = {
   secret: process.env.NEXTAUTH_SECRET,
   session: {
     strategy: 'jwt',
+    maxAge: 30 * 24 * 60 * 60, // 30 days
+  },
+  pages: {
+    signIn: '/auth/signin',
+    error: '/auth/error',
   },
   callbacks: {
     session: async ({ session, token }) => {
@@ -30,7 +35,15 @@ export const authOptions: NextAuthOptions = {
       }
       return session;
     },
+    redirect: async ({ url, baseUrl }) => {
+      // Allows relative callback URLs
+      if (url.startsWith('/')) return `${baseUrl}${url}`;
+      // Allows callback URLs on the same origin
+      else if (new URL(url).origin === baseUrl) return url;
+      return baseUrl;
+    },
   },
+  debug: process.env.NODE_ENV === 'development',
 };
 
 export default NextAuth(authOptions);

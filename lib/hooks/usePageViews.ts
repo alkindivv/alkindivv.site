@@ -1,77 +1,79 @@
-import useSWR, { mutate } from 'swr';
 import { useEffect, useRef } from 'react';
+import { create } from 'zustand';
 
-const fetcher = (url: string) => fetch(url).then((res) => res.json());
-
-interface PageViewsResponse {
-  views: number | Record<string, number>;
-  error?: string;
+interface ViewsStore {
+  views: Record<string, number>;
+  setViews: (slug: string, count: number) => void;
+  getViews: (slug: string) => number;
+  initializeViews: (views: Record<string, number>) => void;
+  isInitialized: boolean;
 }
 
-// Konfigurasi SWR yang konsisten untuk semua penggunaan
-const SWR_CONFIG = {
-  revalidateOnFocus: true,
-  revalidateOnReconnect: true,
-  refreshInterval: 5000, // Polling setiap 5 detik
-  dedupingInterval: 2000, // Deduping interval yang lebih pendek
-  keepPreviousData: true,
-};
+const useViewsStore = create<ViewsStore>((set, get) => ({
+  views: {},
+  isInitialized: false,
+  setViews: (slug, count) =>
+    set((state) => ({
+      views: { ...state.views, [slug]: count },
+    })),
+  getViews: (slug) => get().views[slug] || 0,
+  initializeViews: (views) => set({ views, isInitialized: true }),
+}));
 
-// Key untuk cache SWR
-export const getViewsKey = (slug: string) => `/api/page-views/?slug=${slug}`;
+// Fungsi untuk fetch views dari API
+async function fetchViews() {
+  try {
+    const res = await fetch('/api/page-views');
+    const data = await res.json();
+    if (data.error) throw new Error(data.error);
+    return data.views as Record<string, number>;
+  } catch (error) {
+    console.error('Failed to fetch views:', error);
+    return {};
+  }
+}
 
-export function usePageViews(slug: string, increment: boolean = false) {
-  const viewIncrementedRef = useRef(false);
+// Fungsi untuk increment view
+async function incrementView(slug: string) {
+  try {
+    const res = await fetch('/api/page-views', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ slug }),
+    });
+    const data = await res.json();
+    if (data.error) throw new Error(data.error);
+    return data.views as number;
+  } catch (error) {
+    console.error('Failed to increment view:', error);
+    return 0;
+  }
+}
 
-  const { data } = useSWR<PageViewsResponse>(
-    getViewsKey(slug),
-    fetcher,
-    SWR_CONFIG
-  );
+// Hook untuk menggunakan views
+export function usePageViews(slug: string, shouldIncrement = false) {
+  const incrementRef = useRef(false);
+  const { views, setViews, getViews, isInitialized, initializeViews } =
+    useViewsStore();
 
-  // Increment view sekali saja
+  // Initialize views on first mount
   useEffect(() => {
-    const incrementView = async () => {
-      if (!increment || viewIncrementedRef.current) return;
-      viewIncrementedRef.current = true;
+    if (isInitialized) return;
 
-      try {
-        // Optimistic update untuk semua instance yang menggunakan slug yang sama
-        const currentViews = typeof data?.views === 'number' ? data.views : 0;
-        await mutate(getViewsKey(slug), { views: currentViews + 1 }, false);
+    fetchViews().then((views) => {
+      initializeViews(views);
+    });
+  }, [isInitialized, initializeViews]);
 
-        // Gunakan AbortController untuk membatalkan request jika komponen unmount
-        const controller = new AbortController();
-        const res = await fetch('/api/page-views', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({ slug }),
-          signal: controller.signal,
-        });
+  // Handle increment
+  useEffect(() => {
+    if (shouldIncrement && !incrementRef.current) {
+      incrementRef.current = true;
+      incrementView(slug).then((newCount) => {
+        setViews(slug, newCount);
+      });
+    }
+  }, [slug, shouldIncrement, setViews]);
 
-        if (!res.ok) throw new Error('Failed to increment view');
-
-        const newData = await res.json();
-
-        // Update cache dengan data baru
-        await mutate(getViewsKey(slug), newData, true);
-
-        return () => controller.abort();
-      } catch (error: unknown) {
-        if (error instanceof Error && error.name === 'AbortError') return;
-        console.error('Failed to increment view:', error);
-        // Rollback optimistic update
-        await mutate(getViewsKey(slug));
-      }
-    };
-
-    incrementView();
-  }, [slug, data, increment]);
-
-  // Pastikan selalu mengembalikan number
-  if (!data?.views) return 0;
-  if (typeof data.views === 'number') return data.views;
-  return data.views[slug] || 0;
+  return getViews(slug);
 }

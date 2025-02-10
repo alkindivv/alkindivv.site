@@ -2,9 +2,14 @@ import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
 
 export function middleware(request: NextRequest) {
+  // Skip middleware for API routes and static files
+  if (request.nextUrl.pathname.startsWith('/api')) {
+    return NextResponse.next();
+  }
+
   const response = NextResponse.next();
 
-  // Mengatur cache control header untuk blog posts
+  // Set cache control headers for blog posts
   if (request.nextUrl.pathname.startsWith('/blog')) {
     response.headers.set(
       'Cache-Control',
@@ -16,5 +21,13 @@ export function middleware(request: NextRequest) {
 }
 
 export const config = {
-  matcher: '/blog/:path*',
+  matcher: [
+    /*
+     * Match all request paths except:
+     * - API routes (/api/*)
+     * - Static files
+     * - Next.js internals
+     */
+    '/((?!api|_next/static|_next/image|favicon.ico|.*\\..*|$).*)',
+  ],
 };

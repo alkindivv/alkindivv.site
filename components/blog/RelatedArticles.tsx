@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { BlogPost } from '@/types/blog';
@@ -8,7 +8,7 @@ import { useRouter } from 'next/router';
 
 // Komponen untuk setiap artikel
 const RelatedArticleCard = ({ post }: { post: BlogPost }) => {
-  const views = usePageViews(post.slug);
+  const views = usePageViews(post.slug, false);
   const router = useRouter();
 
   const handleClick = async (e: React.MouseEvent) => {
@@ -16,6 +16,8 @@ const RelatedArticleCard = ({ post }: { post: BlogPost }) => {
     const href = `/blog/${post.category.toLowerCase()}/${post.slug}`;
 
     try {
+      // Karena kita tetap di halaman yang sama, kita perlu me-reload
+      // agar useEffect di halaman artikel terpanggil ulang
       await router.push(href);
       router.reload();
     } catch (error) {

@@ -13,7 +13,10 @@ const defaultMeta = {
   url: 'https://alkindivv.site',
   image: 'https://alkindivv.site/images/default.png',
   type: 'website',
-  robots: 'follow, index',
+  robots:
+    'follow, index, max-image-preview:large, max-snippet:-1, max-video-preview:-1',
+  keywords:
+    'corporate law, capital markets, mergers & acquisitions, bankruptcy, technology, cryptocurrency, blockchain, legal tech',
 } as {
   title: string;
   siteName: string;
@@ -22,6 +25,7 @@ const defaultMeta = {
   image: string;
   type: string;
   robots: string;
+  keywords: string;
 };
 
 type SeoProps = {
@@ -73,8 +77,16 @@ export default function Seo(props: SeoProps) {
         <title>{meta.title}</title>
         <meta name="robots" content={meta.robots} />
         <meta name="description" content={meta.description} />
+        <meta name="keywords" content={meta.keywords} />
         <meta name="author" content="AL KINDI" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link rel="canonical" href={canonicalUrl} />
+
+        {/* Language */}
+        <meta property="og:locale" content="id_ID" />
+        <meta property="og:locale:alternate" content="en_US" />
+        <link rel="alternate" hrefLang="id-ID" href={canonicalUrl} />
+        <link rel="alternate" hrefLang="x-default" href={canonicalUrl} />
 
         {/* Favicon */}
         <link rel="icon" href="/favicon.ico" />
@@ -97,7 +109,6 @@ export default function Seo(props: SeoProps) {
         <meta property="og:description" content={meta.description} />
         <meta property="og:image" content={props.banner || meta.image} />
         <meta property="og:image:alt" content={meta.title} />
-        <meta property="og:locale" content="id_ID" />
         {props.date && (
           <meta property="article:published_time" content={props.date} />
         )}
@@ -110,7 +121,7 @@ export default function Seo(props: SeoProps) {
         <meta name="twitter:description" content={meta.description} />
         <meta name="twitter:image" content={props.banner || meta.image} />
 
-        {/* Additional Meta */}
+        {/* Additional Meta for Blog Posts */}
         {props.isBlog && (
           <>
             <meta property="article:author" content="AL KINDI" />
@@ -120,6 +131,12 @@ export default function Seo(props: SeoProps) {
             ))}
             <meta property="article:published_time" content={props.date} />
             <meta property="article:modified_time" content={props.date} />
+            {props.readingTime && (
+              <meta
+                property="article:reading_time"
+                content={String(props.readingTime)}
+              />
+            )}
           </>
         )}
 

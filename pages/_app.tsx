@@ -67,9 +67,9 @@ const defaultSEOConfig = {
   ],
 };
 
-function MyApp({ Component, pageProps }: AppProps) {
+function MyApp({ Component, pageProps: { session, ...pageProps } }: AppProps) {
   return (
-    <SessionProvider>
+    <SessionProvider session={session} refetchInterval={0}>
       <Head>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta name="mobile-web-app-capable" content="yes" />

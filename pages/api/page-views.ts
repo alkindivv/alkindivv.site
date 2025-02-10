@@ -36,7 +36,6 @@ async function handler(
   if (req.method === 'POST') {
     try {
       const { slug } = req.body;
-
       if (!slug || typeof slug !== 'string') {
         return res.status(400).json({ views: 0, error: 'Slug is required' });
       }
