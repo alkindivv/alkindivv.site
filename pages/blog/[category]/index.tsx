@@ -16,6 +16,7 @@ import Image from 'next/image';
 import { HiOutlineClock, HiOutlineEye } from 'react-icons/hi2';
 import { usePageViews } from '@/lib/hooks/usePageViews';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
+import { Metadata } from 'next';
 
 // Komponen untuk setiap post
 const BlogPostCard = ({ post }: { post: BlogPost }) => {
@@ -260,3 +261,49 @@ export const getStaticProps: GetStaticProps = async ({
     },
   };
 };
+
+export async function generateMetadata({
+  params,
+}: {
+  params: { category: string };
+}): Promise<Metadata> {
+  const categoryName =
+    params.category.charAt(0).toUpperCase() + params.category.slice(1);
+
+  return {
+    title: `${categoryName} Articles`,
+    description: `Read articles about ${params.category.toLowerCase()} from AL KINDI. Expert insights on ${params.category} topics.`,
+    openGraph: {
+      title: `${categoryName} Articles - AL KINDI`,
+      description: `Read articles about ${params.category.toLowerCase()} from AL KINDI. Expert insights on ${params.category} topics.`,
+      images: [
+        {
+          url: '/images/AL-KINDI.png',
+          width: 1200,
+          height: 630,
+          alt: `${categoryName} Articles by AL KINDI`,
+        },
+      ],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: `${categoryName} Articles - AL KINDI`,
+      description: `Read articles about ${params.category.toLowerCase()} from AL KINDI. Expert insights on ${params.category} topics.`,
+      images: ['/images/AL-KINDI.png'],
+    },
+    alternates: {
+      canonical: `https://alkindivv.site/blog/${params.category}`,
+      languages: {
+        'id-ID': `/id/blog/${params.category}`,
+        'en-US': `/en/blog/${params.category}`,
+      },
+    },
+    keywords: [
+      `${params.category}`,
+      'articles',
+      'blog',
+      'AL KINDI',
+      `${params.category} expert`,
+    ],
+  };
+}

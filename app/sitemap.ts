@@ -1,99 +1,110 @@
 import { MetadataRoute } from 'next';
 import { getAllPosts } from '@/lib/mdx';
 
+// Helper function untuk generate URL berdasarkan locale
+function generateLocalizedUrl(baseUrl: string, path: string, locale: string) {
+  if (locale === 'en') {
+    return `${baseUrl}${path}`;
+  }
+  return `${baseUrl}/${locale}${path}`;
+}
+
+// Helper function untuk generate alternateRefs
+function generateAlternateRefs(
+  baseUrl: string,
+  path: string,
+  languages: string[]
+) {
+  return {
+    languages: {
+      'id-ID': generateLocalizedUrl(baseUrl, path, 'id'),
+      'en-US': generateLocalizedUrl(baseUrl, path, 'en'),
+    },
+    canonical: generateLocalizedUrl(baseUrl, path, 'en'),
+  };
+}
+
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const baseUrl = 'https://alkindivv.site';
+  const languages = ['id', 'en'];
 
-  // Get all blog posts
-  const posts = await getAllPosts();
-  const blogUrls = posts.map((post) => ({
-    url: `${baseUrl}/blog/${post.category}/${post.slug}`,
-    lastModified: new Date(post.date),
-    changeFrequency: 'monthly' as const,
-    priority: 0.8,
-  }));
-
-  // Get all categories
-  const categories = Array.from(new Set(posts.map((post) => post.category)));
-  const latestPostDates = categories.reduce(
-    (acc, category) => {
-      const categoryPosts = posts.filter((post) => post.category === category);
-      const latestPost = categoryPosts.sort(
-        (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
-      )[0];
-      acc[category] = latestPost.date;
-      return acc;
-    },
-    {} as Record<string, string>
+  // Get all blog posts for each language
+  const allLanguagePosts = await Promise.all(
+    languages.map(async (lang) => ({
+      lang,
+      posts: await getAllPosts(lang),
+    }))
   );
 
-  const categoryUrls = categories.map((category) => ({
-    url: `${baseUrl}/blog/${category}`,
-    lastModified: new Date(latestPostDates[category]),
-    changeFrequency: 'weekly' as const,
-    priority: 0.9,
-  }));
+  // Generate blog URLs for all languages
+  const blogUrls = allLanguagePosts.flatMap(({ lang, posts }) =>
+    posts.map((post) => {
+      const path = `/blog/${post.category}/${post.slug}`;
+      const alternates = generateAlternateRefs(baseUrl, path, languages);
+
+      return {
+        url: generateLocalizedUrl(baseUrl, path, lang),
+        lastModified: new Date(post.date),
+        changeFrequency: 'monthly' as const,
+        priority: 0.8,
+        alternates,
+      };
+    })
+  );
+
+  // Get all unique categories
+  const categories = Array.from(
+    new Set(
+      allLanguagePosts.flatMap(({ posts }) =>
+        posts.map((post) => post.category)
+      )
+    )
+  );
+
+  // Generate category URLs
+  const categoryUrls = categories.flatMap((category) => {
+    const path = `/blog/${category}`;
+    const alternates = generateAlternateRefs(baseUrl, path, languages);
+
+    return languages.map((lang) => ({
+      url: generateLocalizedUrl(baseUrl, path, lang),
+      lastModified: new Date(),
+      changeFrequency: 'weekly' as const,
+      priority: 0.9,
+      alternates,
+    }));
+  });
 
   // Static pages
   const staticPages = [
-    {
-      url: baseUrl,
-      lastModified: new Date(),
-      changeFrequency: 'daily' as const,
-      priority: 1.0,
-    },
-    {
-      url: `${baseUrl}/about`,
-      lastModified: new Date(),
-      changeFrequency: 'monthly' as const,
-      priority: 0.8,
-    },
-    {
-      url: `${baseUrl}/contact`,
-      lastModified: new Date(),
-      changeFrequency: 'monthly' as const,
-      priority: 0.8,
-    },
-    {
-      url: `${baseUrl}/blog`,
-      lastModified: new Date(
-        Math.max(...posts.map((p) => new Date(p.date).getTime()))
-      ),
-      changeFrequency: 'daily' as const,
-      priority: 0.9,
-    },
-    // Halaman baru
-    {
-      url: `${baseUrl}/books`,
-      lastModified: new Date(),
-      changeFrequency: 'weekly' as const,
-      priority: 0.8,
-    },
-    {
-      url: `${baseUrl}/resources`,
-      lastModified: new Date(),
-      changeFrequency: 'weekly' as const,
-      priority: 0.8,
-    },
-    {
-      url: `${baseUrl}/glossary`,
-      lastModified: new Date(),
-      changeFrequency: 'weekly' as const,
-      priority: 0.7,
-    },
-    {
-      url: `${baseUrl}/wishlist`,
-      lastModified: new Date(),
-      changeFrequency: 'monthly' as const,
-      priority: 0.6,
-    },
-    {
-      url: `${baseUrl}/docs`,
-      lastModified: new Date(),
-      changeFrequency: 'weekly' as const,
-      priority: 0.7,
-    },
-  ];
+    { path: '', priority: 1.0, changeFreq: 'daily' as const },
+    { path: '/about', priority: 0.8, changeFreq: 'monthly' as const },
+    { path: '/contact', priority: 0.8, changeFreq: 'monthly' as const },
+    { path: '/blog', priority: 0.9, changeFreq: 'daily' as const },
+    { path: '/books', priority: 0.8, changeFreq: 'weekly' as const },
+    { path: '/resources', priority: 0.8, changeFreq: 'weekly' as const },
+    { path: '/glossary', priority: 0.7, changeFreq: 'weekly' as const },
+    { path: '/wishlist', priority: 0.6, changeFreq: 'monthly' as const },
+    { path: '/docs', priority: 0.7, changeFreq: 'weekly' as const },
+  ].flatMap(({ path, priority, changeFreq }) => {
+    const alternates = generateAlternateRefs(baseUrl, path, languages);
 
-  return [...staticPages, ...categoryUrls, ...blogUrls];
+    return languages.map((lang) => ({
+      url: generateLocalizedUrl(baseUrl, path, lang),
+      lastModified: new Date(),
+      changeFrequency: changeFreq,
+      priority,
+      alternates,
+    }));
+  });
+
+  // Sitemap index
+  const sitemapIndex = {
+    url: `${baseUrl}/sitemap.xml`,
+    lastModified: new Date(),
+    changeFrequency: 'daily' as const,
+    priority: 1.0,
+  };
+
+  return [sitemapIndex, ...staticPages, ...categoryUrls, ...blogUrls];
 }

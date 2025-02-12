@@ -7,6 +7,7 @@ import Accent from '@/components/shared/Accent';
 import SEO from '@/components/shared/SEO';
 import SocialMedia from '@/components/social/SocialMedia';
 import GlowingButton from '@/components/shared/GlowingButton';
+import { Metadata } from 'next';
 
 export default function HomePage() {
   const { t } = useTranslation('common');
@@ -91,3 +92,47 @@ export const getStaticProps: GetStaticProps = async ({ locale }) => {
     },
   };
 };
+
+export async function generateMetadata(): Promise<Metadata> {
+  return {
+    title: 'AL KINDI - Software Engineer & Tech Blog',
+    description:
+      "Welcome to AL KINDI's personal website. Explore tech articles, software development insights, and professional experiences of a passionate software engineer.",
+    openGraph: {
+      title: 'AL KINDI - Software Engineer & Tech Blog',
+      description:
+        "Welcome to AL KINDI's personal website. Explore tech articles, software development insights, and professional experiences of a passionate software engineer.",
+      images: [
+        {
+          url: '/images/AL-KINDI.png',
+          width: 1200,
+          height: 630,
+          alt: 'AL KINDI Website',
+        },
+      ],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: 'AL KINDI - Software Engineer & Tech Blog',
+      description:
+        "Welcome to AL KINDI's personal website. Explore tech articles, software development insights, and professional experiences of a passionate software engineer.",
+      images: ['/images/AL-KINDI.png'],
+    },
+    alternates: {
+      canonical: 'https://alkindivv.site',
+      languages: {
+        'id-ID': '/id',
+        'en-US': '/en',
+      },
+    },
+    keywords: [
+      'AL KINDI',
+      'software engineer',
+      'tech blog',
+      'web development',
+      'programming',
+      'tech articles',
+      'software development insights',
+    ],
+  };
+}

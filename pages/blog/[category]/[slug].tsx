@@ -506,24 +506,80 @@ export async function generateMetadata({
   const { frontMatter } = await getPostBySlug(params.category, params.slug);
   const fm = frontMatter as FrontMatter;
   const defaultImage = 'https://alkindivv.site/images/default.png';
+  const publishedTime = new Date(fm.date).toISOString();
+  const modifiedTime = publishedTime;
 
   return {
     title: `${fm.title} | AL KINDI`,
     description: fm.excerpt || `${fm.title} - Article by ${fm.author}`,
+    authors: [{ name: fm.author || 'AL KINDI' }],
+    publisher: 'AL KINDI',
+    keywords: [...(fm.tags || []), fm.category, 'AL KINDI'],
+    referrer: 'origin-when-cross-origin',
+    creator: fm.author || 'AL KINDI',
+    formatDetection: {
+      email: false,
+      address: false,
+      telephone: false,
+    },
     openGraph: {
       title: fm.title,
       description: fm.excerpt || '',
-      images: [{ url: fm.featuredImage || defaultImage }],
+      url: `https://alkindivv.site/blog/${params.category}/${params.slug}`,
+      siteName: 'AL KINDI',
+      locale: 'id_ID',
+      alternateLocale: 'en_US',
       type: 'article',
-      authors: [fm.author],
+      publishedTime: publishedTime,
+      modifiedTime: modifiedTime,
+      authors: [fm.author || 'AL KINDI'],
+      tags: fm.tags,
+      images: [
+        {
+          url: fm.featuredImage || defaultImage,
+          width: 1200,
+          height: 630,
+          alt: fm.title,
+        },
+      ],
     },
     twitter: {
       card: 'summary_large_image',
       title: fm.title,
       description: fm.excerpt || '',
+      creator: '@alkindivv',
       images: [{ url: fm.featuredImage || defaultImage }],
     },
+    alternates: {
+      canonical: `https://alkindivv.site/blog/${params.category}/${params.slug}`,
+      languages: {
+        'id-ID': `/id/blog/${params.category}/${params.slug}`,
+        'en-US': `/blog/${params.category}/${fm.originalSlug || params.slug}`,
+      },
+    },
+    robots: {
+      index: true,
+      follow: true,
+      'max-video-preview': -1,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+      nocache: false,
+      googleBot: {
+        index: true,
+        follow: true,
+        noimageindex: false,
+        'max-video-preview': -1,
+        'max-image-preview': 'large',
+        'max-snippet': -1,
+      },
+    },
+    category: params.category,
     other: {
+      'article:published_time': publishedTime,
+      'article:modified_time': modifiedTime,
+      'article:author': fm.author || 'AL KINDI',
+      'article:section': params.category,
+      'article:tag': fm.tags ? fm.tags.join(',') : '',
       'Cache-Control': 'public, s-maxage=3600, stale-while-revalidate=86400',
     },
   };

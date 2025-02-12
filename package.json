@@ -17,7 +17,11 @@
     "find-deadcode": "ts-prune",
     "unused-exports": "ts-unused-exports tsconfig.json",
     "find-unused-css": "purgecss --css .next/static/css/*.css --content .next/server/**/*.html .next/static/chunks/**/*.js --output .next/static/css/purged/",
-    "analyze-css": "npx stylelint \"**/*.{css,scss}\" --custom-syntax postcss-scss"
+    "analyze-css": "npx stylelint \"**/*.{css,scss}\" --custom-syntax postcss-scss",
+    "test:k6:homepage": "k6 run tests/k6/homepage.js",
+    "test:k6:api": "k6 run tests/k6/api.js",
+    "test:k6": "npm run test:k6:homepage && npm run test:k6:api",
+    "test:k6:full": "k6 run tests/k6/full-site.js"
   },
   "dependencies": {
     "@emailjs/browser": "^3.11.0",
