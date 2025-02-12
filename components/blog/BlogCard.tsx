@@ -8,13 +8,14 @@ import { BlogPost } from '@/types/blog';
 import { useRouter } from 'next/router';
 import HighlightedText from '@/components/shared/HighlightedText';
 import { usePageViews } from '@/lib/hooks/usePageViews';
+import { useTranslation } from 'next-i18next';
 
 interface BlogCardProps {
   post: BlogPost;
   className?: string;
   checkTagged?: (tag: string) => boolean;
   index?: number;
-  isRelated?: boolean;
+  _isRelated?: boolean;
   searchQuery?: string;
 }
 
@@ -23,11 +24,12 @@ const BlogCard = ({
   className = '',
   checkTagged,
   index: _index,
-  isRelated = false,
+  _isRelated = false,
   searchQuery = '',
 }: BlogCardProps) => {
   const router = useRouter();
   const views = usePageViews(post.slug, false);
+  const { t } = useTranslation('common');
 
   const handleClick = async (e: React.MouseEvent) => {
     e.preventDefault();
@@ -111,7 +113,10 @@ const BlogCard = ({
                       : 'bg-neutral-900 text-neutral-400'
                   )}
                 >
-                  <HighlightedText text={tag} searchQuery={searchQuery} />
+                  <HighlightedText
+                    text={t(`blog.tags.${tag.toLowerCase()}`)}
+                    searchQuery={searchQuery}
+                  />
                 </span>
               ))}
             </div>

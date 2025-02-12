@@ -7,6 +7,9 @@ import { Analytics } from '@vercel/analytics/react';
 import { DefaultSeo } from 'next-seo';
 import dynamic from 'next/dynamic';
 import Head from 'next/head';
+import { appWithTranslation } from 'next-i18next';
+import { Inter } from 'next/font/google';
+import { ThemeProvider } from 'next-themes';
 
 // Dynamic imports for non-critical components
 const SEO = dynamic(() => import('@/components/shared/SEO'), {
@@ -67,21 +70,26 @@ const defaultSEOConfig = {
   ],
 };
 
-function MyApp({ Component, pageProps: { session, ...pageProps } }: AppProps) {
+const inter = Inter({ subsets: ['latin'] });
+
+function App({ Component, pageProps: { session, ...pageProps } }: AppProps) {
   return (
-    <SessionProvider session={session} refetchInterval={0}>
-      <Head>
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <meta name="mobile-web-app-capable" content="yes" />
-      </Head>
-      <DefaultSeo {...defaultSEOConfig} />
-      <SEO />
-      <main>
-        <Component {...pageProps} />
-      </main>
-      <Analytics />
+    <SessionProvider session={session}>
+      <ThemeProvider attribute="class" defaultTheme="dark">
+        <Head>
+          <meta name="viewport" content="width=device-width, initial-scale=1" />
+          <meta name="mobile-web-app-capable" content="yes" />
+        </Head>
+        <DefaultSeo {...defaultSEOConfig} />
+        <SEO />
+        <main className={inter.className}>
+          <Component {...pageProps} />
+        </main>
+        <Analytics />
+      </ThemeProvider>
     </SessionProvider>
   );
 }
 
-export default MyApp;
+// HOC untuk menambahkan dukungan i18n
+export default appWithTranslation(App);

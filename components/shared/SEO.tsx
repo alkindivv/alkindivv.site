@@ -5,46 +5,152 @@ import { generateSchema } from '@/lib/schema';
 import { Metadata } from 'next';
 import { BlogPost } from '@/types/blog';
 
+export type SEOProps = {
+  templateTitle?: string;
+  title?: string;
+  description?: string;
+  canonical?: string;
+  isBlog?: boolean;
+  banner?: string;
+  tags?: string[];
+  category?: string;
+  readingTime?: number;
+  wordCount?: number;
+  date?: string;
+  keywords?: string[];
+  openGraph?: {
+    type?: string;
+    title?: string;
+    description?: string;
+    images?: Array<{ url: string }>;
+    article?: {
+      publishedTime?: string;
+      authors?: string[];
+      tags?: string[];
+    };
+  };
+  twitter?: {
+    card?: string;
+    site?: string;
+    creator?: string;
+    title?: string;
+    description?: string;
+    images?: string[];
+  };
+};
+
 const defaultMeta = {
-  title: 'AL KINDI - Law, Technology, and Cryptocurrency',
-  siteName: 'alkindivv.site',
+  title: 'AL KINDI - Corporate Law, Technology & Cryptocurrency Expert',
+  siteName: 'AL KINDI',
   description:
-    'Personal website of AL KINDI - sharing insights and knowledge on corporate law, capital markets, mergers & acquisitions, bankruptcy, technology and cryptocurrency',
+    'insights and thoughts about law, technology, and cryptocurrency. specialized in corporate mergers and acquisitions, capital markets, bankruptcy & insolvency, and cryptocurrency regulations.',
   url: 'https://alkindivv.site',
   image: 'https://alkindivv.site/images/default.png',
   type: 'website',
   robots:
     'follow, index, max-image-preview:large, max-snippet:-1, max-video-preview:-1',
   keywords:
-    'corporate law, capital markets, mergers & acquisitions, bankruptcy, technology, cryptocurrency, blockchain, legal tech',
-} as {
-  title: string;
-  siteName: string;
-  description: string;
-  url: string;
-  image: string;
-  type: string;
-  robots: string;
-  keywords: string;
-};
+    'corporate law, hukum perusahaan, hukum korporasi, corporate lawyer indonesia, ' +
+    'pengacara korporasi, konsultan hukum perusahaan, firma hukum, perseroan terbatas, PT, ' +
+    'limited liability company, LLC, perseroan publik, tbk, emiten, perusahaan terbuka, ' +
+    'perusahaan tertutup, pendirian PT, establishment of company, company registration, ' +
+    'pendaftaran perusahaan, perizinan usaha, business licenses, NIB, anggaran dasar, ' +
+    'articles of association, perubahan anggaran dasar, amendment of articles, SABH, ' +
+    'administrasi hukum umum, dewan komisaris, direksi, RUPS, board of directors, ' +
+    'board of commissioners, general meeting of shareholders, circular resolution, ' +
+    'corporate governance, GCG, tata kelola perusahaan, manajemen risiko, risk management, ' +
+    'compliance, kepatuhan, company profile, profil perusahaan, company valuation, ' +
+    'penilaian perusahaan, business plan, rencana bisnis, mergers and acquisitions, ' +
+    'merger dan akuisisi, M&A lawyer indonesia, M&A consultant, konsultan M&A, ' +
+    'penggabungan usaha, peleburan usaha, pengambilalihan perusahaan, akuisisi perusahaan, ' +
+    'pembelian saham, due diligence, uji tuntas, legal due diligence, financial due diligence, ' +
+    'business due diligence, corporate action, aksi korporasi, rights issue, HMETD, ' +
+    'private placement, penempatan langsung, divestasi, divestment, spin-off, pemisahan usaha, ' +
+    'carve-out, business separation, share acquisition, akuisisi saham, asset acquisition, ' +
+    'akuisisi aset, business transfer, pengalihan usaha, company takeover, ' +
+    'pengambilalihan perusahaan, hostile takeover, tender offer, penawaran tender, ' +
+    'corporate restructuring, restrukturisasi perusahaan, business restructuring, ' +
+    'reorganisasi perusahaan, capital markets, pasar modal, securities law, hukum pasar modal, ' +
+    'stock market, bursa saham, initial public offering, IPO, penawaran umum perdana, ' +
+    'go public, pencatatan saham, listing requirements, right issue, HMETD, rights offering, ' +
+    'penawaran umum terbatas, PUT, warrant, waran, convertible bonds, obligasi konversi, ' +
+    'sukuk, obligasi syariah, medium term notes, MTN, OJK, otoritas jasa keuangan, IDX, BEI, ' +
+    'bursa efek indonesia, financial services authority, indonesia stock exchange, ' +
+    'securities trading, perdagangan efek, stock broker, perusahaan efek, investment manager, ' +
+    'manajer investasi, mutual funds, reksa dana, collective investment contract, KIK, ' +
+    'investment products, produk investasi, public company, perusahaan publik, listed company, ' +
+    'emiten, disclosure requirements, keterbukaan informasi, insider trading, ' +
+    'perdagangan orang dalam, market manipulation, manipulasi pasar, securities fraud, ' +
+    'penipuan efek, bankruptcy law, hukum kepailitan, PKPU, suspension of payment, ' +
+    'penundaan kewajiban pembayaran utang, debt restructuring, restrukturisasi utang, ' +
+    'debt workout, penyelesaian utang, debt settlement, insolvency, insolvensi, ' +
+    'bankruptcy petition, permohonan pailit, bankruptcy proceedings, proses kepailitan, ' +
+    'creditor, kreditur, secured creditor, kreditur separatis, unsecured creditor, ' +
+    'kreditur konkuren, debt collector, penagih utang, collection agency, agency penagihan, ' +
+    'debt collection, penagihan utang, asset recovery, pemulihan aset, asset tracing, ' +
+    'penelusuran aset, confiscation, penyitaan, liquidation, likuidasi, winding up, ' +
+    'pembubaran perusahaan, bankruptcy trustee, kurator kepailitan, debt moratorium, ' +
+    'moratorium utang, debt standstill, penghentian pembayaran, debt compromise, ' +
+    'perdamaian utang, corporate litigation, litigasi korporasi, commercial litigation, ' +
+    'litigasi komersial, business dispute, sengketa bisnis, commercial court, ' +
+    'pengadilan niaga, district court, pengadilan negeri, supreme court, mahkamah agung, ' +
+    'alternative dispute resolution, ADR, arbitration, arbitrase, BANI, ICC arbitration, ' +
+    'arbitrase internasional, mediation, mediasi, negotiation, negosiasi, ' +
+    'settlement agreement, perjanjian perdamaian, shareholder dispute, ' +
+    'sengketa pemegang saham, boardroom dispute, sengketa direksi, internal dispute, ' +
+    'class action, gugatan perwakilan kelompok, derivative action, gugatan derivatif, ' +
+    'citizen lawsuit, legal standing, kedudukan hukum, court proceedings, ' +
+    'proses pengadilan, litigation strategy, strategi litigasi, investment law, ' +
+    'hukum investasi, foreign investment, penanaman modal asing, PMA, BKPM, ' +
+    'investment coordinating board, joint venture, usaha patungan, strategic partnership, ' +
+    'kemitraan strategis, business alliance, aliansi bisnis, shareholders agreement, ' +
+    'perjanjian pemegang saham, subscription agreement, perjanjian pemesanan saham, ' +
+    'business contracts, kontrak bisnis, commercial contracts, kontrak komersial, ' +
+    'agreement drafting, pembuatan perjanjian, franchise, waralaba, licensing, lisensi, ' +
+    'distribution agreement, perjanjian distribusi, agency agreement, keagenan, ' +
+    'intellectual property, HAKI, trademark, merek, patent, paten, copyright, hak cipta, ' +
+    'trade secret, rahasia dagang, legal consultant, konsultan hukum, law firm indonesia, ' +
+    'kantor hukum, advocate, advokat, lawyer, pengacara, legal opinion, pendapat hukum, ' +
+    'legal memorandum, nota hukum, legal advice, nasihat hukum, legal documentation, ' +
+    'dokumentasi hukum, legal drafting, pembuatan dokumen hukum, contract review, ' +
+    'telaah kontrak, corporate secretary, sekretaris perusahaan, compliance officer, ' +
+    'legal officer, in-house counsel, penasehat hukum internal, regulatory compliance, ' +
+    'kepatuhan hukum, legal audit, audit hukum, legal risk management, ' +
+    'manajemen risiko hukum, legal research, penelitian hukum, legal analysis, ' +
+    'analisis hukum, legal framework, kerangka hukum, legal tech, teknologi hukum, ' +
+    'digital law, hukum digital, information technology law, hukum teknologi informasi, ' +
+    'cryptocurrency law, hukum kripto, blockchain law, hukum blockchain, smart contracts, ' +
+    'kontrak pintar, fintech law, hukum fintech, digital banking, perbankan digital, ' +
+    'electronic money, uang elektronik, data protection, perlindungan data, privacy law, ' +
+    'hukum privasi, cybersecurity, keamanan siber, digital signature, ' +
+    'tanda tangan elektronik, electronic evidence, bukti elektronik, digital forensics, ' +
+    'forensik digital, artificial intelligence law, hukum kecerdasan buatan, ' +
+    'machine learning regulations, regulasi pembelajaran mesin, internet law, hukum internet, ' +
+    'digital platform, platform digital, online marketplace, pasar online',
+} as const;
 
-type SeoProps = {
-  date?: string;
-  templateTitle?: string;
-  isBlog?: boolean;
-  banner?: string;
-  canonical?: string;
-  tags?: string[];
-  category?: string;
-  readingTime?: number;
-  wordCount?: number;
-} & Partial<typeof defaultMeta>;
-
-export default function Seo(props: SeoProps) {
+export default function SEO(props: SEOProps) {
   const router = useRouter();
   const meta = {
     ...defaultMeta,
     ...props,
+  };
+
+  // Use the passed openGraph or create a default one
+  const openGraph = props.openGraph || {
+    title: meta.title,
+    description: meta.description,
+    images: [{ url: meta.image }],
+    type: props.isBlog ? 'article' : 'website',
+  };
+
+  // Use the passed twitter or create a default one
+  const twitter = props.twitter || {
+    card: 'summary_large_image',
+    site: '@alkindivv',
+    creator: '@alkindivv',
+    title: meta.title,
+    description: meta.description,
   };
 
   // Generate canonical URL
@@ -77,7 +183,14 @@ export default function Seo(props: SeoProps) {
         <title>{meta.title}</title>
         <meta name="robots" content={meta.robots} />
         <meta name="description" content={meta.description} />
-        <meta name="keywords" content={meta.keywords} />
+        <meta
+          name="keywords"
+          content={
+            Array.isArray(meta.keywords)
+              ? meta.keywords.join(', ')
+              : meta.keywords
+          }
+        />
         <meta name="author" content="AL KINDI" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="canonical" href={canonicalUrl} />
@@ -99,27 +212,27 @@ export default function Seo(props: SeoProps) {
         <meta name="theme-color" content="#0a0a0a" />
 
         {/* Open Graph */}
-        <meta property="og:url" content={canonicalUrl} />
-        <meta
-          property="og:type"
-          content={props.isBlog ? 'article' : 'website'}
-        />
+        <meta property="og:url" content={`${meta.url}${router.asPath}`} />
+        <meta property="og:type" content={openGraph.type || 'website'} />
         <meta property="og:site_name" content={meta.siteName} />
-        <meta property="og:title" content={meta.title} />
-        <meta property="og:description" content={meta.description} />
-        <meta property="og:image" content={props.banner || meta.image} />
-        <meta property="og:image:alt" content={meta.title} />
-        {props.date && (
-          <meta property="article:published_time" content={props.date} />
-        )}
+        <meta
+          property="og:description"
+          content={openGraph.description || meta.description}
+        />
+        <meta property="og:title" content={openGraph.title || meta.title} />
+        {openGraph.images?.map((image, index) => (
+          <meta key={index} property="og:image" content={image.url} />
+        ))}
 
         {/* Twitter */}
-        <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:site" content="@alkindivv" />
-        <meta name="twitter:creator" content="@alkindivv" />
-        <meta name="twitter:title" content={meta.title} />
-        <meta name="twitter:description" content={meta.description} />
-        <meta name="twitter:image" content={props.banner || meta.image} />
+        <meta name="twitter:card" content={twitter.card} />
+        <meta name="twitter:site" content={twitter.site} />
+        <meta name="twitter:creator" content={twitter.creator} />
+        <meta name="twitter:title" content={twitter.title || meta.title} />
+        <meta
+          name="twitter:description"
+          content={twitter.description || meta.description}
+        />
 
         {/* Additional Meta for Blog Posts */}
         {props.isBlog && (
@@ -151,17 +264,9 @@ export default function Seo(props: SeoProps) {
       <NextSeo
         title={meta.title}
         description={meta.description}
-        openGraph={{
-          title: meta.title,
-          description: meta.description,
-          images: [{ url: props.banner || meta.image }],
-          site_name: meta.siteName,
-        }}
-        twitter={{
-          handle: '@alkindivv',
-          site: '@alkindivv',
-          cardType: 'summary_large_image',
-        }}
+        canonical={props.canonical}
+        openGraph={openGraph}
+        twitter={twitter}
       />
     </>
   );

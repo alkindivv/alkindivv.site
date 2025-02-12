@@ -1,5 +1,6 @@
 import { useEffect, useRef } from 'react';
 import { create } from 'zustand';
+import { getOriginalSlug } from '../constants/slugMappings';
 
 interface ViewsStore {
   views: Record<string, number>;
@@ -53,8 +54,16 @@ async function incrementView(slug: string) {
 // Hook untuk menggunakan views
 export function usePageViews(slug: string, shouldIncrement = false) {
   const incrementRef = useRef(false);
-  const { views, setViews, getViews, isInitialized, initializeViews } =
-    useViewsStore();
+  const {
+    views: _views,
+    setViews,
+    getViews,
+    isInitialized,
+    initializeViews,
+  } = useViewsStore();
+
+  // Gunakan originalSlug untuk tracking views
+  const originalSlug = getOriginalSlug(slug);
 
   // Initialize views on first mount
   useEffect(() => {
@@ -69,11 +78,11 @@ export function usePageViews(slug: string, shouldIncrement = false) {
   useEffect(() => {
     if (shouldIncrement && !incrementRef.current) {
       incrementRef.current = true;
-      incrementView(slug).then((newCount) => {
-        setViews(slug, newCount);
+      incrementView(originalSlug).then((newCount) => {
+        setViews(originalSlug, newCount);
       });
     }
-  }, [slug, shouldIncrement, setViews]);
+  }, [originalSlug, shouldIncrement, setViews]);
 
-  return getViews(slug);
+  return getViews(originalSlug);
 }

@@ -25,7 +25,6 @@ export default function Document() {
 
         {/* Basic Meta Tags */}
         <meta charSet="utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <meta httpEquiv="x-ua-compatible" content="ie=edge" />
 
         {/* PWA Tags */}
@@ -36,10 +35,6 @@ export default function Document() {
 
         {/* Basic SEO */}
         <meta name="robots" content="index, follow" />
-        <meta
-          name="description"
-          content="AL KINDI - Personal Website and Blog"
-        />
       </Head>
       <body className="bg-[#0a0a0a] text-white">
         <Main />

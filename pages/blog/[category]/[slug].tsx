@@ -1,183 +1,8 @@
-// import React, { useEffect, useState, useRef } from 'react';
-// import { GetStaticProps, GetStaticPaths } from 'next';
-// import { MDXRemote } from 'next-mdx-remote';
-// import Layout from '@/components/layout/Layout';
-// import { getPostBySlug, getAllPostSlugs, getAllPosts } from '@/lib/mdx';
-// import { MDXComponents } from '@/components/blog/BlogContent';
-// import Accent from '@/components/shared/Accent';
-// import SEO from '@/components/shared/SEO';
-// import { Metadata } from 'next';
-// import type { BlogPost } from '@/types/blog';
-
-// import Image from 'next/image';
-
-// import TableOfContents from '@/components/blog/TableOfContents';
-// import RelatedArticles from '@/components/blog/RelatedArticles';
-// import Comments from '@/components/Comments';
-// import Breadcrumb from '@/components/shared/Breadcrumb';
-// import clsx from 'clsx';
-// import { HiOutlineEye, HiOutlineClock } from 'react-icons/hi';
-// import Link from 'next/link';
-// import ArticleNewsletterPopup from '@/components/blog/ArticleNewsletterPopup';
-
-// interface FrontMatter extends Omit<BlogPost, 'readingTime'> {
-//   readingTime?: number;
-// }
-
-// interface BlogPostProps {
-//   frontMatter: FrontMatter;
-//   mdxSource: any;
-//   allPosts: BlogPost[];
-// }
-
-// interface BreadcrumbItem {
-//   label: string;
-//   href?: string;
-// }
-
-// // Definisikan komponen MDX yang akan digunakan dengan ID
-// const mdxComponents = {
-//   ...MDXComponents,
-//   h2: ({ children, ...props }: any) => {
-//     const id = children
-//       ?.toString()
-//       .toLowerCase()
-//       .replace(/[^a-z0-9]+/g, '-')
-//       .replace(/(^-|-$)/g, '');
-//     return MDXComponents.h2({ ...props, id, children });
-//   },
-//   h3: ({ children, ...props }: any) => {
-//     const id = children
-//       ?.toString()
-//       .toLowerCase()
-//       .replace(/[^a-z0-9]+/g, '-')
-//       .replace(/(^-|-$)/g, '');
-//     return MDXComponents.h3({ ...props, id, children });
-//   },
-// };
-
-// export default function BlogPost({
-//   frontMatter,
-//   mdxSource,
-//   allPosts,
-// }: BlogPostProps) {
-//   const [headings, setHeadings] = useState<
-//     Array<{ id: string; title: string; level: number }>
-//   >([]);
-//   const articleContentRef = useRef<HTMLDivElement>(null);
-//   const [] = useState(false);
-//   const [views, setViews] = useState(0);
-//   const viewIncrementedRef = useRef(false);
-
-//   // Extract headings from content
-//   useEffect(() => {
-//     if (!articleContentRef.current) return;
-
-//     const elements = Array.from(
-//       articleContentRef.current.querySelectorAll('h2, h3')
-//     ).filter(
-//       (elem): elem is HTMLElement =>
-//         elem instanceof HTMLElement &&
-//         elem.textContent !== 'Table of Contents' &&
-//         elem.textContent !== 'Related Articles' &&
-//         elem.textContent !== 'AL KINDI' &&
-//         elem.textContent !== 'Quick Links' &&
-//         elem.textContent !== 'Services' &&
-//         elem.textContent !== 'Contact'
-//     );
-
-//     const items = elements.map((element) => ({
-//       id: element.id,
-//       title: element.textContent || '',
-//       level: Number(element.tagName.charAt(1)),
-//     }));
-
-//     setHeadings(items);
-//   }, []);
-
-//   // Convert readingTime to number
-//   // const readingTimeMinutes = !frontMatter.readingTime
-//   //   ? 0
-//   //   : typeof frontMatter.readingTime === 'number'
-//   //     ? frontMatter.readingTime
-//   //     : 0;
-
-//   // Format tanggal
-//   const formattedDate = new Date(frontMatter.date).toLocaleDateString('en-US', {
-//     month: 'long',
-//     day: 'numeric',
-//     year: 'numeric',
-//   });
-
-//   // Fetch initial views
-//   useEffect(() => {
-//     const fetchViews = async () => {
-//       try {
-//         const res = await fetch(`/api/page-views/?slug=${frontMatter.slug}`);
-//         const data = await res.json();
-//         // Pastikan kita mendapatkan number
-//         if (typeof data.views === 'number') {
-//           setViews(data.views);
-//         } else if (
-//           typeof data.views === 'object' &&
-//           data.views[frontMatter.slug]
-//         ) {
-//           setViews(data.views[frontMatter.slug]);
-//         } else {
-//           setViews(0);
-//         }
-//       } catch (error) {
-//         console.error('Failed to fetch views:', error);
-//         setViews(0);
-//       }
-//     };
-
-//     fetchViews();
-//   }, [frontMatter.slug]);
-
-//   // Increment view once
-//   useEffect(() => {
-//     const incrementView = async () => {
-//       if (viewIncrementedRef.current) return;
-//       viewIncrementedRef.current = true;
-
-//       try {
-//         const res = await fetch('/api/page-views', {
-//           method: 'POST',
-//           headers: {
-//             'Content-Type': 'application/json',
-//           },
-//           body: JSON.stringify({
-//             slug: frontMatter.slug,
-//           }),
-//         });
-
-//         if (res.ok) {
-//           const data = await res.json();
-//           setViews(data.views);
-//         }
-//       } catch (error) {
-//         console.error('Failed to increment view:', error);
-//       }
-//     };
-
-//     incrementView();
-//   }, [frontMatter.slug]);
-
-//   const breadcrumbItems: BreadcrumbItem[] = [
-//     { label: 'Blog', href: '/blog' },
-//     {
-//       label: frontMatter.category,
-//       href: `/blog/${frontMatter.category.toLowerCase()}`,
-//     },
-//     { label: frontMatter.title },
-//   ];
-
 import React, { useEffect, useState, useRef } from 'react';
 import { GetStaticProps, GetStaticPaths } from 'next';
 import { MDXRemote } from 'next-mdx-remote';
 import Layout from '@/components/layout/Layout';
-import { getPostBySlug, getAllPostSlugs, getAllPosts } from '@/lib/mdx';
+import { getPostBySlug, getAllPosts } from '@/lib/mdx';
 import { MDXComponents } from '@/components/blog/BlogContent';
 import Accent from '@/components/shared/Accent';
 import SEO from '@/components/shared/SEO';
@@ -190,11 +15,14 @@ import TableOfContents from '@/components/blog/TableOfContents';
 import RelatedArticles from '@/components/blog/RelatedArticles';
 import Comments from '@/components/Comments';
 import Breadcrumb from '@/components/shared/Breadcrumb';
-import clsx from 'clsx';
+
 import { HiOutlineEye, HiOutlineClock } from 'react-icons/hi';
 import Link from 'next/link';
 import ArticleNewsletterPopup from '@/components/blog/ArticleNewsletterPopup';
 import { usePageViews } from '@/lib/hooks/usePageViews';
+import { useTranslation } from 'next-i18next';
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
+import { useRouter } from 'next/router';
 
 interface FrontMatter extends Omit<BlogPost, 'readingTime'> {
   readingTime?: number;
@@ -237,11 +65,12 @@ export default function BlogPost({
   mdxSource,
   allPosts,
 }: BlogPostProps) {
+  const { t } = useTranslation('common');
+  const router = useRouter();
   const [headings, setHeadings] = useState<
     Array<{ id: string; title: string; level: number }>
   >([]);
   const articleContentRef = useRef<HTMLDivElement>(null);
-  const [] = useState(false);
   const views = usePageViews(frontMatter.slug, true);
 
   // Extract headings from content
@@ -290,19 +119,50 @@ export default function BlogPost({
     <Layout>
       <SEO
         templateTitle={frontMatter.title}
-        description={
-          frontMatter.excerpt ||
-          `${frontMatter.title} - Article by ${frontMatter.author}`
-        }
-        banner={frontMatter.featuredImage}
+        description={frontMatter.description || frontMatter.excerpt}
+        canonical={`https://alkindivv.site/blog/${frontMatter.category}/${frontMatter.slug}`}
         isBlog={true}
         date={frontMatter.date}
-        category={frontMatter.category}
         tags={frontMatter.tags}
-        readingTime={frontMatter.readingTime}
+        openGraph={{
+          type: 'article',
+          title: frontMatter.title,
+          description: frontMatter.description || frontMatter.excerpt,
+          images: [
+            {
+              url:
+                frontMatter.featuredImage ||
+                'https://alkindivv.site/images/default.png',
+            },
+          ],
+          article: {
+            publishedTime: frontMatter.date,
+            authors: [frontMatter.author],
+            tags: frontMatter.tags,
+          },
+        }}
+        twitter={{
+          card: 'summary_large_image',
+          title: frontMatter.title,
+          description: frontMatter.description || frontMatter.excerpt,
+          images: [
+            frontMatter.featuredImage ||
+              'https://alkindivv.site/images/default.png',
+          ],
+        }}
       />
+      <main className="content-spacing">
+        {/* Tampilkan pesan fallback jika konten menggunakan bahasa lain */}
+        {frontMatter.isFallback && (
+          <div className="fixed top-0 left-0 right-0 bg-emerald-500/10 text-emerald-400 py-2 px-4 text-center text-sm z-50">
+            {t('blog.fallback.message', {
+              targetLang: router.locale === 'id' ? 'Indonesia' : 'English',
+              sourceLang:
+                frontMatter.originalLocale === 'id' ? 'Indonesia' : 'English',
+            })}
+          </div>
+        )}
 
-      <main className={clsx('content-spacing')}>
         {/* Hero Banner - Optimize dengan priority loading */}
         <div className="relative h-[30vh] md:h-[40vh] w-screen -mx-[calc((100vw-100%)/2)] overflow-hidden">
           <div className="absolute inset-0 transform scale-110">
@@ -436,7 +296,7 @@ export default function BlogPost({
                       href={`/blog/tag/${tag.toLowerCase()}`}
                       className="px-4 py-1.5 text-xs tracking-wide bg-[#0d1117]/80 hover:bg-emerald-500/10 text-gray-400 hover:text-emerald-400 rounded-full border border-white/5 hover:border-emerald-500/20 transition-all duration-300"
                     >
-                      #{tag}
+                      #{t(`blog.tags.${tag.toLowerCase()}`)}
                     </Link>
                   ))}
                 </div>
@@ -587,18 +447,40 @@ export default function BlogPost({
   );
 }
 
-export const getStaticPaths: GetStaticPaths = async () => {
-  const paths = await getAllPostSlugs();
+export const getStaticPaths: GetStaticPaths = async ({
+  locales = ['en', 'id'],
+}) => {
+  const paths = [];
+
+  for (const locale of locales) {
+    const allPosts = await getAllPosts(locale);
+    const localePaths = allPosts.map((post) => ({
+      params: {
+        category: post.category,
+        slug: post.slug,
+      },
+      locale,
+    }));
+    paths.push(...localePaths);
+  }
+
   return {
     paths,
     fallback: false,
   };
 };
 
-export const getStaticProps: GetStaticProps = async ({ params }) => {
+export const getStaticProps: GetStaticProps = async ({
+  params,
+  locale = 'id',
+}) => {
   const { category, slug } = params as { category: string; slug: string };
-  const { frontMatter, mdxSource } = await getPostBySlug(category, slug);
-  const allPosts = await getAllPosts();
+  const { frontMatter, mdxSource } = await getPostBySlug(
+    category,
+    slug,
+    locale
+  );
+  const allPosts = await getAllPosts(locale);
 
   const enhancedFrontMatter = {
     ...frontMatter,
@@ -610,6 +492,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
       frontMatter: enhancedFrontMatter,
       mdxSource,
       allPosts,
+      ...(await serverSideTranslations(locale, ['common'])),
     },
     revalidate: 60 * 60, // Revalidate setiap 1 jam
   };

@@ -5,235 +5,87 @@ import { HiSearch, HiChevronRight, HiX } from 'react-icons/hi';
 import clsx from 'clsx';
 import Image from 'next/image';
 import Accent from '@/components/shared/Accent';
+import { useTranslation } from 'next-i18next';
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
+import { GetStaticProps } from 'next';
 
-// Data istilah hukum
-const legalTerms = [
-  // PERSEROAN TERBATAS
-  {
-    term: 'Perseroan Terbatas (PT)',
-    definition:
-      'Badan hukum yang merupakan persekutuan modal, didirikan berdasarkan perjanjian antar 2 orang atau lebih dan melakukan kegiatan usaha dengan modal dasar yang seluruhnya terbagi dalam saham, dan saham-saham tersebut hanya dimiliki oleh orang-orang tertentu atau terdekat saja seperti saudara atau keluarga',
-    tags: ['Hukum Perusahaan', 'Badan Hukum', 'Toha'],
-  },
-  {
-    term: 'Perseroan Terbuka (Tbk)',
-    definition:
-      'Badan Hukum yang  sudah melakukan IPO sehingga sahamnya dapat dibeli dan dimilikioleh publik',
-    tags: ['Hukum Perusahaan', 'Badan Hukum'],
-  },
+interface LegalTerm {
+  term: string;
+  definition: string;
+  tags: string[];
+  example?: string;
+}
 
-  {
-    term: 'Badan Usaha Milik Negara (BUMN) ',
-    definition:
-      'adalah suatu perusahaan yang sebagaian besar sahamanya atau seluruhnya dimiliki oleh Negara, dan segala keuntungan dianggap sebagai pendapatan Negara, begitupun dengan kerugiannya yang dianggap sebagai kerugian Negara',
-    tags: ['Hukum Perusahaan, Badan Hukum'],
-  },
+const GlossaryPage = () => {
+  const { t } = useTranslation('common');
 
-  {
-    term: 'Perusahaan Jawatan (Perjan)',
-    definition:
-      'adalah Perusahaan Badan Usaha Milik Negara (BUMN) yang bergerak dibidang penyediaan jasa masyarakat dan tujuan kegiatan usahanya tidak mengutamakan keuntungan',
-    tags: ['Hukum Perusahaan, Badan Hukum'],
-  },
+  const legalTerms = useMemo<LegalTerm[]>(
+    () =>
+      [
+        {
+          term: 'pt',
+          definition: t('glossary.content.terms.pt.definition'),
+          tags: ['corporate_law', 'legal_entity'],
+        },
+        {
+          term: 'tbk',
+          definition: t('glossary.content.terms.tbk.definition'),
+          tags: ['corporate_law', 'legal_entity'],
+        },
+        {
+          term: 'bumn',
+          definition: t('glossary.content.terms.bumn.definition'),
+          tags: ['corporate_law', 'state_owned'],
+        },
+        {
+          term: 'perjan',
+          definition: t('glossary.content.terms.perjan.definition'),
+          tags: ['corporate_law', 'state_owned'],
+        },
+        {
+          term: 'perum',
+          definition: t('glossary.content.terms.perum.definition'),
+          tags: ['corporate_law', 'state_owned'],
+        },
+        {
+          term: 'persero',
+          definition: t('glossary.content.terms.persero.definition'),
+          tags: ['corporate_law', 'state_owned'],
+        },
+        {
+          term: 'rups',
+          definition: t('glossary.content.terms.rups.definition'),
+          tags: ['corporate_law'],
+        },
+        {
+          term: 'merger',
+          definition: t('glossary.content.terms.merger.definition'),
+          example: t('glossary.content.terms.merger.example'),
+          tags: ['corporate_law', 'ma', 'restructuring'],
+        },
+      ].sort((a, b) =>
+        t(`glossary.content.terms.${a.term}.title`).localeCompare(
+          t(`glossary.content.terms.${b.term}.title`)
+        )
+      ),
+    [t]
+  );
 
-  {
-    term: 'Perusahaan Umum (Perum)',
-    definition:
-      'adalah Perusahaan Badan Usaha Milik Negara (BUMN) yang bergerak di bidang palayanan bagi kemanfaatan masyarakat umum',
-    tags: ['Hukum Perusahaan, Badan Hukum'],
-  },
+  // Generate unique tags from legal terms
+  const uniqueTags = useMemo(
+    () => Array.from(new Set(legalTerms.flatMap((term) => term.tags))).sort(),
+    [legalTerms]
+  );
 
-  {
-    term: 'Perusahaan Perseroan (Persero)',
-    definition:
-      'adalah Perusahaan Badan Usaha Milik Negara (BUMN) yang bergerak disektor swasta dan koperasi dan diutamakan dalam kegiatan usaha untuk mendapatkan keuntungan',
-    tags: ['Hukum Perusahaan, Badan Hukum'],
-  },
+  // Generate alphabet array A-Z plus #
+  const alphabet = useMemo(() => {
+    const letters = Array.from({ length: 26 }, (_, i) =>
+      String.fromCharCode(65 + i)
+    );
+    letters.push('#');
+    return letters;
+  }, []);
 
-  {
-    term: 'Rapat Umum Pemegang Saham (RUPS)',
-    definition:
-      'adalah salah satu organ perusahaan yang mempunyai kekuasaan tertinggi dalam sebuah perusahaan, RUPS terdiri dari RUPS Biasa (Tahunan) dan RUPS luar biasa ',
-    tags: ['Hukum Perusahaan, Badan Hukum'],
-  },
-
-  {
-    term: 'Direksi (Director)',
-    definition:
-      'adalah merupakan organ perusahaan yang memiliki tugas dan wewenang untuk mengatur jalannya perusahaan dan bertindak untuk mewakili perusahaan baik di dalam maupun diluar persidangan',
-    tags: ['Hukum Perusahaan'],
-  },
-
-  {
-    term: 'Komisaris',
-    definition:
-      'adalah organ perusahaan yang bertugas untuk mengawasi direksi perusahaan dalam menjalankan tugasnya, dan bertanggung jawab kapada Rapat Umum Pemegang Saham (RUPS)',
-    tags: ['Hukum Perusahaan'],
-  },
-
-  // MERGER & AKUSISI
-
-  {
-    term: 'Merger (Penggabungan)',
-    definition:
-      'Perbuatan hukum yang dilakukan oleh satu perseroan atau lebih untuk menggabungkan diri dengan perseroan lain yang telah ada dan selanjutnya perseroan yang menggabungkan diri menjadi bubar.',
-    example:
-      'Merger antara Gojek dan Tokopedia pada tahun 2021 membentuk GoTo Group. Dalam proses ini, kedua perusahaan menggabungkan operasional, aset, dan struktur organisasi mereka menjadi satu entitas baru.',
-    tags: ['Merger & Akuisisi', 'Restrukturisasi'],
-  },
-
-  {
-    term: 'Akuisisi (Pengambilalihan)',
-    definition:
-      'yaitu merupakan suatu strategi bisnis untuk mengambil alih kontrol terhadap suatu PT yaitu dengan cara mengakuisisi saham ataupun aset dari PT sebuah PT, dalam proses Akuisis PT yang saham atau asetnya diakuisisi akan tetap exist dan menjalankan kegiatan usahanya sama seperti sebelumnya, yang berubah hanya kontrol atas PT tersebut',
-    tags: ['Hukum Perusahaan', 'M&A'],
-    example:
-      'PT A memgakuisisi saham PT B sebesar 60% sehingga mengakibatkan berpindahnya kontrol terhadap PT B tersebut kepada PT A',
-  },
-
-  {
-    term: 'Konsilidasi (Peleburan)',
-    definition:
-      'pada prinsipnya secara definsi hampir sama dengan Merger (Penggabungan) namun dalam hal ini Konsilidasi adalah bergabungnya 2 (dua) atau lebih aktiva dan pasiva perusahaan dan kemudian menciptakan suatu entitas/perusahaan baru, dan setelahnya dua perusahaan atau lebih yang menggabungkan diri tersebut dianggap bubar demi hukum baik dengan atau tanpa likuidasi ',
-    tags: ['Hukum Perusahaan', 'M&A'],
-    example:
-      'PT A dan PT B bergabung sehingga membentuk PT baru yaitu PT C, dan kemudian PT A dan B menjadi bubar',
-  },
-
-  {
-    term: 'Spin-off (Pemisahan)',
-    definition:
-      'suatu perbuatan hukum yang dilakukan oleh PT untuk memisahkan usahanya yang mengakibatkan seluruh atau sebagian aktiva dan pasivanya beralih ke 2 (dua) atau lebih PT, jika seluruh aktiva dan pasiva tersebut beralih ke 2 PT atau lebih maka perusahaan yang melakukan spin-off tersebut akan bubar, namun jika hanya sebagian aktiva dan pasiva yang beralhi ke 2 atau lebih PT maka perusahaan yang melakukan spin-off tersebut akan tetap eksis.',
-    tags: [''],
-    example: '',
-  },
-
-  {
-    term: 'Laverage Buyouts (LBO) ',
-    definition:
-      'LBO merupakan salah satu variasi dari akuisisi yaitu dengan cara membeli suatu perusahaan yang kemudian perusahaan tersebut diperbaiki secara keseluruhan baik dari struktur organisasi, kegiatan usaha dll. dan kemudian setelah perusahaan itu diperbaiki/dipermak maka selanjutnya perusahaan tersebut kepada pihak ketiga. kegiatan LBO ini sering disebut sebagai pancaplokan perusahaan (Corporade Raiders)',
-    tags: ['Hukum Perusahaan', 'M&A'],
-    example:
-      'PT A membeli PT B yang sedang mengalami berbagai masalah dan kemudian seluruh permasalahan tersebut diperbaiki oleh PT A, setelah dirasa cukup dan sudah tidak memiliki masalah maka selanjutnya PT A menjual PT B tersebut kepada pihak ke-3',
-  },
-  {
-    term: 'Management Buyouts (MBO) ',
-    definition:
-      'MBO ini secara prinsip segala prosesnya sama dengan LBO, yang membedakan adalah dalam MBO yang melakukan pembelian terhadap PT yang bermasalah tersebut adalah pihak management dari PT itu sendiri baik PT yang sedang ia pimpin ataupun PT dalam 1 grup dengan PT yang dipimpinnya',
-    tags: ['Hukum Perusahaan', 'M&A'],
-  },
-
-  {
-    term: 'Laverage Buyouts (LBO) ',
-    definition:
-      'LBO merupakan salah satu variasi dari akuisisi yaitu dengan cara membeli suatu perusahaan yang kemudian perusahaan tersebut diperbaiki secara keseluruhan baik dari struktur organisasi, kegiatan usaha dll. dan kemudian setelah perusahaan itu diperbaiki/dipermak maka selanjutnya perusahaan tersebut kepada pihak ketiga. kegiatan LBO ini sering disebut sebagai pancaplokan perusahaan (Corporade Raiders)',
-    tags: ['Hukum Perusahaan', 'M&A'],
-    example:
-      'PT A membeli PT B yang sedang mengalami berbagai masalah dan kemudian seluruh permasalahan tersebut diperbaiki oleh PT A, setelah dirasa cukup dan sudah tidak memiliki masalah maka selanjutnya PT A menjual PT B tersebut kepada pihak ke-3',
-  },
-
-  {
-    term: 'Monopoli',
-    definition:
-      'Penguasaan atas produksi atau pemasaran barang atau pengguaan jasa tertentu yang hanya dilakukan oleh 1 (satu) pelaku usaha atau 1 (satu) kelompok pelaku usaha, sehingga menimbulkan suatu persaingan usaha yang tidak sehat dan merugikan kepentingan umum akibat adanya pemusatan ekonomi yang dikuasai hanya oleh 1 (satu) pelaku usaha atau 1 (satu) kelompok pelaku usaha.',
-    tags: ['Hukum Perusahaan'],
-  },
-
-  {
-    term: 'Antitrust (Persaingan curang)',
-    definition:
-      'Persaingan antar pelaku usaha dalam menjalankan kegiatan produksi atau pemeasaran barang atau jasa uang dilakukan dengan cara-cara yang tidak jujur dan melawan hukum.',
-    tags: ['Hukum Perusahaan'],
-  },
-
-  // HUKUM KEPAILITAN
-
-  {
-    term: 'Kepailitan',
-    definition:
-      'Suatu keadaan di mana debitor tidak mampu untuk melakukan pembayaran terhadap utang-utang dari para kreditornya.',
-    example:
-      'Kasus kepailitan PT Asuransi Jiwasraya pada tahun 2020, dimana perusahaan tidak mampu membayar klaim nasabah senilai triliunan rupiah, menyebabkan pengadilan menyatakan perusahaan pailit dan menunjuk kurator untuk mengelola aset-asetnya.',
-    tags: ['Hukum Kepailitan', 'Utang Piutang'],
-  },
-
-  {
-    term: 'Kurator (receiver)',
-    definition:
-      'Pengurus yang ditunjuk oleh Pengadilan Niaga untuk mengurus dan membereskan harta debitor yang telah dinyatakan pailit oleh Pengadilan Niaga.',
-    tags: ['Hukum Kepailitan'],
-  },
-  {
-    term: 'Kurator Sementara (interim receiver)',
-    definition:
-      'adalah pengurus sementara yang diangkat sebelum debitur dinyatakan pailit (tidak wajib), yang bertujuan untuk mengurus seluruh aset dan harta perusahaan yang akan pailit sehingga tidak disalahgunakan oleh debitur, dan setelah perusahaan dinyatakan pailit oleh pengadilan niaga maka kurator sementara ini akan digantikan olek kurator tetap',
-    tags: ['Hukum Kepailitan'],
-  },
-
-  // DOKUMEN ATAU SURAT HUKUM
-  {
-    term: 'Akta Notaris',
-    definition:
-      'Dokumen resmi yang dibuat oleh atau di hadapan notaris menurut bentuk dan tata cara yang ditetapkan oleh undang-undang.',
-    tags: ['Dokumen Hukum', 'Notaris'],
-  },
-
-  {
-    term: 'Force Majeure',
-    definition:
-      'Keadaan memaksa atau keadaan darurat yang terjadi di luar kendali para pihak yang mengakibatkan tidak dapat dipenuhinya suatu perjanjian.',
-    tags: ['Kontrak', 'Perjanjian'],
-  },
-
-  // PASAR MODAL
-  {
-    term: 'Initial Public Offering (IPO)',
-    definition:
-      'Penawaran saham suatu perusahaan kepada publik untuk pertama kalinya di pasar modal .',
-    tags: ['Pasar Modal', 'Saham'],
-  },
-
-  {
-    term: 'Emitem',
-    definition:
-      'merupakan perusahaan terbuka (PT tbk) yang sahamnya dapat diperjualbelikan oleh publik/masyarakat melalui pasar modal',
-    tags: [''],
-    example: '',
-  },
-
-  {
-    term: 'Legal Due Diligence (LDD)',
-    definition:
-      'Pemeriksaan aspek hukum perusahaan secara menyeluruh untuk mengidentifikasi potensi risiko hukum.',
-    tags: ['Audit', 'Compliance'],
-  },
-  {
-    term: 'Nominee',
-    definition:
-      'Pihak yang ditunjuk untuk bertindak atas nama pihak lain dalam kepemilikan saham atau aset.',
-    tags: ['Hukum Perusahaan', 'Kepemilikan'],
-  },
-
-  // {
-  //   term: '',
-  //   definition: '',
-  //   tags: [''],
-  //   example: '',
-  // },
-].sort((a, b) => a.term.localeCompare(b.term, 'id'));
-
-// Generate unique tags from legal terms
-const uniqueTags = Array.from(
-  new Set(legalTerms.flatMap((term) => term.tags))
-).sort();
-
-// Generate alphabet array A-Z plus #
-const alphabet = Array.from({ length: 26 }, (_, i) =>
-  String.fromCharCode(65 + i)
-);
-alphabet.push('#');
-
-export default function Glossary() {
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedLetter, setSelectedLetter] = useState('');
   const [selectedTags, setSelectedTags] = useState<string[]>([]);
@@ -261,7 +113,7 @@ export default function Glossary() {
 
       return matchesSearch && matchesLetter && matchesTags;
     });
-  }, [searchTerm, selectedLetter, selectedTags]);
+  }, [legalTerms, searchTerm, selectedLetter, selectedTags]);
 
   const handleTagSelect = (tag: string) => {
     setSelectedTags((prev) =>
@@ -269,6 +121,7 @@ export default function Glossary() {
     );
   };
 
+  // Reset filters
   const resetFilters = () => {
     setSearchTerm('');
     setSelectedLetter('');
@@ -276,10 +129,10 @@ export default function Glossary() {
   };
 
   return (
-    <Layout title="Legal Glossary | AL KINDI" isHomePage={false}>
+    <Layout title={`${t('glossary.title')} | AL KINDI`} isHomePage={false}>
       <SEO
-        templateTitle="Legal Glossary"
-        description="all legal terms used in Indonesia and worldwide."
+        templateTitle={t('glossary.title')}
+        description={t('glossary.meta.description')}
         canonical="https://alkindivv.site/glossary/"
       />
 
@@ -303,20 +156,21 @@ export default function Glossary() {
             width={1280}
             height={825}
             className="pointer-events-none select-none absolute w-full inset-0 h-[450px] object-cover z-[-1] opacity-40 mix-blend-overlay"
-            src=""
+            src="/images/glossary-bg.jpg"
           />
         </div>
 
         {/* Content */}
         <section className="min-h-screen pt-40 relative z-10">
           <div className="max-w-6xl mx-auto">
-            {/* Header */}
-            <div className="text-center space-y-4">
-              <h1 className="text-4xl md:text-5xl font-bold" data-fade="1">
-                Legal <span className="gradient-text">Glossary</span>
+            {/* Header Section */}
+            <div className="mt-14 relative space-y-4 text-center">
+              <h1 className="text-4xl md:text-5xl font-bold">
+                {t('glossary.title')}{' '}
+                <span className="gradient-text">{t('glossary.subtitle')}</span>
               </h1>
-              <p className="hero-text mx-auto" data-fade="2">
-                A comprehensive glossary of legal terms used in Indonesia.
+              <p className="hero-text max-w-2xl mx-auto">
+                {t('glossary.description')}
               </p>
             </div>
 
@@ -330,7 +184,7 @@ export default function Glossary() {
                     <div className="relative group">
                       <input
                         type="text"
-                        placeholder="Search keywords..."
+                        placeholder={t('glossary.search.placeholder')}
                         value={searchTerm}
                         onChange={(e) => setSearchTerm(e.target.value)}
                         className="w-full bg-[#0a0a0a] text-gray-200 rounded-xl px-12 py-3.5 outline-none
@@ -350,15 +204,16 @@ export default function Glossary() {
                   {searchTerm && (
                     <div className="mt-3 text-center">
                       <p className="text-sm text-gray-400">
-                        Found {filteredTerms.length} terms
-                        {filteredTerms.length !== 1 ? '' : ''}
+                        {t('glossary.search.results', {
+                          count: filteredTerms.length,
+                        })}
                       </p>
                       {filteredTerms.length > 0 && (
                         <button
                           onClick={() => setSearchTerm('')}
                           className="mt-2 text-xs text-emerald-500 hover:text-emerald-400 transition-colors"
                         >
-                          Clear search
+                          {t('glossary.content.clearSearch')}
                         </button>
                       )}
                     </div>
@@ -370,7 +225,7 @@ export default function Glossary() {
                   {/* Alphabet Filter */}
                   <div className="space-y-3">
                     <div className="text-sm font-semibold text-gray-200">
-                      Filter Huruf
+                      {t('glossary.filters.letters')}
                     </div>
                     <div className="flex flex-wrap gap-2">
                       {alphabet.map((letter) => (
@@ -382,7 +237,7 @@ export default function Glossary() {
                             )
                           }
                           className={clsx(
-                            'w-8 h-8 rounded-full flex items-center justify-center text-xs text-[#525252]transition-colors',
+                            'w-8 h-8 rounded-full flex items-center justify-center text-xs text-[#525252] transition-colors',
                             selectedLetter === letter
                               ? 'bg-emerald-500/10 text-[#525252] border border-emerald-500/20'
                               : 'text-[#525252] hover:text-emerald-400 hover:bg-emerald-500/5'
@@ -397,7 +252,7 @@ export default function Glossary() {
                   {/* Tags Filter */}
                   <div className="space-y-3 pt-4 border-t border-gray-800">
                     <div className="text-sm font-semibold text-gray-200">
-                      Filter Kategori
+                      {t('glossary.filters.categories')}
                     </div>
                     <div className="flex flex-wrap gap-2">
                       {uniqueTags.map((tag) => (
@@ -422,7 +277,7 @@ export default function Glossary() {
                 {(selectedTags.length > 0 || selectedLetter || searchTerm) && (
                   <div className="flex flex-wrap gap-2 items-center mb-8">
                     <span className="text-sm text-gray-400">
-                      Active Filters:
+                      {t('glossary.filters.active')}:
                     </span>
                     {selectedTags.map((tag) => (
                       <button
@@ -441,7 +296,7 @@ export default function Glossary() {
                         className="px-3 py-1 text-sm bg-emerald-500/10 text-emerald-400 rounded-full
                                hover:bg-emerald-500/20 transition-colors flex items-center gap-1"
                       >
-                        Huruf: {selectedLetter}
+                        {t('glossary.filters.letters')}: {selectedLetter}
                         <HiX className="w-3 h-3" />
                       </button>
                     )}
@@ -449,7 +304,7 @@ export default function Glossary() {
                       onClick={resetFilters}
                       className="text-sm text-gray-500 hover:text-emerald-400 transition-colors ml-auto"
                     >
-                      Reset All
+                      {t('glossary.filters.reset')}
                     </button>
                   </div>
                 )}
@@ -461,7 +316,7 @@ export default function Glossary() {
                   {/* Glossary Terms */}
                   <div className="space-y-4" data-fade="5">
                     {filteredTerms.map((item) => (
-                      <div key={item.term} className="group ">
+                      <div key={item.term} className="group">
                         <button
                           onClick={() =>
                             setExpandedTerm(
@@ -469,11 +324,11 @@ export default function Glossary() {
                             )
                           }
                           className="w-full flex items-center justify-between p-4 border border-gray-900
-                                  rounded-lg transition-colors text-left"
+                                  rounded-lg transition-colors text-left hover:bg-[#111111] hover:border-emerald-500/20"
                         >
                           <div className="space-y-1 pr-4">
                             <h3 className="text-base font-semibold tracking-wide text-gray-200 group-hover:text-emerald-400 transition-colors">
-                              {item.term}
+                              {t(`glossary.content.terms.${item.term}.title`)}
                             </h3>
                             <p
                               className={clsx(
@@ -483,11 +338,11 @@ export default function Glossary() {
                             >
                               {item.definition}
                             </p>
-                            {expandedTerm === item.term && (
+                            {expandedTerm === item.term && item.example && (
                               <div className="space-y-4 mt-3 pt-3 border-t border-gray-800">
                                 <div className="bg-transparent border border-transparent p-4">
                                   <h4 className="text-sm text-neutral-500 mb-2">
-                                    example
+                                    {t('glossary.content.example')}
                                   </h4>
                                   <p className="text-sm text-neutral-400 leading-relaxed">
                                     {item.example}
@@ -499,7 +354,7 @@ export default function Glossary() {
                                       key={tag}
                                       className="px-2 py-1 text-xs font-sans tracking-wide bg-transparent font-medium text-neutral-500 rounded"
                                     >
-                                      {tag}
+                                      {t(`glossary.tags.${tag.toLowerCase()}`)}
                                     </span>
                                   ))}
                                 </div>
@@ -520,7 +375,7 @@ export default function Glossary() {
                     {filteredTerms.length === 0 && (
                       <div className="text-center py-12 transition-opacity duration-200">
                         <p className="">
-                          <Accent>No results found</Accent>
+                          <Accent>{t('glossary.content.noResults')}</Accent>
                         </p>
                       </div>
                     )}
@@ -536,7 +391,7 @@ export default function Glossary() {
                     {/* Alphabet Filter */}
                     <div className="space-y-3">
                       <div className="text-sm font-semibold text-gray-200">
-                        Filter Huruf
+                        {t('glossary.filters.letters')}
                       </div>
                       <div className="flex flex-wrap gap-2">
                         {alphabet.map((letter) => (
@@ -548,7 +403,7 @@ export default function Glossary() {
                               )
                             }
                             className={clsx(
-                              'w-8 h-8 rounded-full flex items-center justify-center text-xs text-[#525252]transition-colors',
+                              'w-8 h-8 rounded-full flex items-center justify-center text-xs text-[#525252] transition-colors',
                               selectedLetter === letter
                                 ? 'bg-emerald-500/10 text-[#525252] border border-emerald-500/20'
                                 : 'text-[#525252] hover:text-emerald-400 hover:bg-emerald-500/5'
@@ -563,7 +418,7 @@ export default function Glossary() {
                     {/* Tags Filter */}
                     <div className="space-y-3 pt-4 border-t border-gray-800">
                       <div className="text-sm font-semibold text-gray-200">
-                        Filter Kategori
+                        {t('glossary.filters.categories')}
                       </div>
                       <div className="flex flex-wrap gap-2">
                         {uniqueTags.map((tag) => (
@@ -591,4 +446,14 @@ export default function Glossary() {
       </main>
     </Layout>
   );
-}
+};
+
+export const getStaticProps: GetStaticProps = async ({ locale }) => {
+  return {
+    props: {
+      ...(await serverSideTranslations(locale || 'id', ['common'])),
+    },
+  };
+};
+
+export default GlossaryPage;

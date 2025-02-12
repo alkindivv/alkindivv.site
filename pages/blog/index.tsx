@@ -10,8 +10,10 @@ import clsx from 'clsx';
 import { getAllPosts } from '@/lib/mdx';
 import { BlogPost } from '@/types/blog';
 import SEO from '@/components/shared/SEO';
-import HighlightedText from '@/components/shared/HighlightedText';
+
 import Image from 'next/image';
+import { useTranslation } from 'next-i18next';
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 // import Link from 'next/link';
 // import { usePageViews } from '@/lib/hooks/usePageViews';
 
@@ -27,27 +29,24 @@ const POSTS_PER_PAGE = 9;
 const topics = [
   'law',
   'corporate',
-  'restructuring & bankruptcy',
-  'capital market',
-  'merger & acquisition',
-  'competition & antitrust',
-  'banking & finance',
-  'investment law',
-  'foreign direct investment',
-  'intellectual property',
-  'labor law',
-  'energy, oil & gas',
-  'real estate',
+  'restructuring',
+  'capital_market',
+  'merger',
+  'competition',
+  'banking',
+  'investment',
+  'fdi',
+  'ip',
+  'labor',
+  'energy',
+  'real_estate',
   'tax',
   'litigation',
-  'dispute resolution',
-  'alternative dispute resolution',
+  'dispute',
+  'adr',
   'cryptocurrency',
-  // 'airdrop',
-  // 'retro',
-  // 'testnet',
   'blockchain',
-  'smart contract',
+  'smart_contract',
   'hackintosh',
   'macos',
 ];
@@ -63,18 +62,24 @@ interface BlogPageProps {
 // }
 
 const BlogPage: React.FC<BlogPageProps> = ({ blogPosts }) => {
-  const [selectedTopic, setSelectedTopic] = useState<string | null>(null);
+  const { t } = useTranslation('common');
+  const [selectedTopics, setSelectedTopics] = useState<string[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [searchQuery, setSearchQuery] = useState('');
   const [isLoaded, setIsLoaded] = useState(false);
 
   const handleTopicClick = (topic: string) => {
-    setSelectedTopic(selectedTopic === topic ? null : topic);
+    setSelectedTopics((prev) => {
+      if (prev.includes(topic)) {
+        return prev.filter((t) => t !== topic);
+      }
+      return [...prev, topic];
+    });
     setCurrentPage(1);
   };
 
   const checkTagged = (tag: string) => {
-    return selectedTopic === tag.toLowerCase();
+    return selectedTopics.includes(tag.toLowerCase());
   };
 
   const filteredPosts = blogPosts
@@ -89,9 +94,11 @@ const BlogPage: React.FC<BlogPageProps> = ({ blogPosts }) => {
         .toLowerCase();
       const matchesSearch = searchContent.includes(searchQuery.toLowerCase());
       const topicMatch =
-        !selectedTopic ||
-        post.tags?.some(
-          (tag) => tag.toLowerCase() === selectedTopic.toLowerCase()
+        selectedTopics.length === 0 ||
+        selectedTopics.every((selectedTopic) =>
+          post.tags?.some(
+            (tag) => tag.toLowerCase() === selectedTopic.toLowerCase()
+          )
         );
 
       return matchesSearch && topicMatch;
@@ -123,7 +130,7 @@ const BlogPage: React.FC<BlogPageProps> = ({ blogPosts }) => {
 
   return (
     <Layout>
-      <SEO templateTitle="Blog" />
+      <SEO templateTitle={t('navigation.blog')} />
 
       {/* Background Effect */}
       <div
@@ -158,10 +165,11 @@ const BlogPage: React.FC<BlogPageProps> = ({ blogPosts }) => {
             {/* Header Section */}
             <div className="mt-0 relative space-y-2 text-center" data-fade="1">
               <h1 className="text-4xl md:text-6xl font-bold tracking-tight leading-tight">
-                Personal <span className="gradient-text">Blog</span>
+                Personal{' '}
+                <span className="gradient-text">{t('navigation.blog')}</span>
               </h1>
               <p className="text-sm md:text-lg hero-text max-w-2xl mx-auto">
-                Thoughts, Insights, and Opinions about Law, Tech, and Crypto
+                {t('blog.subtitle')}
               </p>
               <div className=" h-px max-w-md mx-auto bg-gradient-to-r from-transparent via-gray-800 to-transparent" />
             </div>
@@ -172,7 +180,7 @@ const BlogPage: React.FC<BlogPageProps> = ({ blogPosts }) => {
                 <div className="relative">
                   <input
                     type="text"
-                    placeholder="Search articles..."
+                    placeholder={t('blog.search.placeholder')}
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
                     className="w-full bg-[#111111] text-neutral-200 rounded-xl px-12 py-3
@@ -188,7 +196,8 @@ const BlogPage: React.FC<BlogPageProps> = ({ blogPosts }) => {
                 </div>
                 {searchQuery && (
                   <p className="mt-3 text-sm text-gray-400 text-center">
-                    Found {filteredPosts.length} article
+                    {t('blog.search.results')} {filteredPosts.length}{' '}
+                    {t('blog.article.notfound')}
                     {filteredPosts.length !== 1 ? 's' : ''}
                   </p>
                 )}
@@ -199,7 +208,7 @@ const BlogPage: React.FC<BlogPageProps> = ({ blogPosts }) => {
             <div className="mt-6 mb-8" data-fade="3">
               <div className="flex flex-wrap gap-2 items-center">
                 <span className="text-xs md:text-sm text-neutral-50 mr-2">
-                  choose topic:
+                  {t('blog.topics.choose')}
                 </span>
                 {topics.map((topic) => (
                   <button
@@ -207,15 +216,50 @@ const BlogPage: React.FC<BlogPageProps> = ({ blogPosts }) => {
                     onClick={() => handleTopicClick(topic)}
                     className={clsx(
                       'px-1.5 py-1 text-xs rounded-lg md:text-sm transition-all duration-300',
-                      selectedTopic === topic
-                        ? 'border-emerald-500 text-neutral-50 bg-emerald-500/10'
-                        : ' bg-[#17171799] font-medium text-[#7e7e7e] hover:text-neutral-50'
+                      selectedTopics.includes(topic)
+                        ? 'bg-emerald-500/10 text-neutral-50 '
+                        : 'bg-[#17171799] text-[#7e7e7e] hover:text-neutral-200 '
                     )}
                   >
-                    <HighlightedText text={topic} searchQuery={searchQuery} />
+                    {t(`blog.topics.list.${topic}`)}
                   </button>
                 ))}
               </div>
+
+              {/* Active Filters */}
+              {selectedTopics.length > 0 && (
+                <div className="mt-4 flex items-center gap-2" data-fade="4">
+                  <span className="text-xs md:text-sm text-neutral-50">
+                    {t('blog.filters.active')}:
+                  </span>
+                  <div className="flex flex-wrap items-center gap-2">
+                    {selectedTopics.map((topic) => (
+                      <span
+                        key={topic}
+                        className="px-2 py-1 text-xs rounded-lg bg-emerald-500/10 text-emerald-400 flex items-center gap-1"
+                      >
+                        {t(`blog.topics.list.${topic}`)}
+                        <button
+                          onClick={() =>
+                            setSelectedTopics((prev) =>
+                              prev.filter((t) => t !== topic)
+                            )
+                          }
+                          className="ml-1 hover:text-emerald-300"
+                        >
+                          ×
+                        </button>
+                      </span>
+                    ))}
+                    <button
+                      onClick={() => setSelectedTopics([])}
+                      className="text-xs text-neutral-400 hover:text-emerald-400 transition-colors"
+                    >
+                      {t('blog.filters.reset')}
+                    </button>
+                  </div>
+                </div>
+              )}
             </div>
 
             {/* Controls Section */}
@@ -299,11 +343,11 @@ const BlogPage: React.FC<BlogPageProps> = ({ blogPosts }) => {
               ) : (
                 <div className="col-span-full text-center py-10">
                   <h3 className="text-sm md:text-2xl 2xl:text-3xl font-bold mb-1">
-                    Sorry, <Accent>article not found</Accent>
+                    {t('blog.article.notfound')}{' '}
+                    <Accent>{t('blog.article.notfound')}</Accent>
                   </h3>
                   <p className="text-xs md:text-sm 2xl:text-base text-gray-400">
-                    No articles found for topic:{' '}
-                    <Accent>{selectedTopic}</Accent>
+                    {t('blog.article.notfound.description')}
                   </p>
                 </div>
               )}
@@ -366,11 +410,12 @@ const BlogPage: React.FC<BlogPageProps> = ({ blogPosts }) => {
   );
 };
 
-export const getStaticProps: GetStaticProps = async () => {
-  const blogPosts = await getAllPosts();
+export const getStaticProps: GetStaticProps = async ({ locale = 'id' }) => {
+  const blogPosts = await getAllPosts(locale);
   return {
     props: {
       blogPosts,
+      ...(await serverSideTranslations(locale, ['common'])),
     },
   };
 };

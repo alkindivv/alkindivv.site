@@ -10,147 +10,147 @@ import {
 } from 'react-icons/hi';
 import SEO from '@/components/shared/SEO';
 import clsx from 'clsx';
-
-// Data buku
-
-const resourceCategories = [
-  {
-    id: 'templates',
-    name: 'Legal Templates',
-    description: 'Professional legal document templates for various purposes',
-    icon: HiTemplate,
-    items: [
-      {
-        title: 'Corporate Documents',
-        description: 'Essential templates for corporate legal matters',
-        resources: [
-          {
-            name: 'Company Establishment Agreement',
-            type: 'DOCX',
-            size: '245 KB',
-            downloadUrl: '#',
-          },
-          {
-            name: 'Shareholders Agreement',
-            type: 'DOCX',
-            size: '180 KB',
-            downloadUrl: '#',
-          },
-        ],
-      },
-      {
-        title: 'Contract Templates',
-        description: 'Standard contract templates for business use',
-        resources: [
-          {
-            name: 'Service Agreement',
-            type: 'DOCX',
-            size: '156 KB',
-            downloadUrl: '#',
-          },
-          {
-            name: 'NDA Template',
-            type: 'DOCX',
-            size: '120 KB',
-            downloadUrl: '#',
-          },
-        ],
-      },
-    ],
-  },
-  {
-    id: 'forms',
-    name: 'Legal Forms',
-    description: 'Ready-to-use legal forms and filing documents',
-    icon: HiDocumentText,
-    items: [
-      {
-        title: 'Corporate Filing Forms',
-        description: 'Standard forms for corporate legal compliance',
-        resources: [
-          {
-            name: 'Annual Report Form',
-            type: 'DOCX',
-            size: '180 KB',
-            downloadUrl: '#',
-          },
-          {
-            name: 'Board Resolution Form',
-            type: 'DOCX',
-            size: '150 KB',
-            downloadUrl: '#',
-          },
-          {
-            name: 'Share Transfer Form',
-            type: 'DOCX',
-            size: '120 KB',
-            downloadUrl: '#',
-          },
-        ],
-      },
-      {
-        title: 'Legal Compliance Forms',
-        description: 'Essential forms for legal compliance and reporting',
-        resources: [
-          {
-            name: 'Due Diligence Checklist',
-            type: 'DOCX',
-            size: '200 KB',
-            downloadUrl: '#',
-          },
-          {
-            name: 'Compliance Report Template',
-            type: 'DOCX',
-            size: '175 KB',
-            downloadUrl: '#',
-          },
-          {
-            name: 'Legal Audit Form',
-            type: 'DOCX',
-            size: '190 KB',
-            downloadUrl: '#',
-          },
-        ],
-      },
-    ],
-  },
-  {
-    id: 'courses',
-    name: 'Online Courses',
-    description: 'Professional development courses in legal practice',
-    icon: HiAcademicCap,
-    items: [
-      {
-        title: 'Legal Practice',
-        description: 'Enhance your legal practice skills',
-        resources: [
-          {
-            name: 'Capital Market Professional Course',
-            provider: 'HKHPM',
-            duration: '3 months',
-            link: '#',
-          },
-          {
-            name: 'Legal Auditor Certification',
-            provider: 'ASAHI',
-            duration: '6 months',
-            link: '#',
-          },
-        ],
-      },
-    ],
-  },
-];
+import { useTranslation } from 'next-i18next';
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
+import { GetStaticProps } from 'next';
 
 // Halaman Resources
-export default function ResourcesPage() {
+const ResourcesPage = () => {
+  const { t } = useTranslation('common');
   const [activeCategory, setActiveCategory] = useState('templates');
 
+  const resourceCategories = [
+    {
+      id: 'templates',
+      name: t('resources.categories.templates.name'),
+      description: t('resources.categories.templates.description'),
+      icon: HiTemplate,
+      items: [
+        {
+          title: t('resources.categories.templates.sections.corporate.title'),
+          description: t(
+            'resources.categories.templates.sections.corporate.description'
+          ),
+          resources: [
+            {
+              name: 'Company Establishment Agreement',
+              type: 'DOCX',
+              size: '245 KB',
+              downloadUrl: '#',
+            },
+            {
+              name: 'Shareholders Agreement',
+              type: 'DOCX',
+              size: '180 KB',
+              downloadUrl: '#',
+            },
+          ],
+        },
+        {
+          title: t('resources.categories.templates.sections.contracts.title'),
+          description: t(
+            'resources.categories.templates.sections.contracts.description'
+          ),
+          resources: [
+            {
+              name: 'Service Agreement',
+              type: 'DOCX',
+              size: '156 KB',
+              downloadUrl: '#',
+            },
+            {
+              name: 'NDA Template',
+              type: 'DOCX',
+              size: '120 KB',
+              downloadUrl: '#',
+            },
+          ],
+        },
+      ],
+    },
+    {
+      id: 'forms',
+      name: t('resources.categories.forms.name'),
+      description: t('resources.categories.forms.description'),
+      icon: HiDocumentText,
+      items: [
+        {
+          title: t('resources.categories.forms.sections.corporate.title'),
+          description: t(
+            'resources.categories.forms.sections.corporate.description'
+          ),
+          resources: [
+            {
+              name: 'Annual Report Form',
+              type: 'DOCX',
+              size: '180 KB',
+              downloadUrl: '#',
+            },
+            {
+              name: 'Board Resolution Form',
+              type: 'DOCX',
+              size: '150 KB',
+              downloadUrl: '#',
+            },
+          ],
+        },
+        {
+          title: t('resources.categories.forms.sections.compliance.title'),
+          description: t(
+            'resources.categories.forms.sections.compliance.description'
+          ),
+          resources: [
+            {
+              name: 'Due Diligence Checklist',
+              type: 'DOCX',
+              size: '200 KB',
+              downloadUrl: '#',
+            },
+            {
+              name: 'Compliance Report Template',
+              type: 'DOCX',
+              size: '175 KB',
+              downloadUrl: '#',
+            },
+          ],
+        },
+      ],
+    },
+    {
+      id: 'courses',
+      name: t('resources.categories.courses.name'),
+      description: t('resources.categories.courses.description'),
+      icon: HiAcademicCap,
+      items: [
+        {
+          title: t('resources.categories.courses.sections.practice.title'),
+          description: t(
+            'resources.categories.courses.sections.practice.description'
+          ),
+          resources: [
+            {
+              name: 'Capital Market Professional Course',
+              provider: 'HKHPM',
+              duration: '3 months',
+              link: '#',
+            },
+            {
+              name: 'Legal Auditor Certification',
+              provider: 'ASAHI',
+              duration: '6 months',
+              link: '#',
+            },
+          ],
+        },
+      ],
+    },
+  ];
+
   return (
-    <Layout title="Legal Resources | AL KINDI" isHomePage={false}>
+    <Layout title={`${t('resources.title')} | AL KINDI`} isHomePage={false}>
       <SEO
-        templateTitle="Legal Resources"
-        description="Access professional legal resources, templates, and educational materials for legal practitioners and business professionals."
+        templateTitle={t('resources.title')}
+        description={t('resources.meta.description')}
         canonical="https://alkindivv.site/resources/"
       />
 
@@ -183,10 +183,11 @@ export default function ResourcesPage() {
             {/* Header */}
             <div className="text-center space-y-4" data-fade="1">
               <h1 className="text-4xl md:text-5xl font-bold">
-                Legal <span className="gradient-text">Resources</span>
+                {t('resources.title')}{' '}
+                <span className="gradient-text">{t('resources.subtitle')}</span>
               </h1>
               <p className="hero-text max-w-2xl mx-auto">
-                Explore a complete repository of legal documents and resources
+                {t('resources.subtitle')}
               </p>
             </div>
 
@@ -280,12 +281,12 @@ export default function ResourcesPage() {
                                 {'downloadUrl' in resource ? (
                                   <>
                                     <HiDownload className="w-4 h-4" />
-                                    Download
+                                    {t('resources.actions.download')}
                                   </>
                                 ) : (
                                   <>
                                     <HiBookOpen className="w-4 h-4" />
-                                    View
+                                    {t('resources.actions.view')}
                                   </>
                                 )}
                               </a>
@@ -302,4 +303,14 @@ export default function ResourcesPage() {
       </main>
     </Layout>
   );
-}
+};
+
+export const getStaticProps: GetStaticProps = async ({ locale }) => {
+  return {
+    props: {
+      ...(await serverSideTranslations(locale || 'id', ['common'])),
+    },
+  };
+};
+
+export default ResourcesPage;

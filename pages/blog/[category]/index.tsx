@@ -15,6 +15,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { HiOutlineClock, HiOutlineEye } from 'react-icons/hi2';
 import { usePageViews } from '@/lib/hooks/usePageViews';
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 
 // Komponen untuk setiap post
 const BlogPostCard = ({ post }: { post: BlogPost }) => {
@@ -148,8 +149,8 @@ export default function CategoryPage({ posts, category }: CategoryPageProps) {
   return (
     <Layout>
       <SEO
-        title={`${category.name} Articles - Al Kindi`}
-        description={category.description}
+        templateTitle={`${category.name} Articles - Al Kindi`}
+        description={`Read articles about ${category.name.toLowerCase()} from Al Kindi`}
       />
       <main className={clsx('content-spacing', !isLoaded && 'opacity-0')}>
         <section className="min-h-screen pt-40">
@@ -215,11 +216,17 @@ export default function CategoryPage({ posts, category }: CategoryPageProps) {
   );
 }
 
-export const getStaticPaths: GetStaticPaths = async () => {
-  const categories = await getAllCategories();
-  const paths = categories.map((category: BlogCategory) => ({
-    params: { category: category.slug },
-  }));
+export const getStaticPaths: GetStaticPaths = async ({ locales = [] }) => {
+  const paths = [];
+
+  for (const locale of locales) {
+    const categories = await getAllCategories(locale);
+    const localePaths = categories.map((category) => ({
+      params: { category: category.slug },
+      locale,
+    }));
+    paths.push(...localePaths);
+  }
 
   return {
     paths,
@@ -227,11 +234,12 @@ export const getStaticPaths: GetStaticPaths = async () => {
   };
 };
 
-export const getStaticProps: GetStaticProps = async ({ params }) => {
-  const categories = await getAllCategories();
-  const category = categories.find(
-    (cat: BlogCategory) => cat.slug === params?.category
-  );
+export const getStaticProps: GetStaticProps = async ({
+  params,
+  locale = 'en',
+}) => {
+  const categories = await getAllCategories(locale);
+  const category = categories.find((cat) => cat.slug === params?.category);
 
   if (!category) {
     return {
@@ -239,7 +247,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
     };
   }
 
-  const allPosts = await getAllPosts();
+  const allPosts = await getAllPosts(locale);
   const posts = allPosts.filter(
     (post) => post.category.toLowerCase() === category.slug.toLowerCase()
   );
@@ -248,6 +256,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
     props: {
       posts,
       category,
+      ...(await serverSideTranslations(locale, ['common'])),
     },
   };
 };

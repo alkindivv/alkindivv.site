@@ -1,4 +1,7 @@
 import React from 'react';
+import { GetStaticProps } from 'next';
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
+import { useTranslation } from 'next-i18next';
 import Layout from '@/components/layout/Layout';
 import Accent from '@/components/shared/Accent';
 import SEO from '@/components/shared/SEO';
@@ -6,6 +9,8 @@ import SocialMedia from '@/components/social/SocialMedia';
 import GlowingButton from '@/components/shared/GlowingButton';
 
 export default function HomePage() {
+  const { t } = useTranslation('common');
+
   return (
     <Layout isHomePage>
       <SEO />
@@ -27,14 +32,14 @@ export default function HomePage() {
                     className="text-xs md:text-sm font-light tracking-wide"
                     data-fade="1"
                   >
-                    Available for opportunities
+                    {t('home.available')}
                   </span>
                 </div>
                 <h1
                   className="text-[clamp(2.5rem,7vw,4.5rem)] font-bold leading-[1.1] tracking-tight text-white"
                   data-fade="2"
                 >
-                  I'm{' '}
+                  {/* {t('home.greeting')}{' '} */}
                   <Accent className="gradient-text animate-text-shimmer font-bold">
                     AL KINDI
                   </Accent>
@@ -43,16 +48,13 @@ export default function HomePage() {
                   className="h-px max-w-[120px] md:max-w-[340px] w-full bg-gradient-to-r from-emerald-300 via-emerald-500 to-transparent"
                   data-fade="2"
                 />
-                {/* <div className="h-px w-24 bg-gradient-to-r from-emerald-500/60 to-transparent" /> */}
               </div>
 
               <p
                 className="text-sm md:text-base text-neutral-400 leading-relaxed font-light max-w-[540px]"
                 data-fade="3"
               >
-                I am passionate about law, focusing my expertise in corporate
-                M&A, capital market, restructuring & insolvency and as well as
-                crypto assets regulation in Indonesia.
+                {t('home.description')}
               </p>
             </div>
 
@@ -61,10 +63,10 @@ export default function HomePage() {
               {/* Actions */}
               <div className="flex items-center gap-4">
                 <GlowingButton variant="small" href="/blog">
-                  Read my blog
+                  {t('home.readBlog')}
                 </GlowingButton>
-                <GlowingButton variant="small" href="/about">
-                  More about me
+                <GlowingButton variant="small" href="/glossary">
+                  {t('home.legalGlossary')}
                 </GlowingButton>
               </div>
 
@@ -73,7 +75,6 @@ export default function HomePage() {
                 <div className="flex items-center gap-1 py-1 px-1 rounded-full">
                   <SocialMedia />
                 </div>
-                {/* <div className="h-px max-w-[120px] md:max-w-[340px] w-full bg-gradient-to-r from-emerald-300 via-emerald-500 to-transparent" /> */}
               </div>
             </div>
           </div>
@@ -82,3 +83,11 @@ export default function HomePage() {
     </Layout>
   );
 }
+
+export const getStaticProps: GetStaticProps = async ({ locale }) => {
+  return {
+    props: {
+      ...(await serverSideTranslations(locale || 'id', ['common'])),
+    },
+  };
+};

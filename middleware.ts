@@ -7,6 +7,17 @@ export function middleware(request: NextRequest) {
     return NextResponse.next();
   }
 
+  // Handle URL canonicalization
+  const url = request.nextUrl.clone();
+  const hostname = request.headers.get('host') || '';
+  const isWWW = hostname.startsWith('www.');
+
+  // Redirect www to non-www
+  if (isWWW) {
+    url.host = hostname.replace('www.', '');
+    return NextResponse.redirect(url);
+  }
+
   const response = NextResponse.next();
 
   // Set cache control headers for blog posts

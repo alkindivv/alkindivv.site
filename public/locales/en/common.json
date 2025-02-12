@@ -1,0 +1,437 @@
+{
+  "navigation": {
+    "home": "Home",
+    "blog": "Blog",
+    "about": "About",
+    "contact": "Contact",
+    "glossary": "Glossary",
+    "more": "More",
+    "books": "Books",
+    "resources": "Resources",
+    "wishlist": "Wishlist",
+    "docs": "Docs",
+    "menu": "Menu"
+  },
+  "home": {
+    "available": "Available for opportunities",
+    "greeting": "I'm",
+    "description": "I am passionate about law, focusing my expertise in corporate M&A, capital markets, restructuring & insolvency as well as crypto assets regulation in Indonesia.",
+    "readBlog": "Read my blog",
+
+    "legalGlossary": "Legal Glossary"
+  },
+  "social": {
+    "resume": "Resume",
+    "twitter": "Twitter",
+    "github": "Github",
+    "linkedin": "LinkedIn"
+  },
+  "descriptions": {
+    "home": "Welcome to my forever work-in-progress!",
+    "blog": "Thoughts, mental models, and tutorials",
+    "about": "Learn more about me",
+    "contact": "Get in touch with me",
+    "glossary": "Legal Glossary",
+    "books": "My Book Collections",
+    "resources": "Resources and templates",
+    "wishlist": "Life Goals & Aspirations",
+    "docs": "Tutorials & Guides"
+  },
+  "blog": {
+    "readMore": "Read More",
+    "relatedPosts": "Related Articles",
+    "publishedOn": "Published on",
+    "readingTime": "Reading time",
+    "minutes": "minutes",
+    "views": "views",
+    "categories": {
+      "all": "All",
+      "law": "Law",
+      "corporate": "Corporate",
+      "technology": "Technology",
+      "cryptocurrency": "Cryptocurrency"
+    },
+    "search": {
+      "placeholder": "Search articles...",
+      "noResults": "No articles found",
+      "results": "Search results for"
+    },
+    "title": "Blog",
+    "subtitle": "Thoughts, Insights, and Opinions about Law, Technology, and Crypto",
+    "description": "Articles about corporate law, capital markets, and legal tech innovation",
+    "topics": {
+      "choose": "choose topic:",
+      "title": "Topics",
+      "list": {
+        "law": "Law",
+        "corporate": "Corporate law",
+        "restructuring": "Restructuring & Bankruptcy",
+        "capital_market": "Capital Market",
+        "merger": "Mergers & Acquisitions",
+        "competition": "Competition Law",
+        "banking": "Banking & Finance",
+        "investment": "Investment Law",
+        "fdi": "Foreign Direct Investment",
+        "ip": "Intellectual Property",
+        "labor": "Labor Law",
+        "energy": "Energy & Oil Gas",
+        "real_estate": "Real Estate",
+        "tax": "Tax",
+        "litigation": "Litigation",
+        "dispute": "Dispute Resolution",
+        "adr": "Alternative Dispute Resolution",
+        "cryptocurrency": "Cryptocurrency",
+        "blockchain": "Blockchain",
+        "smart_contract": "Smart Contract",
+        "hackintosh": "Hackintosh",
+        "macos": "macOS"
+      }
+    },
+    "article": {
+      "notfound": "No articles found",
+      "notfound.description": "Try searching with different keywords or remove existing filters"
+    },
+    "tags": {
+      "law": "Law",
+      "corporate": "Corporate",
+      "restructuring": "Restructuring",
+      "capital_market": "Capital Market",
+      "merger": "Mergers & Acquisitions",
+      "competition": "Competition Law",
+      "banking": "Banking & Finance",
+      "investment": "Investment Law",
+      "fdi": "Foreign Direct Investment",
+      "ip": "Intellectual Property",
+      "labor": "Labor Law",
+      "energy": "Energy & Oil Gas",
+      "real_estate": "Real Estate",
+      "tax": "Tax",
+      "litigation": "Litigation",
+      "dispute": "Dispute Resolution",
+      "adr": "Alternative Dispute Resolution",
+      "cryptocurrency": "Cryptocurrency",
+      "blockchain": "Blockchain",
+      "smart_contract": "Smart Contract",
+      "hackintosh": "Hackintosh",
+      "macos": "macOS",
+      "due_diligence": "Due Diligence",
+      "business": "Business"
+    },
+    "filters": {
+      "active": "Active filters",
+      "reset": "Reset filters"
+    },
+    "fallback": {
+      "message": "This article is not available in {{targetLang}}. Showing {{sourceLang}} version instead."
+    }
+  },
+  "footer": {
+    "allRightsReserved": "All Rights Reserved",
+    "followMe": "Follow Me",
+    "newsletter": {
+      "title": "Subscribe to Newsletter",
+      "description": "Get the latest updates about law, technology, and cryptocurrency",
+      "placeholder": "Enter your email",
+      "subscribe": "Subscribe",
+      "success": "Thank you for subscribing!",
+      "error": "An error occurred, please try again"
+    }
+  },
+  "about": {
+    "title": "About Me",
+    "heading": "About",
+    "me": "Me",
+    "subtitle": "My background, interests, and experiences.",
+    "meta": {
+      "description": "Learn about AL KINDI - A legal professional specializing in capital markets, M&A, bankruptcy, and crypto regulations. Discover my background, expertise, and professional journey."
+    },
+    "profile": {
+      "image": {
+        "alt": "AL KINDI's Photo"
+      }
+    },
+    "introduction": {
+      "greeting": "Hello! You can call me",
+      "nickname": {
+        "first": "AL",
+        "second": "KINDI"
+      },
+      "or": "or",
+      "description": "I'm a law graduate with a passion for writing and sharing knowledge. I focus on exploring and analyzing legal topics such as capital markets & securities, mergers and acquisitions (M&A), bankruptcy & insolvency, and the legal aspects of crypto assets in Indonesia."
+    },
+    "career": {
+      "current": "Currently I'm looking for a job as",
+      "position": {
+        "first": "Trainee",
+        "second": "Junior Associates"
+      },
+      "or": "or",
+      "goal": "so I can gain more experience in the field of law especially in the field of corporate & business law."
+    },
+    "background": {
+      "blockchain": "Since 2018, I have been deeply immersed in studying blockchain technology, which has given me a unique perspective on the legal and compliance issues surrounding decentralized systems. I actively engage in projects related to crypto regulations and blockchain governance, helping to bridge the gap between legal practice and technological innovation."
+    },
+    "blog": {
+      "purpose": "This blog is a platform where I bring together my expertise in law and technology to share knowledge for people who are interested in capital markets, M&A, bankruptcy, and crypto asset regulations."
+    },
+    "experiences": {
+      "title": "Experiences",
+      "subtitle": "Some experiences I've had in the past few years",
+      "trainee": {
+        "date": "Nov 2023 — Dec 2024",
+        "title": "Trainee Associate",
+        "company": "Law Firm RR & Partners",
+        "location": "Jakarta",
+        "description": "Assisting in legal research, document drafting, and case analysis for various corporate and commercial matters.",
+        "achievements": {
+          "first": "Assisted in drafting and filing various legal documents, including lawsuits, warnings, and contracts, while ensuring compliance with applicable court procedures and legal standards",
+          "second": "Conducted in-depth legal research and case analysis to support court submissions and legal opinions, utilizing legal databases and academic resources",
+          "third": "Collaborated with senior associates in case strategy meetings, contributing to the preparation of legal arguments and solutions tailored to clients' needs"
+        }
+      },
+      "intern": {
+        "date": "Jan 2022 — Feb 2022",
+        "title": "Legal Intern",
+        "company": "Ariyanto & Rekan, Wahyu Priyanka & Partners, Erlan Nopri & Partners",
+        "location": "Yogyakarta",
+        "description": "Completed a one-month internship at three law firms simultaneously, gaining comprehensive experience in various aspects of legal practice.",
+        "achievements": {
+          "first": "Gained insights and experience in legal drafting and research",
+          "second": "Assisted in the management and establishment of a law firm",
+          "third": "Learning how to prepare legal opinions for clients"
+        }
+      },
+      "freelancer": {
+        "date": "Feb 2021 — Dec 2023",
+        "title": "Freelancer",
+        "company": "Fiverr",
+        "location": "Remote",
+        "description": "Improved English communication and negotiation skills through international client interactions on Fiverr."
+      }
+    }
+  },
+  "contact": {
+    "title": "Contact Me",
+    "heading": "Let's",
+    "connect": "Connect",
+    "subtitle": "Feel free to reach out — I'll be happy to help, answer your questions, or simply say hi!",
+    "meta": {
+      "description": "Get in touch with AL KINDI for legal consultations, collaborations, or inquiries about capital markets, M&A, bankruptcy, and crypto regulations. Available through email, WhatsApp, or professional platforms."
+    },
+    "form": {
+      "title": "Send a",
+      "message": "Message",
+      "name": {
+        "label": "Name",
+        "placeholder": "Your name"
+      },
+      "email": {
+        "label": "Email",
+        "placeholder": "your@email.com"
+      },
+      "subject": {
+        "label": "Subject",
+        "placeholder": "Message subject"
+      },
+
+      "submit": "Send Message",
+      "success": "Message sent successfully! I'll get back to you soon.",
+      "error": "Failed to send message. Please try again later."
+    }
+  },
+  "glossary": {
+    "title": "Glossary",
+    "subtitle": "Legal Terms",
+    "description": "Collection of legal terms used in Indonesia.",
+    "meta": {
+      "description": "Explore a comprehensive collection of legal terms commonly used in Indonesian legal practice."
+    },
+    "search": {
+      "placeholder": "Search terms...",
+      "results": "Found {{count}} terms"
+    },
+    "filters": {
+      "title": "Filters",
+      "active": "Active filters",
+      "reset": "Reset filters",
+      "letters": "Letter Filter",
+      "categories": "Category Filter"
+    },
+    "content": {
+      "example": "Example",
+      "noResults": "No results found",
+      "clearSearch": "Clear search",
+      "terms": {
+        "pt": {
+          "title": "Limited Liability Company (PT)",
+          "definition": "A legal entity that is a capital partnership, established based on an agreement between 2 or more people and conducts business activities with authorized capital that is entirely divided into shares"
+        },
+        "tbk": {
+          "title": "Public Company (Tbk)",
+          "definition": "A legal entity that has conducted an IPO so that its shares can be bought and owned by the public"
+        },
+        "bumn": {
+          "title": "State-Owned Enterprise (BUMN)",
+          "definition": "A company whose shares are mostly or entirely owned by the State, and all profits are considered as State income, as well as losses which are considered as State losses"
+        },
+        "perjan": {
+          "title": "Public Service Company (Perjan)",
+          "definition": "A State-Owned Enterprise (BUMN) that operates in the field of public service provision and its business activities do not prioritize profit"
+        },
+        "perum": {
+          "title": "Public Corporation (Perum)",
+          "definition": "A State-Owned Enterprise (BUMN) that operates in the field of public benefit services"
+        },
+        "persero": {
+          "title": "State-Owned Corporation (Persero)",
+          "definition": "A State-Owned Enterprise (BUMN) that operates in the private and cooperative sectors and is prioritized in business activities to gain profit"
+        },
+        "rups": {
+          "title": "General Meeting of Shareholders (RUPS)",
+          "definition": "One of the company's organs that has the highest authority in a company, consisting of Regular (Annual) GMS and Extraordinary GMS"
+        },
+        "merger": {
+          "title": "Merger",
+          "definition": "A legal action taken by one or more companies to merge with another existing company, resulting in the merging company being dissolved",
+          "example": "The merger between Gojek and Tokopedia in 2021 forming GoTo Group. In this process, both companies combined their operations, assets, and organizational structures into a new entity."
+        }
+      }
+    },
+    "tags": {
+      "corporate_law": "Corporate Law",
+      "legal_entity": "Legal Entity",
+      "ma": "Mergers & Acquisitions",
+      "restructuring": "Restructuring",
+      "state_owned": "State-Owned Enterprise"
+    }
+  },
+  "cta": {
+    "contact": "Contact Us",
+    "consultation": "Get Consultation",
+    "learnMore": "Learn More"
+  },
+  "meta": {
+    "defaultTitle": "AL KINDI - Corporate Law, Technology & Cryptocurrency Expert",
+    "defaultDescription": "Insights and thoughts about law, technology, and cryptocurrency. Specialized in corporate mergers and acquisitions, capital markets, bankruptcy & insolvency, and cryptocurrency regulations."
+  },
+  "resources": {
+    "title": "Resources",
+    "subtitle": "Documents & Templates",
+    "description": "Collection of legal documents, templates, and learning materials.",
+    "meta": {
+      "description": "Access various legal resources including document templates, forms, and learning materials."
+    },
+    "categories": {
+      "templates": {
+        "name": "Templates",
+        "description": "Various ready-to-use legal document templates",
+        "sections": {
+          "corporate": {
+            "title": "Corporate Documents",
+            "description": "Templates for company establishment and operations"
+          },
+          "contracts": {
+            "title": "Contract Templates",
+            "description": "Various types of contracts and agreements"
+          }
+        }
+      },
+      "forms": {
+        "name": "Forms",
+        "description": "Forms for legal and administrative purposes",
+        "sections": {
+          "corporate": {
+            "title": "Corporate Forms",
+            "description": "Forms for company registration and reporting"
+          },
+          "compliance": {
+            "title": "Legal Compliance Forms",
+            "description": "Forms for compliance and licensing"
+          }
+        }
+      },
+      "courses": {
+        "name": "Courses",
+        "description": "Legal learning materials and certifications",
+        "sections": {
+          "practice": {
+            "title": "Legal Practice",
+            "description": "Courses and certifications for legal practice"
+          }
+        }
+      }
+    },
+    "actions": {
+      "download": "Download",
+      "view": "View"
+    }
+  },
+  "wishlist": {
+    "title": "My",
+    "subtitle": "List of Desires",
+    "description": "List of things I want to achieve in life.",
+    "meta": {
+      "description": "Explore my wishlist and life goals in my legal career journey."
+    },
+    "items": {
+      "graduate_from_university": {
+        "title": "Graduate from university",
+        "description": "Complete my Law degree with satisfactory results"
+      },
+      "become_a_junior_or_trainee_associate_at_a_top_tier_corporate_law_firm": {
+        "title": "Become a Junior Associate at a top law firm",
+        "description": "Start my career as a Junior Associate at a leading law firm"
+      },
+      "pass_the_bar_exam": {
+        "title": "Pass the bar exam",
+        "description": "Obtain advocate license from Indonesian Bar Association (PERADI)"
+      },
+      "buy_a_house": {
+        "title": "Buy a house",
+        "description": "Own a comfortable living space"
+      },
+      "speak_at_an_international_conference": {
+        "title": "Speak at an international conference",
+        "description": "Become a speaker at an international law conference"
+      },
+      "solo_travel_to_another_country": {
+        "title": "Solo travel to another country",
+        "description": "Visit another country and learn about new cultures"
+      },
+      "establish_my_own_corporate_law_firm": {
+        "title": "Establish my own law firm",
+        "description": "Build a law firm focused on corporate law"
+      }
+    }
+  },
+  "docs": {
+    "title": "Documentation",
+    "subtitle": "Comprehensive tutorials and guides",
+    "categories": {
+      "legal": "Legal",
+      "tech": "Technology",
+      "crypto": "Cryptocurrency",
+      "general": "General"
+    },
+    "meta": {
+      "description": "Learn various topics through structured tutorials and guides about law, technology, and cryptocurrency."
+    }
+  },
+  "books": {
+    "title": "Books",
+    "subtitle": "Collection",
+    "description": "Collection of books I have read, am reading, and plan to read.",
+    "meta": {
+      "description": "Explore my collection of legal and non-legal books that I have read, am reading, and plan to read."
+    },
+    "status": {
+      "completed": "Completed",
+      "reading": "Currently Reading",
+      "planned": "Plan to Read"
+    },
+    "by_author": "by",
+    "cover_alt": "Cover of {{title}}",
+    "personal_notes": "Personal Notes",
+    "key_points": "Key Points"
+  }
+}
