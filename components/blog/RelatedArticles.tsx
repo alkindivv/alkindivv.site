@@ -8,7 +8,7 @@ import { useRouter } from 'next/router';
 
 // Komponen untuk setiap artikel
 const RelatedArticleCard = ({ post }: { post: BlogPost }) => {
-  const views = usePageViews(post.slug, false);
+  const views = usePageViews(post.originalSlug || post.slug, false);
   const router = useRouter();
 
   const handleClick = async (e: React.MouseEvent) => {

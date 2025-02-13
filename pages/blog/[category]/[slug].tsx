@@ -8,6 +8,10 @@ import Accent from '@/components/shared/Accent';
 import SEO from '@/components/shared/SEO';
 import { Metadata } from 'next';
 import type { BlogPost } from '@/types/blog';
+import {
+  getLocalizedSlug,
+  getOriginalSlug,
+} from '@/lib/constants/slugMappings';
 
 import Image from 'next/image';
 
@@ -15,6 +19,7 @@ import TableOfContents from '@/components/blog/TableOfContents';
 import RelatedArticles from '@/components/blog/RelatedArticles';
 import Comments from '@/components/Comments';
 import Breadcrumb from '@/components/shared/Breadcrumb';
+import LanguageSwitcher from '@/components/shared/LanguageSwitcher';
 
 import { HiOutlineEye, HiOutlineClock } from 'react-icons/hi';
 import Link from 'next/link';
@@ -65,13 +70,16 @@ export default function BlogPost({
   mdxSource,
   allPosts,
 }: BlogPostProps) {
-  const { t } = useTranslation('common');
   const router = useRouter();
+  const views = usePageViews(
+    frontMatter.originalSlug || frontMatter.slug,
+    true
+  );
+  const { t } = useTranslation('common');
   const [headings, setHeadings] = useState<
     Array<{ id: string; title: string; level: number }>
   >([]);
   const articleContentRef = useRef<HTMLDivElement>(null);
-  const views = usePageViews(frontMatter.slug, true);
 
   // Extract headings from content
   useEffect(() => {
@@ -189,14 +197,6 @@ export default function BlogPost({
             <div className="mb-1" data-fade="2">
               <Breadcrumb items={breadcrumbItems} />
             </div>
-            {/* <div className="mb-2" data-fade="2">
-              <Link
-                href={`/blog/${frontMatter.category.toLowerCase()}`}
-                className="inline-block py-1.5 px-4 text-sm tracking-wider text-emerald-300 bg-emerald-900/30 hover:bg-emerald-900/50 rounded-full transition-colors"
-              >
-                {frontMatter.category.toLowerCase()}
-              </Link>
-            </div> */}
 
             {/* Title */}
             <h1
@@ -243,23 +243,25 @@ export default function BlogPost({
               </div>
             </div>
 
-            {/* Stats */}
-            <div
-              className="flex items-center gap-3 text-xs sm:text-sm font-paragraf text-[#A3A3A3]"
-              data-fade="5"
-            >
-              <span className="flex items-center gap-2">
-                <HiOutlineEye className="w-4 h-4 text-emerald-600" />
-                <span className="text-xs md:text-md text-neutral-300 font-paragraf">
-                  {views} views
+            {/* Stats & Language Switcher */}
+            <div className="flex items-center gap-6">
+              <div className="flex items-center gap-3 text-xs sm:text-sm font-paragraf text-[#A3A3A3]">
+                <span className="flex items-center gap-2">
+                  <HiOutlineEye className="w-4 h-4 text-emerald-600" />
+                  <span className="text-xs md:text-md text-neutral-300 font-paragraf">
+                    {views} views
+                  </span>
                 </span>
-              </span>
-              <span className="flex items-center gap-2">
-                <HiOutlineClock className="w-4 h-4 text-emerald-600" />
-                <span className="text-xs md:text-md text-neutral-300 font-paragraf">
-                  {frontMatter.readingTime} min read
+                <span className="flex items-center gap-2">
+                  <HiOutlineClock className="w-4 h-4 text-emerald-600" />
+                  <span className="text-xs md:text-md text-neutral-300 font-paragraf">
+                    {frontMatter.readingTime} min read
+                  </span>
                 </span>
-              </span>
+              </div>
+              <div className="border-l border-gray-800/50 pl-6">
+                <LanguageSwitcher />
+              </div>
             </div>
           </div>
 
@@ -421,7 +423,10 @@ export default function BlogPost({
               <h2 className="text-base sm:text-xl font-bold mb-4 sm:mb-6">
                 <Accent>Comments</Accent>
               </h2>
-              <Comments postSlug={frontMatter.slug} />
+              <Comments
+                postSlug={frontMatter.slug}
+                originalSlug={frontMatter.originalSlug}
+              />
             </div>
 
             {/* Related Articles */}
@@ -442,26 +447,35 @@ export default function BlogPost({
           </div>
         </div>
       </main>
-      <ArticleNewsletterPopup slug={frontMatter.slug} />
+      <ArticleNewsletterPopup
+        slug={frontMatter.slug}
+        originalSlug={frontMatter.originalSlug}
+      />
     </Layout>
   );
 }
 
-export const getStaticPaths: GetStaticPaths = async ({
-  locales = ['en', 'id'],
-}) => {
+export const getStaticPaths: GetStaticPaths = async () => {
+  const locales = ['id', 'en'];
   const paths = [];
 
   for (const locale of locales) {
-    const allPosts = await getAllPosts(locale);
-    const localePaths = allPosts.map((post) => ({
-      params: {
-        category: post.category,
-        slug: post.slug,
-      },
-      locale,
-    }));
-    paths.push(...localePaths);
+    const posts = await getAllPosts(locale);
+
+    for (const post of posts) {
+      const localizedSlug = getLocalizedSlug(
+        post.originalSlug || post.slug,
+        locale
+      );
+
+      paths.push({
+        params: {
+          category: post.category.toLowerCase(),
+          slug: localizedSlug,
+        },
+        locale,
+      });
+    }
   }
 
   return {
@@ -472,30 +486,50 @@ export const getStaticPaths: GetStaticPaths = async ({
 
 export const getStaticProps: GetStaticProps = async ({
   params,
-  locale = 'id',
+  locale = 'en',
 }) => {
-  const { category, slug } = params as { category: string; slug: string };
-  const { frontMatter, mdxSource } = await getPostBySlug(
-    category,
-    slug,
-    locale
-  );
-  const allPosts = await getAllPosts(locale);
+  const slug = params?.slug as string;
+  const category = params?.category as string;
+  const originalSlug = getOriginalSlug(slug);
+  const localizedSlug = getLocalizedSlug(originalSlug, locale);
 
-  const enhancedFrontMatter = {
-    ...frontMatter,
-    slug,
-  };
+  try {
+    const { frontMatter, mdxSource } = await getPostBySlug(
+      category,
+      localizedSlug,
+      locale
+    );
+    const allPosts = await getAllPosts(locale);
 
-  return {
-    props: {
-      frontMatter: enhancedFrontMatter,
-      mdxSource,
-      allPosts,
-      ...(await serverSideTranslations(locale, ['common'])),
-    },
-    revalidate: 60 * 60, // Revalidate setiap 1 jam
-  };
+    // If the post is not found in the current locale and we got a fallback
+    if (frontMatter.isFallback) {
+      // Redirect to the original locale version
+      return {
+        redirect: {
+          destination: `/${frontMatter.originalLocale}/blog/${category}/${frontMatter.slug}`,
+          permanent: false,
+        },
+      };
+    }
+
+    return {
+      props: {
+        frontMatter: {
+          ...frontMatter,
+          slug: localizedSlug,
+          originalSlug,
+        },
+        mdxSource,
+        allPosts,
+        ...(await serverSideTranslations(locale, ['common', 'blog'])),
+      },
+    };
+  } catch (error) {
+    console.error('Error in getStaticProps:', error);
+    return {
+      notFound: true,
+    };
+  }
 };
 
 export async function generateMetadata({

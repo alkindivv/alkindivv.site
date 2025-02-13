@@ -1,25 +1,34 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { HiX, HiMail } from 'react-icons/hi';
 import GlowingButton from '../shared/GlowingButton';
+import { useTranslation } from 'react-i18next';
 
 interface ArticleNewsletterPopupProps {
   slug: string;
+  originalSlug?: string;
 }
 
 export default function ArticleNewsletterPopup({
   slug,
+  originalSlug,
 }: ArticleNewsletterPopupProps) {
   const [isOpen, setIsOpen] = useState(false);
   const [isClosing, setIsClosing] = useState(false);
   const [hasScrolled, setHasScrolled] = useState(false);
+  const popupRef = useRef<HTMLDivElement>(null);
+  const { t } = useTranslation('common');
 
   useEffect(() => {
+    const hasSeenPopup = localStorage.getItem(
+      `newsletter-popup-${originalSlug || slug}`
+    );
     const lastClosed = localStorage.getItem(`newsletterPopup_${slug}`);
     const shouldShow =
       !lastClosed || Date.now() - Number(lastClosed) > 7 * 24 * 60 * 60 * 1000;
 
     console.log('Newsletter Popup Debug:', {
       slug,
+      originalSlug,
       lastClosed,
       shouldShow,
       currentTime: Date.now(),
@@ -57,7 +66,7 @@ export default function ArticleNewsletterPopup({
 
       return () => window.removeEventListener('scroll', handleScroll);
     }
-  }, [slug, hasScrolled]);
+  }, [slug, originalSlug, hasScrolled]);
 
   const handleClose = () => {
     setIsClosing(true);

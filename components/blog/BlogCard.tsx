@@ -28,7 +28,7 @@ const BlogCard = ({
   searchQuery = '',
 }: BlogCardProps) => {
   const router = useRouter();
-  const views = usePageViews(post.slug, false);
+  const views = usePageViews(post.originalSlug || post.slug, false);
   const { t } = useTranslation('common');
 
   const handleClick = async (e: React.MouseEvent) => {

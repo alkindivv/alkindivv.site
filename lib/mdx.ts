@@ -158,10 +158,14 @@ export async function getPostBySlug(
         ...frontMatter,
         readingTime: Math.ceil(readingTime(content).minutes),
         slug: localizedSlug,
+        originalSlug,
+        locale,
       },
       mdxSource,
     };
-  } catch (primaryError) {
+  } catch (error) {
+    console.error(`Error reading ${filePath}:`, error);
+
     // Try fallback locale
     const fallbackLocale = locale === 'id' ? 'en' : 'id';
     const fallbackSlug = getLocalizedSlug(originalSlug, fallbackLocale);
@@ -209,12 +213,15 @@ export async function getPostBySlug(
           ...frontMatter,
           readingTime: Math.ceil(readingTime(content).minutes),
           slug: fallbackSlug,
+          originalSlug,
+          locale: fallbackLocale,
           isFallback: true,
           originalLocale: fallbackLocale,
         },
         mdxSource,
       };
     } catch (fallbackError) {
+      console.error(`Error reading fallback ${fallbackPath}:`, fallbackError);
       throw new Error('Post not found in any language');
     }
   }
