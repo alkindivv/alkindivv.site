@@ -19,7 +19,7 @@ export default function HomePage() {
             <div className="space-y-5">
               <div className="space-y-3">
                 <div className="inline-flex items-center gap-2 py-1.5 px-3 rounded-full bg-emerald-500/5 text-emerald-300/90">
-                  <span className="relative flex h-1 w-1">
+                  {/* <span className="relative flex h-1 w-1">
                     <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
                     <span className="relative inline-flex rounded-full h-1 w-1 bg-emerald-400" />
                   </span>
@@ -28,7 +28,7 @@ export default function HomePage() {
                     data-fade="1"
                   >
                     Available for opportunities
-                  </span>
+                  </span> */}
                 </div>
                 <h1
                   className="text-[clamp(2.5rem,7vw,4.5rem)] font-bold leading-[1.1] tracking-tight text-white"

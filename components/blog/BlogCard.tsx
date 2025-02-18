@@ -61,7 +61,7 @@ const BlogCard = ({
                 alt={post.title}
                 fill
                 sizes="(min-width: 768px) 33vw, 100vw"
-                className="object-cover transition-transform group-hover:scale-105"
+                className="object-cover"
                 priority={_index !== undefined && _index < 3}
               />
               {/* Overlay Gradient */}

@@ -26,7 +26,7 @@ const BlogPostCard = ({ post }: { post: BlogPost }) => {
       href={`/blog/${post.category.toLowerCase()}/${post.slug}`}
       className="group block"
     >
-      <article className="flex flex-col gap-4 lg:flex-row-reverse lg:gap-6 lg:items-center py-3 hover:bg-white/[0.02] rounded-lg transition-colors">
+      <article className="flex flex-col gap-4 lg:flex-row-reverse lg:gap-6 lg:items-center py-3 rounded-lg transition-colors">
         {/* Image */}
         <figure className="isolate z-[1] pointer-events-none overflow-hidden rounded-md lg:max-w-44 lg:w-full">
           <div className="relative pt-[60%]">
@@ -35,7 +35,7 @@ const BlogPostCard = ({ post }: { post: BlogPost }) => {
                 src={post.featuredImage || ''}
                 alt={post.title}
                 fill
-                className="object-cover transition-transform duration-500 group-hover:scale-110"
+                className="object-cover"
                 sizes="(min-width: 1024px) 176px, 100vw"
               />
             </div>

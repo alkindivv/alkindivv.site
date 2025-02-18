@@ -27,49 +27,63 @@ const RelatedArticleCard = ({ post }: { post: BlogPost }) => {
   return (
     <Link
       href={`/blog/${post.category.toLowerCase()}/${post.slug}`}
-      className="block hover:bg-neutral-800/50"
+      className="group block"
       onClick={handleClick}
     >
-      <article className="flex gap-6 items-center p-3">
+      <article className="flex flex-col gap-4 lg:flex-row-reverse lg:gap-6 lg:items-center py-3 rounded-lg transition-colors">
         {/* Image */}
-        <div className="w-44 h-28 relative rounded-md overflow-hidden">
-          <Image
-            src={post.featuredImage || ''}
-            alt={post.title}
-            fill
-            className="object-cover"
-            sizes="176px"
-          />
-        </div>
+        <figure className="isolate z-[1] pointer-events-none overflow-hidden rounded-md lg:max-w-44 lg:w-full">
+          <div className="relative pt-[60%]">
+            <div className="absolute left-0 top-0 w-full h-full">
+              <Image
+                src={post.featuredImage || ''}
+                alt={post.title}
+                fill
+                className="object-cover"
+                sizes="(min-width: 1024px) 176px, 100vw"
+              />
+            </div>
+          </div>
+        </figure>
 
         {/* Content */}
-        <div className="flex-1">
-          <p className="text-sm text-neutral-400">
-            {new Date(post.date).toLocaleDateString('id-ID', {
-              year: 'numeric',
-              month: 'long',
-              day: 'numeric',
-            })}
-          </p>
+        <div className="w-full">
+          <div className="flex items-center gap-3">
+            <p className="text-sm text-neutral-400">
+              {new Date(post.date).toLocaleDateString('id-ID', {
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric',
+              })}
+            </p>
+          </div>
 
-          <h3 className="mt-2 text-lg font-semibold text-neutral-200">
-            {post.title}
+          <h3 className="mt-3 text-xl font-semibold relative group-hover:text-emerald-500 transition-colors">
+            <span
+              className="bg-gradient-to-r from-emerald-500/30 via-emerald-500/90 to-emerald-500/30 box-decoration-clone group-hover:opacity-30 opacity-0 transition text-transparent"
+              aria-hidden="true"
+            >
+              {post.title}
+            </span>
+            <span className="absolute left-0 top-0">{post.title}</span>
           </h3>
 
-          <p className="mt-1 text-sm text-neutral-400 line-clamp-2">
+          <p className="text-sm text-neutral-400 mt-1 line-clamp-2">
             {post.description || post.excerpt}
           </p>
 
-          <div className="mt-3 flex items-center gap-4">
-            <div className="flex items-center gap-2">
-              <HiOutlineClock className="w-4 h-4 text-emerald-500" />
-              <p className="text-xs text-neutral-400">
-                {post.readingTime} min read
-              </p>
-            </div>
-            <div className="flex items-center gap-2">
-              <HiOutlineEye className="w-4 h-4 text-emerald-500" />
-              <p className="text-xs text-neutral-400">{views} views</p>
+          <div className="flex justify-between mt-5 flex-col gap-4 lg:flex-row lg:items-center">
+            <div className="flex items-center gap-5">
+              <div className="flex items-center gap-2">
+                <HiOutlineClock className="w-4 h-4 text-emerald-500" />
+                <p className="text-xs text-neutral-400">
+                  {post.readingTime} min read
+                </p>
+              </div>
+              <div className="flex items-center gap-2">
+                <HiOutlineEye className="w-4 h-4 text-emerald-500" />
+                <p className="text-xs text-neutral-400">{views} views</p>
+              </div>
             </div>
           </div>
         </div>
