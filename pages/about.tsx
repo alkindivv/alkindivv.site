@@ -52,7 +52,7 @@ const AboutPage = () => {
       <SEO
         templateTitle="About"
         description="Learn about AL KINDI - A legal professional specializing in capital markets, M&A, bankruptcy, and crypto regulations. Discover my background, expertise, and professional journey."
-        banner="/images/AL-KINDI.png"
+        banner="/images/default.png"
       />
 
       {/* Background Effect */}

@@ -28,7 +28,7 @@ const defaultSEOConfig = {
       'Explore insights about law, technology, and their intersection. Articles about corporate law, capital markets, and legal tech innovations.',
     images: [
       {
-        url: '/images/AL-KINDI.png',
+        url: '/images/default.png',
         width: 1200,
         height: 630,
         alt: 'AL KINDI',
@@ -61,7 +61,7 @@ const defaultSEOConfig = {
     },
     {
       rel: 'apple-touch-icon',
-      href: '/images/AL-KINDI.png',
+      href: '/images/default.png',
       sizes: '180x180',
     },
   ],
