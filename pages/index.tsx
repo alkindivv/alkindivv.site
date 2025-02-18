@@ -1,7 +1,4 @@
 import React from 'react';
-import { GetStaticProps } from 'next';
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
-import { useTranslation } from 'next-i18next';
 import Layout from '@/components/layout/Layout';
 import Accent from '@/components/shared/Accent';
 import SEO from '@/components/shared/SEO';
@@ -10,8 +7,6 @@ import GlowingButton from '@/components/shared/GlowingButton';
 import { Metadata } from 'next';
 
 export default function HomePage() {
-  const { t } = useTranslation('common');
-
   return (
     <Layout isHomePage>
       <SEO />
@@ -33,14 +28,13 @@ export default function HomePage() {
                     className="text-xs md:text-sm font-light tracking-wide"
                     data-fade="1"
                   >
-                    {t('home.available')}
+                    Available for new opportunities
                   </span>
                 </div>
                 <h1
                   className="text-[clamp(2.5rem,7vw,4.5rem)] font-bold leading-[1.1] tracking-tight text-white"
                   data-fade="2"
                 >
-                  {/* {t('home.greeting')}{' '} */}
                   <Accent className="gradient-text animate-text-shimmer font-bold">
                     AL KINDI
                   </Accent>
@@ -55,7 +49,9 @@ export default function HomePage() {
                 className="text-sm md:text-base text-neutral-400 leading-relaxed font-light max-w-[540px]"
                 data-fade="3"
               >
-                {t('home.description')}
+                Welcome to my personal website. I'm a professional with
+                expertise in Corporate Law, Technology, and Blockchain. Explore
+                my articles and insights about these topics.
               </p>
             </div>
 
@@ -64,10 +60,10 @@ export default function HomePage() {
               {/* Actions */}
               <div className="flex items-center gap-4">
                 <GlowingButton variant="small" href="/blog">
-                  {t('home.readBlog')}
+                  Read Blog
                 </GlowingButton>
                 <GlowingButton variant="small" href="/glossary">
-                  {t('home.legalGlossary')}
+                  Legal Glossary
                 </GlowingButton>
               </div>
 
@@ -84,14 +80,6 @@ export default function HomePage() {
     </Layout>
   );
 }
-
-export const getStaticProps: GetStaticProps = async ({ locale }) => {
-  return {
-    props: {
-      ...(await serverSideTranslations(locale || 'id', ['common'])),
-    },
-  };
-};
 
 export async function generateMetadata(): Promise<Metadata> {
   return {

@@ -3,9 +3,6 @@ import Layout from '@/components/layout/Layout';
 import Image from 'next/image';
 import { HiOutlineCalendar } from 'react-icons/hi';
 import SEO from '@/components/shared/SEO';
-import { useTranslation } from 'next-i18next';
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
-import { GetStaticProps } from 'next';
 
 interface WishlistItem {
   id: number;
@@ -28,19 +25,18 @@ const wishlistItems: WishlistItem[] = [
   },
   {
     id: 2,
-    title: 'Pass the bar exam',
-    description: '',
-    completed: true,
-  },
-  {
-    id: 3,
     title:
       'Become a junior or trainee associate at a top tier corporate law firm',
     description: '',
 
     completed: false,
   },
-
+  {
+    id: 3,
+    title: 'Pass the bar exam',
+    description: '',
+    completed: false,
+  },
   {
     id: 4,
     title: 'Buy a house',
@@ -70,13 +66,11 @@ const wishlistItems: WishlistItem[] = [
 
 function WishlistCard({
   title,
-  // description,
+  description,
   date,
   imageUrl,
   completed,
 }: WishlistItem) {
-  const { t } = useTranslation('common');
-
   return (
     <div className="group flex items-start gap-4 py-4">
       {/* Checkbox */}
@@ -104,18 +98,14 @@ function WishlistCard({
           <h3
             className={`text-base font-medium ${completed ? 'text-[#ffffff' : 'text-[#ffffff'}`}
           >
-            {t(
-              `wishlist.items.${title.toLowerCase().replace(/ /g, '_')}.title`
-            )}
+            {title}
           </h3>
         </div>
 
         <p
           className={`text-sm  ${completed ? 'paragraph-text' : 'paragraph-text'}`}
         >
-          {t(
-            `wishlist.items.${title.toLowerCase().replace(/ /g, '_')}.description`
-          )}
+          {description}
         </p>
 
         {date && (
@@ -131,9 +121,7 @@ function WishlistCard({
         <div className="flex-shrink-0 w-24 h-16 rounded-md overflow-hidden">
           <Image
             src={imageUrl}
-            alt={t(
-              `wishlist.items.${title.toLowerCase().replace(/ /g, '_')}.title`
-            )}
+            alt={title}
             width={96}
             height={64}
             className="object-cover w-full h-full"
@@ -145,15 +133,14 @@ function WishlistCard({
 }
 
 export default function WishlistPage() {
-  const { t } = useTranslation('common');
   const completedCount = wishlistItems.filter((item) => item.completed).length;
   const totalCount = wishlistItems.length;
 
   return (
-    <Layout title={`${t('wishlist.title')} | AL KINDI`} isHomePage={false}>
+    <Layout title="Wishlist | AL KINDI" isHomePage={false}>
       <SEO
-        templateTitle={t('wishlist.title')}
-        description={t('wishlist.meta.description')}
+        templateTitle="Wishlist"
+        description="Things I want to achieve and experience in life"
         canonical="https://alkindivv.site/wishlist/"
       />
       {/* Background Effect */}
@@ -181,20 +168,17 @@ export default function WishlistPage() {
         <div className="container max-w-3xl mx-auto px-4">
           {/* Header */}
           <div className="mt-14 relative space-y-4 text-center">
-            {/* <h1
-              className="-mb-3 text-center font-sans text-[2rem] sm:text-[2.5rem] md:text-[3rem] lg:text-[3.5rem] gradient-text font-bold tracking-tight leading-tight"
+            <h1
+              className="-mb-3 text-center font-sans text-[2rem] sm:text-[2.5rem] md:text-[3rem] lg:text-[3.5rem] font-bold tracking-tight leading-tight"
               data-fade="1"
-            > */}
-            <h1 className="text-4xl md:text-5xl font-bold">
-              {t('wishlist.title')}{' '}
-              <span className="gradient-text">{t('wishlist.subtitle')}</span>
+            >
+              My <span className="gradient-text">Wishlist</span>
             </h1>
-
             <p
               className="hero-text leading-relaxed text-center text-[0.95rem] md:text-[1.05rem]"
               data-fade="2"
             >
-              {t('wishlist.description')}
+              Things I want to achieve and experience in life
             </p>
           </div>
 
@@ -213,8 +197,7 @@ export default function WishlistPage() {
               className="mt-8 text-sm text-gray-600 text-right"
               data-fade="4"
             >
-              {completedCount} {t('wishlist.progress')} {totalCount}{' '}
-              {t('wishlist.completed')}
+              {completedCount} out of {totalCount} completed.
             </div>
           </div>
         </div>
@@ -222,11 +205,3 @@ export default function WishlistPage() {
     </Layout>
   );
 }
-
-export const getStaticProps: GetStaticProps = async ({ locale }) => {
-  return {
-    props: {
-      ...(await serverSideTranslations(locale || 'id', ['common'])),
-    },
-  };
-};

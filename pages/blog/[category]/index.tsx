@@ -37,7 +37,7 @@ const BlogPostCard = ({ post }: { post: BlogPost }) => {
                 src={post.featuredImage || ''}
                 alt={post.title}
                 fill
-                className="object-cover transition-transform duration-500 group-hover:scale-110"
+                className="object-cover"
                 sizes="(min-width: 1024px) 176px, 100vw"
               />
             </div>
@@ -153,19 +153,44 @@ export default function CategoryPage({ posts, category }: CategoryPageProps) {
         templateTitle={`${category.name} Articles - Al Kindi`}
         description={`Read articles about ${category.name.toLowerCase()} from Al Kindi`}
       />
+
+      {/* Background Effect */}
+      <div
+        className="absolute inset-0 overflow-hidden h-[450px] bg-neutral-950"
+        style={{
+          maskImage: 'linear-gradient(rgb(0, 0, 0) 80%, rgba(0, 0, 0, 0) 100%)',
+        }}
+      >
+        <div
+          aria-hidden="true"
+          className="h-[400px] w-[550px] rounded-full bg-gradient-to-r from-[#2E996C]/70 to-[#0F3324]/10 blur-[150px] absolute top-0 -translate-y-full rotate-45 origin-left z-[-2] left-[15%]"
+        />
+        <Image
+          alt=""
+          width={1280}
+          height={825}
+          className="pointer-events-none select-none absolute w-full inset-0 h-[450px] object-cover z-[-1] opacity-40 mix-blend-overlay"
+          src="/images/textures/crumpled-3.jpg"
+          priority
+        />
+      </div>
+
       <main className={clsx('content-spacing', !isLoaded && 'opacity-0')}>
-        <section className="min-h-screen pt-40">
+        {/* <section className="min-h-screen pt-40">
+          <div className="max-w-6xl mx-auto">
+
+
+            <div className="mt-0 relative space-y-2" data-fade="1"> */}
+
+        <section className="min-h-screen pt-40 relative z-10">
           <div className="max-w-6xl mx-auto">
             {/* Header Section */}
-            <div className="mb-6">
-              <Breadcrumb items={breadcrumbItems} />
-            </div>
-
-            <div className="mt-0 relative space-y-2" data-fade="1">
-              <h1 className="text-4xl md:text-5xl font-bold tracking-tight leading-tight">
+            <div className="mt-10 relative space-y-1 text-center" data-fade="1">
+              {/* <h1 className="text-4xl md:text-5xl font-bold tracking-tight leading-tight"> */}
+              <h1 className="text-center font-sans text-[2rem] sm:text-[2.5rem] md:text-[3rem] lg:text-[3.5rem] font-bold tracking-tight leading-tight">
                 <Accent>{category.name}</Accent> Articles
               </h1>
-              <p className="text-sm md:text-base text-neutral-400 max-w-2xl">
+              <p className="hero-text text-center text-[0.95rem] md:text-[1.05rem]">
                 {category.description}
               </p>
               <div className="h-px max-w-md bg-gradient-to-r from-transparent via-gray-800 to-transparent" />
@@ -191,6 +216,10 @@ export default function CategoryPage({ posts, category }: CategoryPageProps) {
                   </p>
                 )}
               </div>
+            </div>
+
+            <div className="mb-6">
+              <Breadcrumb items={breadcrumbItems} />
             </div>
 
             {/* Blog Posts List */}

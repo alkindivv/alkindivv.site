@@ -15,6 +15,15 @@ export const slugTranslations: Record<string, { id: string; en: string }> = {
     id: 'memahami-teknologi-blockchain',
     en: 'understanding-blockchain-technology',
   },
+  'mergers-and-acquisitions': {
+    id: 'merger-dan-akuisisi',
+    en: 'mergers-and-acquisitions',
+  },
+  'merger-dan-akuisisi': {
+    id: 'merger-dan-akuisisi',
+    en: 'mergers-and-acquisitions',
+  },
+
   // Tambahkan artikel lain di sini
 };
 

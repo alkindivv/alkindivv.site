@@ -1,14 +1,12 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { useSession, signIn } from 'next-auth/react';
 import Image from 'next/image';
 import { format } from 'date-fns';
 import useSWR, { mutate } from 'swr';
 import { FaGoogle } from 'react-icons/fa';
-import { useTranslation } from 'react-i18next';
 
 interface CommentsProps {
   postSlug: string;
-  originalSlug?: string;
 }
 
 interface CommentItemProps {
@@ -127,41 +125,21 @@ const CommentItem: React.FC<CommentItemProps> = ({ comment, onReply }) => {
   );
 };
 
-export default function Comments({ postSlug, originalSlug }: CommentsProps) {
+export default function Comments({ postSlug }: CommentsProps) {
   const { data: session } = useSession();
   const [comment, setComment] = useState('');
   const [replyTo, setReplyTo] = useState<string | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [activeTab, setActiveTab] = useState('write');
-  const [comments, setComments] = useState<Comment[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
-  const { t } = useTranslation('common');
 
-  const { data: commentsData, error: _error } = useSWR(
-    `/api/comments?slug=${originalSlug || postSlug}`,
+  const { data: comments, error: _error } = useSWR(
+    `/api/comments?postSlug=${postSlug}`,
     async (url) => {
       const res = await fetch(url);
       if (!res.ok) throw new Error('Failed to fetch comments');
       return res.json();
     }
   );
-
-  useEffect(() => {
-    const fetchComments = async () => {
-      try {
-        const response = await fetch(
-          `/api/comments?slug=${originalSlug || postSlug}`
-        );
-        const data = await response.json();
-        setComments(data);
-      } catch (error) {
-        console.error('Error fetching comments:', error);
-      } finally {
-        setIsLoading(false);
-      }
-    };
-    fetchComments();
-  }, [postSlug, originalSlug]);
 
   const handleReply = (parentId: string) => {
     setReplyTo(parentId);
@@ -186,7 +164,7 @@ export default function Comments({ postSlug, originalSlug }: CommentsProps) {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           content: comment,
-          slug: originalSlug || postSlug,
+          postSlug,
           parentId: replyTo,
         }),
       });
@@ -194,7 +172,7 @@ export default function Comments({ postSlug, originalSlug }: CommentsProps) {
       if (!res.ok) throw new Error('Failed to post comment');
       setComment('');
       setReplyTo(null);
-      mutate(`/api/comments?slug=${originalSlug || postSlug}`);
+      mutate(`/api/comments?postSlug=${postSlug}`);
     } catch (error) {
       console.error('Error posting comment:', error);
     } finally {

@@ -425,7 +425,7 @@ export default function BlogPost({
               </h2>
               <Comments
                 postSlug={frontMatter.slug}
-                originalSlug={frontMatter.originalSlug}
+                // originalSlug={frontMatter.originalSlug}
               />
             </div>
 
@@ -502,15 +502,15 @@ export const getStaticProps: GetStaticProps = async ({
     const allPosts = await getAllPosts(locale);
 
     // If the post is not found in the current locale and we got a fallback
-    if (frontMatter.isFallback) {
-      // Redirect to the original locale version
-      return {
-        redirect: {
-          destination: `/${frontMatter.originalLocale}/blog/${category}/${frontMatter.slug}`,
-          permanent: false,
-        },
-      };
-    }
+    // if (frontMatter.isFallback) {
+
+    //   return {
+    //     redirect: {
+    //       destination: `/${frontMatter.originalLocale}/blog/${category}/${frontMatter.slug}`,
+    //       permanent: false,
+    //     },
+    //   };
+    // }
 
     return {
       props: {

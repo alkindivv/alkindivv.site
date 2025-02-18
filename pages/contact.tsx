@@ -1,16 +1,14 @@
 import React, { useState, useRef } from 'react';
-import { GetStaticProps } from 'next';
-import { useTranslation } from 'next-i18next';
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import Layout from '@/components/layout/Layout';
 import Accent from '@/components/shared/Accent';
 import SEO from '@/components/shared/SEO';
+
 import GlowingButton from '@/components/shared/GlowingButton';
+
 import emailjs from '@emailjs/browser';
 import Image from 'next/image';
 
 const ContactPage = () => {
-  const { t } = useTranslation('common');
   const [isLoading, setIsLoading] = useState(false);
   const [statusType, setStatusType] = useState<'success' | 'error' | null>(
     null
@@ -35,8 +33,10 @@ const ContactPage = () => {
         reply_to: formData.get('user_email'),
       };
 
+      // Initialize EmailJS
       emailjs.init(process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY || '');
 
+      // Send email using EmailJS directly from client
       const result = await emailjs.send(
         process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID || '',
         process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID || '',
@@ -45,16 +45,20 @@ const ContactPage = () => {
 
       if (result.status === 200) {
         setStatusType('success');
-        setStatusMessage(t('contact.form.success'));
+        setStatusMessage(
+          "Message sent successfully! I'll get back to you soon."
+        );
         formRef.current?.reset();
       } else {
-        throw new Error(t('contact.form.error'));
+        throw new Error('Failed to send message');
       }
     } catch (error) {
       console.error('Detailed error:', error);
       setStatusType('error');
       setStatusMessage(
-        error instanceof Error ? error.message : t('contact.form.error')
+        error instanceof Error
+          ? error.message
+          : 'Failed to send message. Please try again later.'
       );
     } finally {
       setIsLoading(false);
@@ -64,8 +68,8 @@ const ContactPage = () => {
   return (
     <Layout>
       <SEO
-        templateTitle={t('contact.title')}
-        description={t('contact.meta.description')}
+        templateTitle="Contact"
+        description="Get in touch with AL KINDI for legal consultations, collaborations, or inquiries about capital markets, M&A, bankruptcy, and crypto regulations. Available through email, WhatsApp, or professional platforms."
       />
 
       <main className="content-spacing">
@@ -93,14 +97,14 @@ const ContactPage = () => {
 
         {/* Hero Section */}
         <section className="min-h-screen pt-40 relative z-10">
-          <div className="mx-auto">
+          <div className="mx-auto ">
             <div className="mt-2 relative space-y-1 text-center" data-fade="1">
               <h1 className="text-center font-sans text-[2rem] sm:text-[2.5rem] md:text-[3rem] lg:text-[3.5rem] font-bold tracking-tight leading-tight">
-                {t('contact.heading')}{' '}
-                <span className="gradient-text">{t('contact.connect')}</span>
+                Let's <span className="gradient-text">Connect</span>
               </h1>
               <p className="hero-text inline-block text-center text-[0.95rem] md:text-[1.05rem]">
-                {t('contact.subtitle')}
+                Feel free to reach out — I'll be happy to help, answer your
+                questions, or simply say hi!
               </p>
             </div>
           </div>
@@ -118,9 +122,11 @@ const ContactPage = () => {
                 data-fade="4"
               >
                 <h2 className="text-sm sm:text-xl font-semibold">
-                  {t('contact.form.title')}{' '}
-                  <Accent>{t('contact.form.message')}</Accent>
+                  Send a <Accent>Message</Accent>
                 </h2>
+                <div className="flex items-center gap-1 sm:gap-2">
+                  <span className="text-[10px] sm:text-sm text-emerald-500"></span>
+                </div>
               </div>
 
               <form
@@ -137,7 +143,7 @@ const ContactPage = () => {
                         name="user_name"
                         required
                         className="w-full bg-transparent border-b border-dotted border-neutral-700 hover:border-neutral-600 focus:border-neutral-500 transition-colors px-0 py-2 text-sm sm:text-base focus:outline-none focus:ring-0 placeholder:text-neutral-600"
-                        placeholder={t('contact.form.name.placeholder')}
+                        placeholder="Your name"
                       />
                     </div>
                     <div className="space-y-2">
@@ -146,7 +152,7 @@ const ContactPage = () => {
                         name="user_email"
                         required
                         className="w-full bg-transparent border-b border-dotted border-neutral-700 hover:border-neutral-600 focus:border-neutral-500 transition-colors px-0 py-2 text-sm sm:text-base focus:outline-none focus:ring-0 placeholder:text-neutral-600"
-                        placeholder={t('contact.form.email.placeholder')}
+                        placeholder="your@email.com"
                       />
                     </div>
                   </div>
@@ -157,7 +163,7 @@ const ContactPage = () => {
                       name="subject"
                       required
                       className="w-full bg-transparent border-b border-dotted border-neutral-700 hover:border-neutral-600 focus:border-neutral-500 transition-colors px-0 py-2 text-sm sm:text-base focus:outline-none focus:ring-0 placeholder:text-neutral-600"
-                      placeholder={t('contact.form.subject.placeholder')}
+                      placeholder="Subject"
                     />
                   </div>
 
@@ -166,8 +172,8 @@ const ContactPage = () => {
                       name="message"
                       required
                       rows={6}
-                      className="w-full bg-transparent border-b border-dotted border-neutral-700 hover:border-neutral-600 focus:border-neutral-500 transition-colors px-0 py-2 text-sm sm:text-base focus:outline-none focus:ring-0 resize-none placeholder:text-neutral-600"
-                      placeholder={t('contact.form.message.placeholder')}
+                      className="w-full bg-transparent  border-b border-dotted border-neutral-700 hover:border-neutral-600 focus:border-neutral-500 transition-colors px-0 py-2 text-sm sm:text-base focus:outline-none focus:ring-0 resize-none placeholder:text-neutral-600"
+                      placeholder="Your message"
                     />
                   </div>
 
@@ -192,7 +198,7 @@ const ContactPage = () => {
                     isLoading={isLoading}
                     variant="small"
                   >
-                    {t('contact.form.submit')}
+                    Send Message
                   </GlowingButton>
                 </div>
               </form>
@@ -202,14 +208,6 @@ const ContactPage = () => {
       </main>
     </Layout>
   );
-};
-
-export const getStaticProps: GetStaticProps = async ({ locale }) => {
-  return {
-    props: {
-      ...(await serverSideTranslations(locale || 'id', ['common'])),
-    },
-  };
 };
 
 export default ContactPage;

@@ -14,6 +14,7 @@ import SEO from '@/components/shared/SEO';
 import Image from 'next/image';
 import { useTranslation } from 'next-i18next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
+import LanguageSwitcher from '@/components/shared/LanguageSwitcher';
 // import Link from 'next/link';
 // import { usePageViews } from '@/lib/hooks/usePageViews';
 
@@ -130,8 +131,10 @@ const BlogPage: React.FC<BlogPageProps> = ({ blogPosts }) => {
 
   return (
     <Layout>
-      <SEO templateTitle={t('navigation.blog')} />
-
+      <SEO
+        templateTitle="Blog"
+        description="A collection of articles and blogs from my personal insights on corporate M&A, capital markets, bankruptcy & insolvency, and cryptocurrency regulation and its underlying technology."
+      />
       {/* Background Effect */}
       <div
         className="absolute inset-0 overflow-hidden h-[450px] bg-neutral-950"
@@ -152,7 +155,6 @@ const BlogPage: React.FC<BlogPageProps> = ({ blogPosts }) => {
           priority
         />
       </div>
-
       <main
         className={clsx(
           'content-spacing max-w-[1200px] w-full relative overflow-hidden',
@@ -165,8 +167,7 @@ const BlogPage: React.FC<BlogPageProps> = ({ blogPosts }) => {
             {/* Header Section */}
             <div className="mt-0 relative space-y-2 text-center" data-fade="1">
               <h1 className="text-4xl md:text-6xl font-bold tracking-tight leading-tight">
-                Personal{' '}
-                <span className="gradient-text">{t('navigation.blog')}</span>
+                Personal <span className="gradient-text">Blog</span>
               </h1>
               <p className="text-sm md:text-lg hero-text max-w-2xl mx-auto">
                 {t('blog.subtitle')}
@@ -177,22 +178,25 @@ const BlogPage: React.FC<BlogPageProps> = ({ blogPosts }) => {
             {/* Search Input */}
             <div className="mt-8 mb-8" data-fade="2">
               <div className="relative mx-auto max-w-2xl">
-                <div className="relative">
-                  <input
-                    type="text"
-                    placeholder={t('blog.search.placeholder')}
-                    value={searchQuery}
-                    onChange={(e) => setSearchQuery(e.target.value)}
-                    className="w-full bg-[#111111] text-neutral-200 rounded-xl px-12 py-3
-                    border border-gray-800/50 hover:border-emerald-500/50 focus:border-emerald-700
-                    outline-none transition-all duration-300 text-sm md:text-base placeholder-neutral-600"
-                  />
-                  <div className="absolute left-4 top-1/2 -translate-y-1/2">
-                    <HiSearch className="text-gray-400 text-lg" />
+                <div className="flex items-center gap-4">
+                  <div className="relative flex-1">
+                    <input
+                      type="text"
+                      placeholder={t('blog.search.placeholder')}
+                      value={searchQuery}
+                      onChange={(e) => setSearchQuery(e.target.value)}
+                      className="w-full bg-[#111111] text-neutral-200 rounded-xl px-12 py-3
+                      border border-gray-800/50 hover:border-emerald-500/50 focus:border-emerald-700
+                      outline-none transition-all duration-300 text-sm md:text-base placeholder-neutral-600"
+                    />
+                    <div className="absolute left-4 top-1/2 -translate-y-1/2">
+                      <HiSearch className="text-gray-400 text-lg" />
+                    </div>
+                    <div className="absolute right-4 top-1/2 -translate-y-1/2 px-2 py-1 rounded-md text-xs text-neutral-600">
+                      ⌘ S
+                    </div>
                   </div>
-                  <div className="absolute right-4 top-1/2 -translate-y-1/2 px-2 py-1 rounded-md ] text-xs text-neutral-600">
-                    ⌘ S
-                  </div>
+                  <LanguageSwitcher variant="blog" />
                 </div>
                 {searchQuery && (
                   <p className="mt-3 text-sm text-gray-400 text-center">

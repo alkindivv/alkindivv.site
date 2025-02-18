@@ -41,7 +41,15 @@ const nextConfig = {
     }
     return config;
   },
-  i18n,
+  i18n: {
+    ...i18n,
+    localeDetection: true,
+    localePath: {
+      '/blog': ['common', 'blog'],
+      '/blog/*': ['common', 'blog'],
+      '/glossary': ['common', 'glossary'],
+    },
+  },
 };
 
 const withBundleAnalyzer = require('@next/bundle-analyzer')({

@@ -9,4 +9,11 @@ module.exports = {
   reloadOnPrerender: process.env.NODE_ENV === 'development',
   fallbackLng: 'id',
   debug: process.env.NODE_ENV === 'development',
+  ns: ['common', 'blog', 'glossary'],
+  pages: {
+    '*': ['common'],
+    '/blog': ['blog', 'common'],
+    '/blog/*': ['blog', 'common'],
+    '/glossary': ['glossary', 'common'],
+  },
 };

@@ -18,6 +18,15 @@ export function middleware(request: NextRequest) {
     return NextResponse.redirect(url);
   }
 
+  // Hanya terapkan routing bahasa untuk blog dan glossary
+  const shouldHandleLocale =
+    request.nextUrl.pathname.startsWith('/blog') ||
+    request.nextUrl.pathname.startsWith('/glossary');
+
+  if (!shouldHandleLocale) {
+    return NextResponse.next();
+  }
+
   const response = NextResponse.next();
 
   // Set cache control headers for blog posts
@@ -33,12 +42,10 @@ export function middleware(request: NextRequest) {
 
 export const config = {
   matcher: [
-    /*
-     * Match all request paths except:
-     * - API routes (/api/*)
-     * - Static files
-     * - Next.js internals
-     */
+    // Hanya match blog dan glossary untuk routing bahasa
+    '/blog/:path*',
+    '/glossary/:path*',
+    // Dan juga match rute lain yang perlu middleware
     '/((?!api|_next/static|_next/image|favicon.ico|.*\\..*|$).*)',
   ],
 };

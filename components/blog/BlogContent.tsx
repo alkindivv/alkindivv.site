@@ -276,7 +276,23 @@ export const MDXComponents = {
     </strong>
   ),
   Image: ({ src, alt, width: _width, height: _height, ...props }: any) => (
-    <div className="relative w-full aspect-[1.88/1] mb-12 -mt-10 md:mb-12 md:-mt-14 group cursor-zoom-in">
+    //   <div className="relative w-full aspect-[1.88/1] mb-12 -mt-10 md:mb-20 md:-mt-4 group cursor-zoom-in">
+    //     <div className="absolute inset-0">
+    //       <Image
+    //         src={src}
+    //         alt={alt || ''}
+    //         fill
+    //         className="object-contain"
+    //         quality={100}
+    //         sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 60vw"
+    //         priority
+    //         {...props}
+    //       />
+    //     </div>
+    //   </div>
+    // ),
+
+    <div className="relative w-full aspect-[1.88/1] mb-12 -mt-10 md:mb-20 md:-mt-4 group cursor-zoom-in">
       <div className="absolute inset-0">
         <Image
           src={src}

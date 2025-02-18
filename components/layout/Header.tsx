@@ -1,15 +1,6 @@
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { useTranslation } from 'next-i18next';
-
-// import { HiOutlineMenu, HiOutlineX } from 'react-icons/hi';
-// import { motion } from 'framer-motion';
-
-// import UnstyledLink from '@/components/shared/UnstyledLink';
-// import { links } from '@/lib/constants/links';
-// import { useTheme } from 'next-themes';
-// import Image from 'next/image';
 import LanguageSwitcher from '../shared/LanguageSwitcher';
 import {
   HiNewspaper,
@@ -26,6 +17,7 @@ import clsx from 'clsx';
 import { FaChevronDown } from 'react-icons/fa';
 import type { IconType } from 'react-icons';
 import { GoLaw } from 'react-icons/go';
+import Image from 'next/image'; // Import Image
 
 interface MoreItem {
   href: string;
@@ -41,17 +33,11 @@ interface NavItem {
   icon: IconType;
 }
 
-// interface NavItemWithDropdown extends NavItem {
-//   isDropdown?: boolean;
-//   dropdownItems?: MoreItem[];
-// }
-
 export default function Header() {
   const [scrolled, setScrolled] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isMoreOpen, setIsMoreOpen] = useState(false);
   const router = useRouter();
-  const { t } = useTranslation('common');
 
   // Check if current page is an article page
   const isArticlePage =
@@ -79,26 +65,26 @@ export default function Header() {
   const navItems: NavItem[] = [
     {
       href: '/',
-      label: t('navigation.home'),
-      description: t('descriptions.home'),
+      label: 'Home',
+      description: 'Back to homepage',
       icon: HiHome,
     },
     {
       href: '/blog',
-      label: t('navigation.blog'),
-      description: t('descriptions.blog'),
+      label: 'Blog',
+      description: 'Read my articles',
       icon: HiNewspaper,
     },
     {
       href: '/about',
-      label: t('navigation.about'),
-      description: t('descriptions.about'),
+      label: 'About',
+      description: 'Learn more about me',
       icon: HiUser,
     },
     {
       href: '/glossary',
-      label: t('navigation.glossary'),
-      description: t('descriptions.glossary'),
+      label: 'Glossary',
+      description: 'Legal terms dictionary',
       icon: GoLaw,
     },
   ];
@@ -106,32 +92,32 @@ export default function Header() {
   const moreItems: MoreItem[] = [
     {
       href: '/books',
-      label: t('navigation.books'),
-      description: t('descriptions.books'),
+      label: 'Books',
+      description: 'Books I read and recommend',
       icon: HiBookOpen,
     },
     {
       href: '/contact',
-      label: t('navigation.contact'),
-      description: t('descriptions.contact'),
+      label: 'Contact',
+      description: 'Get in touch with me',
       icon: HiMail,
     },
     {
       href: '/resources',
-      label: t('navigation.resources'),
-      description: t('descriptions.resources'),
+      label: 'Resources',
+      description: 'Useful resources and tools',
       icon: HiBookOpen,
     },
     {
       href: '/wishlist',
-      label: t('navigation.wishlist'),
-      description: t('descriptions.wishlist'),
+      label: 'Wishlist',
+      description: 'My personal goals and wishes',
       icon: HiSparkles,
     },
     {
       href: '/docs',
-      label: t('navigation.docs'),
-      description: t('descriptions.docs'),
+      label: 'Docs',
+      description: 'Documentation and guides',
       icon: HiDocument,
     },
   ];
@@ -149,12 +135,16 @@ export default function Header() {
           {/* Left Section: Logo & Navigation */}
           <div className="flex-1 flex items-center gap-8">
             {/* Logo */}
-            {/* <Link
-              href="/"
-              className="text-lg font-semibold text-emerald-400 hover:text-emerald-300 transition-colors"
-            >
-              AL
-            </Link> */}
+            <div className="flex items-center">
+              <a>
+                <Image
+                  src="/images/logo-5.png" // Ganti dengan path logo kamu
+                  alt="Logo"
+                  width={30} // Sesuaikan dengan lebar logo
+                  height={30} // Sesuaikan dengan tinggi logo
+                />
+              </a>
+            </div>
 
             {/* Desktop Navigation */}
             <nav className="hidden md:flex items-center gap-6">
@@ -190,7 +180,7 @@ export default function Header() {
                   'text-gray-300 hover:text-emerald-400 transition-colors'
                 )}
               >
-                {t('navigation.more')}
+                More
                 <FaChevronDown
                   className={clsx(
                     'w-3 h-3 transition-transform duration-300',
@@ -246,99 +236,53 @@ export default function Header() {
                 'text-gray-400 hover:text-emerald-400 transition-colors',
                 'hover:bg-emerald-500/5'
               )}
-              aria-label={t('navigation.menu')}
+              aria-label="Toggle menu"
             >
               {isMenuOpen ? (
-                <HiX className="w-5 h-5" />
+                <HiX className="w-6 h-6" />
               ) : (
-                <HiMenu className="w-5 h-5" />
+                <HiMenu className="w-6 h-6" />
               )}
             </button>
           </div>
         </div>
-      </div>
 
-      {/* Mobile Menu */}
-      <div
-        className={clsx(
-          'fixed inset-0 md:hidden z-40',
-          'transition-all duration-300',
-          isMenuOpen
-            ? 'opacity-100 pointer-events-auto'
-            : 'opacity-0 pointer-events-none'
-        )}
-      >
-        <div
-          className={clsx(
-            'absolute inset-0 bg-black/90 backdrop-blur-sm',
-            'transition-opacity duration-300',
-            isMenuOpen ? 'opacity-100' : 'opacity-0'
-          )}
-          onClick={() => setIsMenuOpen(false)}
-        />
-        <div
-          className={clsx(
-            'absolute top-20 inset-x-4',
-            'bg-[#0a0a0a] rounded-2xl',
-            'border border-emerald-500/10',
-            'transform transition-all duration-300',
-            'shadow-xl shadow-emerald-500/[0.05]',
-            isMenuOpen ? 'scale-100 opacity-100' : 'scale-95 opacity-0'
-          )}
-        >
-          <div className="p-2">
-            {navItems.map((item) => {
-              const isActive = router.pathname === item.href;
-              return (
-                <Link
-                  key={item.href}
-                  href={item.href}
-                  onClick={() => setIsMenuOpen(false)}
-                  className={clsx(
-                    'flex items-center gap-3 p-3 rounded-xl',
-                    'transition-all duration-300',
-                    'hover:bg-emerald-500/5',
-                    'group',
-                    isActive
-                      ? 'text-emerald-400 bg-emerald-500/10'
-                      : 'text-gray-300 hover:text-emerald-400'
-                  )}
-                >
-                  <div className="w-9 h-9 flex items-center justify-center bg-emerald-500/10 rounded-xl">
-                    <item.icon className="w-4.5 h-4.5" />
-                  </div>
-                  <div>
-                    <div className="font-medium text-sm">{item.label}</div>
-                    <p className="text-xs text-gray-500 group-hover:text-emerald-400/70">
-                      {item.description}
-                    </p>
-                  </div>
-                </Link>
-              );
-            })}
-
-            <div className="h-px bg-emerald-500/10 my-2" />
-
-            {moreItems.map((item) => (
-              <Link
-                key={item.href}
-                href={item.href}
-                onClick={() => setIsMenuOpen(false)}
-                className="flex items-center gap-3 p-3 rounded-xl text-gray-300 hover:text-emerald-400 hover:bg-emerald-500/5 transition-all duration-300"
-              >
-                <div className="w-9 h-9 flex items-center justify-center bg-emerald-500/10 rounded-xl">
-                  <item.icon className="w-4.5 h-4.5" />
+        {/* Mobile Menu */}
+        {isMenuOpen && (
+          <div className="md:hidden fixed inset-0 top-20 bg-black/95 backdrop-blur-xl">
+            <nav className="container max-w-6xl mx-auto px-4 py-8">
+              <div className="space-y-6">
+                {/* Main Navigation */}
+                <div className="space-y-3">
+                  {navItems.map((item) => (
+                    <Link
+                      key={item.href}
+                      href={item.href}
+                      className={clsx(
+                        'block text-lg font-medium text-gray-300 hover:text-emerald-400'
+                      )}
+                    >
+                      {item.label}
+                    </Link>
+                  ))}
                 </div>
-                <div>
-                  <div className="font-medium text-sm">{item.label}</div>
-                  <p className="text-xs text-gray-500 group-hover:text-emerald-400/70">
-                    {item.description}
-                  </p>
+
+                {/* More Section */}
+                <div className="space-y-3">
+                  {moreItems.map((item) => (
+                    <Link
+                      key={item.href}
+                      href={item.href}
+                      className="block text-lg font-medium text-gray-300 hover:text-emerald-400"
+                    >
+                      {item.label}
+                    </Link>
+                  ))}
                 </div>
-              </Link>
-            ))}
+              </div>
+            </nav>
           </div>
-        </div>
+        )}
       </div>
     </header>
   );

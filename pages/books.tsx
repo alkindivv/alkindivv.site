@@ -4,9 +4,6 @@ import Image from 'next/image';
 import SEO from '@/components/shared/SEO';
 import { HiCalendar, HiAnnotation, HiAcademicCap } from 'react-icons/hi';
 import clsx from 'clsx';
-import { useTranslation } from 'next-i18next';
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
-import { GetStaticProps } from 'next';
 
 interface Book {
   id: number;
@@ -16,71 +13,65 @@ interface Book {
   publishYear: string;
   category: string;
   description: string;
-  readStatus?: 'completed' | 'reading' | 'planned';
+  readStatus?: 'Selesai' | 'Sedang Dibaca' | 'Rencana Dibaca';
   notes?: string;
   keyTakeaways?: string[];
   personalThoughts?: string;
 }
 
-const BooksPage = () => {
-  const { t } = useTranslation('common');
-  const [selectedStatus, setSelectedStatus] = useState('all');
+const books: Book[] = [
+  {
+    id: 1,
+    title: 'Hukum Perseroan Terbatas',
+    author: 'M. Yahya Harahap, S.H.',
+    coverImage: '/images/resources/buku-pt.jpg',
+    publishYear: '2008',
+    category: 'Corporate Law',
+    description:
+      'Buku ini memberikan pemahaman mendalam tentang aspek hukum Perseroan Terbatas di Indonesia, termasuk struktur organisasi, tata kelola, dan tanggung jawab hukum.',
+    readStatus: 'Selesai',
+    personalThoughts:
+      'Buku ini sangat membantu saya memahami konsep dasar PT, terutama dalam aspek tanggung jawab direksi dan dewan komisaris.',
+    keyTakeaways: [
+      'Pemahaman komprehensif struktur PT',
+      'Prinsip tata kelola perusahaan',
+      'Hak dan kewajiban pemegang saham',
+    ],
+  },
+  {
+    id: 2,
+    title: 'Hukum Bisnis',
+    author: 'Dr. Rr. Rina Antasari, S.H., M.Hum. & Dra. Fauziah, M.Hum.',
+    coverImage: '/images/resources/hukum-bisnis.jpg',
+    publishYear: '2018',
+    category: 'Business Law',
+    description:
+      'Membahas aspek-aspek penting dalam hukum bisnis seperti kontrak, kepailitan, merger & akuisisi, investasi asing dan penyelesaian sengketa alternatif.',
+    readStatus: 'Selesai',
+    personalThoughts:
+      'Saya menemukan banyak wawasan baru tentang aspek praktis hukum bisnis, terutama dalam penanganan kasus-kasus nyata.',
+    keyTakeaways: [
+      'Dasar-dasar hukum kontrak',
+      'Kerangka hukum M&A',
+      'Prosedur kepailitan',
+    ],
+  },
+];
 
-  const readStatuses = [
-    { key: 'all', label: t('books.filters.all') },
-    { key: 'completed', label: t('books.filters.completed') },
-    { key: 'reading', label: t('books.filters.reading') },
-    { key: 'planned', label: t('books.filters.planned') },
-  ];
+const readStatuses = ['All', 'Selesai', 'Sedang Dibaca', 'Rencana Dibaca'];
 
-  const books: Book[] = [
-    {
-      id: 1,
-      title: 'Hukum Perseroan Terbatas',
-      author: 'M. Yahya Harahap, S.H.',
-      coverImage: '/images/resources/buku-pt.jpg',
-      publishYear: '2008',
-      category: 'Corporate Law',
-      description:
-        'Buku ini memberikan pemahaman mendalam tentang aspek hukum Perseroan Terbatas di Indonesia.',
-      readStatus: 'completed',
-      personalThoughts:
-        'Buku ini sangat membantu saya memahami konsep dasar PT.',
-      keyTakeaways: [
-        'Pemahaman komprehensif struktur PT',
-        'Prinsip tata kelola perusahaan',
-        'Hak dan kewajiban pemegang saham',
-      ],
-    },
-    {
-      id: 2,
-      title: 'Hukum Bisnis',
-      author: 'Dr. Rr. Rina Antasari, S.H., M.Hum. & Dra. Fauziah, M.Hum.',
-      coverImage: '/images/resources/hukum-bisnis.jpg',
-      publishYear: '2018',
-      category: 'Business Law',
-      description:
-        'Membahas aspek-aspek penting dalam hukum bisnis seperti kontrak, kepailitan, merger & akuisisi, investasi asing dan penyelesaian sengketa alternatif.',
-      readStatus: 'completed',
-      personalThoughts:
-        'Saya menemukan banyak wawasan baru tentang aspek praktis hukum bisnis, terutama dalam penanganan kasus-kasus nyata.',
-      keyTakeaways: [
-        'Dasar-dasar hukum kontrak',
-        'Kerangka hukum M&A',
-        'Prosedur kepailitan',
-      ],
-    },
-  ];
+export default function BooksPage() {
+  const [selectedStatus, setSelectedStatus] = useState('All');
 
   const filteredBooks = books.filter((book) => {
-    return selectedStatus === 'all' || book.readStatus === selectedStatus;
+    return selectedStatus === 'All' || book.readStatus === selectedStatus;
   });
 
   return (
-    <Layout title={`${t('books.title')} | AL KINDI`} isHomePage={false}>
+    <Layout title="Books | AL KINDI" isHomePage={false}>
       <SEO
-        templateTitle={t('books.title')}
-        description={t('books.meta.description')}
+        templateTitle="Reading Notes"
+        description="books that i read to improve my knowledge and exploring a new things."
         canonical="https://alkindivv.site/books/"
       />
 
@@ -103,11 +94,10 @@ const BooksPage = () => {
             {/* Header */}
             <div className="text-center space-y-4" data-fade="1">
               <h1 className="text-4xl md:text-5xl font-bold">
-                {t('books.title')}{' '}
-                <span className="gradient-text">{t('books.subtitle')}</span>
+                Reading <span className="gradient-text">Notes</span>
               </h1>
               <p className="hero-text inline-block max-w-2xl mx-auto">
-                {t('books.description')}
+                My personal reading books
               </p>
             </div>
 
@@ -121,16 +111,16 @@ const BooksPage = () => {
               <div className="flex flex-wrap gap-2 justify-center">
                 {readStatuses.map((status) => (
                   <button
-                    key={status.key}
-                    onClick={() => setSelectedStatus(status.key)}
+                    key={status}
+                    onClick={() => setSelectedStatus(status)}
                     className={clsx(
                       'px-4 py-2 rounded-lg text-sm transition-all',
-                      selectedStatus === status.key
+                      selectedStatus === status
                         ? 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/20'
                         : 'text-gray-400 hover:text-emerald-400 border border-gray-800'
                     )}
                   >
-                    {status.label}
+                    {status}
                   </button>
                 ))}
               </div>
@@ -144,7 +134,7 @@ const BooksPage = () => {
                   className="bg-[#0a0a0a] border border-gray-800 rounded-xl p-6 hover:border-emerald-500/20 transition-all duration-300"
                 >
                   <div className="flex flex-col md:flex-row gap-6">
-                    {/* Cover */}
+                    {/* Cover (smaller) */}
                     <div className="md:w-1/4">
                       <div className="aspect-[3/4] relative overflow-hidden rounded-lg">
                         <Image
@@ -164,7 +154,7 @@ const BooksPage = () => {
                         </span>
                         {book.readStatus && (
                           <span className="text-xs text-gray-400 border border-gray-800 px-2 py-1 rounded">
-                            {t(`books.filters.${book.readStatus}`)}
+                            {book.readStatus}
                           </span>
                         )}
                         <span className="text-xs text-gray-400 flex items-center gap-1">
@@ -178,7 +168,7 @@ const BooksPage = () => {
                           {book.title}
                         </h3>
                         <p className="text-sm text-gray-400">
-                          {t('books.details.by')} {book.author}
+                          oleh {book.author}
                         </p>
                       </div>
 
@@ -190,7 +180,7 @@ const BooksPage = () => {
                         <div className="bg-emerald-500/5 border border-emerald-500/10 rounded-lg p-4">
                           <h4 className="text-sm font-medium text-emerald-400 mb-2 flex items-center gap-2">
                             <HiAnnotation className="w-4 h-4" />
-                            {t('books.details.personal_notes')}
+                            Catatan Pribadi:
                           </h4>
                           <p className="text-sm text-gray-400">
                             {book.personalThoughts}
@@ -202,7 +192,7 @@ const BooksPage = () => {
                         <div>
                           <h4 className="text-sm font-medium text-emerald-400 mb-2 flex items-center gap-2">
                             <HiAcademicCap className="w-4 h-4" />
-                            {t('books.details.key_points')}
+                            Poin Penting:
                           </h4>
                           <ul className="grid md:grid-cols-2 gap-2">
                             {book.keyTakeaways.map((point, idx) => (
@@ -227,14 +217,4 @@ const BooksPage = () => {
       </main>
     </Layout>
   );
-};
-
-export const getStaticProps: GetStaticProps = async ({ locale }) => {
-  return {
-    props: {
-      ...(await serverSideTranslations(locale || 'id', ['common'])),
-    },
-  };
-};
-
-export default BooksPage;
+}
