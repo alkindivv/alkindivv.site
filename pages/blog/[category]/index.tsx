@@ -146,10 +146,10 @@ export default function CategoryPage({ posts, category }: CategoryPageProps) {
   ];
 
   return (
-    <Layout>
+    <Layout title="Category | AL KINDI" isHomePage={false}>
       <SEO
-        templateTitle={`${category.name} Articles - Al Kindi`}
-        description={`Read articles about ${category.name.toLowerCase()} from Al Kindi`}
+        templateTitle={`${category.name} Articles - AL KINDI`}
+        description={`Read articles about ${category.name.toLowerCase()} from AL KINDI`}
       />
 
       {/* Background Effect */}
@@ -186,7 +186,7 @@ export default function CategoryPage({ posts, category }: CategoryPageProps) {
             <div className="mt-10 relative space-y-1 text-center" data-fade="1">
               {/* <h1 className="text-4xl md:text-5xl font-bold tracking-tight leading-tight"> */}
               <h1 className="text-center font-sans text-[2rem] sm:text-[2.5rem] md:text-[3rem] lg:text-[3.5rem] font-bold tracking-tight leading-tight">
-                <Accent>{category.name}</Accent> Articles
+                <span className="gradient-text">{category.name} </span> Articles
               </h1>
               <p className="hero-text text-center text-[0.95rem] md:text-[1.05rem]">
                 {category.description}
