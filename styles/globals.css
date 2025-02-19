@@ -16,6 +16,8 @@
 
 /* Root Variables */
 :root {
+  /* Font Families */
+  --font-serif: 'Apple Homemade';
   --font-sans: 'DM Sans';
   --font-paragraf: 'system-ui';
   --color-primary: #08a875;

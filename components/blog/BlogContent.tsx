@@ -34,13 +34,12 @@ export const H2 = ({
 }) => (
   <h2
     id={id}
-    className="text-[1.45rem] text-[#E5E7EB] font-semibold scroll-mt-20 mb-6 relative leading-relaxed "
+    className="text-[1.45rem] md:text-[1.65rem] text-[#F5F5F5] decoration-[#A3A3A3] decoration-2 font-semibold scroll-mt-20 mb-6 relative leading-tight underline "
     {...props}
   >
     {children}
   </h2>
 );
-
 export const H3 = ({
   id,
   children,
@@ -51,7 +50,7 @@ export const H3 = ({
 }) => (
   <h3
     id={id}
-    className="text-[1.25rem] text-[#F5F5F5] font-bold scroll-mt-20 mb-6 relative leading-tight "
+    className="text-[1.35rem] md:text-[1.55rem] text-[#E5E7EB] font-bold scroll-mt-20 mb-6 mt-25 relative leading-tight "
     {...props}
   >
     {children}
@@ -105,7 +104,7 @@ export const LI = ({ children, className = '' }: TypographyProps) => (
 export const BlockQuote = ({ children, className = '' }: TypographyProps) => (
   <blockquote
     className={clsx(
-      'pl-4 -mt-2 -mb-2 italic font-paragraf font-normal text-[0.95rem] md:text-[1.05rem] text-[#D4D4D4] [&>*]:!text-[#D4D4D4] leading-loose',
+      'pl-4 -mt-2 -mb-2 italic font-[system-ui] text-[0.95rem] md:text-[1.05rem] text-[#D4D4D4] [&>*]:!text-[#E5E7EB] leading-loose',
       className
     )}
   >
@@ -121,7 +120,7 @@ export const Introduction = ({
   <section className="mb-10">
     <div
       id="introduction"
-      className="text-xl md:text-2xl lg:text-3xl font-semibold text-white scroll-mt-20 mb-4 relative"
+      className="text-[1.45rem] md:text-[1.65rem] font-semibold text-[#F5F5F5] scroll-mt-20 mb-4 relative leading-relaxed"
       {...props}
     >
       Introduction
