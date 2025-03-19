@@ -25,18 +25,20 @@ const wishlistItems: WishlistItem[] = [
   },
   {
     id: 2,
+    title: 'Pass the bar exam',
+    description: '',
+    date: 'March 2025',
+    completed: true,
+  },
+  {
+    id: 3,
     title:
       'Become a junior or trainee associate at a top tier corporate law firm',
     description: '',
 
     completed: false,
   },
-  {
-    id: 3,
-    title: 'Pass the bar exam',
-    description: '',
-    completed: false,
-  },
+
   {
     id: 4,
     title: 'Buy a house',

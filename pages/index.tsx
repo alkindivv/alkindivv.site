@@ -4,6 +4,7 @@ import Accent from '@/components/shared/Accent';
 import SEO from '@/components/shared/SEO';
 import SocialMedia from '@/components/social/SocialMedia';
 import GlowingButton from '@/components/shared/GlowingButton';
+import SecondaryButton from '@/components/shared/SecondaryButton';
 
 export default function HomePage() {
   return (
@@ -63,9 +64,9 @@ export default function HomePage() {
                 <GlowingButton variant="small" href="/blog">
                   Read my blog
                 </GlowingButton>
-                <GlowingButton variant="small" href="/about">
+                <SecondaryButton variant="small" href="/about">
                   More about me
-                </GlowingButton>
+                </SecondaryButton>
               </div>
 
               {/* Social Links */}
