@@ -6,46 +6,6 @@ import clsx from 'clsx';
 import DimensionLink from '@/components/common/DimensionLink';
 import AccentNormal from '@/components/shared/AccentNormal';
 
-// Data definitions
-const experiences = [
-  {
-    date: 'Nov 2023 — Dec 2024',
-    title: 'Trainee Associate',
-    company: 'Law Firm RR & Partners',
-    location: 'Jakarta',
-    description:
-      'Assisting in legal research, document drafting, and case analysis for various corporate and commercial matters.',
-    achievements: [
-      'Assisted in drafting and filing various legal documents, including lawsuits, warnings, and contracts, while ensuring compliance with applicable court procedures and legal standards',
-      'Conducted in-depth legal research and case analysis to support court submissions and legal opinions, utilizing legal databases and academic resources',
-      "Collaborated with senior associates in case strategy meetings, contributing to the preparation of legal arguments and solutions tailored to clients' needs",
-    ],
-  },
-
-  {
-    date: 'Jan 2022 — Feb 2022',
-    title: 'Legal Intern',
-    company:
-      'Ariyanto & Rekan, Wahyu Priyanka & Partners, Erlan Nopri & Partners',
-    location: 'Yogyakarta',
-    description:
-      'Completed a one-month internship at three law firms simultaneously, gaining comprehensive experience in various aspects of legal practice.',
-    achievements: [
-      'Gained insights and experience in legal drafting and research',
-      'Assisted in the management and establishment of a law firm',
-      'Learning how to preparing legal opinion for clients',
-    ],
-  },
-  {
-    date: 'Feb 2021 — Dec 2023',
-    title: 'Freelancer',
-    company: 'Fiverr',
-    location: 'Remote',
-    description:
-      'Improved English communication and negotiation skills through international client interactions on Fiverr.',
-  },
-];
-
 const AboutPage = () => {
   return (
     <Layout>
@@ -181,71 +141,231 @@ const AboutPage = () => {
               />
 
               <div className="space-y-14">
-                {experiences.map((exp, index) => (
-                  <div key={index} className="group">
-                    {/* Main Content */}
-                    <div className="grid grid-cols-1 md:grid-cols-[300px,1fr] gap-8 data-fade-8">
-                      {/* Left Column - Company */}
-                      <div>
-                        <div
-                          className="paragraph-text text-[0.9rem] md:text-[0.95rem] leading-relaxed tracking-wider -mb-10 md:-mb-0"
-                          data-fade="10"
-                        >
-                          {exp.date}
-                        </div>
-                      </div>
-
-                      {/* Right Column */}
-                      <div className="space-y-4">
-                        {/* Date and Title */}
-                        <div>
-                          <h3
-                            className="font-sans leading-relaxed text-[1.25rem] md:text-[1.5rem] font-bold text-white mb-0"
-                            data-fade="11"
-                          >
-                            {exp.title}
-                          </h3>
-                          <div
-                            className="font-light text-[0.9rem] md:text-[0.975rem]"
-                            data-fade="12"
-                          >
-                            <DimensionLink href="#">
-                              {exp.company}
-                            </DimensionLink>
-                          </div>
-                        </div>
-
-                        {/* Description */}
-                        <div
-                          className="paragraph-text leading-relaxed"
-                          data-fade="13"
-                        >
-                          {exp.description}
-                        </div>
-
-                        {/* Achievements */}
-                        {exp.achievements && (
-                          <ul className="space-y-4" data-fade="14">
-                            {exp.achievements.map((achievement, i) => (
-                              <li
-                                key={i}
-                                className="flex gap-3 text-justify paragraph-text leading-relaxed"
-                                data-fade="15"
-                              >
-                                <span className="flex-shrink-0 w-1.5 h-1.5 rounded-full bg-emerald-500/30 border border-emerald-500/10 mt-2" />
-                                <span>{achievement}</span>
-                              </li>
-                            ))}
-                          </ul>
-                        )}
+                {/* Experience 1 */}
+                <div className="group">
+                  <div className="grid grid-cols-1 md:grid-cols-[300px,1fr] gap-8 data-fade-8">
+                    <div>
+                      <div
+                        className="paragraph-text text-[0.9rem] md:text-[0.95rem] leading-relaxed tracking-wider -mb-10 md:-mb-0"
+                        data-fade="10"
+                      >
+                        Nov 2023 — Dec 2024
                       </div>
                     </div>
-                    {/* <div
-                  className=" h-px bg-gradient-to-r from-transparent via-gray-800 to-transparent mt-6"
-                  data-fade="10"
-                /> */}
+
+                    <div className="space-y-4">
+                      <div>
+                        <h3
+                          className="font-sans leading-relaxed text-[1.25rem] md:text-[1.5rem] font-bold text-white mb-0"
+                          data-fade="11"
+                        >
+                          Internship
+                        </h3>
+                        <div
+                          className="font-light text-[0.9rem] md:text-[0.975rem]"
+                          data-fade="12"
+                        >
+                          <DimensionLink href="#">
+                            Law Firm RR & Partners
+                          </DimensionLink>
+                        </div>
+                      </div>
+
+                      <div
+                        className="paragraph-text leading-relaxed"
+                        data-fade="13"
+                      >
+                        {/* Assisting in legal research, document drafting, and case
+                        analysis for various corporate and commercial matters. */}
+                      </div>
+
+                      <ul className="space-y-4" data-fade="14">
+                        <li
+                          className="flex gap-3 text-justify paragraph-text leading-relaxed"
+                          data-fade="15"
+                        >
+                          <span className="flex-shrink-0 w-1.5 h-1.5 rounded-full bg-emerald-500/30 border border-emerald-500/10 mt-2" />
+                          <span>
+                            Assisted in drafting and filing various legal
+                            documents, including lawsuits, and contracts, while
+                            ensuring compliance with applicable court procedures
+                          </span>
+                        </li>
+                        <li
+                          className="flex gap-3 text-justify paragraph-text leading-relaxed"
+                          data-fade="15"
+                        >
+                          <span className="flex-shrink-0 w-1.5 h-1.5 rounded-full bg-emerald-500/30 border border-emerald-500/10 mt-2" />
+                          <span>
+                            Conducted through legal research and case analysis
+                            to support utilizing legal databases and academic
+                            resources.
+                          </span>
+                        </li>
+                        <li
+                          className="flex gap-3 text-justify paragraph-text leading-relaxed"
+                          data-fade="15"
+                        >
+                          <span className="flex-shrink-0 w-1.5 h-1.5 rounded-full bg-emerald-500/30 border border-emerald-500/10 mt-2" />
+                          <span>
+                            Collaborated in case strategy meetings, contributing
+                            to tailored legal arguments and solutions.
+                          </span>
+                        </li>
+                      </ul>
+                    </div>
                   </div>
-                ))}
+                </div>
+
+                {/* Experience 2 */}
+                <div className="group">
+                  <div className="grid grid-cols-1 md:grid-cols-[300px,1fr] gap-8 data-fade-8">
+                    <div>
+                      <div
+                        className="paragraph-text text-[0.9rem] md:text-[0.95rem] leading-relaxed tracking-wider -mb-10 md:-mb-0"
+                        data-fade="10"
+                      >
+                        Jan 2022 — Feb 2022
+                      </div>
+                    </div>
+
+                    <div className="space-y-4">
+                      <div>
+                        <h3
+                          className="font-sans leading-relaxed text-[1.25rem] md:text-[1.5rem] font-bold text-white mb-0"
+                          data-fade="11"
+                        >
+                          Legal Intern
+                        </h3>
+                        <div
+                          className="font-light text-[0.9rem] md:text-[0.975rem]"
+                          data-fade="12"
+                        >
+                          <DimensionLink href="https://www.linkedin.com/company/wahyu-priyanka-partners/posts/?feedView=all">
+                            Ariyanto & Rekan, Wahyu Priyanka & Partners, Erlan
+                            Nopri & Partners
+                          </DimensionLink>
+                        </div>
+                      </div>
+
+                      <div
+                        className="paragraph-text leading-relaxed"
+                        data-fade="13"
+                      >
+                        Completed a mandatory internship course as part of the
+                        undergraduate law curriculum.
+                      </div>
+
+                      <ul className="space-y-4" data-fade="14">
+                        <li
+                          className="flex gap-3 text-justify paragraph-text leading-relaxed"
+                          data-fade="15"
+                        >
+                          <span className="flex-shrink-0 w-1.5 h-1.5 rounded-full bg-emerald-500/30 border border-emerald-500/10 mt-2" />
+                          <span>
+                            Interned simultaneously at three law firms to gain
+                            broader exposure to legal practice
+                          </span>
+                        </li>
+                        <li
+                          className="flex gap-3 text-justify paragraph-text leading-relaxed"
+                          data-fade="15"
+                        >
+                          <span className="flex-shrink-0 w-1.5 h-1.5 rounded-full bg-emerald-500/30 border border-emerald-500/10 mt-2" />
+                          <span>
+                            Developed practical skills in legal drafting,
+                            research, and courtroom procedures.
+                          </span>
+                        </li>
+                        <li
+                          className="flex gap-3 text-justify paragraph-text leading-relaxed"
+                          data-fade="15"
+                        >
+                          <span className="flex-shrink-0 w-1.5 h-1.5 rounded-full bg-emerald-500/30 border border-emerald-500/10 mt-2" />
+                          <span>
+                            Developed foundational advocacy techniques and
+                            assisted in administrative tasks related to the
+                            management and establishment of a law office.
+                          </span>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Experience 3 */}
+                <div className="group">
+                  <div className="grid grid-cols-1 md:grid-cols-[300px,1fr] gap-8 data-fade-8">
+                    <div>
+                      <div
+                        className="paragraph-text text-[0.9rem] md:text-[0.95rem] leading-relaxed tracking-wider -mb-10 md:-mb-0"
+                        data-fade="10"
+                      >
+                        Feb 2021 — Dec 2023
+                      </div>
+                    </div>
+
+                    <div className="space-y-4">
+                      <div>
+                        <h3
+                          className="font-sans leading-relaxed text-[1.25rem] md:text-[1.5rem] font-bold text-white mb-0"
+                          data-fade="11"
+                        >
+                          Freelancer
+                        </h3>
+                        <div
+                          className="font-light text-[0.9rem] md:text-[0.975rem]"
+                          data-fade="12"
+                        >
+                          <DimensionLink href="https://www.fiverr.com/rizkil">
+                            Fiverr
+                          </DimensionLink>
+                        </div>
+                      </div>
+
+                      <div
+                        className="paragraph-text leading-relaxed"
+                        data-fade="13"
+                      >
+                        <ul className="space-y-4" data-fade="14">
+                          <li
+                            className="flex gap-3 text-justify paragraph-text leading-relaxed"
+                            data-fade="15"
+                          >
+                            <span className="flex-shrink-0 w-1.5 h-1.5 rounded-full bg-emerald-500/30 border border-emerald-500/10 mt-2" />
+                            <span>
+                              Install and configure macOS on non-Apple hardware,
+                              ensuring full system functionality and performance
+                              optimization.
+                            </span>
+                          </li>
+                          <li
+                            className="flex gap-3 text-justify paragraph-text leading-relaxed"
+                            data-fade="15"
+                          >
+                            <span className="flex-shrink-0 w-1.5 h-1.5 rounded-full bg-emerald-500/30 border border-emerald-500/10 mt-2" />
+                            <span>
+                              Analyze and optimize hardware compatibility to
+                              ensure a fully functional macOS on non-Apple
+                              hardware
+                            </span>
+                          </li>
+                          <li
+                            className="flex gap-3 text-justify paragraph-text leading-relaxed"
+                            data-fade="15"
+                          >
+                            <span className="flex-shrink-0 w-1.5 h-1.5 rounded-full bg-emerald-500/30 border border-emerald-500/10 mt-2" />
+                            <span>
+                              Customize configurations according to client
+                              specifications (laptop/desktop model, CPU, GPU,
+                              RAM, etc.)
+                            </span>
+                          </li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                </div>
               </div>
             </section>
           </div>

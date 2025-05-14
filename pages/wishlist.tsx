@@ -20,23 +20,26 @@ const wishlistItems: WishlistItem[] = [
     description:
       'Graduate from islamic university of indonesia with a degree in law.',
     date: 'August 2023',
-    imageUrl: '/images/AL-KINDI.png',
+    imageUrl: '',
+    completed: true,
+  },
+
+  {
+    id: 2,
+    title: 'Pass the bar exam',
+    date: 'February 2025',
+    description: 'Pass the bar exam from the Indonesian Bar Association',
     completed: true,
   },
   {
-    id: 2,
+    id: 3,
     title:
       'Become a junior or trainee associate at a top tier corporate law firm',
     description: '',
 
     completed: false,
   },
-  {
-    id: 3,
-    title: 'Pass the bar exam',
-    description: '',
-    completed: false,
-  },
+
   {
     id: 4,
     title: 'Buy a house',
