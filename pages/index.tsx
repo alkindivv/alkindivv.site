@@ -1,84 +1,145 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Layout from '@/components/layout/Layout';
-import Accent from '@/components/shared/Accent';
-import SEO from '@/components/shared/SEO';
-import SocialMedia from '@/components/social/SocialMedia';
-import GlowingButton from '@/components/shared/GlowingButton';
+import HeroSection from '@/components/common/HeroSection';
+import AboutPreview from '@/components/common/AboutPreview';
+import LatestBlogPosts from '@/components/common/LatestBlogPosts';
+import ChatPreview from '@/components/common/ChatPreview';
+import GlossaryPreview from '@/components/common/GlossaryPreview';
+import ResourcesPreview from '@/components/common/ResourcesPreview';
+// import Footer from '@/components/common/Footer';
+// import Particles from '@/components/common/Particles';
+import { getAllPosts } from '@/lib/mdx';
+import { BlogPost } from '@/types/blog';
 
-export default function HomePage() {
+// Type untuk ResourceIcon
+type ResourceIcon = 'book' | 'file' | 'link' | 'database';
+
+// Type untuk Resource
+type Resource = {
+  title: string;
+  description: string;
+  icon: ResourceIcon;
+  url: string;
+};
+
+// Data untuk resource preview dari resources.tsx
+const resourceItems: Resource[] = [
+  {
+    title: 'Legal Templates',
+    description:
+      'Essential legal document templates for various corporate needs.',
+    icon: 'file',
+    url: '/resources#templates',
+  },
+  {
+    title: 'Book Recommendations',
+    description: 'Curated list of books on corporate law and fintech.',
+    icon: 'book',
+    url: '/books',
+  },
+  {
+    title: 'Research Publications',
+    description: 'Latest research papers and publications on legal tech.',
+    icon: 'database',
+    url: '/resources#research',
+  },
+  {
+    title: 'Learning Resources',
+    description:
+      'Courses, webinars, and learning materials on various legal topics.',
+    icon: 'link',
+    url: '/resources#learning',
+  },
+];
+
+// Data untuk glossary preview dari glossary.tsx
+const glossaryItems = [
+  {
+    term: 'Blockchain',
+    definition:
+      'A digital ledger of transactions that is duplicated and distributed across a network of computer systems.',
+    category: 'Tech',
+  },
+  {
+    term: 'Smart Contract',
+    definition:
+      'Self-executing contracts where the terms are directly written into code.',
+    category: 'Tech',
+  },
+  {
+    term: 'Capital Market',
+    definition:
+      'A market where buyers and sellers engage in trade of financial securities.',
+    category: 'Finance',
+  },
+  {
+    term: 'M&A',
+    definition:
+      'Mergers and acquisitions referring to consolidation of companies or assets.',
+    category: 'Corporate',
+  },
+];
+
+interface HomePageProps {
+  posts: BlogPost[];
+}
+
+export default function HomePage({ posts }: HomePageProps) {
+  // Init fade animations on mount
+  useEffect(() => {
+    document.body.classList.add('fade-wrapper');
+
+    return () => {
+      document.body.classList.remove('fade-wrapper');
+    };
+  }, []);
+
   return (
-    <Layout isHomePage>
-      <SEO />
-      <div className="fixed inset-0 bg-black" />
+    <Layout>
+      {/* Background particles */}
+      {/* <Particles /> */}
 
-      <main className="relative min-h-screen flex flex-col items-center justify-center -mt-20">
+      <main className="relative min-h-screen flex flex-col items-center justify-center -mt-16 md:mt-0">
         {/* Hero Content */}
         <div className="w-full">
           <div className="max-w-[1100px] mx-auto space-y-8">
-            {/* Title & Description */}
-            <div className="space-y-5">
-              <div className="space-y-3">
-                <div className="inline-flex items-center gap-2 py-1.5 px-3 rounded-full bg-emerald-500/5 text-emerald-300/90">
-                  {/* <span className="relative flex h-1 w-1">
-                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
-                    <span className="relative inline-flex rounded-full h-1 w-1 bg-emerald-400" />
-                  </span>
-                  <span
-                    className="text-xs md:text-sm font-light tracking-wide"
-                    data-fade="1"
-                  >
-                    Available for opportunities
-                  </span> */}
-                </div>
-                <h1
-                  className="text-[clamp(2.5rem,7vw,4.5rem)] font-bold leading-[1.1] tracking-tight text-white"
-                  data-fade="2"
-                >
-                  I'm{' '}
-                  <Accent className="gradient-text animate-text-shimmer font-bold">
-                    AL KINDI
-                  </Accent>
-                </h1>
-                <div
-                  className="h-px max-w-[120px] md:max-w-[340px] w-full bg-gradient-to-r from-emerald-300 via-emerald-500 to-transparent"
-                  data-fade="2"
-                />
-                {/* <div className="h-px w-24 bg-gradient-to-r from-emerald-500/60 to-transparent" /> */}
-              </div>
+            {/* Hero Section */}
+            <HeroSection />
 
-              <p
-                className="text-sm md:text-base text-neutral-400 leading-relaxed font-light max-w-[540px]"
-                data-fade="3"
-              >
-                I am passionate about law, focusing my expertise in corporate
-                M&A, capital market, restructuring & insolvency and as well as
-                crypto assets regulation in Indonesia.
-              </p>
-            </div>
+            {/* Content Sections */}
+            <div className="max-w-6xl mx-auto space-y-16 md:space-y-24">
+              {/* About Preview */}
+              <AboutPreview />
 
-            {/* Actions & Social */}
-            <div className="flex flex-col gap-8" data-fade="4">
-              {/* Actions */}
-              <div className="flex items-center gap-4">
-                <GlowingButton variant="small" href="/blog">
-                  Read my blog
-                </GlowingButton>
-                <GlowingButton variant="small" href="/about">
-                  More about me
-                </GlowingButton>
-              </div>
+              {/* Latest Blog Posts */}
+              <LatestBlogPosts posts={posts} />
 
-              {/* Social Links */}
-              <div className="flex items-center gap-4" data-fade="5">
-                <div className="flex items-center gap-1 py-1 px-1 rounded-full">
-                  <SocialMedia />
-                </div>
-                {/* <div className="h-px max-w-[120px] md:max-w-[340px] w-full bg-gradient-to-r from-emerald-300 via-emerald-500 to-transparent" /> */}
-              </div>
+              {/* Glossary Preview */}
+              <GlossaryPreview items={glossaryItems} />
+
+              {/* Resources Preview */}
+              <ResourcesPreview resources={resourceItems} />
+
+              {/* Chat/AMA Preview */}
+              <ChatPreview />
+
+              {/* Footer */}
+              {/* <Footer /> */}
             </div>
           </div>
         </div>
       </main>
     </Layout>
   );
+}
+
+// Get blog posts for the homepage
+export async function getStaticProps() {
+  const posts = await getAllPosts();
+
+  return {
+    props: {
+      posts: posts.slice(0, 3),
+    },
+  };
 }

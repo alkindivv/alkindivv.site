@@ -2,6 +2,7 @@ import React from 'react';
 import Link from 'next/link';
 import { FiGithub, FiLinkedin, FiMail, FiTwitter } from 'react-icons/fi';
 import GlowingButton from '@/components/shared/GlowingButton';
+import { FiArrowUp } from 'react-icons/fi';
 
 const socialLinks = [
   {
@@ -63,13 +64,19 @@ function FooterSection({
 }
 
 export default function Footer() {
+  const scrollToTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth',
+    });
+  };
   return (
     <footer className="mt-20 bg-neutral-950">
       {/* Top Border Gradient */}
       <div className="h-px bg-gradient-to-r from-transparent via-gray-600 to-transparent" />
 
       <div className="mx-auto max-w-7xl">
-        <div className="mx-auto max-w-[1150px] px-0 py-20">
+        <div className="mx-auto max-w-[1150px] px-0 py-16">
           <div className="grid grid-cols-1 md:grid-cols-[1.5fr,0.8fr,0.8fr,0.8fr,2fr] gap-12 md:gap-6">
             {/* Brand */}
             <div className="space-y-12 md:space-y-0">
@@ -203,13 +210,26 @@ export default function Footer() {
           </div>
         </div>
 
-        {/* Copyright */}
+        {/* Copyright Section dengan gradient line */}
         <div className="h-px bg-gradient-to-r from-transparent via-gray-600 to-transparent">
-          <div className="mx-auto max-w-[1200px] px-4 py-8">
-            <p className="text-neutral-500 text-xs md:text-sm text-center">
-              Copyright © {new Date().getFullYear()} AL KINDI. All rights
-              reserved.
-            </p>
+          <div className="mx-auto max-w-[1150px] px-6 py-8 relative">
+            {/* Copyright text di tengah */}
+            <div className="w-full text-center">
+              <p className="text-neutral-500 text-sm">
+                © {new Date().getFullYear()} Al Kindi. All rights reserved.
+              </p>
+            </div>
+
+            {/* Arrow di kanan */}
+            <div className="absolute right-6 top-1/2 -translate-y-1/2">
+              <button
+                onClick={scrollToTop}
+                className="group p-2 border border-neutral-800 rounded-full hover:border-neutral-600 transition-colors duration-300"
+                aria-label="Scroll to top"
+              >
+                <FiArrowUp className="w-5 h-5 text-neutral-400 group-hover:text-white transition-colors duration-300" />
+              </button>
+            </div>
           </div>
         </div>
       </div>

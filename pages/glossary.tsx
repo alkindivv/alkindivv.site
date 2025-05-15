@@ -1,7 +1,7 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useRef, useEffect } from 'react';
 import Layout from '@/components/layout/Layout';
 import SEO from '@/components/shared/SEO';
-import { HiSearch, HiChevronRight, HiX } from 'react-icons/hi';
+import { HiSearch, HiChevronRight, HiX, HiFilter } from 'react-icons/hi';
 import clsx from 'clsx';
 import Image from 'next/image';
 import Accent from '@/components/shared/Accent';
@@ -238,6 +238,33 @@ export default function Glossary() {
   const [selectedLetter, setSelectedLetter] = useState('');
   const [selectedTags, setSelectedTags] = useState<string[]>([]);
   const [expandedTerm, setExpandedTerm] = useState<string | null>(null);
+  const [showFilters, setShowFilters] = useState(false);
+
+  // Refs for alphabet navigation
+  const alphabetNavRef = useRef<HTMLDivElement | null>(null);
+  const [isNavSticky, setIsNavSticky] = useState(false);
+
+  // Effect untuk mengatur sticky nav
+  useEffect(() => {
+    const handleScroll = () => {
+      if (alphabetNavRef.current) {
+        const { top } = alphabetNavRef.current.getBoundingClientRect();
+        setIsNavSticky(top <= 0);
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  // Helper function untuk memeriksa apakah ada istilah untuk huruf tertentu
+  const hasTermsForLetter = (letter: string, terms: typeof legalTerms) => {
+    if (letter === '#') {
+      return terms.some((term) => /^[^A-Za-z]/.test(term.term.charAt(0)));
+    }
+
+    return terms.some((term) => term.term.charAt(0).toUpperCase() === letter);
+  };
 
   // Memoized filtered terms
   const filteredTerms = useMemo(() => {
@@ -263,6 +290,22 @@ export default function Glossary() {
     });
   }, [searchTerm, selectedLetter, selectedTags]);
 
+  // Memoized terms grouped by letter
+  const groupedTerms = useMemo(() => {
+    const groups: Record<string, typeof legalTerms> = {};
+
+    filteredTerms.forEach((term) => {
+      const firstLetter = term.term.charAt(0).toUpperCase();
+      if (!groups[firstLetter]) {
+        groups[firstLetter] = [];
+      }
+      groups[firstLetter].push(term);
+    });
+
+    // Sort by letter
+    return Object.entries(groups).sort((a, b) => a[0].localeCompare(b[0]));
+  }, [filteredTerms]);
+
   const handleTagSelect = (tag: string) => {
     setSelectedTags((prev) =>
       prev.includes(tag) ? prev.filter((t) => t !== tag) : [...prev, tag]
@@ -273,6 +316,7 @@ export default function Glossary() {
     setSearchTerm('');
     setSelectedLetter('');
     setSelectedTags([]);
+    setExpandedTerm(null);
   };
 
   return (
@@ -283,7 +327,7 @@ export default function Glossary() {
         canonical="https://alkindivv.site/glossary/"
       />
 
-      <main className="content-spacing">
+      <main className="content-spacing max-w-[1200px] w-full relative overflow-hidden">
         {/* Background Effect */}
         <div
           className="absolute inset-0 overflow-hidden h-[450px] bg-neutral-950"
@@ -365,32 +409,81 @@ export default function Glossary() {
                   )}
                 </div>
 
+                <div className="lg:hidden mb-4 flex justify-between items-center">
+                  <button
+                    onClick={() => setShowFilters(!showFilters)}
+                    className="px-4 py-2 text-sm bg-[#1a1a1a] hover:bg-[#232323] text-neutral-300 rounded-lg flex items-center gap-2 transition-colors"
+                  >
+                    <HiFilter className="w-4 h-4" />
+                    <span>Show Filters</span>
+                    {selectedTags.length > 0 && (
+                      <span className="bg-emerald-500/20 text-emerald-400 text-xs px-2 py-1 rounded-full">
+                        {selectedTags.length}
+                      </span>
+                    )}
+                  </button>
+
+                  {(selectedTags.length > 0 ||
+                    selectedLetter ||
+                    searchTerm) && (
+                    <button
+                      onClick={resetFilters}
+                      className="text-sm text-emerald-500 hover:text-emerald-400"
+                    >
+                      Reset All
+                    </button>
+                  )}
+                </div>
+
                 {/* Mobile Filters */}
-                <div className="lg:hidden space-y-6 mb-8">
+                <div
+                  className={clsx(
+                    'lg:hidden space-y-6 mb-8 overflow-hidden transition-all duration-300',
+                    showFilters
+                      ? 'max-h-[500px] opacity-100'
+                      : 'max-h-0 opacity-0'
+                  )}
+                >
                   {/* Alphabet Filter */}
                   <div className="space-y-3">
                     <div className="text-sm font-semibold text-gray-200">
                       Filter Huruf
                     </div>
                     <div className="flex flex-wrap gap-2">
-                      {alphabet.map((letter) => (
-                        <button
-                          key={letter}
-                          onClick={() =>
-                            setSelectedLetter(
-                              selectedLetter === letter ? '' : letter
-                            )
-                          }
-                          className={clsx(
-                            'w-8 h-8 rounded-full flex items-center justify-center text-xs text-[#525252]transition-colors',
-                            selectedLetter === letter
-                              ? 'bg-emerald-500/10 text-[#525252] border border-emerald-500/20'
-                              : 'text-[#525252] hover:text-emerald-400 hover:bg-emerald-500/5'
-                          )}
-                        >
-                          {letter}
-                        </button>
-                      ))}
+                      {alphabet.map((letter) => {
+                        const hasTerms = hasTermsForLetter(
+                          letter,
+                          filteredTerms
+                        );
+                        return (
+                          <button
+                            key={letter}
+                            onClick={() => {
+                              if (hasTerms) {
+                                // Hanya toggle letter selection tanpa scroll
+                                setSelectedLetter(
+                                  selectedLetter === letter ? '' : letter
+                                );
+
+                                // Toggle off menunjukkan mobile filters
+                                setShowFilters(false);
+                              }
+                            }}
+                            disabled={!hasTerms}
+                            className={clsx(
+                              'w-8 h-8 rounded-full flex items-center justify-center text-xs',
+                              !hasTerms ? 'opacity-30 cursor-not-allowed' : '',
+                              selectedLetter === letter
+                                ? 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/20'
+                                : hasTerms
+                                  ? 'text-[#525252] hover:text-emerald-400 hover:bg-emerald-500/5'
+                                  : ''
+                            )}
+                          >
+                            {letter}
+                          </button>
+                        );
+                      })}
                     </div>
                   </div>
 
@@ -453,78 +546,159 @@ export default function Glossary() {
                     </button>
                   </div>
                 )}
+
+                {/* Alphabet navigation */}
+                <div ref={alphabetNavRef} className="mb-8 hidden md:block">
+                  <div
+                    className={clsx(
+                      'flex flex-wrap justify-center gap-1 py-2 bg-[#0a0a0a] rounded-lg transition-all duration-300 z-20 border border-[#1a1a1a]',
+                      isNavSticky ? 'sticky top-16 shadow-lg' : ''
+                    )}
+                  >
+                    {alphabet.map((letter) => {
+                      const hasTerms = hasTermsForLetter(letter, filteredTerms);
+                      return (
+                        <button
+                          key={letter}
+                          onClick={() => {
+                            if (hasTerms) {
+                              // Hanya toggle letter selection tanpa scroll
+                              setSelectedLetter(
+                                selectedLetter === letter ? '' : letter
+                              );
+                            }
+                          }}
+                          disabled={!hasTerms}
+                          className={clsx(
+                            'w-8 h-8 flex items-center justify-center rounded',
+                            hasTerms
+                              ? 'hover:bg-[#1a1a1a] cursor-pointer'
+                              : 'opacity-30 cursor-not-allowed',
+                            selectedLetter === letter
+                              ? 'bg-emerald-500/20 text-emerald-400 font-medium'
+                              : 'text-gray-300'
+                          )}
+                        >
+                          {letter}
+                        </button>
+                      );
+                    })}
+                  </div>
+                </div>
               </div>
 
               <div className="flex flex-col lg:flex-row gap-8">
                 {/* Main Content */}
                 <div className="flex-1 mx-auto lg:mx-0">
-                  {/* Glossary Terms */}
-                  <div className="space-y-4" data-fade="5">
-                    {filteredTerms.map((item) => (
-                      <div key={item.term} className="group ">
-                        <button
-                          onClick={() =>
-                            setExpandedTerm(
-                              expandedTerm === item.term ? null : item.term
-                            )
-                          }
-                          className="w-full flex items-center justify-between p-4 border border-gray-900
-                                  rounded-lg transition-colors text-left"
-                        >
-                          <div className="space-y-1 pr-4">
-                            <h3 className="text-base font-semibold tracking-wide text-gray-200 group-hover:text-emerald-400 transition-colors">
-                              {item.term}
-                            </h3>
-                            <p
-                              className={clsx(
-                                'text-sm paragraph-text transition-all duration-200',
-                                expandedTerm === item.term ? '' : 'line-clamp-4'
-                              )}
-                            >
-                              {item.definition}
-                            </p>
-                            {expandedTerm === item.term && (
-                              <div className="space-y-4 mt-3 pt-3 border-t border-gray-800">
-                                <div className="bg-transparent border border-transparent p-4">
-                                  <h4 className="text-sm text-neutral-500 mb-2">
-                                    example
-                                  </h4>
-                                  <p className="text-sm text-neutral-400 leading-relaxed">
-                                    {item.example}
-                                  </p>
-                                </div>
-                                <div className="flex flex-wrap gap-2">
-                                  {item.tags.map((tag) => (
-                                    <span
-                                      key={tag}
-                                      className="px-2 py-1 text-xs font-sans tracking-wide bg-transparent font-medium text-neutral-500 rounded"
-                                    >
-                                      {tag}
-                                    </span>
-                                  ))}
-                                </div>
-                              </div>
-                            )}
+                  {filteredTerms.length > 0 ? (
+                    <div className="space-y-10">
+                      {groupedTerms.map(([letter, terms]) => (
+                        <div key={letter} className="scroll-mt-32">
+                          <div className="flex items-center gap-3 mb-4">
+                            <h2 className="text-3xl font-bold gradient-text">
+                              {letter}
+                            </h2>
+                            <div className="h-px flex-grow bg-gradient-to-r from-emerald-500/30 to-transparent"></div>
                           </div>
-                          <HiChevronRight
-                            className={clsx(
-                              'flex-shrink-0 w-5 h-5 text-gray-500 group-hover:text-emerald-400 transition-transform duration-200',
-                              expandedTerm === item.term && 'rotate-90'
-                            )}
-                          />
-                        </button>
-                      </div>
-                    ))}
 
-                    {/* Empty State */}
-                    {filteredTerms.length === 0 && (
-                      <div className="text-center py-12 transition-opacity duration-200">
-                        <p className="">
-                          <Accent>No results found</Accent>
-                        </p>
-                      </div>
-                    )}
-                  </div>
+                          <div className="space-y-4">
+                            {terms.map((item) => (
+                              <div
+                                key={item.term}
+                                className="group transition-all duration-200"
+                              >
+                                <button
+                                  onClick={() =>
+                                    setExpandedTerm(
+                                      expandedTerm === item.term
+                                        ? null
+                                        : item.term
+                                    )
+                                  }
+                                  className={clsx(
+                                    'w-full flex items-center justify-between p-4 rounded-lg transition-all duration-200 text-left',
+                                    expandedTerm === item.term
+                                      ? 'bg-[#0f1f15] border border-emerald-800/30'
+                                      : 'bg-[#0a0a0a] border border-[#1a1a1a] hover:border-[#232323]'
+                                  )}
+                                >
+                                  <div className="space-y-1 pr-4">
+                                    <h3 className="text-base font-semibold tracking-wide text-gray-200 group-hover:text-emerald-400 transition-colors">
+                                      {item.term}
+                                    </h3>
+                                    <p
+                                      className={clsx(
+                                        'text-sm paragraph-text transition-all duration-200',
+                                        expandedTerm === item.term
+                                          ? ''
+                                          : 'line-clamp-2'
+                                      )}
+                                    >
+                                      {item.definition}
+                                    </p>
+                                    {expandedTerm === item.term && (
+                                      <div className="space-y-4 mt-3 pt-3 border-t border-emerald-900/30">
+                                        {item.example && (
+                                          <div className="bg-black/20 rounded-lg p-4 border border-emerald-900/20">
+                                            <h4 className="text-sm font-medium text-emerald-400 mb-2">
+                                              Example:
+                                            </h4>
+                                            <p className="text-sm text-neutral-400 leading-relaxed">
+                                              {item.example}
+                                            </p>
+                                          </div>
+                                        )}
+                                        <div className="flex flex-wrap gap-2">
+                                          {item.tags.map((tag) => (
+                                            <span
+                                              key={tag}
+                                              className="px-2 py-1 text-xs font-medium text-neutral-400 bg-black/30 rounded-full
+                                              hover:bg-emerald-900/20 hover:text-emerald-400 cursor-pointer transition-colors"
+                                              onClick={(e) => {
+                                                e.stopPropagation();
+                                                if (
+                                                  !selectedTags.includes(tag)
+                                                ) {
+                                                  handleTagSelect(tag);
+                                                }
+                                              }}
+                                            >
+                                              {tag}
+                                            </span>
+                                          ))}
+                                        </div>
+                                      </div>
+                                    )}
+                                  </div>
+                                  <HiChevronRight
+                                    className={clsx(
+                                      'flex-shrink-0 w-5 h-5 text-gray-500 group-hover:text-emerald-400 transition-transform duration-200',
+                                      expandedTerm === item.term && 'rotate-90'
+                                    )}
+                                  />
+                                </button>
+                              </div>
+                            ))}
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  ) : (
+                    <div className="text-center py-12 bg-[#0a0a0a] rounded-lg border border-[#1a1a1a]">
+                      <p className="text-xl mb-3">
+                        <Accent>No results found</Accent>
+                      </p>
+                      <p className="text-neutral-400 mb-6">
+                        Try adjusting your filters or search query
+                      </p>
+                      <button
+                        onClick={resetFilters}
+                        className="px-4 py-2 bg-emerald-500/10 text-emerald-400 rounded-lg hover:bg-emerald-500/20 transition-colors"
+                      >
+                        Reset Filters
+                      </button>
+                    </div>
+                  )}
                 </div>
 
                 {/* Desktop Sidebar Filter */}
@@ -532,13 +706,49 @@ export default function Glossary() {
                   className="hidden lg:block lg:w-72 lg:flex-shrink-0"
                   data-fade="6"
                 >
-                  <div className="sticky top-24 border border-[#2323219b] rounded-lg p-6 space-y-6">
-                    {/* Alphabet Filter */}
-                    <div className="space-y-3">
-                      <div className="text-sm font-semibold text-gray-200">
-                        Filter Huruf
+                  <div className="sticky top-24 border border-[#1a1a1a] rounded-lg p-6 space-y-6 bg-[#0a0a0a]">
+                    <div className="flex justify-between items-center">
+                      <h3 className="text-lg font-medium text-white">
+                        Filters
+                      </h3>
+                      {(selectedTags.length > 0 || selectedLetter) && (
+                        <button
+                          onClick={resetFilters}
+                          className="text-xs text-emerald-500 hover:text-emerald-400"
+                        >
+                          Reset
+                        </button>
+                      )}
+                    </div>
+
+                    {/* Stats */}
+                    <div className="pt-3 border-t border-[#1a1a1a]">
+                      <div className="flex items-center justify-between text-sm">
+                        <span className="text-neutral-400">Total Terms:</span>
+                        <span className="text-white font-medium">
+                          {legalTerms.length}
+                        </span>
                       </div>
-                      <div className="flex flex-wrap gap-2">
+                      <div className="flex items-center justify-between text-sm mt-1">
+                        <span className="text-neutral-400">Categories:</span>
+                        <span className="text-white font-medium">
+                          {uniqueTags.length}
+                        </span>
+                      </div>
+                      <div className="flex items-center justify-between text-sm mt-1">
+                        <span className="text-neutral-400">Matching:</span>
+                        <span className="text-white font-medium">
+                          {filteredTerms.length}
+                        </span>
+                      </div>
+                    </div>
+
+                    {/* Alphabet Filter */}
+                    <div className="space-y-3 pt-3 border-t border-[#1a1a1a]">
+                      <div className="text-sm font-medium text-white">
+                        Filter by Letter
+                      </div>
+                      <div className="flex flex-wrap gap-1">
                         {alphabet.map((letter) => (
                           <button
                             key={letter}
@@ -548,10 +758,10 @@ export default function Glossary() {
                               )
                             }
                             className={clsx(
-                              'w-8 h-8 rounded-full flex items-center justify-center text-xs text-[#525252]transition-colors',
+                              'w-7 h-7 rounded-md flex items-center justify-center text-xs transition-colors',
                               selectedLetter === letter
-                                ? 'bg-emerald-500/10 text-[#525252] border border-emerald-500/20'
-                                : 'text-[#525252] hover:text-emerald-400 hover:bg-emerald-500/5'
+                                ? 'bg-emerald-500/20 text-emerald-400 border border-emerald-900/30'
+                                : 'text-neutral-400 hover:text-white hover:bg-[#1a1a1a]'
                             )}
                           >
                             {letter}
@@ -561,23 +771,32 @@ export default function Glossary() {
                     </div>
 
                     {/* Tags Filter */}
-                    <div className="space-y-3 pt-4 border-t border-gray-800">
-                      <div className="text-sm font-semibold text-gray-200">
-                        Filter Kategori
+                    <div className="space-y-3 pt-3 border-t border-[#1a1a1a]">
+                      <div className="text-sm font-medium text-white flex justify-between items-center">
+                        <span>Filter by Category</span>
+                        <span className="text-xs text-neutral-500">
+                          {selectedTags.length} selected
+                        </span>
                       </div>
-                      <div className="flex flex-wrap gap-2">
+                      <div className="max-h-64 overflow-y-auto pr-2 space-y-1.5">
                         {uniqueTags.map((tag) => (
                           <button
                             key={tag}
                             onClick={() => handleTagSelect(tag)}
                             className={clsx(
-                              'px-1.5 py-1 text-xs paragraph-text rounded-lg transition-colors',
+                              'w-full text-left px-3 py-1.5 rounded-md flex justify-between items-center text-sm transition-colors',
                               selectedTags.includes(tag)
-                                ? 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/20'
-                                : 'text-[#525252] hover:text-emerald-400 hover:border-emerald-500/20'
+                                ? 'bg-emerald-500/20 text-emerald-400'
+                                : 'text-neutral-400 hover:text-white hover:bg-[#1a1a1a]'
                             )}
                           >
-                            {tag}
+                            <span>{tag}</span>
+                            <span className="text-xs px-1.5 py-0.5 rounded-full bg-black/30">
+                              {
+                                legalTerms.filter((t) => t.tags.includes(tag))
+                                  .length
+                              }
+                            </span>
                           </button>
                         ))}
                       </div>
