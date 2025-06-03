@@ -84,7 +84,7 @@ const GlossaryPreview = ({ items = [] }: GlossaryPreviewProps) => {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6" data-fade="4">
-            {previewItems.map((item, index) => (
+            {previewItems.map((item, _index) => (
               <div
                 key={item.term}
                 className="group relative p-5 border border-neutral-800 hover:border-emerald-600/30 bg-neutral-900/20 backdrop-blur-sm rounded-xl transition-all duration-300 hover:shadow-[0_0_20px_rgba(16,185,129,0.15)] overflow-hidden"

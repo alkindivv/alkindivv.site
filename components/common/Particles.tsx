@@ -40,7 +40,7 @@ const Particles = () => {
     const animate = () => {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-      particles.forEach((particle, index) => {
+      particles.forEach((particle, _index) => {
         // Gradasi warna emerald yang lebih halus
         ctx.fillStyle = `rgba(16, 185, 129, ${particle.opacity})`;
         ctx.beginPath();

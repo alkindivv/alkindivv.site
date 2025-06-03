@@ -1,0 +1,26 @@
+# https://www.robotstxt.org/robotstxt.html
+User-agent: *
+Allow: /
+Disallow: /api/
+Disallow: /admin/
+Disallow: /_next/
+Disallow: /private/
+
+# Specific bot rules
+User-agent: Googlebot
+Allow: /
+Disallow: /api/
+Disallow: /admin/
+
+User-agent: Bingbot
+Allow: /
+Disallow: /api/
+Disallow: /admin/
+Crawl-delay: 2
+
+# Sitemaps
+Sitemap: https://alkindivv.site/sitemap.xml
+Sitemap: https://alkindivv.site/feed.xml
+
+# Host
+Host: https://alkindivv.site

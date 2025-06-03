@@ -2,7 +2,7 @@ import React, { useEffect, useState, useRef } from 'react';
 import GlowingButton from '../shared/GlowingButton';
 import Accent from '../shared/Accent';
 import Link from 'next/link';
-import { HiArrowDown, HiChevronRight } from 'react-icons/hi';
+import { HiChevronRight } from 'react-icons/hi';
 import SocialMedia from '../social/SocialMedia';
 import clsx from 'clsx';
 
@@ -206,14 +206,16 @@ const HeroSection = () => {
             <HiChevronRight className="w-3.5 h-3.5 text-emerald-400/80 animate-pulse" />
           </div>
 
-          {/* Main headline with animated line */}
+          {/* Main headline with animated line - Optimized for LCP */}
           <div className="space-y-3">
             <h1
               className={clsx(
-                'text-4xl md:text-5xl lg:text-6xl font-bold leading-tight tracking-tight opacity-0 transform translate-y-6 transition-all duration-700',
-                isLoaded && 'opacity-100 translate-y-0'
+                'text-4xl md:text-5xl lg:text-6xl font-bold leading-tight tracking-tight transition-all duration-500',
+                isLoaded
+                  ? 'opacity-100 translate-y-0'
+                  : 'opacity-0 translate-y-6'
               )}
-              style={{ transitionDelay: '200ms' }}
+              style={{ transitionDelay: '0ms' }}
             >
               <span className="flex flex-col sm:block">
                 <span>I'm </span>
@@ -223,7 +225,7 @@ const HeroSection = () => {
                   </Accent>
                   <span
                     className={clsx(
-                      'absolute -bottom-1 left-0 h-[3px] bg-gradient-to-r from-emerald-400 via-emerald-300 to-transparent scale-x-0 transform-gpu origin-left transition-all duration-1000 delay-1000',
+                      'absolute -bottom-1 left-0 h-[3px] bg-gradient-to-r from-emerald-400 via-emerald-300 to-transparent scale-x-0 transform-gpu origin-left transition-all duration-1000 delay-500',
                       isLoaded && 'scale-x-100'
                     )}
                     style={{ width: '85%' }}
@@ -237,7 +239,7 @@ const HeroSection = () => {
                 'h-px w-20 md:w-32 bg-gradient-to-r from-emerald-400 to-transparent opacity-0 transform translate-y-6 transition-all duration-700',
                 isLoaded && 'opacity-100 translate-y-0'
               )}
-              style={{ transitionDelay: '300ms' }}
+              style={{ transitionDelay: '100ms' }}
             />
 
             <p
@@ -245,7 +247,7 @@ const HeroSection = () => {
                 'text-lg md:text-xl text-neutral-300 max-w-2xl opacity-0 transform translate-y-6 transition-all duration-700',
                 isLoaded && 'opacity-100 translate-y-0'
               )}
-              style={{ transitionDelay: '400ms' }}
+              style={{ transitionDelay: '200ms' }}
             >
               Exploring the fascinating intersection of{' '}
               <span className="relative text-white font-medium">
@@ -384,6 +386,8 @@ const HeroSection = () => {
           'absolute bottom-8 left-1/2 transform -translate-x-1/2 flex flex-col items-center justify-center opacity-0 transition-all duration-700 delay-1000 text-neutral-500 hover:text-emerald-400',
           isLoaded && 'opacity-100'
         )}
+        aria-label="Scroll down to next section"
+        type="button"
       >
         <span className="text-xs mb-2 tracking-wider">Scroll Down</span>
         <div className="w-6 h-10 rounded-full border border-neutral-600 flex items-center justify-center p-1">

@@ -2,7 +2,7 @@ import React from 'react';
 import GlowingButton from '../shared/GlowingButton';
 import Link from 'next/link';
 import { FiArrowRight } from 'react-icons/fi';
-import Image from 'next/image';
+import OptimizedImage from '../shared/OptimizedImage';
 
 const AboutPreview = () => {
   return (
@@ -77,12 +77,13 @@ const AboutPreview = () => {
 
               <div className="relative h-full w-full rounded-xl overflow-hidden border border-neutral-700/90 bg-neutral-900/30 backdrop-blur-sm">
                 <div className="absolute inset-0">
-                  <Image
+                  <OptimizedImage
                     src="/images/AL-KINDI.png"
                     alt="Al Kindi"
                     fill
                     className="object-cover"
                     sizes="(max-width: 768px) 100vw, 50vw"
+                    priority={false}
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent"></div>
                 </div>

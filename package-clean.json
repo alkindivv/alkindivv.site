@@ -1,0 +1,48 @@
+{
+  "name": "alkindivv-website",
+  "version": "2.0.0",
+  "private": true,
+  "description": "AL KINDI - Law, Technology & Blockchain Expert Website",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "lint:fix": "next lint --fix",
+    "format": "prettier --write .",
+    "typecheck": "tsc --noEmit",
+    "seo:sitemap": "next-sitemap",
+    "seo:icons": "node scripts/generate-icons.js",
+    "seo:full": "npm run build && npm run seo:sitemap",
+    "postbuild": "npm run seo:sitemap"
+  },
+  "dependencies": {
+    "next": "14.1.1",
+    "react": "^18",
+    "react-dom": "^18",
+    "clsx": "^2.1.0",
+    "gray-matter": "^4.0.3",
+    "next-mdx-remote": "^4.4.1",
+    "reading-time": "^1.5.0",
+    "feed": "^4.2.2",
+    "react-icons": "^5.0.1",
+    "tailwind-merge": "^2.2.1"
+  },
+  "devDependencies": {
+    "@types/node": "^20",
+    "@types/react": "^18",
+    "@types/react-dom": "^18",
+    "autoprefixer": "^10.4.14",
+    "eslint": "^8.57.0",
+    "eslint-config-next": "14.1.0",
+    "next-sitemap": "^4.2.3",
+    "postcss": "^8.4.21",
+    "prettier": "^3.3.3",
+    "sharp": "^0.33.0",
+    "tailwindcss": "^3.3.0",
+    "typescript": "^5"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

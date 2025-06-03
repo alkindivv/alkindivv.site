@@ -5,7 +5,6 @@ import SEO from '@/components/shared/SEO';
 
 import GlowingButton from '@/components/shared/GlowingButton';
 
-import emailjs from '@emailjs/browser';
 import Image from 'next/image';
 
 const ContactPage = () => {
@@ -23,43 +22,18 @@ const ContactPage = () => {
     setStatusMessage('');
 
     try {
-      const formData = new FormData(e.currentTarget);
-      const formValues = {
-        user_name: formData.get('user_name'),
-        user_email: formData.get('user_email'),
-        subject: formData.get('subject'),
-        message: formData.get('message'),
-        to_name: 'AL KINDI',
-        reply_to: formData.get('user_email'),
-      };
+      // Simulate form submission for now
+      await new Promise((resolve) => setTimeout(resolve, 1000));
 
-      // Initialize EmailJS
-      emailjs.init(process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY || '');
-
-      // Send email using EmailJS directly from client
-      const result = await emailjs.send(
-        process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID || '',
-        process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID || '',
-        formValues
-      );
-
-      if (result.status === 200) {
-        setStatusType('success');
-        setStatusMessage(
-          "Message sent successfully! I'll get back to you soon."
-        );
-        formRef.current?.reset();
-      } else {
-        throw new Error('Failed to send message');
-      }
-    } catch (error) {
-      console.error('Detailed error:', error);
-      setStatusType('error');
+      setStatusType('success');
       setStatusMessage(
-        error instanceof Error
-          ? error.message
-          : 'Failed to send message. Please try again later.'
+        'Form submitted successfully! (Note: Email functionality is temporarily disabled)'
       );
+      formRef.current?.reset();
+    } catch (error) {
+      console.error('Error:', error);
+      setStatusType('error');
+      setStatusMessage('Failed to submit form. Please try again later.');
     } finally {
       setIsLoading(false);
     }

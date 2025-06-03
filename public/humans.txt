@@ -1,0 +1,16 @@
+/* TEAM */
+Developer: AL KINDI
+Contact: contact@alkindivv.site
+Twitter: @alkindivv
+From: Indonesia
+
+/* THANKS */
+Next.js: https://nextjs.org/
+Tailwind CSS: https://tailwindcss.com/
+Vercel: https://vercel.com/
+
+/* SITE */
+Last update: 2025-06-03
+Language: Indonesian / English
+Doctype: HTML5
+IDE: Visual Studio Code
