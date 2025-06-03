@@ -2,13 +2,11 @@ import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { BlogPost } from '@/types/blog';
-import { HiOutlineClock, HiOutlineEye } from 'react-icons/hi';
-import { usePageViews } from '@/lib/hooks/usePageViews';
+import { HiOutlineClock } from 'react-icons/hi';
 import { useRouter } from 'next/router';
 
 // Komponen untuk setiap artikel
 const RelatedArticleCard = ({ post }: { post: BlogPost }) => {
-  const views = usePageViews(post.slug);
   const router = useRouter();
 
   const handleClick = async (e: React.MouseEvent) => {
@@ -79,10 +77,6 @@ const RelatedArticleCard = ({ post }: { post: BlogPost }) => {
                 <p className="text-xs text-neutral-400">
                   {post.readingTime} min read
                 </p>
-              </div>
-              <div className="flex items-center gap-2">
-                <HiOutlineEye className="w-4 h-4 text-emerald-500" />
-                <p className="text-xs text-neutral-400">{views} views</p>
               </div>
             </div>
           </div>

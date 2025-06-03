@@ -1,7 +1,6 @@
 import { NextSeo } from 'next-seo';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
-import { generateSchema } from '@/lib/schema';
 import { Metadata } from 'next';
 import { BlogPost } from '@/types/blog';
 
@@ -36,6 +35,50 @@ type SeoProps = {
   wordCount?: number;
 } & Partial<typeof defaultMeta>;
 
+// Simple schema generator
+const generateSimpleSchema = (props: {
+  title: string;
+  description: string;
+  url: string;
+  siteName: string;
+  image: string;
+  type: string;
+  date?: string;
+  category?: string;
+  tags?: string[];
+}) => {
+  const baseSchema = {
+    '@context': 'https://schema.org',
+    '@type': props.type === 'article' ? 'Article' : 'WebSite',
+    name: props.title,
+    description: props.description,
+    url: props.url,
+    image: props.image,
+  };
+
+  if (props.type === 'article') {
+    return {
+      ...baseSchema,
+      '@type': 'Article',
+      headline: props.title,
+      author: {
+        '@type': 'Person',
+        name: 'AL KINDI',
+      },
+      publisher: {
+        '@type': 'Organization',
+        name: props.siteName,
+      },
+      datePublished: props.date,
+      dateModified: props.date,
+      articleSection: props.category,
+      keywords: props.tags?.join(', '),
+    };
+  }
+
+  return baseSchema;
+};
+
 export default function Seo(props: SeoProps) {
   const router = useRouter();
   const meta = {
@@ -52,7 +95,7 @@ export default function Seo(props: SeoProps) {
     ? `${props.templateTitle} | ${meta.siteName}`
     : meta.title;
 
-  const schema = generateSchema({
+  const schema = generateSimpleSchema({
     title: meta.title,
     description: meta.description,
     url: canonicalUrl,
@@ -62,9 +105,6 @@ export default function Seo(props: SeoProps) {
     date: props.date,
     category: props.category,
     tags: props.tags,
-    wordCount:
-      props.wordCount ||
-      (props.readingTime ? props.readingTime * 200 : undefined),
   });
 
   return (

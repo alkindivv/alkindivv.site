@@ -7,7 +7,6 @@ import clsx from 'clsx';
 import { BlogPost } from '@/types/blog';
 import { useRouter } from 'next/router';
 import HighlightedText from '@/components/shared/HighlightedText';
-import { usePageViews } from '@/lib/hooks/usePageViews';
 
 interface BlogCardProps {
   post: BlogPost;
@@ -29,7 +28,6 @@ const BlogCard = ({
   variant = 'default',
 }: BlogCardProps) => {
   const router = useRouter();
-  const views = usePageViews(post.slug);
 
   const handleClick = async (e: React.MouseEvent) => {
     e.preventDefault();
@@ -106,10 +104,6 @@ const BlogCard = ({
                       <p className="text-xs text-neutral-300">
                         {post.readingTime} min
                       </p>
-                    </div>
-                    <div className="flex items-center gap-1">
-                      <HiOutlineEye className="w-4 h-4 text-emerald-500" />
-                      <p className="text-xs text-neutral-300">{views} views</p>
                     </div>
                   </div>
                   <span className="flex items-center gap-1 text-sm font-medium text-emerald-400 group-hover:translate-x-0.5 transition-transform duration-300">
@@ -237,12 +231,6 @@ const BlogCard = ({
               <HiOutlineClock className="w-3.5 h-3.5 text-emerald-500" />
               <p className="text-xs md:text-sm text-neutral-200 font-medium">
                 {post.readingTime} min
-              </p>
-            </div>
-            <div className="flex items-center gap-1">
-              <HiOutlineEye className="w-4 h-4 text-emerald-500" />
-              <p className="text-xs md:text-sm text-neutral-200 font-medium">
-                {views} views
               </p>
             </div>
           </div>

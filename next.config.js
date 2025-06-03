@@ -15,8 +15,6 @@ const nextConfig = {
   },
   experimental: {
     scrollRestoration: true,
-    workerThreads: true,
-    optimizeCss: true,
   },
   env: {
     NEXT_PUBLIC_BASE_URL:
@@ -41,8 +39,4 @@ const nextConfig = {
   },
 };
 
-const withBundleAnalyzer = require('@next/bundle-analyzer')({
-  enabled: process.env.ANALYZE === 'true',
-});
-
-module.exports = withBundleAnalyzer(nextConfig);
+module.exports = nextConfig;

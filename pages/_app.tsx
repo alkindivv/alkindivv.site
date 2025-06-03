@@ -2,8 +2,6 @@ import '@/styles/globals.css';
 import '@/styles/animations.css';
 
 import type { AppProps } from 'next/app';
-import { SessionProvider } from 'next-auth/react';
-import { Analytics } from '@vercel/analytics/react';
 import { DefaultSeo } from 'next-seo';
 import dynamic from 'next/dynamic';
 import Head from 'next/head';
@@ -69,7 +67,7 @@ const defaultSEOConfig = {
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
-    <SessionProvider>
+    <>
       <Head>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta name="mobile-web-app-capable" content="yes" />
@@ -79,8 +77,7 @@ function MyApp({ Component, pageProps }: AppProps) {
       <main>
         <Component {...pageProps} />
       </main>
-      <Analytics />
-    </SessionProvider>
+    </>
   );
 }
 

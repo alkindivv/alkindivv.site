@@ -13,13 +13,10 @@ import clsx from 'clsx';
 import Breadcrumb from '@/components/shared/Breadcrumb';
 import Link from 'next/link';
 import Image from 'next/image';
-import { HiOutlineClock, HiOutlineEye } from 'react-icons/hi2';
-import { usePageViews } from '@/lib/hooks/usePageViews';
+import { HiOutlineClock } from 'react-icons/hi2';
 
 // Komponen untuk setiap post
 const BlogPostCard = ({ post }: { post: BlogPost }) => {
-  const views = usePageViews(post.slug);
-
   return (
     <Link
       key={post.slug}
@@ -75,10 +72,6 @@ const BlogPostCard = ({ post }: { post: BlogPost }) => {
                 <p className="text-xs text-neutral-400">
                   {post.readingTime} min read
                 </p>
-              </div>
-              <div className="flex items-center gap-2">
-                <HiOutlineEye className="w-4 h-4 text-emerald-500" />
-                <p className="text-xs text-neutral-400">{views} views</p>
               </div>
             </div>
 
