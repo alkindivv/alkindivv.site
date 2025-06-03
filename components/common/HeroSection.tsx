@@ -313,7 +313,7 @@ const HeroSection = () => {
         {/* Right decorative area with enhanced hover effects */}
         <div
           className={clsx(
-            'hidden lg:block lg:col-span-5 relative h-full opacity-0 transform translate-x-12 transition-all duration-1000',
+            'block lg:block lg:col-span-5 relative h-full opacity-0 transform translate-x-12 transition-all duration-1000',
             isLoaded && 'opacity-100 translate-x-0'
           )}
           style={{
