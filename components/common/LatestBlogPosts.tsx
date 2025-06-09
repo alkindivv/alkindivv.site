@@ -180,11 +180,8 @@ const LatestBlogPosts = ({ posts }: LatestBlogPostsProps) => {
               transitionDelay: '500ms',
             }}
           >
-            Latest{' '}
-            <span className="bg-gradient-to-r from-emerald-400 to-teal-500 bg-clip-text text-transparent">
-              Legal Insights
-            </span>{' '}
-            & Articles
+            Latest <span className="gradient-text">Legal Insights</span> &
+            Articles
           </h3>
           <p
             className="text-neutral-400 leading-relaxed"
@@ -287,7 +284,7 @@ const LatestBlogPosts = ({ posts }: LatestBlogPostsProps) => {
         </div>
 
         {/* Secondary Posts - Clean Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6">
           {filteredPosts.slice(1).map((post, index) => (
             <div
               key={post.slug}

@@ -84,10 +84,10 @@ function WishlistCard({
   return (
     <div className="group flex items-start gap-4 py-4 relative">
       {/* Corner decorations - only visible on hover */}
-      <div className="absolute top-0 left-0 w-3 h-3 border-t border-l border-emerald-500/0 group-hover:border-emerald-500/30 transition-colors duration-300"></div>
+      {/* <div className="absolute top-0 left-0 w-3 h-3 border-t border-l border-emerald-500/0 group-hover:border-emerald-500/30 transition-colors duration-300"></div>
       <div className="absolute top-0 right-0 w-3 h-3 border-t border-r border-emerald-500/0 group-hover:border-emerald-500/30 transition-colors duration-300"></div>
       <div className="absolute bottom-0 left-0 w-3 h-3 border-b border-l border-emerald-500/0 group-hover:border-emerald-500/30 transition-colors duration-300"></div>
-      <div className="absolute bottom-0 right-0 w-3 h-3 border-b border-r border-emerald-500/0 group-hover:border-emerald-500/30 transition-colors duration-300"></div>
+      <div className="absolute bottom-0 right-0 w-3 h-3 border-b border-r border-emerald-500/0 group-hover:border-emerald-500/30 transition-colors duration-300"></div> */}
 
       {/* Checkbox - Legal styled */}
       <div
@@ -177,10 +177,7 @@ const WishlistPage = () => {
           maskImage: 'linear-gradient(rgb(0, 0, 0) 80%, rgba(0, 0, 0, 0) 100%)',
         }}
       >
-        <div
-          aria-hidden="true"
-          className="h-[900px] w-[950px] rounded-full bg-gradient-to-r from-[#2E996C]/30 to-[#0F3324]/30 blur-[150px] absolute top-0 -translate-y-full rotate-45 origin-left z-[-2] left-[15%]"
-        />
+        <div aria-hidden="true" className="" />
         <Image
           alt=""
           loading="lazy"
@@ -228,7 +225,7 @@ const WishlistPage = () => {
       </div>
 
       <main className="min-h-screen pt-40 relative z-10">
-        <div className="container max-w-3xl mx-auto px-4">
+        <div className="container max-w-4xl mx-auto px-4">
           {/* Header - Legal Styled Matching Blog */}
           <div className="mb-12 max-w-2xl mx-auto text-center">
             <div
@@ -297,12 +294,12 @@ const WishlistPage = () => {
           >
             {/* Legal document styling */}
             <div className="absolute top-0 left-0 right-0 h-0.5 bg-gradient-to-r from-transparent via-emerald-500/20 to-transparent"></div>
-            <div className="absolute top-2 left-2 w-3 h-3 border-t border-l border-emerald-500/30"></div>
-            <div className="absolute bottom-2 right-2 w-3 h-3 border-b border-r border-emerald-500/30"></div>
+            {/* <div className="absolute top-2 left-2 w-3 h-3 border-t border-l border-emerald-500/30"></div>
+            <div className="absolute bottom-2 right-2 w-3 h-3 border-b border-r border-emerald-500/30"></div> */}
 
-            <div className="relative backdrop-blur-md border border-neutral-800/70 rounded-sm overflow-hidden shadow-[0_0_50px_rgba(16,185,129,0.05)] p-6">
+            <div className="">
               {/* Decorative header bar - Legal styled */}
-              <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-emerald-500/20 to-transparent"></div>
+              <div className="absolute top-0 left-0 right-0 h-0.5 bg-gradient-to-r from-transparent via-emerald-500/20 to-transparent"></div>
 
               {/* Document title */}
               <div className="mb-6 border-b border-neutral-800/50 pb-4">
@@ -310,18 +307,15 @@ const WishlistPage = () => {
                   <div className="flex items-center gap-2">
                     <HiOutlineScale className="text-emerald-400 w-5 h-5" />
                     <span className="text-sm font-medium text-emerald-400">
-                      ARTICLE INDEX
+                      WISH LIST
                     </span>
                   </div>
-                  <span className="text-xs text-neutral-500 font-mono">
-                    CASE: LF-{new Date().getFullYear()}/WL
-                  </span>
                 </div>
               </div>
 
               {/* Decorative border for the legal document look */}
-              <div className="absolute top-0 bottom-0 left-0 w-1 bg-gradient-to-b from-transparent via-emerald-500/10 to-transparent"></div>
-              <div className="absolute top-0 bottom-0 right-0 w-1 bg-gradient-to-b from-transparent via-emerald-500/10 to-transparent"></div>
+              {/* <div className="absolute top-0 bottom-0 left-0 w-1 bg-gradient-to-b from-transparent via-emerald-500/10 to-transparent"></div>
+              <div className="absolute top-0 bottom-0 right-0 w-1 bg-gradient-to-b from-transparent via-emerald-500/10 to-transparent"></div> */}
 
               {/* Legal document watermark */}
               <div className="absolute inset-0 flex items-center justify-center opacity-[0.02] pointer-events-none">
@@ -331,9 +325,9 @@ const WishlistPage = () => {
               </div>
 
               {/* Legal document page numbers */}
-              <div className="absolute bottom-2 right-2 text-[10px] text-neutral-500 font-mono">
+              {/* <div className="absolute bottom-2 right-2 text-[10px] text-neutral-500 font-mono">
                 Page 1 of 1
-              </div>
+              </div> */}
 
               <div className="divide-y divide-gray-900">
                 {wishlistItems.map((item, index) => (
@@ -359,14 +353,14 @@ const WishlistPage = () => {
               </div>
 
               {/* Legal signature line */}
-              <div className="mt-8 flex justify-end">
+              {/* <div className="mt-8 flex justify-end">
                 <div className="w-48">
                   <div className="h-px bg-neutral-800"></div>
                   <div className="text-xs text-neutral-500 text-center mt-1">
                     Professional Signature
                   </div>
                 </div>
-              </div>
+              </div> */}
             </div>
 
             {/* Document footer */}
@@ -376,7 +370,7 @@ const WishlistPage = () => {
                 <HiOutlineScale className="w-4 h-4 text-emerald-500/40" />
                 <div className="h-px w-12 bg-neutral-800"></div>
               </div>
-              DOCUMENT ID: WSH-{new Date().getFullYear()}
+              WISHLIST-{new Date().getFullYear()}
             </div>
           </div>
         </div>

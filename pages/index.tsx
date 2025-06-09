@@ -22,32 +22,32 @@ type ResourcePreview = {
 // Data untuk glossary preview dari glossary.tsx
 const glossaryItems = [
   {
-    term: 'Blockchain',
+    term: 'Merger',
     definition:
-      'A digital ledger of transactions that is duplicated and distributed across a network of computer systems.',
-    category: 'Tech',
-    tags: ['Technology', 'Cryptocurrency'],
+      'Perbuatan hukum yang dilakukan oleh satu perseroan atau lebih untuk menggabungkan diri dengan perseroan lain yang telah ada dan selanjutnya perseroan yang menggabungkan diri menjadi bubar.',
+    category: 'Law',
+    tags: ['Merger & Akuisisi', 'Restrukturisasi'],
   },
   {
-    term: 'Smart Contract',
+    term: 'Akuisisi',
     definition:
-      'Self-executing contracts where the terms are directly written into code.',
-    category: 'Tech',
-    tags: ['Technology', 'Law'],
+      'yaitu merupakan suatu strategi bisnis untuk mengambil alih kontrol terhadap suatu PT yaitu dengan cara mengakuisisi saham ataupun aset dari PT sebuah PT, dalam proses Akuisis PT yang saham atau asetnya diakuisisi akan tetap exist dan menjalankan kegiatan usahanya sama seperti sebelumnya, yang berubah hanya kontrol atas PT tersebut',
+    category: 'Law',
+    tags: ['Hukum Perusahaan', 'M&A'],
   },
   {
-    term: 'Capital Market',
+    term: 'Komisaris',
     definition:
-      'A market where buyers and sellers engage in trade of financial securities.',
-    category: 'Finance',
-    tags: ['Finance', 'Investment'],
+      'adalah organ perusahaan yang bertugas untuk mengawasi direksi perusahaan dalam menjalankan tugasnya, dan bertanggung jawab kapada Rapat Umum Pemegang Saham (RUPS)',
+    category: 'Law',
+    tags: ['Hukum Perusahaan', 'M&A'],
   },
   {
-    term: 'M&A',
+    term: 'Direksi',
     definition:
-      'Mergers and acquisitions referring to consolidation of companies or assets.',
-    category: 'Corporate',
-    tags: ['Corporate Law', 'Business'],
+      'adalah merupakan organ perusahaan yang memiliki tugas dan wewenang untuk mengatur jalannya perusahaan dan bertindak untuk mewakili perusahaan baik di dalam maupun diluar persidangan',
+    category: 'Law',
+    tags: ['Hukum Perusahaan'],
   },
 ];
 

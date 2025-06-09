@@ -153,7 +153,7 @@ const AboutPreview = () => {
           >
             <HiLibrary className="text-emerald-400 w-5 h-5" />
             <h2 className="text-sm uppercase tracking-wider text-neutral-400 font-medium">
-              Legal Profile
+              About Me
             </h2>
           </div>
           <h3
@@ -165,10 +165,7 @@ const AboutPreview = () => {
               transitionDelay: '500ms',
             }}
           >
-            About{' '}
-            <span className="bg-gradient-to-r from-emerald-400 to-teal-500 bg-clip-text text-transparent">
-              The Counselor
-            </span>
+            About <span className="gradient-text">Me</span>
           </h3>
           <p
             className="text-neutral-400 leading-relaxed"
