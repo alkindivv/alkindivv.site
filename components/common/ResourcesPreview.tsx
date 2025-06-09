@@ -20,7 +20,20 @@ import Accent from '../shared/Accent';
 import GlowingButton from '../shared/GlowingButton';
 import OptimizedImage from '../shared/OptimizedImage';
 
-const ResourcesPreview = () => {
+// Tipe untuk resource item dari props
+type ResourcePreview = {
+  title: string;
+  description: string;
+  type: 'document' | 'book' | 'form' | 'link';
+  url: string;
+};
+
+// Props interface
+interface ResourcesPreviewProps {
+  resources?: ResourcePreview[];
+}
+
+const ResourcesPreview = ({ resources }: ResourcesPreviewProps) => {
   const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
@@ -81,6 +94,9 @@ const ResourcesPreview = () => {
       variant: 'legal',
     },
   ];
+
+  // Gunakan resources dari props jika diberikan, jika tidak gunakan default
+  const itemsToShow = resources || resourceItems;
 
   return (
     <section className="w-full py-24 relative overflow-hidden resources-preview-section">
@@ -261,55 +277,117 @@ const ResourcesPreview = () => {
 
         {/* Resource Cards with animation */}
         <div
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6"
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
           data-fade="2"
         >
-          {resourceItems.map((item, index) => (
-            <div
-              key={item.title}
-              className="group relative h-full"
-              style={{
-                opacity: isVisible ? 1 : 0,
-                transform: isVisible ? 'translateY(0)' : 'translateY(20px)',
-                transition: 'opacity 700ms ease-out, transform 700ms ease-out',
-                transitionDelay: `${800 + index * 150}ms`,
-              }}
-            >
-              <div className="absolute -inset-0.5 rounded-lg bg-gradient-to-br from-emerald-900/0 to-emerald-900/0 group-hover:from-emerald-900/10 group-hover:to-emerald-700/10 transition-all duration-300"></div>
-              <div className="relative h-full p-5 rounded-lg bg-[#080b0e]/60 border border-neutral-800/60 hover:border-emerald-900/30 transition-all duration-300 flex flex-col">
-                {/* Legal document corner fold */}
-                <div className="absolute top-0 right-0 w-6 h-6 bg-emerald-900/5 rounded-bl-md">
-                  <div className="absolute top-0 right-0 border-t-8 border-r-8 border-t-emerald-900/20 border-r-emerald-900/20 rounded-tr-md"></div>
-                </div>
+          {resources
+            ? // Jika ada props resources, gunakan itu
+              resources.map((resource, index) => (
+                <div
+                  key={resource.title}
+                  className="group relative h-full"
+                  style={{
+                    opacity: isVisible ? 1 : 0,
+                    transform: isVisible ? 'translateY(0)' : 'translateY(20px)',
+                    transition:
+                      'opacity 700ms ease-out, transform 700ms ease-out',
+                    transitionDelay: `${800 + index * 150}ms`,
+                  }}
+                >
+                  <div className="absolute -inset-0.5 rounded-lg bg-gradient-to-br from-emerald-900/0 to-emerald-900/0 group-hover:from-emerald-900/10 group-hover:to-emerald-700/10 transition-all duration-300"></div>
+                  <div className="relative h-full p-5 rounded-lg bg-[#080b0e]/60 border border-neutral-800/60 hover:border-emerald-900/30 transition-all duration-300 flex flex-col">
+                    {/* Legal document corner fold */}
+                    <div className="absolute top-0 right-0 w-6 h-6 bg-emerald-900/5 rounded-bl-md">
+                      <div className="absolute top-0 right-0 border-t-8 border-r-8 border-t-emerald-900/20 border-r-emerald-900/20 rounded-tr-md"></div>
+                    </div>
 
-                {/* Document header */}
-                <div className="mb-4 flex items-center gap-4">
-                  <div className="w-10 h-10 rounded-md flex items-center justify-center bg-emerald-900/10 border border-emerald-900/20 shadow-sm">
-                    {item.icon}
-                  </div>
-                  <h3 className="font-semibold text-base text-white group-hover:text-emerald-300 transition-colors duration-300 flex-1">
-                    {item.title}
-                  </h3>
-                </div>
+                    {/* Document header */}
+                    <div className="mb-4 flex items-center gap-4">
+                      <div className="w-10 h-10 rounded-md flex items-center justify-center bg-emerald-900/10 border border-emerald-900/20 shadow-sm">
+                        {resource.type === 'document' && (
+                          <HiDocumentText className="w-5 h-5 text-emerald-400" />
+                        )}
+                        {resource.type === 'book' && (
+                          <FiBookOpen className="w-5 h-5 text-emerald-400" />
+                        )}
+                        {resource.type === 'form' && (
+                          <HiClipboardCheck className="w-5 h-5 text-emerald-400" />
+                        )}
+                        {resource.type === 'link' && (
+                          <FiLayers className="w-5 h-5 text-emerald-400" />
+                        )}
+                      </div>
+                      <h3 className="font-semibold text-base text-white group-hover:text-emerald-300 transition-colors duration-300 flex-1">
+                        {resource.title}
+                      </h3>
+                    </div>
 
-                {/* Content */}
-                <p className="mb-5 text-sm text-neutral-400 group-hover:text-neutral-300 transition-colors duration-300 flex-grow">
-                  {item.excerpt}
-                </p>
+                    {/* Content */}
+                    <p className="mb-5 text-sm text-neutral-400 group-hover:text-neutral-300 transition-colors duration-300 flex-grow">
+                      {resource.description}
+                    </p>
 
-                {/* Footer with legal document styling */}
-                <div className="flex items-center justify-between pt-3 border-t border-neutral-800/20">
-                  <div className="text-xs text-neutral-500 font-mono">
-                    RESOURCES
-                  </div>
-                  <div className="flex items-center text-emerald-400 text-sm font-medium">
-                    <span className="mr-1">View</span>
-                    <FiArrowRight className="w-3.5 h-3.5 transform group-hover:translate-x-1 transition-transform duration-300" />
+                    {/* Footer with legal document styling */}
+                    <div className="flex items-center justify-between pt-3 border-t border-neutral-800/20">
+                      <div className="text-xs text-neutral-500 font-mono">
+                        RESOURCES
+                      </div>
+                      <div className="flex items-center text-emerald-400 text-sm font-medium">
+                        <span className="mr-1">View</span>
+                        <FiArrowRight className="w-3.5 h-3.5 transform group-hover:translate-x-1 transition-transform duration-300" />
+                      </div>
+                    </div>
                   </div>
                 </div>
-              </div>
-            </div>
-          ))}
+              ))
+            : // Jika tidak ada props resources, gunakan default
+              resourceItems.map((item, index) => (
+                <div
+                  key={item.title}
+                  className="group relative h-full"
+                  style={{
+                    opacity: isVisible ? 1 : 0,
+                    transform: isVisible ? 'translateY(0)' : 'translateY(20px)',
+                    transition:
+                      'opacity 700ms ease-out, transform 700ms ease-out',
+                    transitionDelay: `${800 + index * 150}ms`,
+                  }}
+                >
+                  <div className="absolute -inset-0.5 rounded-lg bg-gradient-to-br from-emerald-900/0 to-emerald-900/0 group-hover:from-emerald-900/10 group-hover:to-emerald-700/10 transition-all duration-300"></div>
+                  <div className="relative h-full p-5 rounded-lg bg-[#080b0e]/60 border border-neutral-800/60 hover:border-emerald-900/30 transition-all duration-300 flex flex-col">
+                    {/* Legal document corner fold */}
+                    <div className="absolute top-0 right-0 w-6 h-6 bg-emerald-900/5 rounded-bl-md">
+                      <div className="absolute top-0 right-0 border-t-8 border-r-8 border-t-emerald-900/20 border-r-emerald-900/20 rounded-tr-md"></div>
+                    </div>
+
+                    {/* Document header */}
+                    <div className="mb-4 flex items-center gap-4">
+                      <div className="w-10 h-10 rounded-md flex items-center justify-center bg-emerald-900/10 border border-emerald-900/20 shadow-sm">
+                        {item.icon}
+                      </div>
+                      <h3 className="font-semibold text-base text-white group-hover:text-emerald-300 transition-colors duration-300 flex-1">
+                        {item.title}
+                      </h3>
+                    </div>
+
+                    {/* Content */}
+                    <p className="mb-5 text-sm text-neutral-400 group-hover:text-neutral-300 transition-colors duration-300 flex-grow">
+                      {item.excerpt}
+                    </p>
+
+                    {/* Footer with legal document styling */}
+                    <div className="flex items-center justify-between pt-3 border-t border-neutral-800/20">
+                      <div className="text-xs text-neutral-500 font-mono">
+                        RESOURCES
+                      </div>
+                      <div className="flex items-center text-emerald-400 text-sm font-medium">
+                        <span className="mr-1">View</span>
+                        <FiArrowRight className="w-3.5 h-3.5 transform group-hover:translate-x-1 transition-transform duration-300" />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              ))}
         </div>
 
         {/* CTA button with animation */}
