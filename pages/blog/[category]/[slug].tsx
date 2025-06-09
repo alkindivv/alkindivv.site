@@ -5,7 +5,7 @@ import Layout from '@/components/layout/Layout';
 import { getPostBySlug, getAllPostSlugs, getAllPosts } from '@/lib/mdx';
 import { MDXComponents } from '@/components/blog/BlogContent';
 import Accent from '@/components/shared/Accent';
-import SEO from '@/components/shared/SEO';
+import PowerfulSEO from '@/components/shared/PowerfulSEO';
 import { Metadata } from 'next';
 import type { BlogPost } from '@/types/blog';
 
@@ -110,18 +110,21 @@ export default function BlogPost({
 
   return (
     <Layout>
-      <SEO
-        templateTitle={frontMatter.title}
+      <PowerfulSEO
+        title={frontMatter.title}
         description={
           frontMatter.excerpt ||
           `${frontMatter.title} - Article by ${frontMatter.author}`
         }
-        banner={frontMatter.featuredImage}
-        isBlog={true}
-        date={frontMatter.date}
+        image={frontMatter.featuredImage}
+        type="article"
+        publishedTime={frontMatter.date}
+        modifiedTime={frontMatter.date}
         category={frontMatter.category}
         tags={frontMatter.tags}
+        author={frontMatter.author}
         readingTime={frontMatter.readingTime}
+        wordCount={frontMatter.excerpt?.split(' ').length}
       />
 
       <main className={clsx('content-spacing')}>
@@ -134,7 +137,7 @@ export default function BlogPost({
               fill
               sizes="100vw"
               className="object-cover brightness-[0.5] contrast-[1.1]"
-              priority={true}
+              priority
               quality={75}
             />
             <div className="absolute inset-0 bg-gradient-to-b from-[#0a0a0a]/0 via-[#0a0a0a]/60 to-[#0a0a0a]" />
@@ -419,7 +422,6 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
       mdxSource,
       allPosts,
     },
-    revalidate: 60 * 60, // Revalidate setiap 1 jam
   };
 };
 

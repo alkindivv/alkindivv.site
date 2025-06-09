@@ -23,7 +23,7 @@ export async function generateRSSFeed() {
     },
     author: {
       name: 'AL KINDI',
-      email: 'contact@alkindivv.site',
+      email: 'alkindivv@gmail.com',
       link: baseUrl,
     },
   });
@@ -47,7 +47,7 @@ export async function generateRSSFeed() {
       author: [
         {
           name: post.author || 'AL KINDI',
-          email: 'contact@alkindivv.site',
+          email: 'alkindivv@gmail.com',
           link: baseUrl,
         },
       ],
@@ -83,7 +83,7 @@ export async function generateAtomFeed() {
     },
     author: {
       name: 'AL KINDI',
-      email: 'contact@alkindivv.site',
+      email: 'alkindivv@gmail.com',
       link: baseUrl,
     },
   });
@@ -107,7 +107,7 @@ export async function generateAtomFeed() {
       author: [
         {
           name: post.author || 'AL KINDI',
-          email: 'contact@alkindivv.site',
+          email: 'alkindivv@gmail.com',
           link: baseUrl,
         },
       ],

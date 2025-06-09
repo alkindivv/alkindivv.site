@@ -73,7 +73,8 @@ export default function Footer() {
   return (
     <footer className="mt-20 bg-neutral-950">
       {/* Top Border Gradient */}
-      <div className="h-px bg-gradient-to-r from-transparent via-gray-600 to-transparent" />
+      <div className="h-px bg-gradient-to-r from-transparent via-emerald-500/20  to-transparent" />
+      {/* <div className="absolute top-0 left-0 right-0 h-0.5 bg-gradient-to-r from-transparent via-emerald-500/20 to-transparent" /> */}
 
       <div className="mx-auto max-w-7xl">
         <div className="mx-auto max-w-[1150px] px-0 py-16">
@@ -211,7 +212,7 @@ export default function Footer() {
         </div>
 
         {/* Copyright Section dengan gradient line */}
-        <div className="h-px bg-gradient-to-r from-transparent via-gray-600 to-transparent">
+        <div className="h-px bg-gradient-to-r from-transparent via-emerald-500/20 to-transparent">
           <div className="mx-auto max-w-[1150px] px-6 py-8 relative">
             {/* Copyright text di tengah */}
             <div className="w-full text-center">

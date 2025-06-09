@@ -1,21 +1,34 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
 import Layout from '@/components/layout/Layout';
-import SEO from '@/components/shared/SEO';
+import PowerfulSEO from '@/components/shared/PowerfulSEO';
 import clsx from 'clsx';
 import DimensionLink from '@/components/common/DimensionLink';
+import { FaRegCalendarAlt } from 'react-icons/fa';
 import AccentNormal from '@/components/shared/AccentNormal';
+import {
+  HiScale,
+  HiDocumentText,
+  HiLibrary,
+  HiOutlineDocumentSearch,
+} from 'react-icons/hi';
 
 const AboutPage = () => {
+  const [isVisible, setIsVisible] = useState(false);
+
+  useEffect(() => {
+    setIsVisible(true);
+  }, []);
+
   return (
     <Layout>
-      <SEO
-        templateTitle="About"
+      <PowerfulSEO
+        title="About"
         description="Learn about AL KINDI - A legal professional specializing in capital markets, M&A, bankruptcy, and crypto regulations. Discover my background, expertise, and professional journey."
-        banner="/images/default.png"
+        image="/images/default.png"
       />
 
-      {/* Background Effect */}
+      {/* Background Effect - Legal Themed */}
       <div
         className="absolute inset-0 overflow-hidden h-[450px] bg-neutral-950"
         style={{
@@ -31,32 +44,129 @@ const AboutPage = () => {
           width={1280}
           height={825}
           className="pointer-events-none select-none absolute w-full inset-0 h-[450px] object-cover z-[-1] opacity-40 mix-blend-overlay"
-          src="/images/textures/crumpled-3.jpg"
+          src="/images/textures/s.jpeg"
           priority
         />
+
+        {/* Legal paper texture */}
+        <div
+          className="absolute inset-0 opacity-0 transition-opacity duration-1000 ease-in-out"
+          style={{
+            backgroundImage:
+              'linear-gradient(0deg, rgba(16,185,129,0.08) 1px, transparent 1px)',
+            backgroundSize: '100% 28px',
+            opacity: isVisible ? 0.03 : 0,
+            transitionDelay: '300ms',
+          }}
+        />
+
+        {/* Legal document corner decorations */}
+        <div
+          className="absolute top-20 left-20 opacity-0 transition-all duration-1500"
+          style={{
+            opacity: isVisible ? 0.15 : 0,
+            transform: isVisible
+              ? 'translate(0, 0)'
+              : 'translate(-10px, -10px)',
+            transitionDelay: '1000ms',
+          }}
+        >
+          <div className="w-40 h-40 border-t-2 border-l-2 border-emerald-500/40 rounded-tl-md"></div>
+        </div>
+        <div
+          className="absolute bottom-20 right-20 opacity-0 transition-all duration-1500"
+          style={{
+            opacity: isVisible ? 0.15 : 0,
+            transform: isVisible ? 'translate(0, 0)' : 'translate(10px, 10px)',
+            transitionDelay: '1200ms',
+          }}
+        >
+          <div className="w-40 h-40 border-b-2 border-r-2 border-emerald-500/40 rounded-br-md"></div>
+        </div>
       </div>
 
       <main className={clsx('content-spacing')}>
         {/* Header Section */}
         <section className="min-h-screen pt-40 relative z-10">
           <div className="max-w-6xl mx-auto">
-            {/* Header Section */}
+            {/* Header Section - Legal Styled */}
             <div className="mt-10 relative space-y-1 text-center" data-fade="1">
-              <h1 className="text-center font-sans text-[2rem] sm:text-[2.5rem] md:text-[3rem] lg:text-[3.5rem] font-bold tracking-tight leading-tight">
+              <div
+                className="flex items-center space-x-2 mb-2 justify-center"
+                style={{
+                  opacity: isVisible ? 1 : 0,
+                  transition: 'opacity 700ms ease-out',
+                  transitionDelay: '400ms',
+                }}
+              >
+                <HiLibrary className="text-emerald-400 w-5 h-5" />
+                <h2 className="text-sm uppercase tracking-wider text-neutral-400 font-medium">
+                  Legal Professional
+                </h2>
+              </div>
+
+              <h1
+                className="text-center font-sans text-[2rem] sm:text-[2.5rem] md:text-[3rem] lg:text-[3.5rem] font-bold tracking-tight leading-tight"
+                style={{
+                  opacity: isVisible ? 1 : 0,
+                  transform: isVisible ? 'translateY(0)' : 'translateY(10px)',
+                  transition:
+                    'opacity 700ms ease-out, transform 700ms ease-out',
+                  transitionDelay: '500ms',
+                }}
+              >
                 About <span className="gradient-text">Me</span>
               </h1>
-              <p className="hero-text inline-block text-center text-[0.95rem] md:text-[1.05rem]">
-                My background, interests, and experiences.
+              <p
+                className="hero-text inline-block text-center text-[0.95rem] md:text-[1.05rem]"
+                style={{
+                  opacity: isVisible ? 1 : 0,
+                  transform: isVisible ? 'translateY(0)' : 'translateY(10px)',
+                  transition:
+                    'opacity 700ms ease-out, transform 700ms ease-out',
+                  transitionDelay: '600ms',
+                }}
+              >
+                Professional background, qualifications, and legal expertise
               </p>
+
+              <div
+                className="flex items-center mt-6"
+                style={{
+                  opacity: isVisible ? 1 : 0,
+                  transition: 'opacity 700ms ease-out',
+                  transitionDelay: '700ms',
+                }}
+              >
+                <div className="h-px flex-grow bg-neutral-800/50"></div>
+                <div className="px-4 py-1 text-xs font-mono text-emerald-400 border border-emerald-500/20 rounded-sm bg-emerald-900/10">
+                  CURRICULUM VITAE
+                </div>
+                <div className="h-px flex-grow bg-neutral-800/50"></div>
+              </div>
             </div>
-            <div className="mt-5  h-px max-w-md mx-auto bg-gradient-to-r from-transparent via-gray-800 to-transparent" />
+            <div className="mt-5 h-px max-w-md mx-auto bg-gradient-to-r from-transparent via-gray-800 to-transparent" />
 
-            {/* Profile Section */}
-
-            <div className="mt-8 max-w-6xl mx-auto relative" data-fade="2">
+            {/* Profile Section - Legal Styled */}
+            <div
+              className="mt-8 max-w-6xl mx-auto relative"
+              data-fade="2"
+              style={{
+                opacity: isVisible ? 1 : 0,
+                transform: isVisible ? 'translateY(0)' : 'translateY(20px)',
+                transition: 'opacity 800ms ease-out, transform 800ms ease-out',
+                transitionDelay: '800ms',
+              }}
+            >
               {/* Photo and Buttons Column - Fixed Width */}
               <div className="md:float-left md:w-[300px] lg:w-[400px] md:mr-8 mb-6 md:mb-0">
-                <div className="relative w-full aspect-square rounded-2xl overflow-hidden shadow-xl transform hover:scale-[1.02] transition-transform duration-300">
+                <div className="relative w-full aspect-square rounded-2xl overflow-hidden shadow-xl transform hover:scale-[1.02] transition-transform duration-300 border border-emerald-900/20">
+                  {/* Corner decorations - legal document style */}
+                  {/* <div className="absolute top-0 left-0 w-4 h-4 border-t border-l border-emerald-500/30 z-10"></div>
+                  <div className="absolute top-0 right-0 w-4 h-4 border-t border-r border-emerald-500/30 z-10"></div>
+                  <div className="absolute bottom-0 left-0 w-4 h-4 border-b border-l border-emerald-500/30 z-10"></div>
+                  <div className="absolute bottom-0 right-0 w-4 h-4 border-b border-r border-emerald-500/30 z-10"></div> */}
+
                   <Image
                     src="/images/AL-KINDI.png"
                     alt="AL KINDI"
@@ -64,11 +174,38 @@ const AboutPage = () => {
                     className="object-cover"
                     priority
                   />
+
+                  {/* Legal stamp/watermark */}
+                  <div className="absolute bottom-4 right-4 w-20 h-20 rounded-full border-2 border-emerald-500/20 flex items-center justify-center opacity-50">
+                    <HiScale className="w-10 h-10 text-emerald-500/30" />
+                  </div>
+                </div>
+
+                {/* Legal credential tag */}
+                <div className="absolute -bottom-3 right-3 p-2 rounded-md bg-[#060a0d]/90 border border-emerald-900/30 shadow-lg transform rotate-2 transition-all duration-700">
+                  <div className="text-center">
+                    <div className="text-xs text-emerald-400 font-medium">
+                      VERIFIED
+                    </div>
+                    <div className="text-[10px] text-neutral-500">
+                      Legal Practitioner
+                    </div>
+                  </div>
                 </div>
               </div>
 
-              {/* Text Content */}
-              <div className="prose prose-invert max-w-none">
+              {/* Text Content - Legal Styled */}
+              <div className="prose prose-invert max-w-none relative backdrop-blur-md border border-emerald-900/10 rounded-xl overflow-hidden shadow-[0_0_30px_rgba(16,185,129,0.03)] p-6">
+                {/* Document number */}
+                <div className="absolute top-3 right-3">
+                  <div className="text-[10px] text-neutral-500 font-mono">
+                    DOC-BIO/{new Date().getFullYear().toString().substring(2)}
+                  </div>
+                </div>
+
+                {/* Decorative top bar */}
+                <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-emerald-500/20 to-transparent"></div>
+
                 <p
                   className="text-justify paragraph-text leading-relaxed"
                   data-fade="2"
@@ -116,40 +253,84 @@ const AboutPage = () => {
                 </p>
               </div>
               <div className="clear-both mb-20" />
-              <div
+              {/* <div
                 className="h-px bg-gradient-to-r from-transparent via-gray-600 to-transparent mb-5"
                 data-fade="9"
-              />
+              /> */}
             </div>
 
-            {/* Experience Section */}
+            {/* Experience Section - Legal Styled */}
             <section className="pb-5">
               <h2
-                className="  font-sans text-[1.75rem] md:text-[2.75rem] font-bold tracking-tight leading-tight mb-0 text-center"
+                className="font-sans text-[1.75rem] md:text-[2.75rem] font-bold tracking-tight leading-tight mb-0 text-center"
                 data-fade="7"
+                style={{
+                  opacity: isVisible ? 1 : 0,
+                  transform: isVisible ? 'translateY(0)' : 'translateY(10px)',
+                  transition:
+                    'opacity 700ms ease-out, transform 700ms ease-out',
+                  transitionDelay: '900ms',
+                }}
               >
                 <span className="gradient-text">Experiences</span>
               </h2>
               <div className="text-center">
-                <p className="hero-text mb-4 inline-block" data-fade="8">
-                  Some experiences I've had in the past few years
+                <p
+                  className="hero-text mb-4 inline-block"
+                  data-fade="8"
+                  style={{
+                    opacity: isVisible ? 1 : 0,
+                    transform: isVisible ? 'translateY(0)' : 'translateY(10px)',
+                    transition:
+                      'opacity 700ms ease-out, transform 700ms ease-out',
+                    transitionDelay: '1000ms',
+                  }}
+                >
+                  Professional legal history and practical experience
                 </p>
               </div>
-              <div
+              {/* <div
                 className="h-px bg-gradient-to-r from-transparent via-gray-600 to-transparent mb-14 mt-5"
                 data-fade="9"
-              />
+              /> */}
 
-              <div className="space-y-14">
-                {/* Experience 1 */}
-                <div className="group">
+              <div
+                className="space-y-14"
+                style={{
+                  opacity: isVisible ? 1 : 0,
+                  transform: isVisible ? 'translateY(0)' : 'translateY(20px)',
+                  transition:
+                    'opacity 800ms ease-out, transform 800ms ease-out',
+                  transitionDelay: '1100ms',
+                }}
+              >
+                {/* Experience 1 - Legal Styled */}
+                <div className="group relative backdrop-blur-md border border-emerald-900/10 rounded-xl overflow-hidden shadow-[0_0_30px_rgba(16,185,129,0.03)] p-6">
+                  {/* Corner decorations - legal document style */}
+                  {/* <div className="absolute top-0 left-0 w-4 h-4 border-t border-l border-emerald-500/30"></div>
+                  <div className="absolute top-0 right-0 w-4 h-4 border-t border-r border-emerald-500/30"></div>
+                  <div className="absolute bottom-0 left-0 w-4 h-4 border-b border-l border-emerald-500/30"></div>
+                  <div className="absolute bottom-0 right-0 w-4 h-4 border-b border-r border-emerald-500/30"></div> */}
+
+                  {/* Decorative top bar */}
+                  <div className="absolute top-0 left-0 right-0 h-0.5 bg-gradient-to-r from-transparent via-emerald-500/20 to-transparent"></div>
+
+                  {/* Document number */}
+                  <div className="absolute top-3 right-3">
+                    <div className="text-[10px] text-neutral-500 font-mono">
+                      REF-EXP-1/
+                      {new Date().getFullYear().toString().substring(2)}
+                    </div>
+                  </div>
+
                   <div className="grid grid-cols-1 md:grid-cols-[300px,1fr] gap-8 data-fade-8">
                     <div>
                       <div
-                        className="paragraph-text text-[0.9rem] md:text-[0.95rem] leading-relaxed tracking-wider -mb-10 md:-mb-0"
+                        className="paragraph-text text-[0.9rem] md:text-[0.95rem] leading-relaxed tracking-wider -mb-10 md:-mb-0 flex items-center"
                         data-fade="10"
                       >
-                        Nov 2023 — Dec 2024
+                        <FaRegCalendarAlt className="w-4 h-4 text-emerald-400 mr-2" />
+                        <span>Nov 2023 — Dec 2024</span>
                       </div>
                     </div>
 
@@ -217,15 +398,33 @@ const AboutPage = () => {
                   </div>
                 </div>
 
-                {/* Experience 2 */}
-                <div className="group">
+                {/* Experience 2 - Legal Styled */}
+                <div className="group relative backdrop-blur-md border border-emerald-900/10 rounded-xl overflow-hidden shadow-[0_0_30px_rgba(16,185,129,0.03)] p-6">
+                  {/* Corner decorations - legal document style */}
+                  {/* <div className="absolute top-0 left-0 w-4 h-4 border-t border-l border-emerald-500/30"></div>
+                  <div className="absolute top-0 right-0 w-4 h-4 border-t border-r border-emerald-500/30"></div>
+                  <div className="absolute bottom-0 left-0 w-4 h-4 border-b border-l border-emerald-500/30"></div>
+                  <div className="absolute bottom-0 right-0 w-4 h-4 border-b border-r border-emerald-500/30"></div> */}
+
+                  {/* Decorative top bar */}
+                  <div className="absolute top-0 left-0 right-0 h-0.5 bg-gradient-to-r from-transparent via-emerald-500/20 to-transparent"></div>
+
+                  {/* Document number */}
+                  <div className="absolute top-3 right-3">
+                    <div className="text-[10px] text-neutral-500 font-mono">
+                      REF-EXP-2/
+                      {new Date().getFullYear().toString().substring(2)}
+                    </div>
+                  </div>
+
                   <div className="grid grid-cols-1 md:grid-cols-[300px,1fr] gap-8 data-fade-8">
                     <div>
                       <div
-                        className="paragraph-text text-[0.9rem] md:text-[0.95rem] leading-relaxed tracking-wider -mb-10 md:-mb-0"
+                        className="paragraph-text text-[0.9rem] md:text-[0.95rem] leading-relaxed tracking-wider -mb-10 md:-mb-0 flex items-center"
                         data-fade="10"
                       >
-                        Jan 2022 — Feb 2022
+                        <FaRegCalendarAlt className="w-4 h-4 text-emerald-400 mr-2" />
+                        <span>Jan 2022 — Feb 2022</span>
                       </div>
                     </div>
 
@@ -293,15 +492,33 @@ const AboutPage = () => {
                   </div>
                 </div>
 
-                {/* Experience 3 */}
-                <div className="group">
+                {/* Experience 3 - Legal Styled */}
+                <div className="group relative backdrop-blur-md border border-emerald-900/10 rounded-xl overflow-hidden shadow-[0_0_30px_rgba(16,185,129,0.03)] p-6">
+                  {/* Corner decorations - legal document style */}
+                  <div className="absolute top-0 left-0 w-4 h-4 border-t border-l border-emerald-500/30"></div>
+                  {/* <div className="absolute top-0 right-0 w-4 h-4 border-t border-r border-emerald-500/30"></div>
+                  <div className="absolute bottom-0 left-0 w-4 h-4 border-b border-l border-emerald-500/30"></div>
+                  <div className="absolute bottom-0 right-0 w-4 h-4 border-b border-r border-emerald-500/30"></div> */}
+
+                  {/* Decorative top bar */}
+                  <div className="absolute top-0 left-0 right-0 h-0.5 bg-gradient-to-r from-transparent via-emerald-500/20 to-transparent"></div>
+
+                  {/* Document number */}
+                  <div className="absolute top-3 right-3">
+                    <div className="text-[10px] text-neutral-500 font-mono">
+                      REF-EXP-3/
+                      {new Date().getFullYear().toString().substring(2)}
+                    </div>
+                  </div>
+
                   <div className="grid grid-cols-1 md:grid-cols-[300px,1fr] gap-8 data-fade-8">
                     <div>
                       <div
-                        className="paragraph-text text-[0.9rem] md:text-[0.95rem] leading-relaxed tracking-wider -mb-10 md:-mb-0"
+                        className="paragraph-text text-[0.9rem] md:text-[0.95rem] leading-relaxed tracking-wider -mb-10 md:-mb-0 flex items-center"
                         data-fade="10"
                       >
-                        Feb 2021 — Dec 2023
+                        <FaRegCalendarAlt className="w-4 h-4 text-emerald-400 mr-2" />
+                        <span>Feb 2021 — Dec 2023</span>
                       </div>
                     </div>
 
@@ -365,6 +582,29 @@ const AboutPage = () => {
                       </div>
                     </div>
                   </div>
+                </div>
+              </div>
+
+              {/* Legal footer */}
+              <div className="mt-12 text-end text-[10px] text-neutral-500 font-mono">
+                <div className="flex items-center justify-center gap-2 mb-1">
+                  {/* <div className="h-px w-12 bg-neutral-800"></div>
+                    <HiScale className="w-4 h-4 text-emerald-500/40" />
+                    <div className="h-px w-12 bg-neutral-800"></div> */}
+                </div>
+                ID: ABOUT-{new Date().getFullYear()}
+              </div>
+              <div
+                className="mt-16 text-center"
+                style={{
+                  opacity: isVisible ? 1 : 0,
+                  transition: 'opacity 800ms ease-out',
+                  transitionDelay: '1400ms',
+                }}
+              >
+                <div className="flex items-center justify-center gap-2 text-xs text-neutral-500">
+                  <HiScale className="w-4 h-4 text-emerald-500/50" />
+                  <span>Curriculum Vitae</span>
                 </div>
               </div>
             </section>

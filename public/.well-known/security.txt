@@ -1,7 +1,3 @@
-Contact: mailto:security@alkindivv.site
+Contact: mailto:alkindivv@gmail.com
 Contact: https://alkindivv.site/contact
 Expires: 2026-06-03T09:38:36.187Z
-Encryption: https://alkindivv.site/pgp-key.txt
-Acknowledgments: https://alkindivv.site/security-acknowledgments
-Policy: https://alkindivv.site/security-policy
-Hiring: https://alkindivv.site/careers

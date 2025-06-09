@@ -3,7 +3,7 @@ const fs = require('fs');
 const path = require('path');
 
 async function generateIcons() {
-  const inputImage = path.join(__dirname, '../public/images/AL-KINDI.png');
+  const inputImage = path.join(__dirname, '../public/logo.png');
   const publicDir = path.join(__dirname, '../public');
 
   // Check if input image exists
@@ -12,7 +12,7 @@ async function generateIcons() {
     return;
   }
 
-  console.log('🎨 Generating icons from AL-KINDI.png...');
+  console.log('🎨 Generating icons from logo.png...');
 
   try {
     // Generate favicon.ico (32x32)

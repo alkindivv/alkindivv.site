@@ -2,7 +2,79 @@
 @tailwind components;
 @tailwind utilities;
 
-/* #region /**=========== Fade In =========== */
+/* #region /**=========== Performance Optimizations =========== */
+.gpu-accelerated {
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  will-change: transform;
+}
+
+.will-change-transform {
+  will-change: transform;
+}
+
+.will-change-opacity {
+  will-change: opacity;
+}
+/* #endregion  /**======== Performance Optimizations =========== */
+
+/* #region /**=========== Optimized Animations =========== */
+@keyframes floatParticle {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) rotate(0deg);
+    opacity: 0.1;
+  }
+  50% {
+    transform: translate3d(0, -20px, 0) rotate(180deg);
+    opacity: 0.3;
+  }
+}
+
+@keyframes float {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0);
+  }
+  50% {
+    transform: translate3d(0, -10px, 0);
+  }
+}
+
+@keyframes morphGradient {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) scale(1);
+    opacity: 0.05;
+  }
+  50% {
+    transform: translate3d(10px, -10px, 0) scale(1.1);
+    opacity: 0.1;
+  }
+}
+
+@keyframes morphShape {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) scale(1) rotate(0deg);
+  }
+  50% {
+    transform: translate3d(20px, -20px, 0) scale(1.05) rotate(5deg);
+  }
+}
+
+@keyframes pulseOpacity {
+  0%,
+  100% {
+    opacity: 0.1;
+  }
+  50% {
+    opacity: 0.3;
+  }
+}
+/* #endregion  /**======== Optimized Animations =========== */
+
+/* #region /**=========== Fade In Animations =========== */
 .fade-wrapper {
   opacity: 1 !important;
   transform: none !important;
@@ -10,124 +82,77 @@
 
 [data-fade] {
   opacity: 0;
-  transform: translateY(40px);
-  animation: fadeIn 0.4s ease-in-out forwards;
+  transform: translateY(20px); /* Reduced from 40px */
+  animation: fadeIn 0.3s ease-out forwards; /* Faster animation */
   will-change: opacity, transform;
 }
 
+/* Reduced animation delays for better performance */
 [data-fade='1'] {
   animation-delay: 0ms;
 }
-
 [data-fade='2'] {
-  animation-delay: 150ms;
+  animation-delay: 100ms;
 }
-
 [data-fade='3'] {
+  animation-delay: 200ms;
+}
+[data-fade='4'] {
   animation-delay: 300ms;
 }
-
-[data-fade='4'] {
-  animation-delay: 450ms;
-}
-
 [data-fade='5'] {
+  animation-delay: 400ms;
+}
+[data-fade='6'] {
+  animation-delay: 500ms;
+}
+[data-fade='7'] {
   animation-delay: 600ms;
 }
-
-[data-fade='6'] {
-  animation-delay: 750ms;
+[data-fade='8'] {
+  animation-delay: 700ms;
 }
-
-[data-fade='7'] {
+[data-fade='9'] {
+  animation-delay: 800ms;
+}
+[data-fade='10'] {
   animation-delay: 900ms;
 }
 
-[data-fade='8'] {
-  animation-delay: 1050ms;
-}
-
-[data-fade='9'] {
-  animation-delay: 1200ms;
-}
-
-[data-fade='10'] {
-  animation-delay: 1350ms;
-}
-
-[data-fade='11'] {
-  animation-delay: 1500ms;
-}
-
-[data-fade='12'] {
-  animation-delay: 1650ms;
-}
-
-[data-fade='13'] {
-  animation-delay: 1800ms;
-}
-
-[data-fade='14'] {
-  animation-delay: 1950ms;
-}
-
-[data-fade='15'] {
-  animation-delay: 2100ms;
-}
-
-[data-fade='16'] {
-  animation-delay: 2250ms;
-}
-
-[data-fade='17'] {
-  animation-delay: 2400ms;
-}
-
-[data-fade='18'] {
-  animation-delay: 2550ms;
-}
-
-[data-fade='19'] {
-  animation-delay: 2700ms;
-}
-
-[data-fade='20'] {
-  animation-delay: 2850ms;
-}
-
-[data-fade='21'] {
-  animation-delay: 3000ms;
-}
-
-[data-fade='22'] {
-  animation-delay: 3150ms;
-}
-
-[data-fade='23'] {
-  animation-delay: 3300ms;
-}
-
-[data-fade='24'] {
-  animation-delay: 3450ms;
-}
+/* Max delay reduced to 900ms instead of 3450ms */
 
 @keyframes fadeIn {
   0% {
     opacity: 0;
-    transform: translateY(40px);
+    transform: translateY(20px);
   }
   100% {
     opacity: 1;
     transform: translateY(0);
   }
 }
+/* #endregion  /**======== Fade In Animations =========== */
 
-/* Reduced motion */
+/* #region /**=========== Reduced Motion Support =========== */
 @media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
   [data-fade] {
     animation: none !important;
     opacity: 1 !important;
     transform: none !important;
   }
+
+  .gpu-accelerated {
+    transform: none !important;
+    will-change: auto !important;
+  }
 }
-/* #endregion  /**======== Fade In =========== */
+/* #endregion  /**======== Reduced Motion Support =========== */

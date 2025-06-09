@@ -2,78 +2,46 @@ import '@/styles/globals.css';
 import '@/styles/animations.css';
 
 import type { AppProps } from 'next/app';
-import { DefaultSeo } from 'next-seo';
-import dynamic from 'next/dynamic';
 import Head from 'next/head';
-
-// Dynamic imports for non-critical components
-const SEO = dynamic(() => import('@/components/shared/SEO'), {
-  ssr: true,
-});
-
-const defaultSEOConfig = {
-  title: 'AL KINDI - Personal Website and Blog',
-  description:
-    'Explore insights about law, technology, and their intersection. Articles about corporate mergers and acquisitions, capital markets, restructuring & insolvency, and legal tech innovations.',
-  canonical: 'https://alkindivv.site',
-  openGraph: {
-    type: 'website',
-    locale: 'id_ID',
-    url: 'https://alkindivv.site',
-    siteName: 'AL KINDI',
-    title: 'AL KINDI - Personal Website and Blog',
-    description:
-      'Explore insights about law, technology, and their intersection. Articles about corporate law, capital markets, and legal tech innovations.',
-    images: [
-      {
-        url: '/images/default.png',
-        width: 1200,
-        height: 630,
-        alt: 'AL KINDI',
-      },
-    ],
-  },
-  twitter: {
-    handle: '@alkindivv',
-    site: '@alkindivv',
-    cardType: 'summary_large_image',
-  },
-  additionalMetaTags: [
-    {
-      name: 'viewport',
-      content: 'width=device-width, initial-scale=1, maximum-scale=5',
-    },
-    {
-      name: 'mobile-web-app-capable',
-      content: 'yes',
-    },
-    {
-      name: 'theme-color',
-      content: '#0a0a0a',
-    },
-  ],
-  additionalLinkTags: [
-    {
-      rel: 'icon',
-      href: '/favicon.ico',
-    },
-    {
-      rel: 'apple-touch-icon',
-      href: '/images/default.png',
-      sizes: '180x180',
-    },
-  ],
-};
+import GoogleAnalytics from '@/components/shared/GoogleAnalytics';
+import { useRouterLoading } from '@/lib/hooks/useRouterLoading';
 
 function MyApp({ Component, pageProps }: AppProps) {
+  // Global router loading - hanya 1x untuk seluruh app
+  useRouterLoading();
+
   return (
     <>
       <Head>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta name="mobile-web-app-capable" content="yes" />
+        <meta name="theme-color" content="#0a0a0a" />
+
+        {/* Favicon */}
+        <link rel="icon" href="/favicon.ico" />
+        <link
+          rel="apple-touch-icon"
+          sizes="180x180"
+          href="/apple-touch-icon.png"
+        />
+        <link
+          rel="icon"
+          type="image/png"
+          sizes="32x32"
+          href="/favicon-32x32.png"
+        />
+        <link
+          rel="icon"
+          type="image/png"
+          sizes="16x16"
+          href="/favicon-16x16.png"
+        />
+        <link rel="manifest" href="/site.webmanifest" />
       </Head>
-      <DefaultSeo {...defaultSEOConfig} />
-      <SEO />
+
+      {/* Google Analytics */}
+      <GoogleAnalytics />
+
       <main>
         <Component {...pageProps} />
       </main>

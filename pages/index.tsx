@@ -11,46 +11,13 @@ import ResourcesPreview from '@/components/common/ResourcesPreview';
 import { getAllPosts } from '@/lib/mdx';
 import { BlogPost } from '@/types/blog';
 
-// Type untuk ResourceIcon
-type ResourceIcon = 'book' | 'file' | 'link' | 'database';
-
-// Type untuk Resource
-type Resource = {
+// Type untuk resource preview - disesuaikan dengan komponen ResourcesPreview baru
+type ResourcePreview = {
   title: string;
   description: string;
-  icon: ResourceIcon;
+  type: 'document' | 'book' | 'form' | 'link';
   url: string;
 };
-
-// Data untuk resource preview dari resources.tsx
-const resourceItems: Resource[] = [
-  {
-    title: 'Legal Templates',
-    description:
-      'Essential legal document templates for various corporate needs.',
-    icon: 'file',
-    url: '/resources#templates',
-  },
-  {
-    title: 'Book Recommendations',
-    description: 'Curated list of books on corporate law and fintech.',
-    icon: 'book',
-    url: '/books',
-  },
-  {
-    title: 'Research Publications',
-    description: 'Latest research papers and publications on legal tech.',
-    icon: 'database',
-    url: '/resources#research',
-  },
-  {
-    title: 'Learning Resources',
-    description:
-      'Courses, webinars, and learning materials on various legal topics.',
-    icon: 'link',
-    url: '/resources#learning',
-  },
-];
 
 // Data untuk glossary preview dari glossary.tsx
 const glossaryItems = [
@@ -59,24 +26,50 @@ const glossaryItems = [
     definition:
       'A digital ledger of transactions that is duplicated and distributed across a network of computer systems.',
     category: 'Tech',
+    tags: ['Technology', 'Cryptocurrency'],
   },
   {
     term: 'Smart Contract',
     definition:
       'Self-executing contracts where the terms are directly written into code.',
     category: 'Tech',
+    tags: ['Technology', 'Law'],
   },
   {
     term: 'Capital Market',
     definition:
       'A market where buyers and sellers engage in trade of financial securities.',
     category: 'Finance',
+    tags: ['Finance', 'Investment'],
   },
   {
     term: 'M&A',
     definition:
       'Mergers and acquisitions referring to consolidation of companies or assets.',
     category: 'Corporate',
+    tags: ['Corporate Law', 'Business'],
+  },
+];
+
+// Data resources yang disesuaikan dengan struktur baru
+const resourceItems: ResourcePreview[] = [
+  {
+    title: 'Legal Templates',
+    description: 'Essential document templates for corporate legal matters',
+    type: 'document',
+    url: '/resources',
+  },
+  {
+    title: 'Books Collection',
+    description: 'Some of my favorite books that I have read and enjoyed ',
+    type: 'book',
+    url: '/books',
+  },
+  {
+    title: 'Research Publications',
+    description: 'Latest research papers and publications on legal technology',
+    type: 'link',
+    url: '/resources',
   },
 ];
 
@@ -99,34 +92,39 @@ export default function HomePage({ posts }: HomePageProps) {
       {/* Background particles */}
       {/* <Particles /> */}
 
-      <main className="relative min-h-screen flex flex-col items-center justify-center -mt-16 md:mt-0">
-        {/* Hero Content */}
+      <main className="relative min-h-screen flex flex-col -mt-16 md:mt-0">
+        {/* Hero Content - Full Width */}
         <div className="w-full">
-          <div className="max-w-[1100px] mx-auto space-y-8">
+          <div className="max-w-[1100px] mx-auto">
             {/* Hero Section */}
             <HeroSection />
-
-            {/* Content Sections */}
-            <div className="max-w-6xl mx-auto space-y-16 md:space-y-24">
-              {/* About Preview */}
-              <AboutPreview />
-
-              {/* Latest Blog Posts */}
-              <LatestBlogPosts posts={posts} />
-
-              {/* Glossary Preview */}
-              <GlossaryPreview items={glossaryItems} />
-
-              {/* Resources Preview */}
-              <ResourcesPreview resources={resourceItems} />
-
-              {/* Chat/AMA Preview */}
-              <ChatPreview />
-
-              {/* Footer */}
-              {/* <Footer /> */}
-            </div>
           </div>
+        </div>
+
+        {/* Content Sections Container */}
+        <div id="content-sections" className="w-full">
+          {/* About Preview - Full Width Section */}
+          <AboutPreview />
+
+          {/* Latest Blog Posts - Full Width Section with inner container */}
+          <section className="w-full relative overflow-hidden">
+            <div className="relative z-10">
+              <LatestBlogPosts posts={posts} />
+            </div>
+          </section>
+
+          {/* Glossary Preview - Full Width Section */}
+          <GlossaryPreview items={glossaryItems} />
+
+          {/* Resources Preview - Full Width Section */}
+          <ResourcesPreview resources={resourceItems} />
+
+          {/* Chat/AMA Preview - Full Width Section with inner container */}
+          <section className="w-full relative overflow-hidden">
+            <div className="relative z-10">
+              <ChatPreview />
+            </div>
+          </section>
         </div>
       </main>
     </Layout>

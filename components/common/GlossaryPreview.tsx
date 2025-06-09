@@ -1,11 +1,23 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { FiArrowRight } from 'react-icons/fi';
+import { FiArrowRight, FiArrowUpRight } from 'react-icons/fi';
+import {
+  HiSearch,
+  HiChevronRight,
+  HiBookOpen,
+  HiDocumentText,
+  HiScale,
+  HiLibrary,
+} from 'react-icons/hi';
+import Accent from '../shared/Accent';
+import clsx from 'clsx';
+import GlowingButton from '../shared/GlowingButton';
 
 type GlossaryItem = {
   term: string;
   definition: string;
-  category?: string;
+  tags: string[];
+  example?: string;
 };
 
 interface GlossaryPreviewProps {
@@ -13,112 +25,381 @@ interface GlossaryPreviewProps {
 }
 
 const GlossaryPreview = ({ items = [] }: GlossaryPreviewProps) => {
-  // Fallback items jika tidak ada data
+  const [expandedTerm, setExpandedTerm] = useState<string | null>(null);
+  const alphabetLetters = ['A', 'B', 'C', 'D', 'E', 'F', 'G'];
+  const [isVisible, setIsVisible] = useState(false);
+
+  useEffect(() => {
+    // Observer untuk trigger animasi saat section masuk viewport
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setIsVisible(true);
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.2 }
+    );
+
+    // Target section untuk observe
+    const section = document.querySelector('.glossary-preview-section');
+    if (section) {
+      observer.observe(section);
+    }
+
+    return () => {
+      if (section) {
+        observer.unobserve(section);
+      }
+    };
+  }, []);
+
+  // Fallback items matching the full glossary style - limited to 4 terms for preview
   const previewItems =
     items.length > 0
-      ? items.slice(0, 4)
+      ? items
+          .slice(0, 4)
+          .map((item) => ({
+            ...item,
+            tags: item.tags || [], // Ensure tags is always an array
+          }))
+          .sort((a, b) => a.term.localeCompare(b.term))
       : [
           {
-            term: 'Blockchain',
+            term: 'Akuisisi (Pengambilalihan)',
             definition:
-              'A digital ledger of transactions that is duplicated and distributed across a network of computer systems.',
+              'Suatu strategi bisnis untuk mengambil alih kontrol terhadap suatu PT yaitu dengan cara mengakuisisi saham ataupun aset dari PT sebuah PT.',
+            tags: ['Hukum Perusahaan', 'M&A'],
+            example:
+              'PT A mengakuisisi saham PT B sebesar 60% sehingga mengakibatkan berpindahnya kontrol terhadap PT B tersebut kepada PT A',
           },
           {
-            term: 'Smart Contract',
+            term: 'Due Diligence',
             definition:
-              'Self-executing contracts where the terms are directly written into code.',
+              'Pemeriksaan aspek hukum perusahaan secara menyeluruh untuk mengidentifikasi potensi risiko hukum.',
+            tags: ['Audit', 'Compliance'],
           },
           {
-            term: 'Capital Market',
+            term: 'Merger (Penggabungan)',
             definition:
-              'A market where buyers and sellers engage in trade of financial securities.',
+              'Perbuatan hukum yang dilakukan oleh satu perseroan atau lebih untuk menggabungkan diri dengan perseroan lain yang telah ada.',
+            tags: ['Merger & Akuisisi', 'Restrukturisasi'],
+            example:
+              'Merger antara Gojek dan Tokopedia pada tahun 2021 membentuk GoTo Group.',
           },
           {
-            term: 'M&A',
+            term: 'Perseroan Terbatas (PT)',
             definition:
-              'Mergers and acquisitions referring to consolidation of companies or assets.',
+              'Badan hukum yang merupakan persekutuan modal, didirikan berdasarkan perjanjian antar 2 orang atau lebih dan melakukan kegiatan usaha dengan modal dasar yang seluruhnya terbagi dalam saham.',
+            tags: ['Hukum Perusahaan', 'Badan Hukum'],
           },
-        ];
+        ].sort((a, b) => a.term.localeCompare(b.term));
 
   return (
-    <section className="py-16 w-full">
-      <div className="relative z-10">
-        {/* Decorative elements */}
-        <div className="absolute -right-12 -top-20 w-48 h-48 rounded-full bg-emerald-500/5 blur-3xl -z-10 hidden md:block"></div>
-        <div className="absolute right-0 top-0 w-32 h-32 rounded-full border border-emerald-500/10 -z-10 hidden md:block"></div>
+    <section className="w-full py-24 relative overflow-hidden glossary-preview-section">
+      {/* Legal themed decorative elements */}
+      <div className="absolute inset-0 -z-10">
+        {/* Background texture */}
+        <div
+          className="absolute inset-0 opacity-0 transition-opacity duration-1000 ease-in-out"
+          style={{
+            backgroundImage:
+              'linear-gradient(0deg, rgba(16,185,129,0.08) 1px, transparent 1px)',
+            backgroundSize: '100% 28px',
+            opacity: isVisible ? 0.03 : 0,
+            transitionDelay: '300ms',
+          }}
+        />
 
-        <div className="flex flex-col gap-8">
-          <div className="flex flex-col gap-2">
-            <div className="flex items-center">
-              <div className="w-8 h-8 rounded-lg bg-emerald-500/10 flex items-center justify-center mr-3">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  className="w-4 h-4 text-emerald-400"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                >
-                  <path d="M12.75 2.75V4.5h1.975c.351 0 .694.106.984.303l1.697 1.154c.041.028.09.043.14.043h4.102a.75.75 0 0 1 0 1.5H20.07l3.366 7.68a.749.749 0 0 1-.23.896c-.1.074-.203.143-.31.206a6.296 6.296 0 0 1-.79.399 7.349 7.349 0 0 1-2.856.569 7.343 7.343 0 0 1-2.855-.568 6.205 6.205 0 0 1-.79-.4 3.205 3.205 0 0 1-.307-.202l-.005-.004a.749.749 0 0 1-.23-.896l3.368-7.68h-.886c-.351 0-.694-.106-.984-.303l-1.697-1.154a.246.246 0 0 0-.14-.043H12.75v14.5h4.487a.75.75 0 0 1 0 1.5H6.763a.75.75 0 0 1 0-1.5h4.487V6H9.275a.249.249 0 0 0-.14.043L7.439 7.197c-.29.197-.633.303-.984.303h-.886l3.368 7.68a.75.75 0 0 1-.209.878c-.08.065-.16.126-.31.223a6.077 6.077 0 0 1-.792.433 6.924 6.924 0 0 1-2.876.62 6.913 6.913 0 0 1-2.876-.62 6.077 6.077 0 0 1-.792-.433 3.483 3.483 0 0 1-.309-.221.762.762 0 0 1-.21-.88L3.93 7.5H2.353a.75.75 0 0 1 0-1.5h4.102c.05 0 .099-.015.141-.043l1.695-1.154c.29-.198.634-.303.985-.303h1.974V2.75a.75.75 0 0 1 1.5 0Z" />
-                </svg>
-              </div>
-              <h2
-                className="text-2xl md:text-3xl font-semibold text-white/90"
-                data-fade="1"
+        {/* Law book spines - left decoration */}
+        <div
+          className="absolute left-8 top-1/4 bottom-1/4 opacity-0 transition-opacity duration-1000 ease-in-out"
+          style={{ opacity: isVisible ? 0.1 : 0, transitionDelay: '400ms' }}
+        >
+          <div
+            className="w-6 h-full flex flex-col gap-1"
+            style={{ opacity: isVisible ? 1 : 0, transitionDelay: '500ms' }}
+          >
+            {alphabetLetters.map((letter, index) => (
+              <div
+                key={letter}
+                className="h-14 border-r-2 border-emerald-500/40 relative flex items-center justify-end pr-1 transform origin-right scale-x-0 transition-transform duration-700 ease-out"
+                style={{
+                  transform: isVisible ? 'scaleX(1)' : 'scaleX(0)',
+                  transitionDelay: `${500 + index * 100}ms`,
+                }}
               >
-                Legal Glossary
-              </h2>
+                <span className="text-xs font-mono text-emerald-500/40">
+                  {letter}
+                </span>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Legal document corner decorations */}
+        <div
+          className="absolute top-20 left-20 opacity-0 transition-all duration-1500"
+          style={{
+            opacity: isVisible ? 0.15 : 0,
+            transform: isVisible
+              ? 'translate(0, 0)'
+              : 'translate(-10px, -10px)',
+            transitionDelay: '600ms',
+          }}
+        >
+          <div className="w-40 h-40 border-t-2 border-l-2 border-emerald-500/40 rounded-tl-md"></div>
+        </div>
+
+        <div
+          className="absolute bottom-20 right-20 opacity-0 transition-all duration-1500"
+          style={{
+            opacity: isVisible ? 0.15 : 0,
+            transform: isVisible ? 'translate(0, 0)' : 'translate(10px, 10px)',
+            transitionDelay: '700ms',
+          }}
+        >
+          <div className="w-40 h-40 border-b-2 border-r-2 border-emerald-500/40 rounded-br-md"></div>
+        </div>
+
+        {/* Legal scale decoration - simplified and animated */}
+        <div
+          className="absolute top-1/4 right-1/4 opacity-0 transition-opacity duration-1000 ease-in-out"
+          style={{ opacity: isVisible ? 0.1 : 0, transitionDelay: '800ms' }}
+        >
+          <div
+            className="w-[2px] h-40 bg-emerald-500/40 absolute left-20 top-0 transform origin-top scale-y-0 transition-transform duration-1500 ease-out"
+            style={{
+              transform: isVisible ? 'scaleY(1)' : 'scaleY(0)',
+              transitionDelay: '900ms',
+            }}
+          ></div>
+          <div
+            className="w-40 h-[2px] bg-emerald-500/40 absolute left-0 top-40 transform origin-left scale-x-0 transition-transform duration-1500 ease-out"
+            style={{
+              transform: isVisible ? 'scaleX(1)' : 'scaleX(0)',
+              transitionDelay: '1000ms',
+            }}
+          ></div>
+          <div
+            className="w-10 h-10 rounded-full border-2 border-emerald-500/40 absolute left-16 top-36 opacity-0 transition-all duration-1000 ease-in-out"
+            style={{
+              opacity: isVisible ? 1 : 0,
+              transform: isVisible ? 'scale(1)' : 'scale(0.5)',
+              transitionDelay: '1100ms',
+            }}
+          ></div>
+          <div
+            className="w-10 h-10 rounded-full border-2 border-emerald-500/40 absolute right-0 top-36 opacity-0 transition-all duration-1000 ease-in-out"
+            style={{
+              opacity: isVisible ? 1 : 0,
+              transform: isVisible ? 'scale(1)' : 'scale(0.5)',
+              transitionDelay: '1200ms',
+            }}
+          ></div>
+        </div>
+
+        {/* Document lines - decorative */}
+        <div
+          className="absolute top-1/3 left-[5%] opacity-0 transition-opacity duration-1500"
+          style={{ opacity: isVisible ? 0.15 : 0, transitionDelay: '900ms' }}
+        >
+          <div className="w-40 space-y-3">
+            {[1, 2, 3, 4].map((i) => (
+              <div
+                key={i}
+                className="h-[2px] w-full bg-emerald-500/40 transform origin-left scale-x-0 transition-transform duration-1000 ease-out"
+                style={{
+                  transform: isVisible ? 'scaleX(1)' : 'scaleX(0)',
+                  width: `${100 - i * 15}%`,
+                  transitionDelay: `${1000 + i * 100}ms`,
+                }}
+              ></div>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      <div className="container max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        {/* Section Header */}
+        <div className="mb-12 max-w-2xl">
+          <div
+            className="flex items-center space-x-2 mb-2"
+            style={{
+              opacity: isVisible ? 1 : 0,
+              transition: 'opacity 700ms ease-out',
+              transitionDelay: '400ms',
+            }}
+          >
+            <HiBookOpen className="text-emerald-400 w-5 h-5" />
+            <h2 className="text-sm uppercase tracking-wider text-neutral-400 font-medium">
+              Legal Glossary
+            </h2>
+          </div>
+          <h3
+            className="text-3xl font-bold mb-4"
+            style={{
+              opacity: isVisible ? 1 : 0,
+              transform: isVisible ? 'translateY(0)' : 'translateY(10px)',
+              transition: 'opacity 700ms ease-out, transform 700ms ease-out',
+              transitionDelay: '500ms',
+            }}
+          >
+            <span className="gradient-text">Legal Terminology</span> Dictionary
+          </h3>
+          <p
+            className="text-neutral-400 leading-relaxed"
+            style={{
+              opacity: isVisible ? 1 : 0,
+              transform: isVisible ? 'translateY(0)' : 'translateY(10px)',
+              transition: 'opacity 700ms ease-out, transform 700ms ease-out',
+              transitionDelay: '600ms',
+            }}
+          >
+            A glossary of legal terms related to technology law, corporate and
+            commercial transactions, with explanations in plain language.
+          </p>
+        </div>
+
+        <div className="grid grid-cols-1 gap-8">
+          {/* A-Z Index Bar - Legal Styled */}
+          <div
+            className="flex items-center justify-between border-t border-b border-neutral-800/50 py-2 px-2 mb-8 overflow-x-auto no-scrollbar"
+            style={{
+              opacity: isVisible ? 1 : 0,
+              transform: isVisible ? 'translateY(0)' : 'translateY(10px)',
+              transition: 'opacity 700ms ease-out, transform 700ms ease-out',
+              transitionDelay: '700ms',
+            }}
+          >
+            <div className="flex items-center space-x-2 text-sm">
+              <span className="text-neutral-400 whitespace-nowrap">
+                Filter by:
+              </span>
+              <HiSearch className="w-4 h-4 text-emerald-400" />
             </div>
-            <div
-              className="h-px max-w-[120px] w-full bg-gradient-to-r from-emerald-300 via-emerald-500 to-transparent ml-11"
-              data-fade="2"
-            />
-            <p
-              className="text-neutral-400 text-sm md:text-base ml-11"
-              data-fade="3"
-            >
-              Key terms and definitions in law and technology
-            </p>
+            <div className="flex items-center space-x-1 overflow-x-auto no-scrollbar">
+              {alphabetLetters.map((letter) => (
+                <button
+                  key={letter}
+                  className="w-7 h-7 flex items-center justify-center text-xs font-medium rounded hover:bg-emerald-900/20 text-neutral-400 hover:text-emerald-400 transition-colors"
+                >
+                  {letter}
+                </button>
+              ))}
+              <div className="pl-1 text-neutral-600">...</div>
+            </div>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6" data-fade="4">
-            {previewItems.map((item, _index) => (
+          {/* Glossary Items */}
+          <div className="space-y-4 mb-10">
+            {previewItems.map((item, index) => (
               <div
                 key={item.term}
-                className="group relative p-5 border border-neutral-800 hover:border-emerald-600/30 bg-neutral-900/20 backdrop-blur-sm rounded-xl transition-all duration-300 hover:shadow-[0_0_20px_rgba(16,185,129,0.15)] overflow-hidden"
+                className="group transition-all duration-200 opacity-0 transform translate-y-4"
+                style={{
+                  opacity: isVisible ? 1 : 0,
+                  transform: isVisible ? 'translateY(0)' : 'translateY(20px)',
+                  transition:
+                    'opacity 700ms ease-out, transform 700ms ease-out',
+                  transitionDelay: `${800 + index * 150}ms`,
+                }}
               >
-                {/* Gradient hover effect */}
-                <div className="absolute inset-0 bg-gradient-to-br from-emerald-600/5 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                <button
+                  onClick={() =>
+                    setExpandedTerm(
+                      expandedTerm === item.term ? null : item.term
+                    )
+                  }
+                  className={clsx(
+                    'w-full flex items-center justify-between p-4 rounded-lg transition-all duration-200 text-left',
+                    expandedTerm === item.term
+                      ? 'border border-emerald-800/20 bg-emerald-900/5'
+                      : 'bg-[#080b0e]/60 border border-[#1a1a1a]/40 hover:border-[#232323]'
+                  )}
+                >
+                  <div className="space-y-1 pr-4 flex-1">
+                    <h4
+                      className={clsx(
+                        'text-base font-semibold tracking-wide transition-colors',
+                        expandedTerm === item.term
+                          ? 'gradient-text'
+                          : 'text-gray-200 group-hover:text-emerald-400'
+                      )}
+                    >
+                      {item.term}
+                    </h4>
+                    <p
+                      className={clsx(
+                        'text-sm text-neutral-400 transition-all duration-200',
+                        expandedTerm === item.term ? '' : 'line-clamp-2'
+                      )}
+                    >
+                      {item.definition}
+                    </p>
 
-                <div className="relative z-10 flex flex-col gap-3">
-                  <h3 className="text-lg font-medium text-white group-hover:text-emerald-300 transition-colors duration-300">
-                    {item.term}
-                    {item.category && (
-                      <span className="ml-2 px-2 py-0.5 text-xs rounded-full bg-emerald-500/10 text-emerald-400">
-                        {item.category}
-                      </span>
+                    {expandedTerm === item.term && (
+                      <div className="space-y-4 mt-3 pt-3 border-t border-emerald-900/20">
+                        {item.example && (
+                          <div className="rounded-lg p-4 border border-emerald-900/10 bg-[#080b0e]/60">
+                            <h5 className="text-sm font-medium text-emerald-400 mb-2 flex items-center">
+                              <span className="inline-block w-4 h-4 mr-1 border-t border-l border-emerald-900/40"></span>
+                              Case Example:
+                            </h5>
+                            <p className="text-sm text-neutral-400 leading-relaxed">
+                              {item.example}
+                            </p>
+                          </div>
+                        )}
+                        <div className="flex flex-wrap gap-2">
+                          {(item.tags || []).map((tag) => (
+                            <span
+                              key={tag}
+                              className="px-2 py-1 text-xs font-medium text-neutral-400 border border-neutral-800/60 rounded-sm
+                              hover:border-emerald-500/20 hover:text-emerald-400 cursor-pointer transition-colors"
+                            >
+                              {tag}
+                            </span>
+                          ))}
+                        </div>
+                      </div>
                     )}
-                  </h3>
-                  <div className="w-16 h-px bg-gradient-to-r from-emerald-500/40 to-transparent"></div>
-                  <p className="text-sm text-neutral-400 group-hover:text-neutral-300 transition-colors duration-300">
-                    {item.definition}
-                  </p>
-                </div>
+                  </div>
+
+                  <div
+                    className={clsx(
+                      'w-6 h-6 rounded-full flex items-center justify-center transition-colors',
+                      expandedTerm === item.term
+                        ? 'bg-emerald-900/20 text-emerald-400'
+                        : 'bg-neutral-800/40 text-neutral-400 group-hover:bg-emerald-900/20 group-hover:text-emerald-400'
+                    )}
+                  >
+                    <HiChevronRight
+                      className={clsx(
+                        'w-4 h-4 transition-transform',
+                        expandedTerm === item.term ? 'rotate-90' : ''
+                      )}
+                    />
+                  </div>
+                </button>
               </div>
             ))}
           </div>
 
-          <div className="mt-6 self-end" data-fade="5">
-            <Link
-              href="/glossary"
-              className="group inline-flex items-center gap-2 px-4 py-2 bg-neutral-900/50 border border-neutral-800 rounded-lg text-neutral-400 hover:text-emerald-400 hover:border-emerald-500/30 transition-all duration-300"
-            >
-              <span>View all terms</span>
-              <div className="w-5 h-5 rounded-full bg-emerald-500/10 flex items-center justify-center transition-transform duration-300 group-hover:translate-x-1">
-                <FiArrowRight className="h-3 w-3" />
-              </div>
+          {/* CTA - View Full Glossary */}
+          <div
+            className="flex justify-center pt-4 opacity-0 transition-opacity duration-700 ease-out"
+            style={{ opacity: isVisible ? 1 : 0, transitionDelay: '1500ms' }}
+          >
+            <Link href="/glossary">
+              <GlowingButton variant="small">
+                <span className="flex items-center gap-2">
+                  View Complete Glossary
+                  <FiArrowRight className="w-4 h-4" />
+                </span>
+              </GlowingButton>
             </Link>
           </div>
         </div>

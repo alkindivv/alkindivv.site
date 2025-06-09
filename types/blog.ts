@@ -13,7 +13,6 @@ export interface BlogPost {
   tags?: string[];
   featuredImage?: string;
   banner?: string;
-  views?: number;
   publishedAt?: string;
   image?: string;
 }

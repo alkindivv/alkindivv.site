@@ -1,81 +1,331 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import GlowingButton from '../shared/GlowingButton';
 import Link from 'next/link';
-import { FiArrowRight } from 'react-icons/fi';
+import {
+  FiArrowRight,
+  FiUser,
+  FiCode,
+  FiBookOpen,
+  FiFileText,
+  FiBriefcase,
+  FiLayers,
+} from 'react-icons/fi';
+import { HiLibrary, HiScale, HiDocumentText } from 'react-icons/hi';
 import OptimizedImage from '../shared/OptimizedImage';
+import AccentNormal from '../shared/AccentNormal';
 
 const AboutPreview = () => {
-  return (
-    <section className="py-20 w-full relative overflow-hidden about-preview-section">
-      {/* Decorative accent line */}
-      <div className="absolute left-0 top-0 h-px w-1/3 bg-gradient-to-r from-transparent via-emerald-500/30 to-transparent"></div>
+  const [isVisible, setIsVisible] = useState(false);
 
-      {/* Content container with glass card effect */}
-      <div className="relative z-10 border border-neutral-800/50 rounded-2xl overflow-hidden backdrop-blur-sm bg-gradient-to-br from-neutral-900/60 via-neutral-900/40 to-neutral-900/60">
-        <div className="flex flex-col gap-8 p-8 md:p-10">
-          {/* Header with a floating accent block */}
-          <div className="relative">
-            <div className="absolute -left-4 top-0 bottom-0 w-1 bg-emerald-500/60 rounded-full"></div>
-            <h2
-              className="text-3xl md:text-4xl font-bold ml-4 tracking-tight"
-              data-fade="1"
-            >
-              About <span className="text-emerald-400">Me</span>
+  useEffect(() => {
+    // Observer untuk trigger animasi saat section masuk viewport
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setIsVisible(true);
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.2 }
+    );
+
+    // Target section untuk observe
+    const section = document.querySelector('.about-preview-section');
+    if (section) {
+      observer.observe(section);
+    }
+
+    return () => {
+      if (section) {
+        observer.unobserve(section);
+      }
+    };
+  }, []);
+
+  return (
+    <section className="w-full py-16 relative overflow-hidden about-preview-section">
+      {/* Clean minimal background */}
+      <div className="absolute inset-0 -z-10">
+        {/* Subtle gradient background */}
+        <div className="absolute inset-0 bg-gradient-to-br from-[#0a1015]/30 via-transparent to-[#081a17]/20" />
+
+        {/* Subtle texture */}
+        <div
+          className="absolute inset-0 opacity-0 transition-opacity duration-1000 ease-in-out"
+          style={{
+            backgroundImage:
+              'linear-gradient(0deg, rgba(16,185,129,0.05) 1px, transparent 1px)',
+            backgroundSize: '100% 28px',
+            opacity: isVisible ? 0.03 : 0,
+            transitionDelay: '300ms',
+          }}
+        />
+
+        {/* Minimal decorative elements */}
+        {/* Top horizontal line */}
+        <div
+          className="absolute top-[15%] left-0 right-0 h-px"
+          style={{
+            background:
+              'linear-gradient(90deg, transparent 0%, rgba(16, 185, 129, 0.2) 50%, transparent 100%)',
+            opacity: isVisible ? 0.7 : 0,
+            transform: isVisible ? 'scaleX(1)' : 'scaleX(0)',
+            transition: 'opacity 1s ease-out, transform 1.5s ease-out',
+            transitionDelay: '400ms',
+          }}
+        ></div>
+
+        {/* Bottom horizontal line */}
+        <div
+          className="absolute bottom-[15%] left-0 right-0 h-px"
+          style={{
+            background:
+              'linear-gradient(90deg, transparent 0%, rgba(16, 185, 129, 0.2) 50%, transparent 100%)',
+            opacity: isVisible ? 0.7 : 0,
+            transform: isVisible ? 'scaleX(1)' : 'scaleX(0)',
+            transition: 'opacity 1s ease-out, transform 1.5s ease-out',
+            transitionDelay: '600ms',
+          }}
+        ></div>
+
+        {/* Left vertical line */}
+        <div
+          className="absolute top-[15%] bottom-[15%] left-[10%] w-px hidden md:block"
+          style={{
+            background:
+              'linear-gradient(180deg, transparent 0%, rgba(16, 185, 129, 0.2) 50%, transparent 100%)',
+            opacity: isVisible ? 0.7 : 0,
+            transform: isVisible ? 'scaleY(1)' : 'scaleY(0)',
+            transition: 'opacity 1s ease-out, transform 1.5s ease-out',
+            transitionDelay: '800ms',
+            transformOrigin: 'top',
+          }}
+        ></div>
+
+        {/* Right vertical line */}
+        <div
+          className="absolute top-[15%] bottom-[15%] right-[10%] w-px hidden md:block"
+          style={{
+            background:
+              'linear-gradient(180deg, transparent 0%, rgba(16, 185, 129, 0.2) 50%, transparent 100%)',
+            opacity: isVisible ? 0.7 : 0,
+            transform: isVisible ? 'scaleY(1)' : 'scaleY(0)',
+            transition: 'opacity 1s ease-out, transform 1.5s ease-out',
+            transitionDelay: '1000ms',
+            transformOrigin: 'top',
+          }}
+        ></div>
+
+        {/* Simple blur spot top right */}
+        <div
+          className="absolute -top-20 -right-20 w-96 h-96 rounded-full bg-emerald-500/10 blur-3xl"
+          style={{
+            opacity: isVisible ? 0.15 : 0,
+            transition: 'opacity 1.5s ease-out',
+            transitionDelay: '300ms',
+          }}
+        ></div>
+
+        {/* Simple blur spot bottom left */}
+        <div
+          className="absolute -bottom-20 -left-20 w-96 h-96 rounded-full bg-emerald-500/10 blur-3xl"
+          style={{
+            opacity: isVisible ? 0.15 : 0,
+            transition: 'opacity 1.5s ease-out',
+            transitionDelay: '500ms',
+          }}
+        ></div>
+      </div>
+
+      {/* Content Container */}
+      <div className="relative z-10 container max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+        {/* Section Header - Clean & Minimal */}
+        <div className="mb-12 max-w-2xl">
+          <div
+            className="flex items-center space-x-2 mb-2"
+            style={{
+              opacity: isVisible ? 1 : 0,
+              transition: 'opacity 700ms ease-out',
+              transitionDelay: '400ms',
+            }}
+          >
+            <HiLibrary className="text-emerald-400 w-5 h-5" />
+            <h2 className="text-sm uppercase tracking-wider text-neutral-400 font-medium">
+              Legal Profile
             </h2>
           </div>
+          <h3
+            className="text-3xl mb-4 font-bold"
+            style={{
+              opacity: isVisible ? 1 : 0,
+              transform: isVisible ? 'translateY(0)' : 'translateY(10px)',
+              transition: 'opacity 700ms ease-out, transform 700ms ease-out',
+              transitionDelay: '500ms',
+            }}
+          >
+            About{' '}
+            <span className="bg-gradient-to-r from-emerald-400 to-teal-500 bg-clip-text text-transparent">
+              The Counselor
+            </span>
+          </h3>
+          <p
+            className="text-neutral-400 leading-relaxed"
+            style={{
+              opacity: isVisible ? 1 : 0,
+              transform: isVisible ? 'translateY(0)' : 'translateY(10px)',
+              transition: 'opacity 700ms ease-out, transform 700ms ease-out',
+              transitionDelay: '600ms',
+            }}
+          >
+            Background, experience, and expertise in legal technology at the
+            intersection of traditional practice and emerging technologies.
+          </p>
 
-          <div className="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-12 items-center">
-            <div
-              className="md:col-span-7 lg:col-span-8 space-y-6"
-              data-fade="3"
-            >
-              <p className="text-neutral-200 text-base md:text-lg leading-relaxed">
-                Hi, I'm Al Kindi. I'm passionate about creating elegant
-                solutions to complex problems through code and design.
-              </p>
-              <p className="text-neutral-400 text-base leading-relaxed">
-                My journey spans across web development, UI/UX design, and legal
-                studies, giving me a unique perspective on solving challenges at
-                the intersection of technology and society.
+          <div
+            className="flex items-center mt-4"
+            style={{
+              opacity: isVisible ? 1 : 0,
+              transition: 'opacity 700ms ease-out',
+              transitionDelay: '700ms',
+            }}
+          >
+            <div className="h-px flex-grow bg-gradient-to-r from-transparent via-neutral-800/50 to-transparent"></div>
+            <div className="px-4 py-1 text-xs font-mono text-emerald-400 border border-emerald-500/20 rounded-sm bg-emerald-900/10">
+              CURRICULUM VITAE
+            </div>
+            <div className="h-px flex-grow bg-gradient-to-r from-transparent via-neutral-800/50 to-transparent"></div>
+          </div>
+        </div>
+
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
+          {/* Content Side - Clean & Minimal */}
+          <div
+            className="lg:col-span-7 space-y-6"
+            style={{
+              opacity: isVisible ? 1 : 0,
+              transform: isVisible ? 'translateY(0)' : 'translateY(20px)',
+              transition: 'opacity 700ms ease-out, transform 700ms ease-out',
+              transitionDelay: '800ms',
+            }}
+          >
+            {/* Main Description - Minimal styling */}
+            <div className="space-y-4 relative p-6 rounded-lg border border-neutral-800/50 bg-neutral-900/20 backdrop-blur-sm">
+              <p className="paragraph-text leading-relaxed">
+                Hi, I'm <AccentNormal>AL</AccentNormal> or{' '}
+                <AccentNormal>KINDI</AccentNormal>. I'm passionate about
+                exploring the intersection between
+                <span className="text-emerald-300 font-medium">
+                  {' '}
+                  law and technology
+                </span>
+                .
               </p>
 
-              {/* Expertise badges */}
-              <div className="flex flex-wrap gap-2 pt-3">
-                <span className="px-3 py-1 bg-emerald-500/10 border border-emerald-500/20 rounded-full text-xs text-emerald-300">
-                  Law
-                </span>
-                <span className="px-3 py-1 bg-neutral-800/50 border border-neutral-700/50 rounded-full text-xs text-neutral-300">
-                  Technology
-                </span>
-                <span className="px-3 py-1 bg-neutral-800/50 border border-neutral-700/50 rounded-full text-xs text-neutral-300">
-                  Design
-                </span>
-                <span className="px-3 py-1 bg-neutral-800/50 border border-neutral-700/50 rounded-full text-xs text-neutral-300">
-                  Web Development
-                </span>
+              <p className="paragraph-text leading-relaxed">
+                My journey spans across corporate legal practice, regulatory
+                compliance, blockchain technologies, and web development, giving
+                me a unique perspective at the crossroads of traditional law and
+                emerging technologies.
+              </p>
+            </div>
+
+            {/* Expertise Cards - Simplified */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-2">
+              <div
+                className="group relative p-4 rounded-lg border border-neutral-800/50 bg-neutral-900/20 backdrop-blur-sm hover:border-emerald-500/20 transition-all duration-300
+                transform"
+                style={{
+                  opacity: isVisible ? 1 : 0,
+                  transform: isVisible ? 'translateY(0)' : 'translateY(8px)',
+                  transition:
+                    'opacity 700ms ease-out, transform 700ms ease-out',
+                  transitionDelay: '900ms',
+                }}
+              >
+                {/* Decorative line */}
+                <div className="absolute top-0 left-0 right-0 h-0.5 bg-gradient-to-r from-transparent via-emerald-500/20 to-transparent"></div>
+
+                <div className="flex items-center gap-3 mb-2">
+                  <div className="w-8 h-8 rounded-lg bg-emerald-900/20 flex items-center justify-center">
+                    <HiScale className="w-4 h-4 text-emerald-400" />
+                  </div>
+                  <h3 className="font-medium text-white group-hover:text-emerald-300 transition-colors">
+                    Legal Expertise
+                  </h3>
+                </div>
+                <p className="text-sm text-neutral-400 group-hover:text-neutral-300 transition-colors">
+                  Corporate M&A, Crypto Regulatory Compliance & Commercial
+                  Disputes
+                </p>
               </div>
 
-              <div className="pt-4">
-                <Link href="/about">
-                  <GlowingButton
-                    variant="small"
-                    rightIcon={<FiArrowRight className="size-[70%]" />}
-                  >
-                    More about me
-                  </GlowingButton>
-                </Link>
+              <div
+                className="group relative p-4 rounded-lg border border-neutral-800/50 bg-neutral-900/20 backdrop-blur-sm hover:border-emerald-500/20 transition-all duration-300
+                transform"
+                style={{
+                  opacity: isVisible ? 1 : 0,
+                  transform: isVisible ? 'translateY(0)' : 'translateY(8px)',
+                  transition:
+                    'opacity 700ms ease-out, transform 700ms ease-out',
+                  transitionDelay: '1100ms',
+                }}
+              >
+                {/* Decorative line */}
+                <div className="absolute top-0 left-0 right-0 h-0.5 bg-gradient-to-r from-transparent via-emerald-500/20 to-transparent"></div>
+
+                <div className="flex items-center gap-3 mb-2">
+                  <div className="w-8 h-8 rounded-lg bg-emerald-900/20 flex items-center justify-center">
+                    <HiDocumentText className="w-4 h-4 text-emerald-400" />
+                  </div>
+                  <h3 className="font-medium text-white group-hover:text-emerald-300 transition-colors">
+                    Technology Law
+                  </h3>
+                </div>
+                <p className="text-sm text-neutral-400 group-hover:text-neutral-300 transition-colors">
+                  Digital assets regulation, smart contracts, blockchain
+                  governance
+                </p>
               </div>
             </div>
 
+            {/* CTA Button - Simplified */}
             <div
-              className="md:col-span-5 lg:col-span-4 relative h-64 md:h-80"
-              data-fade="4"
+              className="pt-4 flex items-center gap-4"
+              style={{
+                opacity: isVisible ? 1 : 0,
+                transform: isVisible ? 'translateY(0)' : 'translateY(8px)',
+                transition: 'opacity 700ms ease-out, transform 700ms ease-out',
+                transitionDelay: '1300ms',
+              }}
             >
-              {/* Image frame with layered borders */}
-              <div className="absolute inset-0 rounded-xl border border-neutral-700/50 -rotate-3 scale-95 opacity-40"></div>
-              <div className="absolute inset-0 rounded-xl border border-neutral-700/70 rotate-1 scale-[0.97] opacity-70"></div>
+              <Link href="/about" className="group inline-flex">
+                <GlowingButton variant="small">
+                  <span className="flex items-center gap-2">
+                    View Full Legal Profile
+                  </span>
+                </GlowingButton>
+              </Link>
+              <span className="text-xs text-neutral-500 font-mono">
+                REF: CV §1.2
+              </span>
+            </div>
+          </div>
 
-              <div className="relative h-full w-full rounded-xl overflow-hidden border border-neutral-700/90 bg-neutral-900/30 backdrop-blur-sm">
+          {/* Image Side - Simplified & Clean */}
+          <div
+            className="lg:col-span-5 relative"
+            style={{
+              opacity: isVisible ? 1 : 0,
+              transform: isVisible ? 'translateX(0)' : 'translateX(20px)',
+              transition: 'opacity 700ms ease-out, transform 700ms ease-out',
+              transitionDelay: '800ms',
+            }}
+          >
+            <div className="relative group">
+              {/* Main Image Container */}
+              <div className="relative h-80 md:h-96 rounded-lg overflow-hidden border border-neutral-800/50 group-hover:border-emerald-500/20 transition-all duration-500">
                 <div className="absolute inset-0">
                   <OptimizedImage
                     src="/images/AL-KINDI.png"
@@ -85,38 +335,62 @@ const AboutPreview = () => {
                     sizes="(max-width: 768px) 100vw, 50vw"
                     priority={false}
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent"></div>
+
+                  {/* Gradient Overlay */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#060a0d]/90 via-[#060a0d]/40 to-transparent" />
                 </div>
 
-                {/* Credentials badge */}
-                <div className="absolute bottom-4 left-4 right-4 flex items-center gap-3 p-2 rounded-lg bg-black/60 backdrop-blur-md border border-white/10">
-                  <div className="w-8 h-8 rounded-full bg-emerald-500/20 flex items-center justify-center">
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      className="h-4 w-4 text-emerald-400"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      stroke="currentColor"
-                      strokeWidth={2}
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
-                      />
-                    </svg>
-                  </div>
-                  <div className="flex-1">
-                    <h4 className="text-sm font-medium text-white">Al Kindi</h4>
-                    <p className="text-xs text-neutral-400">
-                      Developer & Legal Expert
-                    </p>
+                {/* Profile Card - Simplified */}
+                <div className="absolute bottom-5 left-5 right-5">
+                  <div
+                    className="p-3 rounded-lg bg-neutral-900/80 backdrop-blur-sm border border-neutral-800/40 transform"
+                    style={{
+                      transform: isVisible
+                        ? 'translateY(0)'
+                        : 'translateY(20px)',
+                      opacity: isVisible ? 0.95 : 0,
+                      transition:
+                        'opacity 700ms ease-out, transform 700ms ease-out',
+                      transitionDelay: '1400ms',
+                    }}
+                  >
+                    <div className="flex items-center gap-3">
+                      <div className="w-10 h-10 rounded-md bg-emerald-900/20 border border-emerald-800/40 flex items-center justify-center">
+                        <HiScale className="w-5 h-5 text-emerald-400" />
+                      </div>
+                      <div>
+                        <h4 className="text-base font-medium text-white">
+                          AL KINDI
+                        </h4>
+                        <p className="text-xs text-neutral-300">
+                          Legal Technologist
+                        </p>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
 
-              {/* Decorative elements */}
-              <div className="absolute -bottom-3 -right-3 w-24 h-24 rounded-full border border-emerald-500/20 bg-gradient-to-br from-emerald-500/10 to-transparent -z-10"></div>
+              {/* Legal Credential Tag - Simplified */}
+              <div
+                className="absolute -top-3 -right-3 p-2 rounded-md bg-neutral-900/90 border border-emerald-900/30 shadow-lg transform"
+                style={{
+                  opacity: isVisible ? 1 : 0,
+                  transform: isVisible ? 'rotate(2deg)' : 'rotate(10deg)',
+                  transition:
+                    'opacity 700ms ease-out, transform 700ms ease-out',
+                  transitionDelay: '1600ms',
+                }}
+              >
+                <div className="text-center">
+                  <div className="text-xs text-emerald-400 font-medium">
+                    PRE-QUALIFIED
+                  </div>
+                  <div className="text-[10px] text-neutral-500">
+                    Legal Counsel
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>

@@ -1,8 +1,15 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Layout from '@/components/layout/Layout';
 import Image from 'next/image';
-import { HiOutlineCalendar } from 'react-icons/hi';
-import SEO from '@/components/shared/SEO';
+import {
+  HiOutlineCalendar,
+  HiOutlineDocumentText,
+  HiOutlineScale,
+} from 'react-icons/hi';
+import PowerfulSEO from '@/components/shared/PowerfulSEO';
+import Accent from '@/components/shared/Accent';
+import { HiOutlineExternalLink, HiOutlineHeart } from 'react-icons/hi';
+import clsx from 'clsx';
 
 interface WishlistItem {
   id: number;
@@ -75,14 +82,22 @@ function WishlistCard({
   completed,
 }: WishlistItem) {
   return (
-    <div className="group flex items-start gap-4 py-4">
-      {/* Checkbox */}
+    <div className="group flex items-start gap-4 py-4 relative">
+      {/* Corner decorations - only visible on hover */}
+      <div className="absolute top-0 left-0 w-3 h-3 border-t border-l border-emerald-500/0 group-hover:border-emerald-500/30 transition-colors duration-300"></div>
+      <div className="absolute top-0 right-0 w-3 h-3 border-t border-r border-emerald-500/0 group-hover:border-emerald-500/30 transition-colors duration-300"></div>
+      <div className="absolute bottom-0 left-0 w-3 h-3 border-b border-l border-emerald-500/0 group-hover:border-emerald-500/30 transition-colors duration-300"></div>
+      <div className="absolute bottom-0 right-0 w-3 h-3 border-b border-r border-emerald-500/0 group-hover:border-emerald-500/30 transition-colors duration-300"></div>
+
+      {/* Checkbox - Legal styled */}
       <div
-        className={`flex-shrink-0 w-6 h-6 mt-1 rounded-sm border ${completed ? ' border-emerald-800' : 'border-gray-800'} flex items-center justify-center`}
+        className={`flex-shrink-0 w-6 h-6 mt-1 rounded-sm border ${
+          completed ? 'border-emerald-800 bg-emerald-900/20' : 'border-gray-800'
+        } flex items-center justify-center transition-all duration-300 group-hover:border-emerald-700`}
       >
         {completed && (
           <svg
-            className="w-6 h-6 text-white"
+            className="w-5 h-5 text-emerald-400"
             viewBox="0 0 20 20"
             fill="currentColor"
           >
@@ -99,14 +114,18 @@ function WishlistCard({
       <div className="flex-1">
         <div className="flex items-center gap-3">
           <h3
-            className={`text-base font-medium ${completed ? 'text-[#ffffff' : 'text-[#ffffff'}`}
+            className={`text-base font-medium ${
+              completed ? 'text-[#ffffff' : 'text-[#ffffff'
+            } group-hover:text-emerald-300 transition-colors duration-300`}
           >
             {title}
           </h3>
         </div>
 
         <p
-          className={`text-sm  ${completed ? 'paragraph-text' : 'paragraph-text'}`}
+          className={`text-sm ${
+            completed ? 'paragraph-text' : 'paragraph-text'
+          } group-hover:text-neutral-300 transition-colors duration-300`}
         >
           {description}
         </p>
@@ -135,27 +154,32 @@ function WishlistCard({
   );
 }
 
-export default function WishlistPage() {
+const WishlistPage = () => {
   const completedCount = wishlistItems.filter((item) => item.completed).length;
   const totalCount = wishlistItems.length;
+  const [isVisible, setIsVisible] = useState(false);
+
+  useEffect(() => {
+    setIsVisible(true);
+  }, []);
 
   return (
-    <Layout title="Wishlist | AL KINDI" isHomePage={false}>
-      <SEO
-        templateTitle="Wishlist"
-        description="Things I want to achieve and experience in life"
-        canonical="https://alkindivv.site/wishlist/"
+    <Layout>
+      <PowerfulSEO
+        title="Wishlist"
+        description="AL KINDI's curated wishlist of books, gadgets, and tools for legal professionals. Discover recommended resources for law, technology, and professional development."
+        image="/images/default.png"
       />
-      {/* Background Effect */}
+      {/* Background Effect - Legal Themed */}
       <div
-        className="absolute inset-0 overflow-hidden h-[450px] bg-neutral-950"
+        className="absolute inset-0 overflow-hidden h-[950px] bg-neutral-950"
         style={{
           maskImage: 'linear-gradient(rgb(0, 0, 0) 80%, rgba(0, 0, 0, 0) 100%)',
         }}
       >
         <div
           aria-hidden="true"
-          className="h-[400px] w-[650px] rounded-full bg-gradient-to-r from-[#2E996C]/30 to-[#0F3324]/30 blur-[150px] absolute top-0 -translate-y-full rotate-45 origin-left z-[-2] left-[15%]"
+          className="h-[900px] w-[950px] rounded-full bg-gradient-to-r from-[#2E996C]/30 to-[#0F3324]/30 blur-[150px] absolute top-0 -translate-y-full rotate-45 origin-left z-[-2] left-[15%]"
         />
         <Image
           alt=""
@@ -163,48 +187,202 @@ export default function WishlistPage() {
           width={1280}
           height={825}
           className="pointer-events-none select-none absolute w-full inset-0 h-[450px] object-cover z-[-1] opacity-40 mix-blend-overlay"
-          src=""
+          src="/images/textures/crumpled-2.jpg"
         />
+
+        {/* Legal paper texture */}
+        <div
+          className="absolute inset-0 opacity-0 transition-opacity duration-1000 ease-in-out"
+          style={{
+            backgroundImage:
+              'linear-gradient(0deg, rgba(16,185,129,0.08) 1px, transparent 1px)',
+            backgroundSize: '100% 28px',
+            opacity: isVisible ? 0.03 : 0,
+            transitionDelay: '300ms',
+          }}
+        />
+
+        {/* Legal document corner decorations */}
+        <div
+          className="absolute top-20 left-20 opacity-0 transition-all duration-1500"
+          style={{
+            opacity: isVisible ? 0.15 : 0,
+            transform: isVisible
+              ? 'translate(0, 0)'
+              : 'translate(-10px, -10px)',
+            transitionDelay: '1000ms',
+          }}
+        >
+          <div className="w-40 h-40 border-t-2 border-l-2 border-emerald-500/40 rounded-tl-md"></div>
+        </div>
+        <div
+          className="absolute bottom-20 right-20 opacity-0 transition-all duration-1500"
+          style={{
+            opacity: isVisible ? 0.15 : 0,
+            transform: isVisible ? 'translate(0, 0)' : 'translate(10px, 10px)',
+            transitionDelay: '1200ms',
+          }}
+        >
+          <div className="w-40 h-40 border-b-2 border-r-2 border-emerald-500/40 rounded-br-md"></div>
+        </div>
       </div>
 
       <main className="min-h-screen pt-40 relative z-10">
         <div className="container max-w-3xl mx-auto px-4">
-          {/* Header */}
-          <div className="mt-14 relative space-y-4 text-center">
-            <h1
-              className="-mb-3 text-center font-sans text-[2rem] sm:text-[2.5rem] md:text-[3rem] lg:text-[3.5rem] font-bold tracking-tight leading-tight"
-              data-fade="1"
+          {/* Header - Legal Styled Matching Blog */}
+          <div className="mb-12 max-w-2xl mx-auto text-center">
+            <div
+              className="flex items-center space-x-2 mb-2 justify-center"
+              style={{
+                opacity: isVisible ? 1 : 0,
+                transition: 'opacity 700ms ease-out',
+                transitionDelay: '400ms',
+              }}
             >
-              My <span className="gradient-text">Wishlist</span>
-            </h1>
-            <p
-              className="hero-text leading-relaxed text-center text-[0.95rem] md:text-[1.05rem]"
-              data-fade="2"
-            >
-              Things I want to achieve and experience in life
-            </p>
-          </div>
-
-          <div className="h-px bg-gradient-to-r from-transparent via-gray-800 to-transparent mb-14 mt-3" />
-
-          {/* Content */}
-          <div className="mt-20 mx-auto" data-fade="3">
-            <div className="divide-y divide-gray-900">
-              {wishlistItems.map((item) => (
-                <WishlistCard key={item.id} {...item} />
-              ))}
+              <HiOutlineDocumentText className="text-emerald-400 w-5 h-5" />
+              <h2 className="text-sm uppercase tracking-wider text-neutral-400 font-medium">
+                Personal Objectives
+              </h2>
             </div>
 
-            {/* Progress */}
-            <div
-              className="mt-8 text-sm text-gray-600 text-right"
-              data-fade="4"
+            <h3
+              className="text-4xl md:text-5xl font-bold mb-4 text-center"
+              style={{
+                opacity: isVisible ? 1 : 0,
+                transform: isVisible ? 'translateY(0)' : 'translateY(10px)',
+                transition: 'opacity 700ms ease-out, transform 700ms ease-out',
+                transitionDelay: '500ms',
+              }}
             >
-              {completedCount} out of {totalCount} completed.
+              Professional <span className="gradient-text">Wishlist</span>
+            </h3>
+            <p
+              className="text-neutral-400 leading-relaxed text-center"
+              style={{
+                opacity: isVisible ? 1 : 0,
+                transform: isVisible ? 'translateY(0)' : 'translateY(10px)',
+                transition: 'opacity 700ms ease-out, transform 700ms ease-out',
+                transitionDelay: '600ms',
+              }}
+            >
+              Professional milestones and personal aspirations in my legal
+              career journey
+            </p>
+
+            <div
+              className="flex items-center my-8"
+              style={{
+                opacity: isVisible ? 1 : 0,
+                transition: 'opacity 700ms ease-out',
+                transitionDelay: '700ms',
+              }}
+            >
+              <div className="h-px flex-grow bg-neutral-800/50"></div>
+              <div className="px-4 py-1 text-xs font-mono text-emerald-400 border border-emerald-500/20 rounded-sm bg-emerald-900/10">
+                PROFESSIONAL RECORD
+              </div>
+              <div className="h-px flex-grow bg-neutral-800/50"></div>
+            </div>
+          </div>
+
+          {/* Content */}
+          <div
+            className="relative mb-8"
+            style={{
+              opacity: isVisible ? 1 : 0,
+              transform: isVisible ? 'translateY(0)' : 'translateY(20px)',
+              transition: 'opacity 800ms ease-out, transform 800ms ease-out',
+              transitionDelay: '800ms',
+            }}
+          >
+            {/* Legal document styling */}
+            <div className="absolute top-0 left-0 right-0 h-0.5 bg-gradient-to-r from-transparent via-emerald-500/20 to-transparent"></div>
+            <div className="absolute top-2 left-2 w-3 h-3 border-t border-l border-emerald-500/30"></div>
+            <div className="absolute bottom-2 right-2 w-3 h-3 border-b border-r border-emerald-500/30"></div>
+
+            <div className="relative backdrop-blur-md border border-neutral-800/70 rounded-sm overflow-hidden shadow-[0_0_50px_rgba(16,185,129,0.05)] p-6">
+              {/* Decorative header bar - Legal styled */}
+              <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-emerald-500/20 to-transparent"></div>
+
+              {/* Document title */}
+              <div className="mb-6 border-b border-neutral-800/50 pb-4">
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-2">
+                    <HiOutlineScale className="text-emerald-400 w-5 h-5" />
+                    <span className="text-sm font-medium text-emerald-400">
+                      ARTICLE INDEX
+                    </span>
+                  </div>
+                  <span className="text-xs text-neutral-500 font-mono">
+                    CASE: LF-{new Date().getFullYear()}/WL
+                  </span>
+                </div>
+              </div>
+
+              {/* Decorative border for the legal document look */}
+              <div className="absolute top-0 bottom-0 left-0 w-1 bg-gradient-to-b from-transparent via-emerald-500/10 to-transparent"></div>
+              <div className="absolute top-0 bottom-0 right-0 w-1 bg-gradient-to-b from-transparent via-emerald-500/10 to-transparent"></div>
+
+              {/* Legal document watermark */}
+              <div className="absolute inset-0 flex items-center justify-center opacity-[0.02] pointer-events-none">
+                <div className="rotate-45">
+                  <HiOutlineScale className="w-64 h-64" />
+                </div>
+              </div>
+
+              {/* Legal document page numbers */}
+              <div className="absolute bottom-2 right-2 text-[10px] text-neutral-500 font-mono">
+                Page 1 of 1
+              </div>
+
+              <div className="divide-y divide-gray-900">
+                {wishlistItems.map((item, index) => (
+                  <WishlistCard key={item.id} {...item} />
+                ))}
+              </div>
+
+              {/* Progress */}
+              <div
+                className="mt-8 flex items-center justify-between border-t border-neutral-800/50 pt-4"
+                data-fade="4"
+              >
+                <div className="text-xs text-neutral-500">
+                  Filed:{' '}
+                  {new Date().toLocaleDateString('en-US', {
+                    month: 'long',
+                    year: 'numeric',
+                  })}
+                </div>
+                <div className="text-sm text-emerald-400">
+                  {completedCount} out of {totalCount} completed
+                </div>
+              </div>
+
+              {/* Legal signature line */}
+              <div className="mt-8 flex justify-end">
+                <div className="w-48">
+                  <div className="h-px bg-neutral-800"></div>
+                  <div className="text-xs text-neutral-500 text-center mt-1">
+                    Professional Signature
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Document footer */}
+            <div className="mt-8 text-center text-[10px] text-neutral-500 font-mono">
+              <div className="flex items-center justify-center gap-2 mb-1">
+                <div className="h-px w-12 bg-neutral-800"></div>
+                <HiOutlineScale className="w-4 h-4 text-emerald-500/40" />
+                <div className="h-px w-12 bg-neutral-800"></div>
+              </div>
+              DOCUMENT ID: WSH-{new Date().getFullYear()}
             </div>
           </div>
         </div>
       </main>
     </Layout>
   );
-}
+};
+
+export default WishlistPage;

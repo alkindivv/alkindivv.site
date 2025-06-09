@@ -11,6 +11,7 @@ import {
   HiBookOpen,
   HiSparkles,
   HiDocument,
+  HiScale,
 } from 'react-icons/hi';
 import clsx from 'clsx';
 import { FaChevronDown } from 'react-icons/fa';
@@ -130,20 +131,50 @@ export default function Header() {
       className={clsx(
         'fixed top-0 left-0 right-0 z-50',
         'transition-all duration-300 ease-in-out',
-        scrolled ? 'h-20 bg-black/10 backdrop-blur-lg' : 'h-20 bg-transparent'
+        scrolled ? 'h-20 bg-black/80 backdrop-blur-lg ' : 'h-20 bg-transparent'
       )}
     >
+      {/* Legal document corner decorations - only visible when scrolled */}
+      {scrolled && (
+        <>
+          <div className="absolute top-0 left-0 w-4 h-4 border-t border-l border-emerald-500/30"></div>
+          <div className="absolute top-0 right-0 w-4 h-4 border-t border-r border-emerald-500/30"></div>
+          {/* <div className="absolute bottom-0 left-0 w-4 h-4 border-b border-l border-emerald-500/30"></div>
+          <div className="absolute bottom-0 right-0 w-4 h-4 border-b border-r border-emerald-500/30"></div> */}
+
+          {/* Top header line - legal document style */}
+          <div className="absolute top-0 left-0 right-0 h-0.5 bg-gradient-to-r from-transparent via-emerald-500/20 to-transparent"></div>
+        </>
+      )}
+
       <div className="container max-w-6xl mx-auto h-full px-4">
         <div className="flex items-center justify-between h-full">
-          {/* Logo */}
+          {/* Logo - Legal styled */}
           <Link
             href="/"
-            className="text-sm hover:text-emerald-400 transition-colors"
+            className="flex items-center gap-2 text-sm hover:text-emerald-400 transition-colors relative"
           >
-            <span className="gradient-text font-apple-homemade"></span>
+            <div className="w-8 h-8 flex items-center justify-center text-emerald-400">
+              <GoLaw className="w-5 h-5" />
+            </div>
+            <div className="flex flex-col">
+              {/* <span className="gradient-text font-semibold text-sm">
+                AL KINDI
+              </span> */}
+              <span className="text-[10px] text-neutral-500 font-mono">
+                LAW & TECHNOLOGY
+              </span>
+            </div>
+
+            {/* Document filing number - legal style */}
+            {/* {scrolled && (
+              <div className="absolute -bottom-1 left-0 text-[8px] text-neutral-500 font-mono">
+                REG.{new Date().getFullYear().toString().substring(2)}/LGL
+              </div>
+            )} */}
           </Link>
 
-          {/* Desktop Navigation */}
+          {/* Desktop Navigation - Legal styled */}
           <nav className="hidden md:flex items-center gap-1">
             {[
               ...navItems,
@@ -165,11 +196,11 @@ export default function Header() {
                     <button
                       onClick={() => setIsMoreOpen(!isMoreOpen)}
                       className={clsx(
-                        'relative inline-flex items-center gap-1.5 px-3 py-2 rounded-lg',
+                        'relative inline-flex items-center gap-1.5 px-3 py-2 rounded-sm',
                         'text-sm font-medium',
                         'transition-all duration-300',
-                        'hover:bg-emerald-500/5',
-                        'text-gray-300 hover:text-emerald-400'
+                        'hover:bg-emerald-500/5 border border-transparent',
+                        'text-gray-300 hover:text-emerald-400 hover:border-emerald-500/20'
                       )}
                     >
                       More
@@ -181,26 +212,33 @@ export default function Header() {
                       />
                     </button>
 
-                    {/* Dropdown Menu */}
+                    {/* Dropdown Menu - Legal styled */}
                     <div
                       className={clsx(
                         'absolute right-0 mt-2 w-64 p-2',
-                        'bg-[#0a0a0a]/95 backdrop-blur-xl rounded-xl',
-                        'border border-emerald-500/10',
+                        'bg-[#0a0a0a]/95 backdrop-blur-xl rounded-sm',
+                        'border border-neutral-800/70',
                         'shadow-xl shadow-emerald-500/[0.05]',
                         'transition-all duration-300',
                         'opacity-0 invisible translate-y-2',
                         'group-hover:opacity-100 group-hover:visible group-hover:translate-y-0'
                       )}
                     >
+                      {/* Legal document styling */}
+                      <div className="absolute top-0 left-0 right-0 h-0.5 bg-gradient-to-r from-transparent via-emerald-500/20 to-transparent"></div>
+                      {/* <div className="absolute top-0 left-0 w-3 h-3 border-t border-l border-emerald-500/30"></div>
+                      <div className="absolute top-0 right-0 w-3 h-3 border-t border-r border-emerald-500/30"></div>
+                      <div className="absolute bottom-0 left-0 w-3 h-3 border-b border-l border-emerald-500/30"></div>
+                      <div className="absolute bottom-0 right-0 w-3 h-3 border-b border-r border-emerald-500/30"></div> */}
+
                       <div className="space-y-1">
                         {item.dropdownItems?.map((dropdownItem) => (
                           <Link
                             key={dropdownItem.href}
                             href={dropdownItem.href}
-                            className="flex items-center gap-3 p-2.5 rounded-lg text-gray-400 hover:text-emerald-400 hover:bg-emerald-500/5 transition-all duration-300"
+                            className="flex items-center gap-3 p-2.5 rounded-sm text-gray-400 hover:text-emerald-400 hover:bg-emerald-500/5 transition-all duration-300 border border-transparent hover:border-emerald-500/20"
                           >
-                            <div className="w-8 h-8 flex items-center justify-center bg-emerald-500/10 rounded-lg">
+                            <div className="w-8 h-8 flex items-center justify-center bg-emerald-500/10 rounded-sm">
                               <dropdownItem.icon className="w-4 h-4" />
                             </div>
                             <div>
@@ -214,6 +252,13 @@ export default function Header() {
                           </Link>
                         ))}
                       </div>
+
+                      {/* Document footer */}
+                      <div className="mt-4 pt-2 border-t border-neutral-800/30 text-center">
+                        <div className="text-[10px] text-neutral-500 font-mono">
+                          MENU-{new Date().getFullYear()}
+                        </div>
+                      </div>
                     </div>
                   </div>
                 );
@@ -224,32 +269,29 @@ export default function Header() {
                   key={item.href}
                   href={item.href}
                   className={clsx(
-                    'relative inline-flex items-center gap-1.5 px-3 py-2 rounded-lg',
+                    'relative inline-flex items-center gap-1.5 px-3 py-2 rounded-sm',
                     'text-sm font-medium',
-                    'transition-all duration-300',
+                    'transition-all duration-300 border',
                     'hover:bg-emerald-500/5',
                     isActive
-                      ? 'text-emerald-400'
-                      : 'text-gray-300 hover:text-emerald-400'
+                      ? 'text-emerald-400 border-transparent '
+                      : 'text-gray-300 hover:text-emerald-400 border-transparent hover:border-emerald-500/20'
                   )}
                 >
                   {item.label}
-                  {isActive && (
-                    <span className="absolute -bottom-1 left-2 right-2 h-0.5 rounded-full" />
-                  )}
                 </Link>
               );
             })}
           </nav>
 
-          {/* Mobile Menu Button */}
+          {/* Mobile Menu Button - Legal styled */}
           <button
             onClick={() => setIsMenuOpen(!isMenuOpen)}
             className={clsx(
-              'md:hidden p-2 rounded-lg',
+              'md:hidden p-2 rounded-sm',
               'transition-all duration-300',
-              'text-gray-400 hover:text-emerald-400',
-              'hover:bg-emerald-500/5'
+              'text-gray-400 hover:text-emerald-400 border border-transparent',
+              'hover:bg-emerald-500/5 hover:border-emerald-500/20'
             )}
             aria-label="Toggle menu"
           >
@@ -262,7 +304,7 @@ export default function Header() {
         </div>
       </div>
 
-      {/* Mobile Menu */}
+      {/* Mobile Menu - Legal styled */}
       <div
         className={clsx(
           'fixed inset-0 md:hidden z-40',
@@ -283,14 +325,25 @@ export default function Header() {
         <div
           className={clsx(
             'absolute top-20 inset-x-4',
-            'bg-[#0a0a0a] rounded-2xl',
-            'border border-emerald-500/10',
+            'bg-[#0a0a0a] rounded-sm',
+            'border border-neutral-800/70',
             'transform transition-all duration-300',
             'shadow-xl shadow-emerald-500/[0.05]',
             isMenuOpen ? 'scale-100 opacity-100' : 'scale-95 opacity-0'
           )}
         >
-          <div className="p-2">
+          {/* Legal document styling */}
+          <div className="absolute top-0 left-0 right-0 h-0.5 bg-gradient-to-r from-transparent via-emerald-500/20 to-transparent"></div>
+          {/* <div className="absolute top-0 left-0 w-3 h-3 border-t border-l border-emerald-500/30"></div>
+          <div className="absolute top-0 right-0 w-3 h-3 border-t border-r border-emerald-500/30"></div>
+          <div className="absolute bottom-0 left-0 w-3 h-3 border-b border-l border-emerald-500/30"></div>
+          <div className="absolute bottom-0 right-0 w-3 h-3 border-b border-r border-emerald-500/30"></div> */}
+
+          <div className="p-2 relative">
+            <div className="text-xs text-center text-neutral-500 font-mono border-b border-neutral-800/50  py-1 mb-2">
+              NAVIGATION DOCUMENT
+            </div>
+
             {navItems.map((item) => {
               const isActive = router.pathname === item.href;
               return (
@@ -299,16 +352,16 @@ export default function Header() {
                   href={item.href}
                   onClick={() => setIsMenuOpen(false)}
                   className={clsx(
-                    'flex items-center gap-3 p-3 rounded-xl',
-                    'transition-all duration-300',
+                    'flex items-center gap-3 p-3 rounded-sm',
+                    'transition-all duration-300 border',
                     'hover:bg-emerald-500/5',
                     'group',
                     isActive
-                      ? 'text-emerald-400 bg-emerald-500/10'
-                      : 'text-gray-300 hover:text-emerald-400'
+                      ? 'text-emerald-400 bg-emerald-500/10 border-emerald-500/30'
+                      : 'text-gray-300 hover:text-emerald-400 border-transparent hover:border-emerald-500/20'
                   )}
                 >
-                  <div className="w-9 h-9 flex items-center justify-center bg-emerald-500/10 rounded-xl">
+                  <div className="w-9 h-9 flex items-center justify-center bg-emerald-500/10 rounded-sm">
                     <item.icon className="w-4.5 h-4.5" />
                   </div>
                   <div>
@@ -328,9 +381,9 @@ export default function Header() {
                 key={item.href}
                 href={item.href}
                 onClick={() => setIsMenuOpen(false)}
-                className="flex items-center gap-3 p-3 rounded-xl text-gray-300 hover:text-emerald-400 hover:bg-emerald-500/5 transition-all duration-300"
+                className="flex items-center gap-3 p-3 rounded-sm text-gray-300 hover:text-emerald-400 hover:bg-emerald-500/5 transition-all duration-300 border border-transparent hover:border-emerald-500/20"
               >
-                <div className="w-9 h-9 flex items-center justify-center bg-emerald-500/10 rounded-xl">
+                <div className="w-9 h-9 flex items-center justify-center bg-emerald-500/10 rounded-sm">
                   <item.icon className="w-4.5 h-4.5" />
                 </div>
                 <div>
@@ -341,6 +394,13 @@ export default function Header() {
                 </div>
               </Link>
             ))}
+
+            {/* Document footer */}
+            <div className="mt-4 pt-2 border-t border-neutral-800/30 text-center">
+              <div className="text-[10px] text-neutral-500 font-mono">
+                MENU-{new Date().getFullYear()}
+              </div>
+            </div>
           </div>
         </div>
       </div>

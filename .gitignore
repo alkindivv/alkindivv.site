@@ -2,6 +2,8 @@
 /package-lock.json
 /package.json
 
+.cursor
+
 /node_modules
 /.pnp
 .pnp.js

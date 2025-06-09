@@ -1,9 +1,14 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Layout from '@/components/layout/Layout';
 import Image from 'next/image';
-import SEO from '@/components/shared/SEO';
-import { HiCalendar, HiAnnotation, HiAcademicCap } from 'react-icons/hi';
-import clsx from 'clsx';
+import PowerfulSEO from '@/components/shared/PowerfulSEO';
+import {
+  HiOutlineCalendar,
+  HiOutlineTag,
+  HiLibrary,
+  HiOutlineBookOpen,
+  HiScale,
+} from 'react-icons/hi';
 
 interface Book {
   id: number;
@@ -13,8 +18,6 @@ interface Book {
   publishYear: string;
   category: string;
   description: string;
-  readStatus?: 'Selesai' | 'Sedang Dibaca' | 'Rencana Dibaca';
-  notes?: string;
   keyTakeaways?: string[];
   personalThoughts?: string;
 }
@@ -24,12 +27,11 @@ const books: Book[] = [
     id: 1,
     title: 'Hukum Perseroan Terbatas',
     author: 'M. Yahya Harahap, S.H.',
-    coverImage: '/images/resources/buku-pt.jpg',
+    coverImage: '/images/hk-pt.jpg',
     publishYear: '2008',
     category: 'Corporate Law',
     description:
       'Buku ini memberikan pemahaman mendalam tentang aspek hukum Perseroan Terbatas di Indonesia, termasuk struktur organisasi, tata kelola, dan tanggung jawab hukum.',
-    readStatus: 'Selesai',
     personalThoughts:
       'Buku ini sangat membantu saya memahami konsep dasar PT, terutama dalam aspek tanggung jawab direksi dan dewan komisaris.',
     keyTakeaways: [
@@ -42,12 +44,11 @@ const books: Book[] = [
     id: 2,
     title: 'Hukum Bisnis',
     author: 'Dr. Rr. Rina Antasari, S.H., M.Hum. & Dra. Fauziah, M.Hum.',
-    coverImage: '/images/resources/hukum-bisnis.jpg',
+    coverImage: '/images/hk-bisnis.png',
     publishYear: '2018',
     category: 'Business Law',
     description:
       'Membahas aspek-aspek penting dalam hukum bisnis seperti kontrak, kepailitan, merger & akuisisi, investasi asing dan penyelesaian sengketa alternatif.',
-    readStatus: 'Selesai',
     personalThoughts:
       'Saya menemukan banyak wawasan baru tentang aspek praktis hukum bisnis, terutama dalam penanganan kasus-kasus nyata.',
     keyTakeaways: [
@@ -58,163 +59,292 @@ const books: Book[] = [
   },
 ];
 
-const readStatuses = ['All', 'Selesai', 'Sedang Dibaca', 'Rencana Dibaca'];
+const BooksPage = () => {
+  const [isVisible, setIsVisible] = useState(false);
 
-export default function BooksPage() {
-  const [selectedStatus, setSelectedStatus] = useState('All');
-
-  const filteredBooks = books.filter((book) => {
-    return selectedStatus === 'All' || book.readStatus === selectedStatus;
-  });
+  useEffect(() => {
+    setIsVisible(true);
+  }, []);
 
   return (
-    <Layout title="Books | AL KINDI" isHomePage={false}>
-      <SEO
-        templateTitle="Reading Notes"
-        description="books that i read to improve my knowledge and exploring a new things."
-        canonical="https://alkindivv.site/books/"
+    <Layout title="Books | AL KINDI">
+      <PowerfulSEO
+        title="Books Collection"
+        description="A curated collection of legal and technology books with personal notes and takeaways."
+        image="/images/default.png"
       />
 
-      <main className="content-spacing">
-        {/* Background Effect */}
-        <div className="absolute inset-0 overflow-hidden h-[450px] bg-neutral-950">
-          <Image
-            alt=""
-            priority
-            width={1280}
-            height={825}
-            className="pointer-events-none select-none absolute w-full inset-0 h-[450px] object-cover z-[-1] opacity-20"
-            src="/images/textures/crumpled.jpg"
-          />
+      <div
+        className="absolute inset-0 overflow-hidden h-[450px] bg-neutral-950"
+        style={{
+          maskImage: 'linear-gradient(rgb(0, 0, 0) 80%, rgba(0, 0, 0, 0) 100%)',
+        }}
+      >
+        <div
+          aria-hidden="true"
+          className="h-[900px] w-[950px] rounded-full bg-gradient-to-r from-[#2E996C]/70 to-[#0F3324]/10 blur-[150px] absolute top-0 -translate-y-full rotate-45 origin-left z-[-2] left-[15%]"
+        />
+        <Image
+          alt=""
+          width={1280}
+          height={825}
+          className="pointer-events-none select-none absolute w-full inset-0 h-[450px] object-cover z-[-1] opacity-40 mix-blend-overlay"
+          src="/images/textures/crumpled.jpg"
+          priority
+        />
+
+        {/* Legal paper texture */}
+        <div
+          className="absolute inset-0 opacity-0 transition-opacity duration-1000 ease-in-out"
+          style={{
+            backgroundImage:
+              'linear-gradient(0deg, rgba(16,185,129,0.08) 1px, transparent 1px)',
+            backgroundSize: '100% 28px',
+            opacity: isVisible ? 0.03 : 0,
+            transitionDelay: '300ms',
+          }}
+        />
+
+        {/* Legal document corner decorations */}
+        <div
+          className="absolute top-20 left-20 opacity-0 transition-all duration-1500"
+          style={{
+            opacity: isVisible ? 0.15 : 0,
+            transform: isVisible
+              ? 'translate(0, 0)'
+              : 'translate(-10px, -10px)',
+            transitionDelay: '1000ms',
+          }}
+        >
+          <div className="w-40 h-40 border-t-2 border-l-2 border-emerald-500/40 rounded-tl-md"></div>
+        </div>
+        <div
+          className="absolute bottom-20 right-20 opacity-0 transition-all duration-1500"
+          style={{
+            opacity: isVisible ? 0.15 : 0,
+            transform: isVisible ? 'translate(0, 0)' : 'translate(10px, 10px)',
+            transitionDelay: '1200ms',
+          }}
+        >
+          <div className="w-40 h-40 border-b-2 border-r-2 border-emerald-500/40 rounded-br-md"></div>
+        </div>
+      </div>
+
+      {/* Content */}
+      <main className="min-h-screen pt-32 relative z-10">
+        {/* Header - Legal Styled */}
+        <div className="mb-16 text-center">
+          <div
+            className="flex items-center space-x-2 mb-2 justify-center"
+            style={{
+              opacity: isVisible ? 1 : 0,
+              transition: 'opacity 700ms ease-out',
+              transitionDelay: '400ms',
+            }}
+          >
+            <HiLibrary className="text-emerald-400 w-5 h-5" />
+            <h2 className="text-sm uppercase tracking-wider text-neutral-400 font-medium">
+              Legal Library
+            </h2>
+          </div>
+
+          <h1
+            className="text-4xl md:text-5xl font-bold mb-4"
+            style={{
+              opacity: isVisible ? 1 : 0,
+              transform: isVisible ? 'translateY(0)' : 'translateY(10px)',
+              transition: 'opacity 700ms ease-out, transform 700ms ease-out',
+              transitionDelay: '500ms',
+            }}
+          >
+            Legal <span className="gradient-text">References</span>
+          </h1>
+          <p
+            className="hero-text inline-block text-center text-[0.95rem] md:text-[1.05rem]"
+            style={{
+              opacity: isVisible ? 1 : 0,
+              transform: isVisible ? 'translateY(0)' : 'translateY(10px)',
+              transition: 'opacity 700ms ease-out, transform 700ms ease-out',
+              transitionDelay: '600ms',
+            }}
+          >
+            Essential legal textbooks with personal annotations and key points
+          </p>
+
+          <div
+            className="flex items-center mt-6"
+            style={{
+              opacity: isVisible ? 1 : 0,
+              transition: 'opacity 700ms ease-out',
+              transitionDelay: '700ms',
+            }}
+          >
+            <div className="h-px flex-grow bg-neutral-800/50"></div>
+            <div className="px-4 py-1 text-xs font-mono text-emerald-400 border border-emerald-500/20 rounded-sm bg-emerald-900/10">
+              REFERENCE CATALOG
+            </div>
+            <div className="h-px flex-grow bg-neutral-800/50"></div>
+          </div>
         </div>
 
-        {/* Content */}
-        <section className="min-h-screen pt-40 relative z-10">
-          <div className="max-w-6xl mx-auto px-4">
-            {/* Header */}
-            <div className="text-center space-y-4" data-fade="1">
-              <h1 className="text-4xl md:text-5xl font-bold">
-                Reading <span className="gradient-text">Notes</span>
-              </h1>
-              <p className="hero-text inline-block max-w-2xl mx-auto">
-                My personal reading books
-              </p>
-            </div>
-
+        {/* Books Grid - Legal Styled */}
+        <div
+          className="grid grid-cols-1 gap-8"
+          style={{
+            opacity: isVisible ? 1 : 0,
+            transform: isVisible ? 'translateY(0)' : 'translateY(20px)',
+            transition: 'opacity 800ms ease-out, transform 800ms ease-out',
+            transitionDelay: '800ms',
+          }}
+        >
+          {books.map((book, index) => (
             <div
-              className="h-px bg-gradient-to-r from-transparent via-gray-600 to-transparent mb-10 mt-5"
-              data-fade="2"
-            />
+              key={book.id}
+              className="relative backdrop-blur-sm border border-neutral-800 rounded-xl overflow-hidden hover:border-emerald-500/30 transition-all duration-300 hover:shadow-[0_0_30px_rgba(16,185,129,0.05)]"
+              style={{
+                opacity: isVisible ? 1 : 0,
+                transform: isVisible ? 'translateY(0)' : 'translateY(20px)',
+                transition: 'opacity 800ms ease-out, transform 800ms ease-out',
+                transitionDelay: `${900 + index * 200}ms`,
+              }}
+            >
+              {/* Corner decorations - legal document style */}
+              <div className="absolute top-0 left-0 w-4 h-4 border-t border-l border-emerald-500/30"></div>
+              <div className="absolute top-0 right-0 w-4 h-4 border-t border-r border-emerald-500/30"></div>
+              <div className="absolute bottom-0 left-0 w-4 h-4 border-b border-l border-emerald-500/30"></div>
+              <div className="absolute bottom-0 right-0 w-4 h-4 border-b border-r border-emerald-500/30"></div>
 
-            {/* Status Filter */}
-            <div className="mb-8" data-fade="3">
-              <div className="flex flex-wrap gap-2 justify-center">
-                {readStatuses.map((status) => (
-                  <button
-                    key={status}
-                    onClick={() => setSelectedStatus(status)}
-                    className={clsx(
-                      'px-4 py-2 rounded-lg text-sm transition-all',
-                      selectedStatus === status
-                        ? 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/20'
-                        : 'text-gray-400 hover:text-emerald-400 border border-gray-800'
-                    )}
-                  >
-                    {status}
-                  </button>
-                ))}
+              {/* Decorative top bar */}
+              <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-emerald-500/20 to-transparent"></div>
+
+              {/* Document number */}
+              <div className="absolute top-3 right-3">
+                <div className="text-[10px] text-neutral-500 font-mono">
+                  REF-BK-{index + 1}/
+                  {new Date().getFullYear().toString().substring(2)}
+                </div>
               </div>
-            </div>
 
-            {/* Books List */}
-            <div className="space-y-6" data-fade="4">
-              {filteredBooks.map((book) => (
-                <div
-                  key={book.id}
-                  className="bg-[#0a0a0a] border border-gray-800 rounded-xl p-6 hover:border-emerald-500/20 transition-all duration-300"
-                >
-                  <div className="flex flex-col md:flex-row gap-6">
-                    {/* Cover (smaller) */}
-                    <div className="md:w-1/4">
-                      <div className="aspect-[3/4] relative overflow-hidden rounded-lg">
-                        <Image
-                          src={book.coverImage}
-                          alt={book.title}
-                          fill
-                          className="object-cover"
-                        />
-                      </div>
-                    </div>
+              <div className="flex flex-col md:flex-row">
+                {/* Book Cover */}
+                <div className="md:w-1/4 h-[300px] md:h-auto relative">
+                  <Image
+                    src={book.coverImage}
+                    alt={book.title}
+                    fill
+                    className="object-cover"
+                  />
 
-                    {/* Content */}
-                    <div className="md:w-3/4 space-y-4">
-                      <div className="flex items-center gap-3 flex-wrap">
-                        <span className="text-xs text-emerald-400 bg-emerald-500/10 px-2 py-1 rounded">
-                          {book.category}
-                        </span>
-                        {book.readStatus && (
-                          <span className="text-xs text-gray-400 border border-gray-800 px-2 py-1 rounded">
-                            {book.readStatus}
-                          </span>
-                        )}
-                        <span className="text-xs text-gray-400 flex items-center gap-1">
-                          <HiCalendar className="w-4 h-4" />
-                          {book.publishYear}
-                        </span>
-                      </div>
-
-                      <div>
-                        <h3 className="font-semibold text-xl text-gray-200">
-                          {book.title}
-                        </h3>
-                        <p className="text-sm text-gray-400">
-                          oleh {book.author}
-                        </p>
-                      </div>
-
-                      <p className="text-sm text-gray-400">
-                        {book.description}
-                      </p>
-
-                      {book.personalThoughts && (
-                        <div className="bg-emerald-500/5 border border-emerald-500/10 rounded-lg p-4">
-                          <h4 className="text-sm font-medium text-emerald-400 mb-2 flex items-center gap-2">
-                            <HiAnnotation className="w-4 h-4" />
-                            Catatan Pribadi:
-                          </h4>
-                          <p className="text-sm text-gray-400">
-                            {book.personalThoughts}
-                          </p>
-                        </div>
-                      )}
-
-                      {book.keyTakeaways && (
-                        <div>
-                          <h4 className="text-sm font-medium text-emerald-400 mb-2 flex items-center gap-2">
-                            <HiAcademicCap className="w-4 h-4" />
-                            Poin Penting:
-                          </h4>
-                          <ul className="grid md:grid-cols-2 gap-2">
-                            {book.keyTakeaways.map((point, idx) => (
-                              <li
-                                key={idx}
-                                className="text-sm text-gray-400 flex items-start gap-2"
-                              >
-                                <span className="w-1.5 h-1.5 rounded-full bg-emerald-500/30 mt-1.5" />
-                                <span>{point}</span>
-                              </li>
-                            ))}
-                          </ul>
-                        </div>
-                      )}
-                    </div>
+                  {/* Legal seal overlay */}
+                  <div className="absolute bottom-3 right-3 w-16 h-16 rounded-full border-2 border-emerald-500/20 flex items-center justify-center">
+                    <HiScale className="w-8 h-8 text-emerald-500/20" />
                   </div>
                 </div>
-              ))}
+
+                {/* Book Details */}
+                <div className="md:w-3/4 p-6 flex flex-col">
+                  {/* Meta Information */}
+                  <div className="flex items-center gap-3 mb-3 flex-wrap">
+                    <span className="flex items-center text-xs text-emerald-400 bg-emerald-500/10 px-2 py-1 rounded">
+                      <HiOutlineTag className="w-3 h-3 mr-1" />
+                      {book.category}
+                    </span>
+                    <span className="flex items-center text-xs text-neutral-400">
+                      <HiOutlineCalendar className="w-3 h-3 mr-1" />
+                      {book.publishYear}
+                    </span>
+                  </div>
+
+                  {/* Title and Author */}
+                  <h2 className="text-xl font-semibold text-white mb-1">
+                    {book.title}
+                  </h2>
+                  <p className="text-sm text-neutral-400 mb-4 flex items-center">
+                    <HiOutlineBookOpen className="w-3 h-3 mr-1 inline" />
+                    {book.author}
+                  </p>
+
+                  {/* Description */}
+                  <p className="text-neutral-400 text-sm mb-4">
+                    {book.description}
+                  </p>
+
+                  {/* Key Takeaways */}
+                  {book.keyTakeaways && (
+                    <div className="mt-auto">
+                      <div className="flex items-center mb-2">
+                        <div className="h-px flex-grow bg-neutral-800/30 mr-3"></div>
+                        <h3 className="text-xs font-medium text-emerald-400 uppercase tracking-wider">
+                          Key Legal Principles
+                        </h3>
+                        <div className="h-px flex-grow bg-neutral-800/30 ml-3"></div>
+                      </div>
+                      <ul className="grid grid-cols-1 gap-2">
+                        {book.keyTakeaways.map((point, idx) => (
+                          <li
+                            key={idx}
+                            className="text-sm text-neutral-400 flex items-start gap-2"
+                          >
+                            <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 mt-1.5" />
+                            <span>{point}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  )}
+                </div>
+              </div>
             </div>
+          ))}
+        </div>
+
+        {/* Legal footer */}
+        {/* <div
+          className="mt-16 text-center"
+          style={{
+            opacity: isVisible ? 1 : 0,
+            transition: 'opacity 800ms ease-out',
+            transitionDelay: '1400ms',
+          }}
+        >
+          <div className="flex items-center justify-center gap-2 text-xs text-neutral-500">
+            <HiScale className="w-4 h-4 text-emerald-500/50" />
+            <span>For educational purposes only</span>
           </div>
-        </section>
+        </div> */}
+        {/* Legal footer */}
+        <div
+          className="mt-16 text-center relative"
+          style={{
+            opacity: isVisible ? 1 : 0,
+            transition: 'opacity 800ms ease-out',
+            transitionDelay: '1400ms',
+          }}
+        >
+          {/* Law scale divider */}
+          <div className="flex items-center justify-center mb-6">
+            <div className="h-px w-16 bg-neutral-800"></div>
+            <div className="mx-4">
+              <HiScale className="w-8 h-8 text-emerald-500/30" />
+            </div>
+            <div className="h-px w-16 bg-neutral-800"></div>
+          </div>
+
+          <div className="flex items-center justify-center gap-2 text-xs text-neutral-500">
+            <HiScale className="w-4 h-4 text-emerald-500/50" />
+            <span>For professional reference only</span>
+          </div>
+
+          {/* Legal disclaimer */}
+          <p className="mt-4 text-[10px] text-neutral-600 max-w-lg mx-auto">
+            These are provided for informational purposes only and do not
+            constitute legal advice. Always consult with a qualified legal
+            professional before using these for references.
+          </p>
+        </div>
       </main>
     </Layout>
   );
-}
+};
+
+export default BooksPage;

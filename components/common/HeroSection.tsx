@@ -1,506 +1,563 @@
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useEffect, useState } from 'react';
 import GlowingButton from '../shared/GlowingButton';
 import Accent from '../shared/Accent';
 import Link from 'next/link';
-import { HiChevronRight } from 'react-icons/hi';
+import { HiChevronRight, HiChevronDoubleDown } from 'react-icons/hi';
 import SocialMedia from '../social/SocialMedia';
-import clsx from 'clsx';
+import { useReducedMotion } from '@/lib/hooks/useReducedMotion';
 
 const HeroSection = () => {
+  const prefersReducedMotion = useReducedMotion();
   const [isLoaded, setIsLoaded] = useState(false);
-  const [scrollY, setScrollY] = useState(0);
-  const heroRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
-    // Set loaded after a brief delay for smooth animations
+    // Set isLoaded to true after a short delay to trigger animations
     const timer = setTimeout(() => {
       setIsLoaded(true);
     }, 100);
 
-    // Handle scroll for parallax effect
-    const handleScroll = () => {
-      if (window.scrollY <= window.innerHeight) {
-        setScrollY(window.scrollY);
-      }
-    };
-
-    window.addEventListener('scroll', handleScroll);
-    return () => {
-      clearTimeout(timer);
-      window.removeEventListener('scroll', handleScroll);
-    };
+    return () => clearTimeout(timer);
   }, []);
 
   const handleScrollDown = () => {
     const nextSection = document.querySelector('.about-preview-section');
     if (nextSection) {
-      nextSection.scrollIntoView({ behavior: 'smooth' });
+      nextSection.scrollIntoView({
+        behavior: prefersReducedMotion ? 'auto' : 'smooth',
+      });
     }
   };
 
   return (
-    <section
-      ref={heroRef}
-      className="relative min-h-screen lg:min-h-[90vh] flex items-center pb-16 pt-24 md:pt-32 overflow-hidden"
-    >
-      {/* Animated gradient background */}
-      <div className="absolute inset-0 bg-[#0a0a0a] opacity-90 z-0" />
+    <section className="relative min-h-screen flex items-center overflow-hidden">
+      {/* Legal themed decorative elements */}
+      <div className="absolute inset-0 -z-10">
+        {/* Base background */}
+        {/* <div className="absolute inset-0 bg-gradient-to-br from-[#060a0e] via-[#081015] to-[#060a0e]"></div> */}
 
-      {/* Animated gradient overlay */}
-      <div
-        className={clsx(
-          'absolute inset-0 opacity-0 transition-opacity duration-[2000ms]',
-          isLoaded && 'opacity-100'
-        )}
-        style={{
-          background:
-            'radial-gradient(circle at 30% 20%, rgba(16, 185, 129, 0.05) 0%, transparent 50%)',
-          animation: 'morphGradient 20s ease-in-out infinite alternate',
-        }}
-      />
-
-      {/* Moving particles background */}
-      <div className="absolute inset-0 overflow-hidden">
-        {/* Particles layer */}
-        <div className="absolute inset-0">
-          {Array.from({ length: 40 }).map((_, i) => (
-            <div
-              key={i}
-              className={clsx(
-                'absolute rounded-full bg-emerald-500/10 opacity-0 transition-opacity',
-                isLoaded && 'opacity-100'
-              )}
-              style={{
-                width: `${Math.random() * 4 + 1}px`,
-                height: `${Math.random() * 4 + 1}px`,
-                top: `${Math.random() * 100}%`,
-                left: `${Math.random() * 100}%`,
-                transitionDelay: `${Math.random() * 2}s`,
-                animation: `floatParticle ${Math.random() * 10 + 15}s linear infinite,
-                           pulseOpacity ${Math.random() * 4 + 3}s ease-in-out infinite alternate`,
-                transform: `translateY(${scrollY * 0.1}px)`,
-              }}
-            />
-          ))}
+        {/* Decorative legal columns - left */}
+        <div
+          className="absolute left-10 top-1/4 bottom-1/4 opacity-0 transition-opacity duration-1000 ease-in-out"
+          style={{ opacity: isLoaded ? 0.1 : 0, transitionDelay: '300ms' }}
+        >
+          <div
+            className="absolute left-0 top-0 bottom-0 w-[2px] bg-emerald-500/40 transform origin-top scale-y-0 transition-transform duration-1500 ease-out"
+            style={{
+              transform: isLoaded ? 'scaleY(1)' : 'scaleY(0)',
+              transitionDelay: '400ms',
+            }}
+          ></div>
+          <div
+            className="absolute left-4 top-0 bottom-0 w-[2px] bg-emerald-500/40 transform origin-top scale-y-0 transition-transform duration-1500 ease-out"
+            style={{
+              transform: isLoaded ? 'scaleY(1)' : 'scaleY(0)',
+              transitionDelay: '600ms',
+            }}
+          ></div>
+          <div
+            className="absolute left-0 top-10 w-6 h-6 border-t-2 border-l-2 border-emerald-500/40 opacity-0 transition-opacity duration-1000 ease-in-out"
+            style={{ opacity: isLoaded ? 1 : 0, transitionDelay: '800ms' }}
+          ></div>
+          <div
+            className="absolute left-0 bottom-10 w-6 h-6 border-b-2 border-l-2 border-emerald-500/40 opacity-0 transition-opacity duration-1000 ease-in-out"
+            style={{ opacity: isLoaded ? 1 : 0, transitionDelay: '1000ms' }}
+          ></div>
         </div>
 
-        {/* Abstract shapes */}
+        {/* Decorative legal columns - right */}
         <div
-          className={clsx(
-            'absolute top-1/4 -right-20 w-[600px] h-[600px] rounded-full opacity-0 transition-all duration-[1500ms]',
-            isLoaded && 'opacity-20'
-          )}
+          className="absolute right-10 top-1/4 bottom-1/4 opacity-0 transition-opacity duration-1000 ease-in-out"
+          style={{ opacity: isLoaded ? 0.1 : 0, transitionDelay: '500ms' }}
+        >
+          <div
+            className="absolute right-0 top-0 bottom-0 w-[2px] bg-emerald-500/40 transform origin-top scale-y-0 transition-transform duration-1500 ease-out"
+            style={{
+              transform: isLoaded ? 'scaleY(1)' : 'scaleY(0)',
+              transitionDelay: '600ms',
+            }}
+          ></div>
+          <div
+            className="absolute right-4 top-0 bottom-0 w-[2px] bg-emerald-500/40 transform origin-top scale-y-0 transition-transform duration-1500 ease-out"
+            style={{
+              transform: isLoaded ? 'scaleY(1)' : 'scaleY(0)',
+              transitionDelay: '800ms',
+            }}
+          ></div>
+          <div
+            className="absolute right-0 top-10 w-6 h-6 border-t-2 border-r-2 border-emerald-500/40 opacity-0 transition-opacity duration-1000 ease-in-out"
+            style={{ opacity: isLoaded ? 1 : 0, transitionDelay: '1000ms' }}
+          ></div>
+          <div
+            className="absolute right-0 bottom-10 w-6 h-6 border-b-2 border-r-2 border-emerald-500/40 opacity-0 transition-opacity duration-1000 ease-in-out"
+            style={{ opacity: isLoaded ? 1 : 0, transitionDelay: '1200ms' }}
+          ></div>
+        </div>
+
+        {/* Legal scale decoration - more visible with animation */}
+        <div
+          className="absolute top-1/4 right-1/4 opacity-0 transition-opacity duration-1000 ease-in-out"
+          style={{ opacity: isLoaded ? 0.1 : 0, transitionDelay: '800ms' }}
+        >
+          <div
+            className="w-[2px] h-40 bg-emerald-500/40 absolute left-20 top-0 transform origin-top scale-y-0 transition-transform duration-1500 ease-out"
+            style={{
+              transform: isLoaded ? 'scaleY(1)' : 'scaleY(0)',
+              transitionDelay: '900ms',
+            }}
+          ></div>
+          <div
+            className="w-40 h-[2px] bg-emerald-500/40 absolute left-0 top-40 transform origin-left scale-x-0 transition-transform duration-1500 ease-out"
+            style={{
+              transform: isLoaded ? 'scaleX(1)' : 'scaleX(0)',
+              transitionDelay: '1100ms',
+            }}
+          ></div>
+          <div
+            className="w-10 h-10 rounded-full border-2 border-emerald-500/40 absolute left-16 top-36 opacity-0 transition-all duration-1000 ease-in-out"
+            style={{
+              opacity: isLoaded ? 1 : 0,
+              transform: isLoaded ? 'scale(1)' : 'scale(0.5)',
+              transitionDelay: '1300ms',
+            }}
+          ></div>
+          <div
+            className="w-10 h-10 rounded-full border-2 border-emerald-500/40 absolute right-0 top-36 opacity-0 transition-all duration-1000 ease-in-out"
+            style={{
+              opacity: isLoaded ? 1 : 0,
+              transform: isLoaded ? 'scale(1)' : 'scale(0.5)',
+              transitionDelay: '1500ms',
+            }}
+          ></div>
+        </div>
+
+        {/* Legal document texture - more visible */}
+        <div
+          className="absolute inset-0 opacity-0 transition-opacity duration-2000 ease-in-out"
           style={{
-            background:
-              'radial-gradient(circle at center, rgba(16, 185, 129, 0.15), transparent 70%)',
-            animation: 'morphShape 25s ease-in-out infinite alternate',
-            transform: `translateY(${scrollY * 0.08}px)`,
+            backgroundImage:
+              'linear-gradient(0deg, rgba(16,185,129,0.08) 1px, transparent 1px)',
+            backgroundSize: '100% 28px',
+            opacity: isLoaded ? 0.03 : 0,
+            transitionDelay: '1000ms',
           }}
         />
 
+        {/* SVG Scale of Justice with animation */}
         <div
-          className={clsx(
-            'absolute -bottom-32 -left-20 w-[700px] h-[700px] rounded-full opacity-0 transition-all duration-[1500ms]',
-            isLoaded && 'opacity-10'
-          )}
-          style={{
-            background:
-              'radial-gradient(circle at center, rgba(16, 185, 129, 0.1), transparent 70%)',
-            animation: 'morphShape 30s ease-in-out infinite alternate-reverse',
-            transform: `translateY(${scrollY * -0.05}px)`,
-          }}
-        />
-
-        {/* SVG wave shape */}
-        <div
-          className={clsx(
-            'absolute bottom-0 left-0 right-0 h-24 opacity-0 transition-opacity duration-[2000ms]',
-            isLoaded && 'opacity-5'
-          )}
+          className="absolute top-1/3 right-[10%] transform -translate-y-1/2 opacity-0 transition-opacity duration-1500"
+          style={{ opacity: isLoaded ? 0.2 : 0, transitionDelay: '1200ms' }}
         >
           <svg
-            viewBox="0 0 1440 320"
-            className="absolute bottom-0"
-            style={{
-              filter: 'blur(3px)',
-              transform: `translateY(${scrollY * 0.2}px)`,
-            }}
+            width="240"
+            height="240"
+            viewBox="0 0 240 240"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
           >
-            <path
-              fill="rgb(16, 185, 129)"
-              fillOpacity="0.3"
-              d="M0,192L48,202.7C96,213,192,235,288,224C384,213,480,171,576,149.3C672,128,768,128,864,149.3C960,171,1056,213,1152,213.3C1248,213,1344,171,1392,149.3L1440,128L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"
-            ></path>
+            {/* Scale Pole with drawing animation */}
+            <rect
+              x="118"
+              y="10"
+              width="4"
+              height="180"
+              rx="2"
+              fill="rgba(16, 185, 129, 0.6)"
+              className="transform origin-top"
+              style={{
+                transformBox: 'fill-box',
+                transform: isLoaded ? 'scaleY(1)' : 'scaleY(0)',
+                transition: 'transform 1.5s ease-out',
+                transitionDelay: '1300ms',
+              }}
+            />
+
+            {/* Scale Top with drawing animation */}
+            <rect
+              x="70"
+              y="40"
+              width="100"
+              height="4"
+              rx="2"
+              fill="rgba(16, 185, 129, 0.6)"
+              className="transform origin-center"
+              style={{
+                transformBox: 'fill-box',
+                transform: isLoaded ? 'scaleX(1)' : 'scaleX(0)',
+                transition: 'transform 1.5s ease-out',
+                transitionDelay: '1500ms',
+              }}
+            />
+
+            {/* Left Chain with fade in */}
+            <line
+              x1="71"
+              y1="42"
+              x2="71"
+              y2="90"
+              stroke="rgba(16, 185, 129, 0.4)"
+              strokeWidth="2"
+              strokeDasharray="4 4"
+              style={{
+                opacity: isLoaded ? 1 : 0,
+                transition: 'opacity 1s ease-in-out',
+                transitionDelay: '1700ms',
+              }}
+            />
+
+            {/* Right Chain with fade in */}
+            <line
+              x1="169"
+              y1="42"
+              x2="169"
+              y2="90"
+              stroke="rgba(16, 185, 129, 0.4)"
+              strokeWidth="2"
+              strokeDasharray="4 4"
+              style={{
+                opacity: isLoaded ? 1 : 0,
+                transition: 'opacity 1s ease-in-out',
+                transitionDelay: '1700ms',
+              }}
+            />
+
+            {/* Left Plate with scale animation */}
+            <circle
+              cx="71"
+              cy="110"
+              r="30"
+              stroke="rgba(16, 185, 129, 0.6)"
+              strokeWidth="2"
+              fill="transparent"
+              style={{
+                opacity: isLoaded ? 1 : 0,
+                transform: isLoaded ? 'scale(1)' : 'scale(0.5)',
+                transition: 'transform 1.5s ease-out, opacity 1.5s ease-in-out',
+                transitionDelay: '1900ms',
+              }}
+            />
+            <circle
+              cx="71"
+              cy="110"
+              r="25"
+              stroke="rgba(16, 185, 129, 0.3)"
+              strokeWidth="1"
+              fill="transparent"
+              style={{
+                opacity: isLoaded ? 1 : 0,
+                transform: isLoaded ? 'scale(1)' : 'scale(0.5)',
+                transition: 'transform 1.5s ease-out, opacity 1.5s ease-in-out',
+                transitionDelay: '2000ms',
+              }}
+            />
+
+            {/* Right Plate with scale animation */}
+            <circle
+              cx="169"
+              cy="110"
+              r="30"
+              stroke="rgba(16, 185, 129, 0.6)"
+              strokeWidth="2"
+              fill="transparent"
+              style={{
+                opacity: isLoaded ? 1 : 0,
+                transform: isLoaded ? 'scale(1)' : 'scale(0.5)',
+                transition: 'transform 1.5s ease-out, opacity 1.5s ease-in-out',
+                transitionDelay: '1900ms',
+              }}
+            />
+            <circle
+              cx="169"
+              cy="110"
+              r="25"
+              stroke="rgba(16, 185, 129, 0.3)"
+              strokeWidth="1"
+              fill="transparent"
+              style={{
+                opacity: isLoaded ? 1 : 0,
+                transform: isLoaded ? 'scale(1)' : 'scale(0.5)',
+                transition: 'transform 1.5s ease-out, opacity 1.5s ease-in-out',
+                transitionDelay: '2000ms',
+              }}
+            />
+
+            {/* Base with fade in */}
+            <rect
+              x="95"
+              y="190"
+              width="50"
+              height="10"
+              rx="4"
+              fill="rgba(16, 185, 129, 0.4)"
+              style={{
+                opacity: isLoaded ? 1 : 0,
+                transition: 'opacity 1s ease-in-out',
+                transitionDelay: '2100ms',
+              }}
+            />
           </svg>
         </div>
 
-        {/* Subtle grid pattern with parallax */}
+        {/* Legal Gavel - SVG approach with animation */}
         <div
-          className="absolute inset-0 grid grid-cols-12 gap-4 pointer-events-none opacity-[0.03]"
-          style={{
-            transform: `translateY(${scrollY * 0.05}px)`,
-          }}
+          className="absolute bottom-[20%] left-[10%] opacity-0 transition-opacity duration-1500"
+          style={{ opacity: isLoaded ? 0.2 : 0, transitionDelay: '1500ms' }}
         >
-          {Array.from({ length: 12 }).map((_, i) => (
-            <div key={i} className="h-full border-r border-neutral-500"></div>
-          ))}
-        </div>
-
-        {/* Horizontal lines with parallax */}
-        <div
-          className="absolute inset-0 grid grid-rows-12 gap-4 pointer-events-none opacity-[0.03]"
-          style={{
-            transform: `translateY(${scrollY * 0.02}px)`,
-          }}
-        >
-          {Array.from({ length: 12 }).map((_, i) => (
-            <div key={i} className="w-full border-b border-neutral-500"></div>
-          ))}
-        </div>
-
-        {/* Floating decorative elements */}
-        <div
-          className={clsx(
-            'absolute top-1/3 left-[15%] w-8 h-8 border border-emerald-500/20 rounded-full opacity-0 transition-all duration-700 delay-300',
-            isLoaded && 'opacity-40'
-          )}
-          style={{
-            boxShadow: '0 0 20px rgba(16, 185, 129, 0.2)',
-            animation: 'float 6s ease-in-out infinite',
-            transform: `translateY(calc(${scrollY * 0.1}px + 0px))`,
-          }}
-        />
-
-        <div
-          className={clsx(
-            'absolute bottom-1/4 right-[20%] w-4 h-4 rounded-full opacity-0 transition-all duration-700 delay-500',
-            isLoaded && 'opacity-60'
-          )}
-          style={{
-            background: 'rgba(16, 185, 129, 0.3)',
-            boxShadow: '0 0 15px rgba(16, 185, 129, 0.5)',
-            animation: 'float 8s ease-in-out infinite',
-            transform: `translateY(calc(${scrollY * -0.08}px + 0px))`,
-          }}
-        />
-      </div>
-
-      <div className="relative grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-16 items-center w-full z-10">
-        {/* Left content area */}
-        <div className="lg:col-span-7 space-y-6 md:space-y-8">
-          {/* Badge */}
-          <div
-            className={clsx(
-              'inline-flex items-center gap-2 py-1.5 px-3 rounded-full bg-emerald-500/5 text-emerald-300/90 border border-emerald-500/10 shadow-[0_0_15px_rgba(16,185,129,0.1)] opacity-0 transform translate-y-4 transition-all duration-500',
-              isLoaded && 'opacity-100 translate-y-0'
-            )}
-            style={{ transitionDelay: '100ms' }}
+          <svg
+            width="200"
+            height="120"
+            viewBox="0 0 200 120"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
           >
-            <span className="relative flex h-1.5 w-1.5">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
-              <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-emerald-400" />
-            </span>
-            <span className="text-xs md:text-sm font-medium">
-              Available for opportunities
-            </span>
-            <HiChevronRight className="w-3.5 h-3.5 text-emerald-400/80 animate-pulse" />
-          </div>
-
-          {/* Main headline with animated line - Optimized for LCP */}
-          <div className="space-y-3">
-            <h1
-              className={clsx(
-                'text-4xl md:text-5xl lg:text-6xl font-bold leading-tight tracking-tight transition-all duration-500',
-                isLoaded
-                  ? 'opacity-100 translate-y-0'
-                  : 'opacity-0 translate-y-6'
-              )}
-              style={{ transitionDelay: '0ms' }}
-            >
-              <span className="flex flex-col sm:block">
-                <span>I'm </span>
-                <span className="relative">
-                  <Accent className="gradient-text animate-text-shimmer font-bold">
-                    AL KINDI
-                  </Accent>
-                  <span
-                    className={clsx(
-                      'absolute -bottom-1 left-0 h-[3px] bg-gradient-to-r from-emerald-400 via-emerald-300 to-transparent scale-x-0 transform-gpu origin-left transition-all duration-1000 delay-500',
-                      isLoaded && 'scale-x-100'
-                    )}
-                    style={{ width: '85%' }}
-                  ></span>
-                </span>
-              </span>
-            </h1>
-
-            <div
-              className={clsx(
-                'h-px w-20 md:w-32 bg-gradient-to-r from-emerald-400 to-transparent opacity-0 transform translate-y-6 transition-all duration-700',
-                isLoaded && 'opacity-100 translate-y-0'
-              )}
-              style={{ transitionDelay: '100ms' }}
+            {/* Gavel Head with animation */}
+            <rect
+              x="10"
+              y="20"
+              width="60"
+              height="30"
+              rx="4"
+              transform="rotate(-30 10 20)"
+              fill="rgba(16, 185, 129, 0.5)"
+              style={{
+                opacity: isLoaded ? 1 : 0,
+                transform: isLoaded
+                  ? 'rotate(-30) translateX(0)'
+                  : 'rotate(-30) translateX(-20px)',
+                transition: 'transform 1.5s ease-out, opacity 1.5s ease-in-out',
+                transitionDelay: '1700ms',
+              }}
             />
 
-            <p
-              className={clsx(
-                'text-lg md:text-xl text-neutral-300 max-w-2xl opacity-0 transform translate-y-6 transition-all duration-700',
-                isLoaded && 'opacity-100 translate-y-0'
-              )}
-              style={{ transitionDelay: '200ms' }}
+            {/* Gavel Handle with animation */}
+            <rect
+              x="60"
+              y="35"
+              width="120"
+              height="8"
+              rx="4"
+              transform="rotate(-30 60 35)"
+              fill="rgba(16, 185, 129, 0.6)"
+              className="transform origin-left"
+              style={{
+                transformBox: 'fill-box',
+                transform: isLoaded
+                  ? 'rotate(-30) scaleX(1)'
+                  : 'rotate(-30) scaleX(0)',
+                transition: 'transform 1.8s ease-out',
+                transitionDelay: '1900ms',
+              }}
+            />
+
+            {/* Sound Block with animation */}
+            <rect
+              x="130"
+              y="70"
+              width="60"
+              height="30"
+              rx="4"
+              fill="rgba(16, 185, 129, 0.4)"
+              style={{
+                opacity: isLoaded ? 1 : 0,
+                transform: isLoaded ? 'translateY(0)' : 'translateY(20px)',
+                transition: 'transform 1.5s ease-out, opacity 1.5s ease-in-out',
+                transitionDelay: '2100ms',
+              }}
+            />
+          </svg>
+        </div>
+
+        {/* Simple document corner decorations with animation */}
+        <div
+          className="absolute top-20 left-20 opacity-0 transition-all duration-1500"
+          style={{
+            opacity: isLoaded ? 0.15 : 0,
+            transform: isLoaded ? 'translate(0, 0)' : 'translate(-10px, -10px)',
+            transitionDelay: '800ms',
+          }}
+        >
+          <div className="w-40 h-40 border-t-2 border-l-2 border-emerald-500/40 rounded-tl-md"></div>
+        </div>
+        <div
+          className="absolute bottom-20 right-20 opacity-0 transition-all duration-1500"
+          style={{
+            opacity: isLoaded ? 0.15 : 0,
+            transform: isLoaded ? 'translate(0, 0)' : 'translate(10px, 10px)',
+            transitionDelay: '1000ms',
+          }}
+        >
+          <div className="w-40 h-40 border-b-2 border-r-2 border-emerald-500/40 rounded-br-md"></div>
+        </div>
+
+        {/* Paragraph lines - left side decoration with animation */}
+        <div
+          className="absolute top-1/3 left-[5%] opacity-0 transition-opacity duration-1500"
+          style={{ opacity: isLoaded ? 0.15 : 0, transitionDelay: '1300ms' }}
+        >
+          <div className="w-40 space-y-3">
+            <div
+              className="h-[2px] w-full bg-emerald-500/40 transform origin-left scale-x-0 transition-transform duration-1000 ease-out"
+              style={{
+                transform: isLoaded ? 'scaleX(1)' : 'scaleX(0)',
+                transitionDelay: '1400ms',
+              }}
+            ></div>
+            <div
+              className="h-[2px] w-3/4 bg-emerald-500/40 transform origin-left scale-x-0 transition-transform duration-1000 ease-out"
+              style={{
+                transform: isLoaded ? 'scaleX(1)' : 'scaleX(0)',
+                transitionDelay: '1500ms',
+              }}
+            ></div>
+            <div
+              className="h-[2px] w-1/2 bg-emerald-500/40 transform origin-left scale-x-0 transition-transform duration-1000 ease-out"
+              style={{
+                transform: isLoaded ? 'scaleX(1)' : 'scaleX(0)',
+                transitionDelay: '1600ms',
+              }}
+            ></div>
+            <div
+              className="h-[2px] w-2/3 bg-emerald-500/40 transform origin-left scale-x-0 transition-transform duration-1000 ease-out"
+              style={{
+                transform: isLoaded ? 'scaleX(1)' : 'scaleX(0)',
+                transitionDelay: '1700ms',
+              }}
+            ></div>
+          </div>
+        </div>
+
+        {/* Paragraph lines - right side decoration with animation */}
+        <div
+          className="absolute bottom-1/3 right-[5%] opacity-0 transition-opacity duration-1500"
+          style={{ opacity: isLoaded ? 0.15 : 0, transitionDelay: '1400ms' }}
+        >
+          <div className="w-40 space-y-3">
+            <div
+              className="h-[2px] w-full bg-emerald-500/40 transform origin-right scale-x-0 transition-transform duration-1000 ease-out"
+              style={{
+                transform: isLoaded ? 'scaleX(1)' : 'scaleX(0)',
+                transitionDelay: '1500ms',
+              }}
+            ></div>
+            <div
+              className="h-[2px] w-3/4 bg-emerald-500/40 transform origin-right scale-x-0 transition-transform duration-1000 ease-out"
+              style={{
+                transform: isLoaded ? 'scaleX(1)' : 'scaleX(0)',
+                transitionDelay: '1600ms',
+              }}
+            ></div>
+            <div
+              className="h-[2px] w-1/2 bg-emerald-500/40 transform origin-right scale-x-0 transition-transform duration-1000 ease-out"
+              style={{
+                transform: isLoaded ? 'scaleX(1)' : 'scaleX(0)',
+                transitionDelay: '1700ms',
+              }}
+            ></div>
+            <div
+              className="h-[2px] w-2/3 bg-emerald-500/40 transform origin-right scale-x-0 transition-transform duration-1000 ease-out"
+              style={{
+                transform: isLoaded ? 'scaleX(1)' : 'scaleX(0)',
+                transitionDelay: '1800ms',
+              }}
+            ></div>
+          </div>
+        </div>
+      </div>
+
+      {/* Main Content - left aligned with container */}
+      <div className="py-10 relative z-10">
+        <div className="ml-0 space-y-8 text-left">
+          {/* Status Badge */}
+          <div
+            className="inline-flex items-center gap-3 py-2 px-4 rounded-full backdrop-blur-md border bg-emerald-500/5 border-emerald-500/20 text-emerald-300"
+            data-fade="1"
+          >
+            <div className="relative flex h-2 w-2">
+              <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-400" />
+            </div>
+            <span className="text-sm font-medium">
+              Available for opportunities
+            </span>
+            <HiChevronRight className="w-4 h-4 text-emerald-400/80" />
+          </div>
+
+          {/* Main Headline */}
+          <div className="space-y-6">
+            <h1
+              className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight tracking-tight"
+              data-fade="2"
             >
-              Exploring the fascinating intersection of{' '}
-              <span className="relative text-white font-medium">
-                corporate law
-                <span className="absolute -bottom-1 left-0 right-0 h-[1px] bg-white/20"></span>
-              </span>{' '}
-              and{' '}
-              <span className="relative text-white font-medium">
-                technology
-                <span className="absolute -bottom-1 left-0 right-0 h-[1px] bg-white/20"></span>
-              </span>
-              , with insights on legal innovations and digital transformations.
+              <span className=" text-white">I'm</span> {''}
+              <span className="gradient-text">AL KINDI</span>
+            </h1>
+
+            {/* Subtitle - With horizontal line */}
+            <div className="flex items-center space-x-4" data-fade="3">
+              <div className="h-[1px] w-12 bg-emerald-500/50"></div>
+              <p className="text-base md:text-xl text-neutral-300 leading-relaxed">
+                <span className="text-white font-semibold">Law</span> x{' '}
+                <span className="text-white font-semibold">Tech</span>{' '}
+                Enthusiast
+              </p>
+            </div>
+
+            {/* Description - Left aligned with max width */}
+            <p
+              className="text-base md:text-lg text-neutral-400 leading-relaxed max-w-xl paragraph-text"
+              data-fade="4"
+            >
+              Sharing insights on legal innovations, digital transformations,
+              and the future of law in the digital age.
             </p>
           </div>
 
-          {/* CTA Buttons with bounce effect */}
-          <div
-            className={clsx(
-              'flex flex-wrap gap-4 opacity-0 transform translate-y-6 transition-all duration-700',
-              isLoaded && 'opacity-100 translate-y-0'
-            )}
-            style={{ transitionDelay: '500ms' }}
-          >
-            <Link
-              href="/blog"
-              className="transform-gpu transition-transform hover:scale-[1.02] active:scale-[0.98]"
-            >
-              <GlowingButton
-                variant="default"
-                className={isLoaded ? 'animate-subtle-bounce' : ''}
-              >
-                Explore Blog
+          {/* CTA Buttons */}
+          <div className="flex flex-row sm:flex-row gap-4" data-fade="5">
+            <Link href="/blog">
+              <GlowingButton variant="default">
+                <span className="flex items-center gap-2">
+                  Explore My Articles
+                </span>
               </GlowingButton>
             </Link>
-            <Link
-              href="/about"
-              className="transform-gpu transition-transform hover:scale-[1.02] active:scale-[0.98]"
-            >
-              <GlowingButton
-                variant="small"
-                className={isLoaded ? 'animate-subtle-bounce-delayed' : ''}
-              >
-                About Me
+
+            {/* <Link href="/about">
+              <GlowingButton variant="small">
+                <span className="flex items-center gap-2">About Me</span>
               </GlowingButton>
-            </Link>
+            </Link> */}
           </div>
 
           {/* Social Links */}
-          <div
-            className={clsx(
-              'flex items-center gap-4 opacity-0 transform translate-y-6 transition-all duration-700',
-              isLoaded && 'opacity-100 translate-y-0'
-            )}
-            style={{ transitionDelay: '600ms' }}
-          >
-            <p className="text-sm md:text-base text-neutral-400">
+          <div className="flex flex-col items-start gap-4 pt-8" data-fade="6">
+            <p className="text-sm text-neutral-500 font-medium tracking-wide uppercase">
               Connect with me
             </p>
-            <div className="flex items-center gap-4">
+            <div className="flex items-center gap-6">
               <SocialMedia />
             </div>
           </div>
         </div>
-
-        {/* Right decorative area with enhanced hover effects */}
-        <div
-          className={clsx(
-            'block lg:block lg:col-span-5 relative h-full opacity-0 transform translate-x-12 transition-all duration-1000',
-            isLoaded && 'opacity-100 translate-x-0'
-          )}
-          style={{
-            transitionDelay: '400ms',
-            transform: isLoaded
-              ? `translateX(0) translateY(${scrollY * -0.03}px)`
-              : 'translateX(48px)',
-          }}
-        >
-          {/* Decorative code block with enhanced hover */}
-          <div
-            className="absolute top-0 right-0 w-72 h-72 border border-neutral-800/50 rounded-xl overflow-hidden backdrop-blur-sm bg-neutral-900/30 p-5 transform rotate-3 shadow-lg hover:rotate-1 hover:scale-105 transition-all duration-500 hover:shadow-emerald-900/10 hover:shadow-xl"
-            style={{
-              transform: `rotate(3deg) translateY(${scrollY * -0.05}px)`,
-              transition: 'all 0.5s ease-out',
-            }}
-          >
-            <div className="h-3 w-full flex items-center gap-1.5 mb-4">
-              <div className="w-2.5 h-2.5 rounded-full bg-red-500/60"></div>
-              <div className="w-2.5 h-2.5 rounded-full bg-yellow-500/60"></div>
-              <div className="w-2.5 h-2.5 rounded-full bg-green-500/60"></div>
-            </div>
-            <div className="space-y-2">
-              <div className="w-full h-2 bg-emerald-500/20 rounded"></div>
-              <div className="w-2/3 h-2 bg-neutral-700/50 rounded"></div>
-              <div className="w-5/6 h-2 bg-neutral-700/50 rounded"></div>
-              <div className="w-1/2 h-2 bg-emerald-500/20 rounded"></div>
-              <div className="w-3/4 h-2 bg-neutral-700/50 rounded"></div>
-            </div>
-          </div>
-
-          {/* Decorative legal document with enhanced hover */}
-          <div
-            className="absolute bottom-10 left-0 w-64 h-80 border border-neutral-800/50 rounded-xl overflow-hidden backdrop-blur-sm bg-neutral-900/30 p-5 transform -rotate-6 shadow-lg hover:-rotate-2 hover:scale-105 transition-all duration-500 hover:shadow-emerald-900/10 hover:shadow-xl"
-            style={{
-              transform: `rotate(-6deg) translateY(${scrollY * -0.08}px)`,
-              transition: 'all 0.5s ease-out',
-            }}
-          >
-            <div className="h-3 w-full mb-4 bg-neutral-700/40 rounded"></div>
-            <div className="space-y-2">
-              <div className="w-full h-2 bg-neutral-700/50 rounded"></div>
-              <div className="w-full h-2 bg-neutral-700/50 rounded"></div>
-              <div className="w-full h-2 bg-neutral-700/50 rounded"></div>
-              <div className="w-2/3 h-2 bg-neutral-700/50 rounded"></div>
-              <div className="w-full h-2 bg-neutral-700/50 rounded"></div>
-              <div className="w-3/4 h-2 bg-neutral-700/50 rounded"></div>
-              <div className="w-full h-2 bg-neutral-700/50 rounded"></div>
-              <div className="w-2/3 h-2 bg-neutral-700/50 rounded"></div>
-              <div className="w-1/2 h-10 bg-emerald-500/20 rounded mt-6"></div>
-            </div>
-          </div>
-
-          {/* Central glow with pulse animation */}
-          <div
-            className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-48 h-48 bg-emerald-500/10 rounded-full blur-3xl"
-            style={{
-              animation: 'pulse 8s ease-in-out infinite alternate',
-            }}
-          ></div>
-        </div>
       </div>
 
-      {/* Scroll down indicator with enhanced animation */}
-      <button
-        onClick={handleScrollDown}
-        className={clsx(
-          'absolute bottom-8 left-1/2 transform -translate-x-1/2 flex flex-col items-center justify-center opacity-0 transition-all duration-700 delay-1000 text-neutral-500 hover:text-emerald-400',
-          isLoaded && 'opacity-100'
-        )}
-        aria-label="Scroll down to next section"
-        type="button"
+      {/* Scroll Indicator */}
+      <div
+        className="absolute bottom-0 left-0 right-0 w-full flex justify-center pb-8"
+        data-fade="7"
       >
-        <span className="text-xs mb-2 tracking-wider">Scroll Down</span>
-        <div className="w-6 h-10 rounded-full border border-neutral-600 flex items-center justify-center p-1">
-          <div
-            className="w-1 h-1 bg-emerald-500 rounded-full"
-            style={{ animation: 'scrollIndicator 2s ease-in-out infinite' }}
-          ></div>
-        </div>
-      </button>
-
-      {/* Add custom keyframe animations */}
-      <style jsx>{`
-        @keyframes morphGradient {
-          0% {
-            background-position: 0% 0%;
-            opacity: 0.1;
-          }
-          50% {
-            background-position: 100% 100%;
-            opacity: 0.2;
-          }
-          100% {
-            background-position: 0% 0%;
-            opacity: 0.1;
-          }
-        }
-
-        @keyframes morphShape {
-          0% {
-            border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
-          }
-          50% {
-            border-radius: 30% 60% 70% 40% / 50% 60% 30% 60%;
-          }
-          100% {
-            border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
-          }
-        }
-
-        @keyframes floatParticle {
-          0% {
-            transform: translateY(0) translateX(0);
-          }
-          25% {
-            transform: translateY(-20px) translateX(10px);
-          }
-          50% {
-            transform: translateY(-40px) translateX(-10px);
-          }
-          75% {
-            transform: translateY(-60px) translateX(10px);
-          }
-          100% {
-            transform: translateY(-80px) translateX(0);
-            opacity: 0;
-          }
-        }
-
-        @keyframes pulseOpacity {
-          0% {
-            opacity: 0.1;
-          }
-          100% {
-            opacity: 0.9;
-          }
-        }
-
-        @keyframes pulse {
-          0% {
-            transform: translate(-50%, -50%) scale(0.8);
-            opacity: 0.3;
-          }
-          100% {
-            transform: translate(-50%, -50%) scale(1.2);
-            opacity: 0.1;
-          }
-        }
-
-        @keyframes scrollIndicator {
-          0% {
-            transform: translateY(0);
-            opacity: 0.8;
-          }
-          25% {
-            opacity: 1;
-          }
-          75% {
-            opacity: 0;
-          }
-          100% {
-            transform: translateY(6px);
-            opacity: 0;
-          }
-        }
-
-        @keyframes subtle-bounce {
-          0%,
-          100% {
-            transform: translateY(0);
-          }
-          50% {
-            transform: translateY(-4px);
-          }
-        }
-
-        .animate-subtle-bounce {
-          animation: subtle-bounce 6s ease 1s;
-        }
-
-        .animate-subtle-bounce-delayed {
-          animation: subtle-bounce 6s ease 1.3s;
-        }
-      `}</style>
+        <button
+          onClick={handleScrollDown}
+          className="group flex flex-col items-center gap-1 text-neutral-500 hover:text-emerald-400 transition-colors duration-300"
+          aria-label="Scroll down to next section"
+          type="button"
+        >
+          <span className="text-xs tracking-wide uppercase font-medium mb-1">
+            Scroll Down
+          </span>
+          <div className="flex items-center justify-center group-hover:border-emerald-500/30 transition-all duration-300">
+            <HiChevronDoubleDown className="h-4 w-4 group-hover:translate-y-0.5 transition-transform duration-300" />
+          </div>
+        </button>
+      </div>
     </section>
   );
 };

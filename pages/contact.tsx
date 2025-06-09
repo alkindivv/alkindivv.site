@@ -1,11 +1,10 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import Layout from '@/components/layout/Layout';
+import PowerfulSEO from '@/components/shared/PowerfulSEO';
 import Accent from '@/components/shared/Accent';
-import SEO from '@/components/shared/SEO';
-
 import GlowingButton from '@/components/shared/GlowingButton';
-
 import Image from 'next/image';
+import { HiScale, HiDocumentText, HiLibrary } from 'react-icons/hi';
 
 const ContactPage = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -14,6 +13,11 @@ const ContactPage = () => {
   );
   const [statusMessage, setStatusMessage] = useState('');
   const formRef = useRef<HTMLFormElement>(null);
+  const [isVisible, setIsVisible] = useState(false);
+
+  useEffect(() => {
+    setIsVisible(true);
+  }, []);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -41,45 +45,124 @@ const ContactPage = () => {
 
   return (
     <Layout>
-      <SEO
-        templateTitle="Contact"
-        description="Get in touch with AL KINDI for legal consultations, collaborations, or inquiries about capital markets, M&A, bankruptcy, and crypto regulations. Available through email, WhatsApp, or professional platforms."
+      <PowerfulSEO
+        title="Contact"
+        description="Get in touch with AL KINDI. Connect via email, social media, or professional networks for legal consultations, collaborations, or inquiries."
+        image="/images/default.png"
       />
 
-      <main className="content-spacing">
-        {/* Background Effect */}
+      <div
+        className="absolute inset-0 overflow-hidden h-[450px] bg-neutral-950"
+        style={{
+          maskImage: 'linear-gradient(rgb(0, 0, 0) 80%, rgba(0, 0, 0, 0) 100%)',
+        }}
+      >
         <div
-          className="absolute inset-0 overflow-hidden h-[450px] bg-neutral-950"
+          aria-hidden="true"
+          className="h-[400px] w-[550px] rounded-full bg-gradient-to-r from-[#2E996C]/70 to-[#0F3324]/10 blur-[150px] absolute top-0 -translate-y-full rotate-45 origin-left z-[-2] left-[15%]"
+        />
+        <Image
+          alt=""
+          width={1280}
+          height={825}
+          className="pointer-events-none select-none absolute w-full inset-0 h-[450px] object-cover z-[-1] opacity-40 mix-blend-overlay"
+          src="/images/textures/crumpled-3.jpg"
+          priority
+        />
+
+        {/* Legal paper texture */}
+        <div
+          className="absolute inset-0 opacity-0 transition-opacity duration-1000 ease-in-out"
           style={{
-            maskImage:
-              'linear-gradient(rgb(0, 0, 0) 80%, rgba(0, 0, 0, 0) 100%)',
+            backgroundImage:
+              'linear-gradient(0deg, rgba(16,185,129,0.08) 1px, transparent 1px)',
+            backgroundSize: '100% 28px',
+            opacity: isVisible ? 0.03 : 0,
+            transitionDelay: '300ms',
+          }}
+        />
+
+        {/* Legal document corner decorations */}
+        <div
+          className="absolute top-20 left-20 opacity-0 transition-all duration-1500"
+          style={{
+            opacity: isVisible ? 0.15 : 0,
+            transform: isVisible
+              ? 'translate(0, 0)'
+              : 'translate(-10px, -10px)',
+            transitionDelay: '1000ms',
           }}
         >
-          <div
-            aria-hidden="true"
-            className="h-[400px] w-[650px] rounded-full bg-gradient-to-r from-[#2E996C]/30 to-[#0F3324]/30 blur-[150px] absolute top-0 -translate-y-full rotate-45 origin-left z-[-2] left-[15%]"
-          />
-          <Image
-            alt=""
-            priority
-            width={1280}
-            height={825}
-            className="pointer-events-none select-none absolute w-full inset-0 h-[450px] object-cover z-[-1] opacity-40 mix-blend-overlay"
-            src="/images/textures/crumpled.jpg"
-          />
+          <div className="w-40 h-40 border-t-2 border-l-2 border-emerald-500/40 rounded-tl-md"></div>
         </div>
+        <div
+          className="absolute bottom-20 right-20 opacity-0 transition-all duration-1500"
+          style={{
+            opacity: isVisible ? 0.15 : 0,
+            transform: isVisible ? 'translate(0, 0)' : 'translate(10px, 10px)',
+            transitionDelay: '1200ms',
+          }}
+        >
+          <div className="w-40 h-40 border-b-2 border-r-2 border-emerald-500/40 rounded-br-md"></div>
+        </div>
+      </div>
 
-        {/* Hero Section */}
-        <section className="min-h-screen pt-40 relative z-10">
-          <div className="mx-auto ">
-            <div className="mt-2 relative space-y-1 text-center" data-fade="1">
-              <h1 className="text-center font-sans text-[2rem] sm:text-[2.5rem] md:text-[3rem] lg:text-[3.5rem] font-bold tracking-tight leading-tight">
-                Let's <span className="gradient-text">Connect</span>
-              </h1>
-              <p className="hero-text inline-block text-center text-[0.95rem] md:text-[1.05rem]">
-                Feel free to reach out — I'll be happy to help, answer your
-                questions, or simply say hi!
-              </p>
+      {/* Hero Section */}
+      <main className="min-h-screen pt-40 relative z-10">
+        <div className="mx-auto">
+          {/* Header - Legal Styled */}
+          <div className="mt-2 relative space-y-1 text-center" data-fade="1">
+            <div
+              className="flex items-center space-x-2 mb-2 justify-center"
+              style={{
+                opacity: isVisible ? 1 : 0,
+                transition: 'opacity 700ms ease-out',
+                transitionDelay: '400ms',
+              }}
+            >
+              <HiScale className="text-emerald-400 w-5 h-5" />
+              <h2 className="text-sm uppercase tracking-wider text-neutral-400 font-medium">
+                Legal Correspondence
+              </h2>
+            </div>
+
+            <h1
+              className="text-center font-sans text-[2rem] sm:text-[2.5rem] md:text-[3rem] lg:text-[3.5rem] font-bold tracking-tight leading-tight"
+              style={{
+                opacity: isVisible ? 1 : 0,
+                transform: isVisible ? 'translateY(0)' : 'translateY(10px)',
+                transition: 'opacity 700ms ease-out, transform 700ms ease-out',
+                transitionDelay: '500ms',
+              }}
+            >
+              Formal <span className="gradient-text">Inquiry</span>
+            </h1>
+            <p
+              className="hero-text inline-block text-center text-[0.95rem] md:text-[1.05rem]"
+              style={{
+                opacity: isVisible ? 1 : 0,
+                transform: isVisible ? 'translateY(0)' : 'translateY(10px)',
+                transition: 'opacity 700ms ease-out, transform 700ms ease-out',
+                transitionDelay: '600ms',
+              }}
+            >
+              Submit your consultation request or general inquiries using the
+              form below
+            </p>
+
+            <div
+              className="flex items-center mt-6"
+              style={{
+                opacity: isVisible ? 1 : 0,
+                transition: 'opacity 700ms ease-out',
+                transitionDelay: '700ms',
+              }}
+            >
+              <div className="h-px flex-grow bg-neutral-800/50"></div>
+              <div className="px-4 py-1 text-xs font-mono text-emerald-400 border border-emerald-500/20 rounded-sm bg-emerald-900/10">
+                CONFIDENTIAL COMMUNICATION
+              </div>
+              <div className="h-px flex-grow bg-neutral-800/50"></div>
             </div>
           </div>
 
@@ -88,18 +171,41 @@ const ContactPage = () => {
             data-fade="2"
           />
 
-          {/* Contact Form */}
-          <div className="max-w-5xl mx-auto md:col-span-2 h-full" data-fade="3">
-            <div className="h-full p-3 sm:p-6 flex flex-col">
+          {/* Contact Form - Legal Styled */}
+          <div
+            className="max-w-5xl mx-auto md:col-span-2 h-full"
+            data-fade="3"
+            style={{
+              opacity: isVisible ? 1 : 0,
+              transform: isVisible ? 'translateY(0)' : 'translateY(20px)',
+              transition: 'opacity 800ms ease-out, transform 800ms ease-out',
+              transitionDelay: '800ms',
+            }}
+          >
+            <div className="h-full p-3 sm:p-6 flex flex-col relative backdrop-blur-md border border-emerald-900/30 rounded-xl overflow-hidden shadow-[0_0_50px_rgba(16,185,129,0.05)]">
+              {/* Corner decorations - legal document style */}
+              <div className="absolute top-0 left-0 w-4 h-4 border-t border-l border-emerald-500/30"></div>
+              <div className="absolute top-0 right-0 w-4 h-4 border-t border-r border-emerald-500/30"></div>
+              <div className="absolute bottom-0 left-0 w-4 h-4 border-b border-l border-emerald-500/30"></div>
+              <div className="absolute bottom-0 right-0 w-4 h-4 border-b border-r border-emerald-500/30"></div>
+
+              {/* Decorative top bar */}
+              <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-emerald-500/20 to-transparent"></div>
+
               <div
-                className="flex items-center justify-between mb-4 sm:mb-6"
+                className="flex items-center justify-between mb-4 sm:mb-6 border-b border-neutral-800/60 pb-4"
                 data-fade="4"
               >
-                <h2 className="text-sm sm:text-xl font-semibold">
-                  Send a <Accent>Message</Accent>
-                </h2>
-                <div className="flex items-center gap-1 sm:gap-2">
-                  <span className="text-[10px] sm:text-sm text-emerald-500"></span>
+                <div className="flex items-center gap-3">
+                  <div className="p-2 rounded-lg bg-emerald-500/10 text-emerald-400">
+                    <HiDocumentText className="w-5 h-5" />
+                  </div>
+                  <h2 className="text-sm sm:text-xl font-semibold">
+                    Legal <Accent>Inquiry Form</Accent>
+                  </h2>
+                </div>
+                <div className="text-xs text-neutral-500 font-mono">
+                  REF: INQ-{new Date().getFullYear()}
                 </div>
               </div>
 
@@ -111,7 +217,7 @@ const ContactPage = () => {
               >
                 <div className="flex-1 space-y-3 sm:space-y-6">
                   <div className="grid md:grid-cols-2 gap-6 sm:gap-8">
-                    <div className="space-y-2">
+                    <div className="space-y-2 relative">
                       <input
                         type="text"
                         name="user_name"
@@ -119,8 +225,11 @@ const ContactPage = () => {
                         className="w-full bg-transparent border-b border-dotted border-neutral-700 hover:border-neutral-600 focus:border-neutral-500 transition-colors px-0 py-2 text-sm sm:text-base focus:outline-none focus:ring-0 placeholder:text-neutral-600"
                         placeholder="Your name"
                       />
+                      <div className="absolute right-0 top-0 text-[10px] text-neutral-500 font-mono">
+                        PETITIONER
+                      </div>
                     </div>
-                    <div className="space-y-2">
+                    <div className="space-y-2 relative">
                       <input
                         type="email"
                         name="user_email"
@@ -128,10 +237,13 @@ const ContactPage = () => {
                         className="w-full bg-transparent border-b border-dotted border-neutral-700 hover:border-neutral-600 focus:border-neutral-500 transition-colors px-0 py-2 text-sm sm:text-base focus:outline-none focus:ring-0 placeholder:text-neutral-600"
                         placeholder="your@email.com"
                       />
+                      <div className="absolute right-0 top-0 text-[10px] text-neutral-500 font-mono">
+                        CONTACT
+                      </div>
                     </div>
                   </div>
 
-                  <div className="space-y-2 mt-6">
+                  <div className="space-y-2 mt-6 relative">
                     <input
                       type="text"
                       name="subject"
@@ -139,16 +251,22 @@ const ContactPage = () => {
                       className="w-full bg-transparent border-b border-dotted border-neutral-700 hover:border-neutral-600 focus:border-neutral-500 transition-colors px-0 py-2 text-sm sm:text-base focus:outline-none focus:ring-0 placeholder:text-neutral-600"
                       placeholder="Subject"
                     />
+                    <div className="absolute right-0 top-0 text-[10px] text-neutral-500 font-mono">
+                      MATTER
+                    </div>
                   </div>
 
-                  <div className="space-y-2 mt-6">
+                  <div className="space-y-2 mt-6 relative">
                     <textarea
                       name="message"
                       required
                       rows={6}
-                      className="w-full bg-transparent  border-b border-dotted border-neutral-700 hover:border-neutral-600 focus:border-neutral-500 transition-colors px-0 py-2 text-sm sm:text-base focus:outline-none focus:ring-0 resize-none placeholder:text-neutral-600"
+                      className="w-full bg-transparent border-b border-dotted border-neutral-700 hover:border-neutral-600 focus:border-neutral-500 transition-colors px-0 py-2 text-sm sm:text-base focus:outline-none focus:ring-0 resize-none placeholder:text-neutral-600"
                       placeholder="Your message"
                     />
+                    <div className="absolute right-0 top-0 text-[10px] text-neutral-500 font-mono">
+                      STATEMENT
+                    </div>
                   </div>
 
                   {statusMessage && (
@@ -164,21 +282,24 @@ const ContactPage = () => {
                   )}
                 </div>
 
-                <div className="flex items-center justify-between pt-2 sm:pt-4 mt-auto">
-                  <span className="text-[10px] sm:text-sm text-emerald-500"></span>
+                <div className="flex items-center justify-between pt-2 sm:pt-4 mt-auto border-t border-neutral-800/40">
+                  <div className="flex items-center gap-2 text-xs text-neutral-500">
+                    <HiScale className="w-4 h-4" />
+                    <span>Attorney-client privilege may apply</span>
+                  </div>
                   <GlowingButton
                     type="submit"
                     disabled={isLoading}
                     isLoading={isLoading}
                     variant="small"
                   >
-                    Send Message
+                    Submit Inquiry
                   </GlowingButton>
                 </div>
               </form>
             </div>
           </div>
-        </section>
+        </div>
       </main>
     </Layout>
   );
