@@ -71,12 +71,12 @@ const AboutPage = () => {
         <div className="max-w-6xl mx-auto">
           {/* Header Section - Legal Styled */}
           <div className="mb-12 max-w-2xl mx-auto" data-fade="1">
-            <div className="flex items-center space-x-2 mb-2 justify-center">
+            {/* <div className="flex items-center space-x-2 mb-2 justify-center">
               <HiLibrary className="text-emerald-400 w-5 h-5" />
               <h2 className="text-sm uppercase tracking-wider text-neutral-400 font-medium">
                 Legal Professional
               </h2>
-            </div>
+            </div> */}
             <h3 className="text-4xl md:text-5xl font-bold mb-4 text-center">
               About <span className="gradient-text">Me</span>
             </h3>
@@ -85,13 +85,14 @@ const AboutPage = () => {
             </p>
 
             {/* Document Number Line */}
-            <div className="flex items-center my-8">
+            {/* <div className="flex items-center my-8">
               <div className="h-px flex-grow bg-neutral-800/50"></div>
               <div className="px-4 py-1 text-xs font-mono text-emerald-400 border border-emerald-500/20 rounded-sm bg-emerald-900/10">
                 CURRICULUM VITAE
               </div>
               <div className="h-px flex-grow bg-neutral-800/50"></div>
-            </div>
+            </div> */}
+            <div className="relative mt-5 top-0 left-0 right-0 h-0.5 bg-gradient-to-r from-transparent via-emerald-500/20 to-transparent"></div>
           </div>
 
           {/* Profile Section - Legal Styled */}
@@ -120,7 +121,7 @@ const AboutPage = () => {
               </div>
 
               {/* Legal credential tag */}
-              <div className="absolute -bottom-3 right-3 p-2 rounded-md bg-[#060a0d]/90 border border-emerald-900/30 shadow-lg transform rotate-2 transition-all duration-700">
+              {/* <div className="absolute -bottom-3 right-3 p-2 rounded-md bg-[#060a0d]/90 border border-emerald-900/30 shadow-lg transform rotate-2 transition-all duration-700">
                 <div className="text-center">
                   <div className="text-xs text-emerald-400 font-medium">
                     VERIFIED
@@ -129,11 +130,11 @@ const AboutPage = () => {
                     Legal Practitioner
                   </div>
                 </div>
-              </div>
+              </div> */}
             </div>
 
             {/* Text Content - Legal Styled */}
-            <div className="prose prose-invert max-w-none relative backdrop-blur-md border border-emerald-900/10 rounded-xl overflow-hidden shadow-[0_0_30px_rgba(16,185,129,0.03)] p-6">
+            <div className="prose prose-invert max-w-none ">
               {/* Document number */}
               {/* <div className="absolute top-3 right-3">
                 <div className="text-[10px] text-neutral-500 font-mono">
@@ -142,7 +143,7 @@ const AboutPage = () => {
               </div> */}
 
               {/* Decorative top bar */}
-              <div className="absolute top-0 left-0 right-0 h-0.5 bg-gradient-to-r from-transparent via-emerald-500/20 to-transparent"></div>
+              {/* <div className="absolute top-0 left-0 right-0 h-0.5 bg-gradient-to-r from-transparent via-emerald-500/20 to-transparent"></div> */}
 
               <p
                 className="text-justify paragraph-text leading-relaxed"
@@ -194,10 +195,11 @@ const AboutPage = () => {
               className="h-px bg-gradient-to-r from-transparent via-gray-600 to-transparent mb-5"
               data-fade="9"
             /> */}
+            {/* <div className="relative mt-5 top-0 left-0 right-0 h-0.5 bg-gradient-to-r from-transparent via-emerald-500/20 to-transparent"></div> */}
           </div>
 
           {/* Experience Section - Legal Styled */}
-          <section className="pb-5">
+          <section className="pb-5 pt-25">
             <h2
               className="font-sans text-[1.75rem] md:text-[2.75rem] font-bold tracking-tight leading-tight mb-0 text-center"
               data-fade="7"
@@ -212,7 +214,7 @@ const AboutPage = () => {
             </h2>
             <div className="text-center">
               <p
-                className="hero-text mb-4 inline-block"
+                className="text-neutral-400 mb-4 inline-block"
                 data-fade="8"
                 style={{
                   opacity: isVisible ? 1 : 0,
@@ -222,7 +224,7 @@ const AboutPage = () => {
                   transitionDelay: '1000ms',
                 }}
               >
-                Professional legal history and practical experience
+                Some of my experince, education, and background
               </p>
             </div>
             {/* <div
@@ -240,7 +242,7 @@ const AboutPage = () => {
               }}
             >
               {/* Experience 1 - Legal Styled */}
-              <div className="group relative backdrop-blur-md border border-emerald-900/10 rounded-xl overflow-hidden shadow-[0_0_30px_rgba(16,185,129,0.03)] p-6">
+              <div className="group relative backdrop-blur-md border border-emerald-900/10 rounded-xl overflow-hidden shadow-[0_0_30px_rgba(16,185,129,0.03)] pt-6">
                 {/* Corner decorations - legal document style */}
                 {/* <div className="absolute top-0 left-0 w-4 h-4 border-t border-l border-emerald-500/30"></div>
                 <div className="absolute top-0 right-0 w-4 h-4 border-t border-r border-emerald-500/30"></div>
@@ -334,7 +336,7 @@ const AboutPage = () => {
               </div>
 
               {/* Experience 2 - Legal Styled */}
-              <div className="group relative backdrop-blur-md border border-emerald-900/10 rounded-xl overflow-hidden shadow-[0_0_30px_rgba(16,185,129,0.03)] p-6">
+              <div className="group relative backdrop-blur-md border border-emerald-900/10 rounded-xl overflow-hidden shadow-[0_0_30px_rgba(16,185,129,0.03)] pt-6">
                 {/* Corner decorations - legal document style */}
                 {/* <div className="absolute top-0 left-0 w-4 h-4 border-t border-l border-emerald-500/30"></div>
                 <div className="absolute top-0 right-0 w-4 h-4 border-t border-r border-emerald-500/30"></div>
@@ -428,7 +430,7 @@ const AboutPage = () => {
               </div>
 
               {/* Experience 3 - Legal Styled */}
-              <div className="group relative backdrop-blur-md border border-emerald-900/10 rounded-xl overflow-hidden shadow-[0_0_30px_rgba(16,185,129,0.03)] p-6">
+              <div className="group relative backdrop-blur-md border border-emerald-900/10 rounded-xl overflow-hidden shadow-[0_0_30px_rgba(16,185,129,0.03)] pt-6">
                 {/* Corner decorations - legal document style */}
                 <div className="absolute top-0 left-0 w-4 h-4 border-t border-l border-emerald-500/30"></div>
                 {/* <div className="absolute top-0 right-0 w-4 h-4 border-t border-r border-emerald-500/30"></div>

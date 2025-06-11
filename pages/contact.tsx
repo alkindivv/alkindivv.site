@@ -96,12 +96,12 @@ const ContactPage = () => {
         <div className="max-w-6xl mx-auto">
           {/* Header - Legal Styled */}
           <div className="mb-12 max-w-2xl mx-auto" data-fade="1">
-            <div className="flex items-center space-x-2 mb-2 justify-center">
+            {/* <div className="flex items-center space-x-2 mb-2 justify-center">
               <RiContactsFill className="text-emerald-400 w-5 h-5" />
               <h2 className="text-sm uppercase tracking-wider text-neutral-400 font-medium">
                 Get In Touch
               </h2>
-            </div>
+            </div> */}
             <h3 className="text-4xl md:text-5xl font-bold mb-4 text-center">
               Let's <span className="gradient-text">Connect</span>
             </h3>

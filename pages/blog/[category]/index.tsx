@@ -306,7 +306,7 @@ export default function CategoryPage({ posts, category }: CategoryPageProps) {
                   <HiScale className="w-4 h-4 text-emerald-500/40" />
                   <div className="h-px w-12 bg-neutral-800"></div>
                 </div>
-                {category.slug.toUpperCase()}-{new Date().getFullYear()}
+                BLOG- {category.slug.toUpperCase()}-{new Date().getFullYear()}
               </div>
             </div>
           </div>

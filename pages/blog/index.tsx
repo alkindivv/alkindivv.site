@@ -244,28 +244,29 @@ const BlogPage: React.FC<BlogPageProps> = ({ blogPosts }) => {
           <div className="max-w-6xl mx-auto">
             {/* Header Section - Matching LatestBlogPosts Style */}
             <div className="mb-12 max-w-2xl mx-auto" data-fade="1">
-              <div className="flex items-center space-x-2 mb-2 justify-center">
+              {/* <div className="flex items-center space-x-2 mb-2 justify-center">
                 <HiLibrary className="text-emerald-400 w-5 h-5" />
                 <h2 className="text-sm uppercase tracking-wider text-neutral-400 font-medium">
                   Legal Journal
                 </h2>
-              </div>
+              </div> */}
               <h3 className="text-4xl md:text-5xl font-bold mb-4 text-center">
                 Thoughts & <span className="gradient-text">Articles</span>
               </h3>
               <p className="text-neutral-400 leading-relaxed text-center">
-                Expert analysis and perspectives on legal developments in
-                technology, cryptocurrency regulation, and corporate compliance.
+                Thought, Opinion, and Insights about Law, Technology, and
+                Cryptocurrency
               </p>
 
               {/* Document Number Line - Matching LatestBlogPosts */}
-              <div className="flex items-center my-8">
+              {/* <div className="flex items-center my-8">
                 <div className="h-px flex-grow bg-neutral-800/50"></div>
                 <div className="px-4 py-1 text-xs font-mono text-emerald-400 border border-emerald-500/20 rounded-sm bg-emerald-900/10">
                   ARTICLE INDEX
                 </div>
                 <div className="h-px flex-grow bg-neutral-800/50"></div>
-              </div>
+              </div> */}
+              <div className="relative mt-5 top-0 left-0 right-0 h-0.5 bg-gradient-to-r from-transparent via-emerald-500/20 to-transparent"></div>
             </div>
 
             {/* Search Input - Matching LatestBlogPosts Legal Document Style */}
@@ -296,14 +297,9 @@ const BlogPage: React.FC<BlogPageProps> = ({ blogPosts }) => {
             </div>
 
             {/* Topics Section - Styled as Legal Document Tabs */}
-            <div className="mt-6 mb-8" data-fade="3">
+            {/* <div className="mt-6 mb-8" data-fade="3">
               <div className="flex justify-between items-center border-t border-b border-neutral-800/50 py-2 overflow-x-auto no-scrollbar">
-                <div className="flex items-center  text-sm">
-                  {/* <span className="text-neutral-400 whitespace-nowrap">
-                    Topics:
-                  </span>
-                  <HiBookOpen className="w-4 h-4 text-emerald-400" /> */}
-                </div>
+                <div className="flex items-center  text-sm"></div>
                 <div className="flex flex-wrap gap-2 items-center overflow-x-auto no-scrollbar">
                   {topics.map((topic) => (
                     <button
@@ -320,6 +316,27 @@ const BlogPage: React.FC<BlogPageProps> = ({ blogPosts }) => {
                     </button>
                   ))}
                 </div>
+              </div> */}
+
+            <div className="mt-6 mb-8" data-fade="3">
+              <div className="flex flex-wrap gap-2 items-center">
+                <span className="text-xs md:text-sm text-neutral-50 mr-2">
+                  choose topic:
+                </span>
+                {topics.map((topic) => (
+                  <button
+                    key={topic}
+                    onClick={() => handleTopicClick(topic)}
+                    className={clsx(
+                      'px-1.5 py-1 text-xs rounded-lg md:text-sm transition-all duration-300',
+                      selectedTopic === topic
+                        ? 'border-emerald-500 text-neutral-50 bg-emerald-500/10'
+                        : ' bg-[#17171799] font-medium text-[#7e7e7e] hover:text-neutral-50'
+                    )}
+                  >
+                    <HighlightedText text={topic} searchQuery={searchQuery} />
+                  </button>
+                ))}
               </div>
             </div>
 
@@ -349,10 +366,12 @@ const BlogPage: React.FC<BlogPageProps> = ({ blogPosts }) => {
                   </div>
                 ) : (
                   <div className="text-center py-12">
-                    <div className="text-gray-400 mb-1 text-xl md:text-2xl">
-                      <Accent>No articles found</Accent>
+                    <div className="text-gray-400 mb-1 text-2xl md:text-3xl">
+                      <span className="gradient-text font-bold">
+                        No articles found
+                      </span>
                     </div>
-                    <p className=" text-gray-500 text-sm md:text-xl">
+                    <p className=" text-neutral-500 text-sm md:text-xl">
                       Try adjusting your search or filter criteria
                     </p>
                   </div>

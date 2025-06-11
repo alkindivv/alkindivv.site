@@ -16,6 +16,7 @@ import RelatedArticles from '@/components/blog/RelatedArticles';
 import Breadcrumb from '@/components/shared/Breadcrumb';
 import clsx from 'clsx';
 import { HiOutlineClock } from 'react-icons/hi';
+import { FiTwitter, FiLinkedin, FiMail } from 'react-icons/fi';
 import Link from 'next/link';
 import ArticleNewsletterPopup from '@/components/blog/ArticleNewsletterPopup';
 
@@ -295,13 +296,13 @@ export default function BlogPost({
                             {frontMatter.author}
                           </span>
                         </h3>
-                        <p className="text-[13px] text-gray-300 font-medium tracking-wide">
+                        <p className="text-[13px] text-neutral-50  font-medium tracking-wide">
                           Trainee Associate
                         </p>
                       </div>
 
                       {/* Bio */}
-                      <p className="text-[13px] sm:text-[14px] text-[#A3A3A3]leading-relaxed font-paragraf">
+                      <p className="text-[13px] sm:text-[14px] text-[#A3A3A3] leading-relaxed font-paragraf">
                         Focus on corporate law, capital markets, and bankruptcy.
                         Passionate about the intersection of law and technology,
                         exploring innovative solutions in legal practice.
@@ -313,49 +314,25 @@ export default function BlogPost({
                           href="https://twitter.com/alkindivv"
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="flex items-center gap-2 text-[13px] text-gray-400/80 transition-colors duration-300"
+                          className="flex items-center gap-2 text-[13px] text-neutral-400 hover:text-white transition-colors"
                         >
-                          <svg
-                            className="w-3.5 h-3.5"
-                            fill="currentColor"
-                            viewBox="0 0 24 24"
-                          >
-                            <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
-                          </svg>
+                          <FiTwitter size={18} />
                           <span className="font-medium">@alkindivv</span>
                         </a>
                         <a
                           href="https://linkedin.com/in/alkindivv"
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="flex items-center gap-2 text-[13px] text-gray-400/80 hover:text-emerald-400/90 transition-colors duration-300"
+                          className="flex items-center gap-2 text-[13px] text-neutral-400 hover:text-white transition-colors"
                         >
-                          <svg
-                            className="w-3.5 h-3.5"
-                            fill="currentColor"
-                            viewBox="0 0 24 24"
-                          >
-                            <path d="M20.5 2h-17A1.5 1.5 0 002 3.5v17A1.5 1.5 0 003.5 22h17a1.5 1.5 0 001.5-1.5v-17A1.5 1.5 0 0020.5 2zM8 19H5v-9h3zM6.5 8.25A1.75 1.75 0 118.3 6.5a1.78 1.78 0 01-1.8 1.75zM19 19h-3v-4.74c0-1.42-.6-1.93-1.38-1.93A1.74 1.74 0 0013 14.19a.66.66 0 000 .14V19h-3v-9h2.9v1.3a3.11 3.11 0 012.7-1.4c1.55 0 3.36.86 3.36 3.66z"></path>
-                          </svg>
+                          <FiLinkedin size={18} />
                           <span className="font-medium">LinkedIn</span>
                         </a>
                         <a
                           href="mailto:alkindivv@gmail.com"
-                          className="flex items-center gap-2 text-[13px] text-gray-400/80 hover:text-emerald-400/90 transition-colors duration-300"
+                          className="flex items-center gap-2 text-[13px] text-neutral-400 hover:text-white transition-colors"
                         >
-                          <svg
-                            className="w-3.5 h-3.5"
-                            fill="none"
-                            stroke="currentColor"
-                            viewBox="0 0 24 24"
-                          >
-                            <path
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                              strokeWidth="2"
-                              d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
-                            />
-                          </svg>
+                          <FiMail size={18} />
                           <span className="font-medium">Email</span>
                         </a>
                       </div>

@@ -147,9 +147,8 @@ export default function Header() {
         </>
       )}
 
-      <div className="container max-w-6xl mx-auto h-full px-4">
+      {/* <div className="container max-w-6xl mx-auto h-full px-4">
         <div className="flex items-center justify-between h-full">
-          {/* Logo - Legal styled */}
           <Link
             href="/"
             className="flex items-center gap-2 text-sm hover:text-emerald-400 transition-colors relative"
@@ -158,20 +157,27 @@ export default function Header() {
               <GoLaw className="w-5 h-5" />
             </div>
             <div className="flex flex-col">
-              {/* <span className="gradient-text font-semibold text-sm">
-                AL KINDI
-              </span> */}
               <span className="text-[10px] text-neutral-500 font-mono">
                 LAW & TECHNOLOGY
               </span>
             </div>
+          </Link> */}
 
-            {/* Document filing number - legal style */}
-            {/* {scrolled && (
-              <div className="absolute -bottom-1 left-0 text-[8px] text-neutral-500 font-mono">
-                REG.{new Date().getFullYear().toString().substring(2)}/LGL
-              </div>
-            )} */}
+      <div className="container max-w-6xl mx-auto h-full px-4">
+        <div className="flex items-center justify-between h-full">
+          {/* Logo - Legal styled */}
+          <Link
+            href="/"
+            className="flex items-center gap-2 text-sm hover:text-emerald-400 transition-colors relative"
+          >
+            <div className="w-8 h-8 flex items-center justify-center text-emerald-400">
+              <img src="/images/logo.png" alt="Logo" className="w-7 h-7" />
+            </div>
+            {/* <div className="flex flex-col">
+              <span className="text-[10px] text-neutral-500 font-sans">
+                LAW & TECHNOLOGY
+              </span>
+            </div> */}
           </Link>
 
           {/* Desktop Navigation - Legal styled */}

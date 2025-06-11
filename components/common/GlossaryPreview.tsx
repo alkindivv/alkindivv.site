@@ -259,7 +259,7 @@ const GlossaryPreview = ({ items = [] }: GlossaryPreviewProps) => {
             }}
           >
             A glossary of legal terms related to technology law, corporate and
-            commercial transactions, with explanations in plain language.
+            commercial transactions, with explanations in Indonesian language.
           </p>
         </div>
 
@@ -394,10 +394,9 @@ const GlossaryPreview = ({ items = [] }: GlossaryPreviewProps) => {
             style={{ opacity: isVisible ? 1 : 0, transitionDelay: '1500ms' }}
           >
             <Link href="/glossary">
-              <GlowingButton variant="small">
+              <GlowingButton variant="minimal">
                 <span className="flex items-center gap-2">
                   View Complete Glossary
-                  <FiArrowRight className="w-4 h-4" />
                 </span>
               </GlowingButton>
             </Link>

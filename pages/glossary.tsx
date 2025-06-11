@@ -134,15 +134,6 @@ const legalTerms = [
   },
 
   {
-    term: 'Laverage Buyouts (LBO) ',
-    definition:
-      'LBO merupakan salah satu variasi dari akuisisi yaitu dengan cara membeli suatu perusahaan yang kemudian perusahaan tersebut diperbaiki secara keseluruhan baik dari struktur organisasi, kegiatan usaha dll. dan kemudian setelah perusahaan itu diperbaiki/dipermak maka selanjutnya perusahaan tersebut kepada pihak ketiga. kegiatan LBO ini sering disebut sebagai pancaplokan perusahaan (Corporade Raiders)',
-    tags: ['Hukum Perusahaan', 'M&A'],
-    example:
-      'PT A membeli PT B yang sedang mengalami berbagai masalah dan kemudian seluruh permasalahan tersebut diperbaiki oleh PT A, setelah dirasa cukup dan sudah tidak memiliki masalah maka selanjutnya PT A menjual PT B tersebut kepada pihak ke-3',
-  },
-
-  {
     term: 'Monopoli',
     definition:
       'Penguasaan atas produksi atau pemasaran barang atau pengguaan jasa tertentu yang hanya dilakukan oleh 1 (satu) pelaku usaha atau 1 (satu) kelompok pelaku usaha, sehingga menimbulkan suatu persaingan usaha yang tidak sehat dan merugikan kepentingan umum akibat adanya pemusatan ekonomi yang dikuasai hanya oleh 1 (satu) pelaku usaha atau 1 (satu) kelompok pelaku usaha.',
@@ -379,28 +370,29 @@ export default function Glossary() {
       <main className="min-h-screen pt-40 relative z-10">
         <div className="max-w-6xl mx-auto">
           {/* Header - Matching Blog Style */}
-          <div className="mb-12 max-w-2xl mx-auto" data-fade="1">
-            <div className="flex items-center space-x-2 mb-2 justify-center">
+          <div className="mb-12 max-w-4xl mx-auto" data-fade="1">
+            {/* <div className="flex items-center space-x-2 mb-2 justify-center">
               <HiScale className="text-emerald-400 w-5 h-5" />
               <h2 className="text-sm uppercase tracking-wider text-neutral-400 font-medium">
                 Legal References
               </h2>
-            </div>
+            </div> */}
             <h3 className="text-4xl md:text-5xl font-bold mb-4 text-center">
-              Legal <span className="gradient-text">Glossary</span>
+              <span className="gradient-text">Legal Glossary </span>Dictionary
             </h3>
             <p className="text-neutral-400 leading-relaxed text-center">
-              A comprehensive glossary of legal terms used in Indonesia.
+              A glossary of legal terms related to technology law, corporate and
+              commercial transactions, with explanations in Indonesian language.
             </p>
-
             {/* Document Number Line */}
-            <div className="flex items-center my-8">
+            {/* <div className="flex items-center my-8">
               <div className="h-px flex-grow bg-neutral-800/50"></div>
               <div className="px-4 py-1 text-xs font-mono text-emerald-400 border border-emerald-500/20 rounded-sm bg-emerald-900/10">
-                TERM INDEX
+                TERMS
               </div>
               <div className="h-px flex-grow bg-neutral-800/50"></div>
-            </div>
+            </div> */}
+            <div className="relative mt-5 top-0 left-0 right-0 h-0.5 bg-gradient-to-r from-transparent via-emerald-500/20 to-transparent"></div>
           </div>
 
           {/* <div
@@ -418,8 +410,8 @@ export default function Glossary() {
                   <div className="relative group h-full border border-neutral-800/70 rounded-md overflow-hidden hover:border-emerald-500/30 transition-all duration-300 bg-neutral-900/20">
                     {/* Legal document styling */}
                     <div className="absolute top-0 left-0 right-0 h-0.5 bg-gradient-to-r from-transparent via-emerald-500/20 to-transparent"></div>
-                    <div className="absolute top-2 left-2 w-3 h-3 border-t border-l border-emerald-500/30"></div>
-                    <div className="absolute bottom-2 right-2 w-3 h-3 border-b border-r border-emerald-500/30"></div>
+                    {/* <div className="absolute top-2 left-2 w-3 h-3 border-t border-l border-emerald-500/30"></div>
+                    <div className="absolute bottom-2 right-2 w-3 h-3 border-b border-r border-emerald-500/30"></div> */}
 
                     <input
                       type="text"
@@ -655,8 +647,8 @@ export default function Glossary() {
                   <div className="space-y-10 relative">
                     {/* Legal document styling */}
                     <div className="absolute top-0 left-0 right-0 h-0.5 bg-gradient-to-r from-transparent via-emerald-500/20 to-transparent"></div>
-                    <div className="absolute top-2 left-2 w-3 h-3 border-t border-l border-emerald-500/30"></div>
-                    <div className="absolute bottom-2 right-2 w-3 h-3 border-b border-r border-emerald-500/30"></div>
+                    {/* <div className="absolute top-2 left-2 w-3 h-3 border-t border-l border-emerald-500/30"></div>
+                    <div className="absolute bottom-2 right-2 w-3 h-3 border-b border-r border-emerald-500/30"></div> */}
 
                     {groupedTerms.map(([letter, terms]) => (
                       <div key={letter} className="scroll-mt-32" data-fade="9">

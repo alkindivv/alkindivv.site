@@ -270,8 +270,8 @@ const ResourcesPreview = ({ resources }: ResourcesPreviewProps) => {
               transitionDelay: '600ms',
             }}
           >
-            Practical legal tools, templates, and resources for legal
-            professionals and technology entrepreneurs.
+            A curated collection of legal templates, documents, and reference
+            materials
           </p>
         </div>
 

@@ -26,6 +26,7 @@ const nextConfig = {
   experimental: {
     scrollRestoration: true,
     optimizePackageImports: ['react-icons'],
+    optimizeCss: true,
   },
   env: {
     NEXT_PUBLIC_BASE_URL:
@@ -56,10 +57,36 @@ const nextConfig = {
             key: 'X-Content-Type-Options',
             value: 'nosniff',
           },
+          {
+            key: 'Cache-Control',
+            value: 'public, max-age=3600, s-maxage=86400',
+          },
+          {
+            key: 'Link',
+            value: '<https://images.unsplash.com>; rel=preconnect',
+          },
         ],
       },
       {
         source: '/static/(.*)',
+        headers: [
+          {
+            key: 'Cache-Control',
+            value: 'public, max-age=31536000, immutable',
+          },
+        ],
+      },
+      {
+        source: '/_next/image(.*)',
+        headers: [
+          {
+            key: 'Cache-Control',
+            value: 'public, max-age=31536000, immutable',
+          },
+        ],
+      },
+      {
+        source: '/_next/static/(.*)',
         headers: [
           {
             key: 'Cache-Control',
@@ -77,7 +104,6 @@ const nextConfig = {
       };
     }
 
-    // Optimized chunk splitting - tidak terlalu agresif
     if (!dev) {
       config.optimization.splitChunks = {
         chunks: 'all',
@@ -103,7 +129,6 @@ const nextConfig = {
             chunks: 'all',
             enforce: true,
           },
-          // React chunk terpisah untuk caching yang lebih baik
           react: {
             test: /[\\/]node_modules[\\/](react|react-dom)[\\/]/,
             name: 'react',
@@ -111,7 +136,6 @@ const nextConfig = {
             chunks: 'all',
             enforce: true,
           },
-          // Icons chunk untuk better caching
           icons: {
             test: /[\\/]node_modules[\\/]react-icons[\\/]/,
             name: 'icons',
@@ -119,12 +143,42 @@ const nextConfig = {
             chunks: 'all',
             enforce: true,
           },
+          styles: {
+            name: 'styles',
+            test: /\.(css|scss|sass)$/,
+            chunks: 'all',
+            enforce: true,
+            priority: 25,
+          },
         },
       };
 
-      // Tree shaking optimization
       config.optimization.usedExports = true;
-      config.optimization.sideEffects = false;
+      config.optimization.sideEffects = true;
+
+      if (config.optimization.minimizer) {
+        config.optimization.minimizer.forEach((minimizer) => {
+          if (minimizer.constructor.name === 'TerserPlugin') {
+            minimizer.options.terserOptions = {
+              ...minimizer.options.terserOptions,
+              compress: {
+                ...minimizer.options.terserOptions?.compress,
+                drop_console: true,
+                drop_debugger: true,
+                pure_funcs: [
+                  'console.log',
+                  'console.info',
+                  'console.debug',
+                  'console.warn',
+                ],
+              },
+              mangle: true,
+              keep_classnames: false,
+              keep_fnames: false,
+            };
+          }
+        });
+      }
     }
 
     return config;

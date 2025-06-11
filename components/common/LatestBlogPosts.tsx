@@ -192,8 +192,8 @@ const LatestBlogPosts = ({ posts }: LatestBlogPostsProps) => {
               transitionDelay: '600ms',
             }}
           >
-            Expert analysis and perspectives on legal developments in
-            technology, cryptocurrency regulation, and corporate compliance.
+            Thought, Opinion, and Insights about Law, Technology, and
+            Cryptocurrency
           </p>
         </div>
 
@@ -251,7 +251,7 @@ const LatestBlogPosts = ({ posts }: LatestBlogPostsProps) => {
               transitionDelay: '800ms',
             }}
           >
-            <div className="relative border border-neutral-800/50 rounded-lg overflow-hidden hover:border-emerald-500/30 transition-all duration-300 backdrop-blur-sm">
+            <div className="relative transition-all duration-300 backdrop-blur-sm">
               {/* Top decoration */}
               {/* <div className="absolute top-0 left-0 right-0 h-0.5 bg-gradient-to-r from-transparent via-emerald-500/20 to-transparent"></div> */}
 
@@ -296,14 +296,14 @@ const LatestBlogPosts = ({ posts }: LatestBlogPostsProps) => {
               }}
               className="group"
             >
-              <div className="relative h-full border border-neutral-800/50 rounded-lg overflow-hidden hover:border-emerald-500/30 transition-all duration-300 bg-neutral-900/20 backdrop-blur-sm">
+              <div className="relative h-full border hover:border-emerald-500/30  border-neutral-800/50 rounded-lg overflow-hidden transition-all duration-300 bg-neutral-900/20 backdrop-blur-sm">
                 {/* Clean minimal styling */}
                 <div className="absolute top-0 left-0 right-0 h-0.5 bg-gradient-to-r from-transparent via-emerald-500/20 to-transparent"></div>
 
                 {/* Content */}
                 <div className="p-5">
                   <div className="flex items-center justify-between mb-3">
-                    <span className="text-xs font-medium text-emerald-400 bg-emerald-900/20 px-2 py-0.5 rounded-sm border border-emerald-500/20">
+                    <span className="text-xs font-medium text-emerald-400 bg-emerald-900/20 px-2 py-0.5 rounded-lg border border-emerald-500/20">
                       {post.category}
                     </span>
                     <span className="text-xs text-neutral-500">

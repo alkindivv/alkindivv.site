@@ -8,11 +8,14 @@ import {
   HiOutlineDocumentText,
   HiOutlineScale,
 } from 'react-icons/hi';
+import { GoLaw } from 'react-icons/go';
+import { FaBitcoin } from 'react-icons/fa';
 import Link from 'next/link';
 import clsx from 'clsx';
 import { BlogPost } from '@/types/blog';
 import { useRouter } from 'next/router';
 import HighlightedText from '@/components/shared/HighlightedText';
+import { IoLogoBitcoin } from 'react-icons/io';
 
 interface BlogCardProps {
   post: BlogPost;
@@ -24,6 +27,19 @@ interface BlogCardProps {
   variant?: 'default' | 'featured' | 'compact' | 'minimal';
   priority?: boolean;
 }
+
+// Helper function to get the appropriate icon based on category
+const getCategoryIcon = (category: string) => {
+  switch (category.toLowerCase()) {
+    case 'law':
+      return <GoLaw className="w-3 h-3 text-emerald-400" />;
+    case 'crypto':
+    case 'cryptocurrency':
+      return <IoLogoBitcoin className="w-3 h-3 text-emerald-400" />;
+    default:
+      return <HiOutlineDocumentText className="w-3 h-3 text-emerald-400" />;
+  }
+};
 
 const BlogCard = ({
   post,
@@ -53,6 +69,9 @@ const BlogCard = ({
     }
   };
 
+  // Get the appropriate icon for this post's category
+  const categoryIcon = getCategoryIcon(post.category);
+
   // Featured Card (untuk artikel unggulan)
   if (variant === 'featured') {
     return (
@@ -70,7 +89,7 @@ const BlogCard = ({
                 alt={post.title}
                 fill
                 sizes="(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw"
-                className="object-cover transition-transform duration-500 group-hover:scale-105"
+                className="object-cover "
                 priority={priority || (_index !== undefined && _index < 2)}
                 quality={75}
               />
@@ -83,10 +102,11 @@ const BlogCard = ({
             <div className="flex-1 flex flex-col">
               {/* Category & Date */}
               <div className="flex items-center justify-between mb-4">
-                <span className="px-3 py-1 text-xs font-medium bg-emerald-500/20 text-emerald-300 rounded-full">
+                <span className="px-3 py-1 text-xs font-medium bg-emerald-500/20 text-emerald-300 rounded-full flex items-center gap-1.5">
+                  {categoryIcon}
                   {post.category}
                 </span>
-                <p className="text-xs text-neutral-400">
+                <p className="text-xs text-neutral-400 paragraph-text">
                   {format(new Date(post.date), 'MMMM dd, yyyy')}
                 </p>
               </div>
@@ -144,7 +164,7 @@ const BlogCard = ({
                 alt={post.title}
                 fill
                 sizes="(min-width: 768px) 80px, 64px"
-                className="object-cover transition-transform duration-500 group-hover:scale-110"
+                className="object-cover "
                 priority={priority || (_index !== undefined && _index < 2)}
               />
             </div>
@@ -208,12 +228,12 @@ const BlogCard = ({
         <div className="absolute bottom-0 right-0 w-3 h-3 border-b border-r border-emerald-500/0 group-hover:border-emerald-500/30 transition-colors duration-300 z-10"></div>
 
         {/* Document filing number - legal style */}
-        <div className="absolute top-2 left-2 z-20">
+        {/* <div className="absolute top-2 left-2 z-20">
           <div className="text-[10px] text-neutral-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300 font-mono bg-black/60 px-2 py-0.5 rounded-sm backdrop-blur-sm">
             ART-{post.slug.substring(0, 2).toUpperCase()}/
             {new Date(post.date).getFullYear().toString().substring(2)}
           </div>
-        </div>
+        </div> */}
 
         {/* Featured Image */}
         {post.featuredImage && (
@@ -223,7 +243,7 @@ const BlogCard = ({
               alt={post.title}
               fill
               sizes="(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw"
-              className="object-cover transition-transform duration-500 group-hover:scale-105"
+              className=""
               priority={priority || (_index !== undefined && _index < 2)}
               quality={75}
             />
@@ -232,8 +252,8 @@ const BlogCard = ({
 
             {/* Category Badge - Legal document style */}
             <div className="absolute top-3 right-3">
-              <span className="px-2 py-1 text-xs font-medium bg-black/40 backdrop-blur-sm text-neutral-200 rounded-sm border border-neutral-800/50 flex items-center gap-1.5">
-                <HiOutlineDocumentText className="w-3 h-3 text-emerald-400" />
+              <span className="px-1 py-0.5 text-xs font-medium bg-black/40 backdrop-blur-sm text-neutral-200 rounded-lg border border-neutral-800/50 flex items-center gap-1.5">
+                {categoryIcon}
                 {post.category}
               </span>
             </div>
@@ -243,7 +263,14 @@ const BlogCard = ({
         <div className="flex-1 p-4 md:p-5 flex flex-col relative">
           {/* Watermark - Legal document style */}
           <div className="absolute right-3 bottom-3 opacity-0 group-hover:opacity-5 transition-opacity duration-300">
-            <HiOutlineScale className="w-20 h-20" />
+            {post.category.toLowerCase() === 'law' ? (
+              <GoLaw className="w-20 h-20" />
+            ) : post.category.toLowerCase() === 'crypto' ||
+              post.category.toLowerCase() === 'cryptocurrency' ? (
+              <FaBitcoin className="w-20 h-20" />
+            ) : (
+              <HiOutlineScale className="w-20 h-20" />
+            )}
           </div>
 
           {/* Date - Document filing style */}
@@ -284,9 +311,9 @@ const BlogCard = ({
               <span
                 key={tag}
                 className={clsx(
-                  'px-1.5 py-0.5 text-xs rounded-sm border transition-colors',
+                  'px-1.5 py-1 text-xs rounded-lg transition-all duration-300',
                   checkTagged?.(tag)
-                    ? 'bg-emerald-500/10 text-emerald-500 border-emerald-500/30'
+                    ? ' text-emerald-500 bg-emerald-500/10'
                     : 'bg-neutral-900 text-neutral-400 group-hover:bg-neutral-800 group-hover:text-neutral-300 border-neutral-800 group-hover:border-neutral-700'
                 )}
               >

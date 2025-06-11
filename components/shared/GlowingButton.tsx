@@ -1,14 +1,22 @@
 import React from 'react';
-import { LuChevronRight } from 'react-icons/lu';
+import {
+  LuChevronRight,
+  LuChevronUp,
+  LuChevronDown,
+  LuChevronLeft,
+} from 'react-icons/lu';
 import { cn } from '@/lib/utils';
+import { HiMiniArrowTopRightOnSquare } from 'react-icons/hi2';
+import { LuExternalLink } from 'react-icons/lu';
 
 interface GlowingButtonProps
   extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   href?: string;
   children: React.ReactNode;
-  rightIcon?: React.ReactNode;
+  icon?: React.ReactNode;
+  iconPosition?: 'right' | 'up' | 'down' | 'link';
   isLoading?: boolean;
-  variant?: 'default' | 'small';
+  variant?: 'default' | 'small' | 'minimal';
 }
 
 // Memisahkan komponen untuk icon
@@ -18,7 +26,7 @@ const IconWrapper = React.memo(function IconWrapper({
   icon: React.ReactNode;
 }) {
   return (
-    <div className="relative z-10 size-6 rounded-lg flex items-center justify-center transition-all duration-300 bg-gradient-to-br from-white/10 to-transparent border-t border-l border-white/10">
+    <div className="relative z-10 size-6 rounded-lg flex items-center justify-center transition-all duration-300 bg-gradient-to-br from-emerald-500/20  to-transparent border-t border-l border-emerald-500/20 ">
       {icon}
     </div>
   );
@@ -58,7 +66,8 @@ const GlowingButton = React.forwardRef<HTMLButtonElement, GlowingButtonProps>(
       href,
       children,
       className,
-      rightIcon = <LuChevronRight className="size-[70%]" strokeWidth={1.3} />,
+      icon,
+      iconPosition = 'right',
       isLoading,
       disabled,
       variant = 'default',
@@ -83,30 +92,51 @@ const GlowingButton = React.forwardRef<HTMLButtonElement, GlowingButtonProps>(
       []
     );
 
+    // Default icons berdasarkan iconPosition
+    const getDefaultIcon = () => {
+      switch (iconPosition) {
+        case 'up':
+          return <LuChevronUp className="size-[70%]" strokeWidth={1.3} />;
+        case 'down':
+          return <LuChevronDown className="size-[70%]" strokeWidth={1.3} />;
+        case 'right':
+        default:
+          return <LuChevronRight className="size-[70%]" strokeWidth={1.3} />;
+        case 'link':
+          return <LuExternalLink className="size-[70%]" strokeWidth={1.3} />;
+      }
+    };
+
+    // Gunakan icon yang disediakan atau default berdasarkan iconPosition
+    const buttonIcon = icon || getDefaultIcon();
+
     const baseStyles = cn(
-      'relative group inline-flex items-center gap-3',
-      'gradient-border bg-black/90 hover:bg-black/80',
-      'backdrop-blur-sm supports-[backdrop-filter]:bg-transparent',
-      // 'gradient-border bg-transparent hover:bg-white/5',
-      // 'backdrop-blur-sm supports-[backdrop-filter]:bg-transparent',
-      'transition-all duration-300 ease-out',
+      'relative group inline-flex items-center gap-3 transition-all duration-300 ease-out',
       disabled && 'opacity-50 cursor-not-allowed pointer-events-none',
-      variant === 'default' && 'px-4 py-3 rounded-xl',
+      variant === 'default' &&
+        'gradient-border bg-black/90 hover:bg-black/80 backdrop-blur-sm supports-[backdrop-filter]:bg-transparent px-4 py-3 rounded-xl',
       variant === 'small' &&
-        'px-3 py-2 text-sm rounded-lg md:px-3 md:py-2.5 md:text-base md:rounded-xl',
+        'gradient-border bg-black/90 hover:bg-black/80 backdrop-blur-sm supports-[backdrop-filter]:bg-transparent px-3 py-2 text-sm rounded-lg md:px-3 md:py-2.5 md:text-base md:rounded-xl',
+      variant === 'minimal' &&
+        'bg-transparent hover:bg-transparent backdrop-blur-none',
       className
+    );
+
+    const textStyles = cn(
+      'relative z-10 transition-colors duration-300',
+      (variant === 'default' || variant === 'small') &&
+        'text-neutral-100 group-hover:text-white',
+      variant === 'minimal' && 'text-neutral-300 group-hover:text-white'
     );
 
     const content = (
       <>
-        <GlowEffect />
-        <span className="relative z-10 text-white/90 group-hover:text-white transition-colors duration-300">
-          {children}
-        </span>
+        {(variant === 'default' || variant === 'small') && <GlowEffect />}
+        <span className={textStyles}>{children}</span>
         {isLoading ? (
           <div className="relative z-10 size-4 border-2 border-current border-t-transparent rounded-full animate-spin" />
         ) : (
-          rightIcon && <IconWrapper icon={rightIcon} />
+          buttonIcon && <IconWrapper icon={buttonIcon} />
         )}
       </>
     );

@@ -176,8 +176,8 @@ const AboutPreview = () => {
               transitionDelay: '600ms',
             }}
           >
-            Background, experience, and expertise in legal technology at the
-            intersection of traditional practice and emerging technologies.
+            Background, experience, and expertise in law and technology at the
+            intersection of legal practice and emerging technologies.
           </p>
 
           <div
@@ -208,7 +208,7 @@ const AboutPreview = () => {
             }}
           >
             {/* Main Description - Minimal styling */}
-            <div className="space-y-4 relative p-6 rounded-lg border border-neutral-800/50 bg-neutral-900/20 backdrop-blur-sm">
+            <div className="space-y-4 relative rounded-lg ">
               <p className="paragraph-text leading-relaxed">
                 Hi, I'm <AccentNormal>AL</AccentNormal> or{' '}
                 <AccentNormal>KINDI</AccentNormal>. I'm passionate about
@@ -298,15 +298,12 @@ const AboutPreview = () => {
               }}
             >
               <Link href="/about" className="group inline-flex">
-                <GlowingButton variant="small">
+                <GlowingButton variant="small" iconPosition="link">
                   <span className="flex items-center gap-2">
-                    View Full Legal Profile
+                    Learn More About Me
                   </span>
                 </GlowingButton>
               </Link>
-              <span className="text-xs text-neutral-500 font-mono">
-                REF: CV §1.2
-              </span>
             </div>
           </div>
 

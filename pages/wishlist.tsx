@@ -66,12 +66,12 @@ const wishlistItems: WishlistItem[] = [
     description: '',
     completed: false,
   },
-  {
-    id: 7,
-    title: 'Establish my own corporate law firm',
-    description: '',
-    completed: false,
-  },
+  // {
+  //   id: 7,
+  //   title: 'Marr',
+  //   description: '',
+  //   completed: false,
+  // },
 ];
 
 function WishlistCard({
@@ -236,10 +236,10 @@ const WishlistPage = () => {
                 transitionDelay: '400ms',
               }}
             >
-              <HiOutlineDocumentText className="text-emerald-400 w-5 h-5" />
+              {/* <HiOutlineDocumentText className="text-emerald-400 w-5 h-5" />
               <h2 className="text-sm uppercase tracking-wider text-neutral-400 font-medium">
                 Personal Objectives
-              </h2>
+              </h2> */}
             </div>
 
             <h3
@@ -251,7 +251,7 @@ const WishlistPage = () => {
                 transitionDelay: '500ms',
               }}
             >
-              Professional <span className="gradient-text">Wishlist</span>
+              My <span className="gradient-text">Wishlist</span>
             </h3>
             <p
               className="text-neutral-400 leading-relaxed text-center"
@@ -262,11 +262,10 @@ const WishlistPage = () => {
                 transitionDelay: '600ms',
               }}
             >
-              Professional milestones and personal aspirations in my legal
-              career journey
+              Milestones and personal aspirations in my career journey
             </p>
 
-            <div
+            {/* <div
               className="flex items-center my-8"
               style={{
                 opacity: isVisible ? 1 : 0,
@@ -279,7 +278,8 @@ const WishlistPage = () => {
                 PROFESSIONAL RECORD
               </div>
               <div className="h-px flex-grow bg-neutral-800/50"></div>
-            </div>
+            </div> */}
+            <div className="relative mt-5 top-0 left-0 right-0 h-0.5 bg-gradient-to-r from-transparent via-emerald-500/20 to-transparent"></div>
           </div>
 
           {/* Content */}
@@ -293,13 +293,13 @@ const WishlistPage = () => {
             }}
           >
             {/* Legal document styling */}
-            <div className="absolute top-0 left-0 right-0 h-0.5 bg-gradient-to-r from-transparent via-emerald-500/20 to-transparent"></div>
+            {/* <div className="absolute top-0 left-0 right-0 h-0.5 bg-gradient-to-r from-transparent via-emerald-500/20 to-transparent"></div> */}
             {/* <div className="absolute top-2 left-2 w-3 h-3 border-t border-l border-emerald-500/30"></div>
             <div className="absolute bottom-2 right-2 w-3 h-3 border-b border-r border-emerald-500/30"></div> */}
 
             <div className="">
               {/* Decorative header bar - Legal styled */}
-              <div className="absolute top-0 left-0 right-0 h-0.5 bg-gradient-to-r from-transparent via-emerald-500/20 to-transparent"></div>
+              {/* <div className="absolute top-0 left-0 right-0 h-0.5 bg-gradient-to-r from-transparent via-emerald-500/20 to-transparent"></div> */}
 
               {/* Document title */}
               <div className="mb-6 border-b border-neutral-800/50 pb-4">
