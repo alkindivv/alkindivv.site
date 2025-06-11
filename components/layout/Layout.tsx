@@ -63,40 +63,6 @@ const Layout: React.FC<LayoutProps> = ({
           content="AL KINDI - Exploring the future of legal technology focus on corporate, bankruptcy and capital markets and blockchain technology."
         />
         <link rel="icon" href="/favicon.ico" />
-
-        {/* Optimized NProgress Styles */}
-        <style>{`
-          #nprogress {
-            pointer-events: none;
-          }
-
-          #nprogress .bar {
-            background: linear-gradient(to right, #08c488, #59fbbf);
-            position: fixed;
-            z-index: 1031;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 3px;
-            box-shadow: 0 1px 3px rgba(8, 196, 136, 0.4);
-          }
-
-          #nprogress .peg {
-            display: block;
-            position: absolute;
-            right: 0px;
-            width: 100px;
-            height: 100%;
-            box-shadow: 0 0 10px #08c488, 0 0 5px #08c488;
-            opacity: 1.0;
-            transform: rotate(3deg) translate(0px, -4px);
-          }
-
-          /* Prevent layout shift during loading */
-          .layout-container {
-            min-height: 100vh;
-          }
-        `}</style>
       </Head>
 
       <div

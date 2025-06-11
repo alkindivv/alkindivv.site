@@ -211,7 +211,7 @@ export default function ResourcesPage() {
         </div>
 
         {/* Content */}
-        <section className="min-h-screen pt-32 relative z-10 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+        <section className="min-h-screen pt-32 relative z-10 ">
           {/* Header - Legal Styled Matching Blog */}
           <div className="mb-12 max-w-2xl mx-auto text-center">
             <div
@@ -222,10 +222,10 @@ export default function ResourcesPage() {
                 transitionDelay: '400ms',
               }}
             >
-              <HiLibrary className="text-emerald-400 w-5 h-5" />
+              {/* <HiLibrary className="text-emerald-400 w-5 h-5" />
               <h2 className="text-sm uppercase tracking-wider text-neutral-400 font-medium">
                 Legal Documents
-              </h2>
+              </h2> */}
             </div>
 
             <h3
@@ -260,11 +260,12 @@ export default function ResourcesPage() {
                 transitionDelay: '700ms',
               }}
             >
-              <div className="h-px flex-grow bg-neutral-800/50"></div>
+              {/* <div className="h-px flex-grow bg-neutral-800/50"></div>
               <div className="px-4 py-1 text-xs font-mono text-emerald-400 border border-emerald-500/20 rounded-sm bg-emerald-900/10">
                 PRACTITIONER RESOURCES
               </div>
-              <div className="h-px flex-grow bg-neutral-800/50"></div>
+              <div className="h-px flex-grow bg-neutral-800/50"></div> */}
+              <div className="relative mt-5 top-0 left-0 right-0 h-0.5 bg-gradient-to-r from-transparent via-emerald-500/20 to-transparent"></div>
             </div>
           </div>
 
@@ -279,9 +280,9 @@ export default function ResourcesPage() {
             }}
           >
             {/* Legal document styling */}
-            <div className="absolute top-0 left-0 right-0 h-0.5 bg-gradient-to-r from-transparent via-emerald-500/20 to-transparent"></div>
+            {/* <div className="absolute top-0 left-0 right-0 h-0.5 bg-gradient-to-r from-transparent via-emerald-500/20 to-transparent"></div>
             <div className="absolute top-2 left-2 w-3 h-3 border-t border-l border-emerald-500/30"></div>
-            <div className="absolute bottom-2 right-2 w-3 h-3 border-b border-r border-emerald-500/30"></div>
+            <div className="absolute bottom-2 right-2 w-3 h-3 border-b border-r border-emerald-500/30"></div> */}
 
             {/* Resources grid */}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -341,7 +342,7 @@ export default function ResourcesPage() {
                   </div>
 
                   {/* Document filing number - legal style */}
-                  <div className="absolute top-3 right-3">
+                  {/* <div className="absolute top-3 right-3">
                     <div className="text-[10px] text-neutral-500 font-mono">
                       {resource.type === 'document'
                         ? 'DOC-'
@@ -353,7 +354,7 @@ export default function ResourcesPage() {
                       {index + 1}/
                       {new Date().getFullYear().toString().substring(2)}
                     </div>
-                  </div>
+                  </div> */}
                 </div>
               ))}
             </div>

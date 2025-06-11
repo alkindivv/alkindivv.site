@@ -28,6 +28,10 @@ const nextConfig = {
     optimizePackageImports: ['react-icons'],
     optimizeCss: true,
   },
+  onDemandEntries: {
+    maxInactiveAge: 25 * 1000,
+    pagesBufferLength: 2,
+  },
   env: {
     NEXT_PUBLIC_BASE_URL:
       process.env.NODE_ENV === 'production'

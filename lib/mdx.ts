@@ -26,75 +26,122 @@ const ensureServerSide = () => {
   }
 };
 
+// Helper untuk logging di production
+const logInProduction = (message: string, data?: any) => {
+  if (process.env.NODE_ENV === 'production') {
+    console.log(`[MDX] ${message}`);
+    if (data) {
+      console.log(`[MDX] Data:`, data);
+    }
+  }
+};
+
 // Get all categories
 export async function getAllCategories(): Promise<BlogCategory[]> {
   ensureServerSide();
-  const categories = await fs!.readdir(BLOG_DIR);
-  const validCategories = [];
+  logInProduction('Getting all categories');
+  try {
+    const categories = await fs!.readdir(BLOG_DIR);
+    logInProduction(`Found ${categories.length} potential categories`);
+    const validCategories = [];
 
-  for (const category of categories) {
-    const stats = await fs!.stat(path.join(BLOG_DIR, category));
-    if (stats.isDirectory()) {
+    for (const category of categories) {
       const categoryPath = path.join(BLOG_DIR, category);
-      const files = await fs!.readdir(categoryPath);
-      const postCount = files.filter((file) => file.endsWith('.mdx')).length;
-      const categoryName = category.charAt(0).toUpperCase() + category.slice(1);
+      const stats = await fs!.stat(categoryPath);
+      if (stats.isDirectory()) {
+        try {
+          const files = await fs!.readdir(categoryPath);
+          const postCount = files.filter((file) =>
+            file.endsWith('.mdx')
+          ).length;
+          const categoryName =
+            category.charAt(0).toUpperCase() + category.slice(1);
 
-      validCategories.push({
-        name: categoryName,
-        description: `Articles about ${categoryName.toLowerCase()} by AL KINDI`,
-        slug: category.toLowerCase(),
-        count: postCount,
-      });
+          validCategories.push({
+            name: categoryName,
+            description: `Articles about ${categoryName.toLowerCase()} by AL KINDI`,
+            slug: category.toLowerCase(),
+            count: postCount,
+          });
+        } catch (error) {
+          console.error(`Error processing category ${category}:`, error);
+          // Continue processing other categories
+        }
+      }
     }
-  }
 
-  return validCategories;
+    logInProduction(`Returning ${validCategories.length} valid categories`);
+    return validCategories;
+  } catch (error) {
+    console.error('Error in getAllCategories:', error);
+    return [];
+  }
 }
 
 // Get all posts
 export async function getAllPosts(): Promise<BlogPost[]> {
   ensureServerSide();
-  const categories = await fs!.readdir(BLOG_DIR);
-  const posts = [];
+  logInProduction('Getting all posts');
+  try {
+    const categories = await fs!.readdir(BLOG_DIR);
+    logInProduction(`Found ${categories.length} categories folders`);
+    const posts = [];
 
-  for (const category of categories) {
-    const categoryPath = path.join(BLOG_DIR, category);
-    const stats = await fs!.stat(categoryPath);
-    if (!stats.isDirectory()) continue;
+    for (const category of categories) {
+      const categoryPath = path.join(BLOG_DIR, category);
+      try {
+        const stats = await fs!.stat(categoryPath);
+        if (!stats.isDirectory()) continue;
 
-    const files = await fs!.readdir(categoryPath);
-    for (const file of files) {
-      if (!file.endsWith('.mdx')) continue;
+        const files = await fs!.readdir(categoryPath);
+        for (const file of files) {
+          if (!file.endsWith('.mdx')) continue;
 
-      const filePath = path.join(categoryPath, file);
-      const source = await fs!.readFile(filePath, 'utf8');
-      const { data, content } = matter(source);
+          try {
+            const filePath = path.join(categoryPath, file);
+            const source = await fs!.readFile(filePath, 'utf8');
+            const { data, content } = matter(source);
 
-      if (!data.title || !data.date) continue;
+            if (!data.title || !data.date) continue;
 
-      posts.push({
-        title: data.title,
-        date: new Date(data.date).toISOString(),
-        author: data.author || 'AL KINDI',
-        category: category.toLowerCase(),
-        excerpt: data.excerpt || content.slice(0, 200) + '...',
-        description:
-          data.description || data.excerpt || content.slice(0, 200) + '...',
-        tags: Array.isArray(data.tags) ? data.tags : [],
-        featuredImage: data.featuredImage || null,
-        slug: file.replace(/\.mdx$/, ''),
-        readingTime: Math.ceil(readingTime(content).minutes),
-      });
+            posts.push({
+              title: data.title,
+              date: new Date(data.date).toISOString(),
+              author: data.author || 'AL KINDI',
+              category: category.toLowerCase(),
+              excerpt: data.excerpt || content.slice(0, 200) + '...',
+              description:
+                data.description ||
+                data.excerpt ||
+                content.slice(0, 200) + '...',
+              tags: Array.isArray(data.tags) ? data.tags : [],
+              featuredImage: data.featuredImage || null,
+              slug: file.replace(/\.mdx$/, ''),
+              readingTime: Math.ceil(readingTime(content).minutes),
+            });
+          } catch (error) {
+            console.error(`Error processing file ${file}:`, error);
+            // Continue processing other files
+          }
+        }
+      } catch (error) {
+        console.error(`Error processing category ${category}:`, error);
+        // Continue processing other categories
+      }
     }
-  }
 
-  return posts;
+    logInProduction(`Returning ${posts.length} total posts`);
+    return posts;
+  } catch (error) {
+    console.error('Error in getAllPosts:', error);
+    return [];
+  }
 }
 
 // Get a single post by category and slug
 export async function getPostBySlug(category: string, slug: string) {
   ensureServerSide();
+  logInProduction(`Getting post by slug: ${category}/${slug}`);
   const fullPath = path.join(BLOG_DIR, category, `${slug}.mdx`);
 
   try {
@@ -129,6 +176,7 @@ export async function getPostBySlug(category: string, slug: string) {
       scope: frontMatter,
     });
 
+    logInProduction(`Successfully processed post: ${category}/${slug}`);
     return {
       frontMatter: {
         ...frontMatter,
@@ -138,6 +186,7 @@ export async function getPostBySlug(category: string, slug: string) {
       mdxSource,
     };
   } catch (error) {
+    console.error(`Error in getPostBySlug for ${category}/${slug}:`, error);
     throw new Error('Post not found');
   }
 }
@@ -145,11 +194,18 @@ export async function getPostBySlug(category: string, slug: string) {
 // Get all post slugs for static paths
 export async function getAllPostSlugs() {
   ensureServerSide();
-  const posts = await getAllPosts();
-  return posts.map((post) => ({
-    params: {
-      category: post.category.toLowerCase(),
-      slug: post.slug,
-    },
-  }));
+  logInProduction('Getting all post slugs for static paths');
+  try {
+    const posts = await getAllPosts();
+    logInProduction(`Generated ${posts.length} static paths`);
+    return posts.map((post) => ({
+      params: {
+        category: post.category.toLowerCase(),
+        slug: post.slug,
+      },
+    }));
+  } catch (error) {
+    console.error('Error in getAllPostSlugs:', error);
+    return [];
+  }
 }

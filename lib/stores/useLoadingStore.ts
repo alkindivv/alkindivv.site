@@ -32,6 +32,9 @@ NProgress.configure({
 let loadingTimeout: NodeJS.Timeout | null = null;
 let progressTimeout: NodeJS.Timeout | null = null;
 
+// Konfigurasi delay berdasarkan mode
+const LOADING_DELAY = process.env.NODE_ENV === 'production' ? 0 : 100;
+
 export const useLoadingStore = create<LoadingStore>()(
   devtools(
     (set, get) => ({
@@ -68,9 +71,10 @@ export const useLoadingStore = create<LoadingStore>()(
         );
 
         // Start NProgress dengan delay untuk mencegah flicker pada navigasi cepat
+        // Di production, tidak ada delay untuk memastikan NProgress selalu terlihat
         loadingTimeout = setTimeout(() => {
           NProgress.start();
-        }, 100);
+        }, LOADING_DELAY);
       },
 
       stopLoading: () => {

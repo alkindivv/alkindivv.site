@@ -56,10 +56,27 @@ const HeroSection = () => {
     };
   }, []);
 
+  // PERBAIKAN: Fungsi handleScrollDown yang lebih andal
   const handleScrollDown = () => {
-    const nextSection = document.querySelector('.about-preview-section');
-    if (nextSection) {
-      nextSection.scrollIntoView({
+    // Cara lebih efektif untuk scroll ke section berikutnya
+    const aboutSection = document.querySelector('.about-preview-section');
+
+    if (aboutSection) {
+      // Gunakan offset untuk menghindari tertutup header
+      const headerOffset = 80;
+      const aboutSectionPosition = aboutSection.getBoundingClientRect().top;
+      const offsetPosition =
+        aboutSectionPosition + window.pageYOffset - headerOffset;
+
+      // Scroll ke posisi yang sudah dihitung
+      window.scrollTo({
+        top: offsetPosition,
+        behavior: prefersReducedMotion ? 'auto' : 'smooth',
+      });
+    } else {
+      // Fallback jika tidak menemukan section
+      window.scrollTo({
+        top: window.innerHeight,
         behavior: prefersReducedMotion ? 'auto' : 'smooth',
       });
     }
@@ -133,8 +150,8 @@ const HeroSection = () => {
   };
 
   return (
-    <section className="min-h-screen flex items-center overflow-hidden">
-      {/* 1. Latar Belakang Partikel Interaktif */}
+    <section className="relative min-h-screen flex items-center overflow-hidden  hero-section">
+      {/* 1. Latar Belakang Partikel Interaktif - HANYA DI HERO SECTION */}
       {!prefersReducedMotion && (
         <Particles
           id="tsparticles"
@@ -176,7 +193,7 @@ const HeroSection = () => {
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
                 <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500" />
               </div>
-              <span className="text-sm font-medium">
+              <span className="text-xs md:text-sm font-medium">
                 Available for new opportunities
               </span>
               <HiChevronRight className="w-4 h-4 text-emerald-400/80" />
@@ -194,11 +211,8 @@ const HeroSection = () => {
             {/* Subtitle */}
             <motion.div variants={itemVariants}>
               <p className="text-lg md:text-xl text-neutral-300 leading-relaxed">
-                A Passionate{' '}
-                <span className="font-semibold text-white">Lawyer</span> &{' '}
-                <span className="font-semibold text-white">
-                  Technology Enthusiast
-                </span>
+                <span className="font-semibold text-white">Law</span> &{' '}
+                <span className="font-semibold text-white">Technology</span>
               </p>
             </motion.div>
 
@@ -221,7 +235,7 @@ const HeroSection = () => {
                 variant="default"
                 iconPosition="down"
               >
-                <span className="flex items-left gap-2">Get in Touch</span>
+                <span className="flex items-left gap-2">Learn How</span>
               </GlowingButton>
             </motion.div>
 
@@ -238,27 +252,20 @@ const HeroSection = () => {
         </motion.div>
       </motion.div>
 
-      {/* Scroll Indicator */}
-      <motion.div
-        className="absolute bottom-0 left-0 right-0 w-full flex justify-center pb-8"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 1.5, duration: 1 }}
+      {/* Scroll Indicator - Perbaikan posisi dan visibilitas */}
+      <div
+        className="absolute bottom-8 left-0 right-0 w-full flex justify-center"
+        style={{ zIndex: 20 }}
       >
         <button
           onClick={handleScrollDown}
-          className="group flex flex-col items-center gap-1 text-neutral-500 hover:text-emerald-400 transition-colors duration-300"
-          aria-label="Scroll down to next section"
-          type="button"
+          className="group flex flex-col items-center gap-1 text-neutral-500 hover:text-emerald-400 transition-colors duration-300 px-4 py-2 rounded-full bg-black/20 backdrop-blur-sm "
+          aria-label="Scroll to next section"
         >
-          <span className="text-xs tracking-wide uppercase font-medium mb-1">
-            Scroll Down
-          </span>
-          <div className="flex items-center justify-center">
-            <HiChevronDoubleDown className="h-4 w-4 transition-transform duration-300 group-hover:translate-y-1" />
-          </div>
+          <span className="text-xs font-medium">Scroll Down</span>
+          <HiChevronDoubleDown className="w-5 h-5 animate-bounce" />
         </button>
-      </motion.div>
+      </div>
     </section>
   );
 };

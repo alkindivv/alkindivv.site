@@ -401,10 +401,9 @@ const ResourcesPreview = ({ resources }: ResourcesPreviewProps) => {
           }}
         >
           <Link href="/resources">
-            <GlowingButton variant="small">
+            <GlowingButton variant="small" iconPosition="link">
               <span className="flex items-center gap-2">
-                Explore All Resources
-                <FiArrowRight className="w-4 h-4" />
+                All Resources Templates
               </span>
             </GlowingButton>
           </Link>

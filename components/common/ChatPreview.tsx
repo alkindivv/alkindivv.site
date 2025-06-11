@@ -62,7 +62,7 @@ const ChatPreview = () => {
 
     // Simulasi respons typing untuk konsultasi hukum
     let response =
-      'Thank you for your inquiry. This is a preview of the inquiry feature. If you have any questions, please contact me directly at alkindi@gmail.com';
+      'Thank you for your question. This is a preview of the AMA feature. If you have any questions, please contact me directly at alkindi@gmail.com';
     let currentChar = 0;
 
     const typingInterval = setInterval(() => {
@@ -286,7 +286,7 @@ const ChatPreview = () => {
           >
             <HiLibrary className="text-emerald-400 w-5 h-5" />
             <h2 className="text-sm uppercase tracking-wider text-neutral-400 font-medium">
-              Inquiry
+              Qustions
             </h2>
           </div>
           <h3
@@ -298,7 +298,7 @@ const ChatPreview = () => {
               transitionDelay: '500ms',
             }}
           >
-            Ask <span className="gradient-text">Questions</span>
+            Ask <span className="gradient-text">Me Anything</span>
           </h3>
           <p
             className="text-neutral-400 leading-relaxed text-center"
@@ -311,7 +311,7 @@ const ChatPreview = () => {
           >
             Submit your questions about law, technology, and cryptocurrency.
           </p>
-
+          {/*
           <div
             className="flex items-center mt-6"
             style={{
@@ -325,7 +325,7 @@ const ChatPreview = () => {
               PRELIMINARY INQUIRY
             </div>
             <div className="h-px flex-grow bg-neutral-800/50"></div>
-          </div>
+          </div> */}
         </div>
 
         {/* Chat Interface - Legal Consultation Style */}
@@ -349,7 +349,7 @@ const ChatPreview = () => {
                 }}
               ></div>
               <div className="text-sm font-medium text-emerald-400">
-                Inquiry Portal
+                AMA Portal
               </div>
             </div>
             <div className="ml-auto flex items-center gap-2 text-neutral-500 text-xs">
@@ -391,9 +391,9 @@ const ChatPreview = () => {
                       AL KINDI
                     </div>
                     <p className="text-neutral-200 text-sm md:text-base">
-                      Welcome to the inquiry preview. You may submit preliminary
-                      questions about law, technology, and cryptocurrency.
-                      Please note this is not for formal legal advice.
+                      Welcome to the AMA preview. You may submit questions about
+                      law, technology, and cryptocurrency. Please note this is
+                      not for formal legal advice.
                     </p>
                   </div>
                   <div className="flex items-center mt-1 ml-4">

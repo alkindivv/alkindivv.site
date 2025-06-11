@@ -56,6 +56,19 @@ const mdxComponents = {
   },
 };
 
+const debugProduction = (message: string, data?: any) => {
+  if (process.env.NODE_ENV === 'production') {
+    console.log(`[Post Page] ${message}`);
+    if (data) {
+      const truncated =
+        typeof data === 'object'
+          ? JSON.stringify(data).substring(0, 200) + '...'
+          : data;
+      console.log(`[Post Page] Data:`, truncated);
+    }
+  }
+};
+
 export default function BlogPost({
   frontMatter,
   mdxSource,
@@ -67,9 +80,23 @@ export default function BlogPost({
   const articleContentRef = useRef<HTMLDivElement>(null);
   const [] = useState(false);
 
+  // Debug data di mode production
+  useEffect(() => {
+    debugProduction('BlogPost component mounted', {
+      title: frontMatter?.title,
+      category: frontMatter?.category,
+      slug: frontMatter?.slug,
+      hasMdxSource: Boolean(mdxSource),
+      relatedPostsCount: allPosts?.length,
+    });
+  }, [frontMatter, mdxSource, allPosts]);
+
   // Extract headings from content
   useEffect(() => {
-    if (!articleContentRef.current) return;
+    if (!articleContentRef.current) {
+      debugProduction('articleContentRef is not available');
+      return;
+    }
 
     const elements = Array.from(
       articleContentRef.current.querySelectorAll('h2, h3')
@@ -376,30 +403,61 @@ export default function BlogPost({
 }
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  const paths = await getAllPostSlugs();
-  return {
-    paths,
-    fallback: false,
-  };
+  try {
+    const paths = await getAllPostSlugs();
+    return {
+      paths,
+      fallback: 'blocking',
+    };
+  } catch (error) {
+    console.error('Error in getStaticPaths:', error);
+    return {
+      paths: [],
+      fallback: 'blocking',
+    };
+  }
 };
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
-  const { category, slug } = params as { category: string; slug: string };
-  const { frontMatter, mdxSource } = await getPostBySlug(category, slug);
-  const allPosts = await getAllPosts();
+  try {
+    const { category, slug } = params as { category: string; slug: string };
 
-  const enhancedFrontMatter = {
-    ...frontMatter,
-    slug,
-  };
+    // Periksa apakah parameter valid
+    if (!category || !slug) {
+      return {
+        notFound: true,
+      };
+    }
 
-  return {
-    props: {
-      frontMatter: enhancedFrontMatter,
-      mdxSource,
-      allPosts,
-    },
-  };
+    const { frontMatter, mdxSource } = await getPostBySlug(category, slug);
+    const allPosts = await getAllPosts();
+
+    // Jika tidak ada konten, kembalikan 404
+    if (!mdxSource || !frontMatter) {
+      return {
+        notFound: true,
+      };
+    }
+
+    const enhancedFrontMatter = {
+      ...frontMatter,
+      slug,
+    };
+
+    return {
+      props: {
+        frontMatter: enhancedFrontMatter,
+        mdxSource,
+        allPosts,
+      },
+      revalidate: 3600, // Revalidate setiap 1 jam
+    };
+  } catch (error) {
+    console.error('Error in getStaticProps:', error);
+    return {
+      notFound: true,
+    };
+  }
 };
 
 export async function generateMetadata({

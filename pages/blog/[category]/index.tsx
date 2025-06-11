@@ -21,6 +21,21 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { HiOutlineClock } from 'react-icons/hi2';
 
+// Tambahkan di bagian atas setelah imports
+const debugProduction = (message: string, data?: any) => {
+  if (process.env.NODE_ENV === 'production') {
+    console.log(`[Category Page] ${message}`);
+    if (data) {
+      console.log(
+        `[Category Page] Data:`,
+        typeof data === 'object'
+          ? JSON.stringify(data).substring(0, 200) + '...'
+          : data
+      );
+    }
+  }
+};
+
 // Komponen untuk setiap post
 const BlogPostCard = ({ post }: { post: BlogPost }) => {
   return (
@@ -130,9 +145,19 @@ export default function CategoryPage({ posts, category }: CategoryPageProps) {
   const [searchQuery, setSearchQuery] = useState('');
   const [isLoaded, setIsLoaded] = useState(false);
 
+  // Debug rendering dan data di production
+  useEffect(() => {
+    debugProduction('Component mounted with data', {
+      categoryName: category?.name,
+      categorySlug: category?.slug,
+      postsCount: posts?.length,
+    });
+  }, [category, posts]);
+
   useEffect(() => {
     const timer = setTimeout(() => {
       setIsLoaded(true);
+      debugProduction('Component fully loaded');
     }, 200);
 
     return () => clearTimeout(timer);
@@ -317,38 +342,54 @@ export default function CategoryPage({ posts, category }: CategoryPageProps) {
 }
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  const categories = await getAllCategories();
-  const paths = categories.map((category: BlogCategory) => ({
-    params: { category: category.slug },
-  }));
+  try {
+    const categories = await getAllCategories();
+    const paths = categories.map((category: BlogCategory) => ({
+      params: { category: category.slug },
+    }));
 
-  return {
-    paths,
-    fallback: false,
-  };
+    return {
+      paths,
+      fallback: 'blocking',
+    };
+  } catch (error) {
+    console.error('Error in getStaticPaths:', error);
+    return {
+      paths: [],
+      fallback: 'blocking',
+    };
+  }
 };
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
-  const categories = await getAllCategories();
-  const category = categories.find(
-    (cat: BlogCategory) => cat.slug === params?.category
-  );
+  try {
+    const categories = await getAllCategories();
+    const category = categories.find(
+      (cat: BlogCategory) => cat.slug === params?.category
+    );
 
-  if (!category) {
+    if (!category) {
+      return {
+        notFound: true,
+      };
+    }
+
+    const allPosts = await getAllPosts();
+    const posts = allPosts.filter(
+      (post) => post.category.toLowerCase() === category.slug.toLowerCase()
+    );
+
+    return {
+      props: {
+        posts,
+        category,
+      },
+      revalidate: 3600,
+    };
+  } catch (error) {
+    console.error('Error in getStaticProps:', error);
     return {
       notFound: true,
     };
   }
-
-  const allPosts = await getAllPosts();
-  const posts = allPosts.filter(
-    (post) => post.category.toLowerCase() === category.slug.toLowerCase()
-  );
-
-  return {
-    props: {
-      posts,
-      category,
-    },
-  };
 };

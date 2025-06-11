@@ -269,18 +269,18 @@ const LatestBlogPosts = ({ posts }: LatestBlogPostsProps) => {
 
         {/* Minimal divider */}
         <div
-          className="flex items-center my-8"
+          className="flex items-center my-1"
           style={{
             opacity: isVisible ? 1 : 0,
             transition: 'opacity 700ms ease-out',
             transitionDelay: '900ms',
           }}
         >
-          <div className="h-px flex-grow bg-gradient-to-r from-transparent via-neutral-800/50 to-transparent"></div>
+          {/* <div className="h-px flex-grow bg-gradient-to-r from-transparent via-neutral-800/50 to-transparent"></div>
           <div className="px-4 py-1 text-xs font-mono text-emerald-400 border border-emerald-500/20 rounded-sm bg-emerald-900/10">
             ARTICLE INDEX
           </div>
-          <div className="h-px flex-grow bg-gradient-to-r from-transparent via-neutral-800/50 to-transparent"></div>
+          <div className="h-px flex-grow bg-gradient-to-r from-transparent via-neutral-800/50 to-transparent"></div> */}
         </div>
 
         {/* Secondary Posts - Clean Grid */}
@@ -350,7 +350,7 @@ const LatestBlogPosts = ({ posts }: LatestBlogPostsProps) => {
           <Link href="/blog">
             <GlowingButton variant="small">
               <span className="flex items-center gap-2">
-                Browse Complete Archives
+                Explore More Articles
               </span>
             </GlowingButton>
           </Link>

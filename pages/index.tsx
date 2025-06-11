@@ -95,7 +95,8 @@ export default function HomePage({ posts }: HomePageProps) {
       <main className="relative min-h-screen flex flex-col -mt-16 md:mt-0">
         {/* Hero Content - Full Width */}
         <div className="w-full">
-          <div className="max-w-[1100px] mx-auto">
+          {/* <div id="content-sections" className="w-full"> */}
+          <div className="">
             {/* Hero Section */}
             <HeroSection />
           </div>

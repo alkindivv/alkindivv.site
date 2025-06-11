@@ -10,7 +10,10 @@
     "format": "prettier --write .",
     "export": "next build && next export",
     "analyze": "ANALYZE=true npm run build",
-    "perf": "npm run build && npm run start"
+    "perf": "npm run build && npm run start",
+    "debug-prod": "NODE_ENV=production NODE_OPTIONS='--inspect' next dev",
+    "prod-local": "npm run build && NODE_ENV=production DEBUG=* PORT=9999 next start",
+    "verbose": "NODE_OPTIONS='--trace-warnings' npm run build && NODE_ENV=production DEBUG=* PORT=9999 next start"
   },
   "dependencies": {
     "@tailwindcss/typography": "^0.5.15",

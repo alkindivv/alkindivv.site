@@ -140,9 +140,9 @@ const AboutPreview = () => {
       </div>
 
       {/* Content Container */}
-      <div className="relative z-10 container max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="relative z-10 ">
         {/* Section Header - Clean & Minimal */}
-        <div className="mb-12 max-w-2xl">
+        <div className="mb-12 max-w-3xl ">
           <div
             className="flex items-center space-x-2 mb-2"
             style={{
@@ -181,18 +181,18 @@ const AboutPreview = () => {
           </p>
 
           <div
-            className="flex items-center mt-4"
-            style={{
-              opacity: isVisible ? 1 : 0,
-              transition: 'opacity 700ms ease-out',
-              transitionDelay: '700ms',
-            }}
+          // className="flex items-center mt-4"
+          // style={{
+          //   opacity: isVisible ? 1 : 0,
+          //   transition: 'opacity 700ms ease-out',
+          //   transitionDelay: '700ms',
+          // }}
           >
-            <div className="h-px flex-grow bg-gradient-to-r from-transparent via-neutral-800/50 to-transparent"></div>
+            {/* <div className="h-px flex-grow bg-gradient-to-r from-transparent via-neutral-800/50 to-transparent"></div>
             <div className="px-4 py-1 text-xs font-mono text-emerald-400 border border-emerald-500/20 rounded-sm bg-emerald-900/10">
               CURRICULUM VITAE
             </div>
-            <div className="h-px flex-grow bg-gradient-to-r from-transparent via-neutral-800/50 to-transparent"></div>
+            <div className="h-px flex-grow bg-gradient-to-r from-transparent via-neutral-800/50 to-transparent"></div> */}
           </div>
         </div>
 
@@ -357,7 +357,7 @@ const AboutPreview = () => {
                           AL KINDI
                         </h4>
                         <p className="text-xs text-neutral-300">
-                          Legal Technologist
+                          Law & Technology
                         </p>
                       </div>
                     </div>
@@ -380,9 +380,7 @@ const AboutPreview = () => {
                   <div className="text-xs text-emerald-400 font-medium">
                     PRE-QUALIFIED
                   </div>
-                  <div className="text-[10px] text-neutral-500">
-                    Legal Counsel
-                  </div>
+                  <div className="text-[10px] text-neutral-500">LAWYER</div>
                 </div>
               </div>
             </div>

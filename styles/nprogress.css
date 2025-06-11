@@ -1,0 +1,33 @@
+/* NProgress styles */
+#nprogress {
+  pointer-events: none;
+}
+
+#nprogress .bar {
+  background: linear-gradient(to right, #08c488, #59fbbf);
+  position: fixed;
+  z-index: 1031;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  box-shadow: 0 1px 3px rgba(8, 196, 136, 0.4);
+}
+
+#nprogress .peg {
+  display: block;
+  position: absolute;
+  right: 0px;
+  width: 100px;
+  height: 100%;
+  box-shadow:
+    0 0 10px #08c488,
+    0 0 5px #08c488;
+  opacity: 1;
+  transform: rotate(3deg) translate(0px, -4px);
+}
+
+/* Prevent layout shift during loading */
+.layout-container {
+  min-height: 100vh;
+}

@@ -110,13 +110,14 @@ const ContactPage = () => {
             </p>
 
             {/* Document Number Line */}
-            <div className="flex items-center my-8">
+            {/* <div className="flex items-center my-8">
               <div className="h-px flex-grow bg-neutral-800/50"></div>
               <div className="px-4 py-1 text-xs font-mono text-emerald-400 border border-emerald-500/20 rounded-sm bg-emerald-900/10">
                 CONTACT FORM
               </div>
               <div className="h-px flex-grow bg-neutral-800/50"></div>
-            </div>
+            </div> */}
+            <div className="relative mt-5 top-0 left-0 right-0 h-0.5 bg-gradient-to-r from-transparent via-emerald-500/20 to-transparent"></div>
           </div>
 
           {/* Contact Form - Legal Styled */}

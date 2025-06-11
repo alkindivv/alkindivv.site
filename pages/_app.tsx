@@ -1,14 +1,44 @@
 import '@/styles/globals.css';
 import '@/styles/animations.css';
+import '@/styles/nprogress.css';
 
 import type { AppProps } from 'next/app';
 import Head from 'next/head';
 import GoogleAnalytics from '@/components/shared/GoogleAnalytics';
 import { useRouterLoading } from '@/lib/hooks/useRouterLoading';
+import { useEffect } from 'react';
+import NProgress from 'nprogress';
+import { EventEmitter } from 'events';
+
+// Meningkatkan batas MaxListeners untuk mencegah memory leak
+if (typeof EventEmitter !== 'undefined') {
+  // Meningkatkan batas default listener dari 10 menjadi 20
+  EventEmitter.defaultMaxListeners = 20;
+}
 
 function MyApp({ Component, pageProps }: AppProps) {
   // Global router loading - hanya 1x untuk seluruh app
   useRouterLoading();
+
+  // Memastikan NProgress terlihat di production
+  useEffect(() => {
+    // Force konfigurasi NProgress di client side
+    NProgress.configure({
+      showSpinner: false,
+      trickleSpeed: 200,
+      minimum: 0.08,
+      easing: 'ease',
+      speed: 400,
+    });
+
+    // Force membersihkan NProgress jika ada instance sebelumnya
+    NProgress.remove();
+
+    // Log untuk debugging
+    if (process.env.NODE_ENV === 'production') {
+      console.log('[NProgress] Initialized in _app.tsx');
+    }
+  }, []);
 
   return (
     <>
