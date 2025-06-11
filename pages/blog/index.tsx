@@ -348,10 +348,9 @@ const BlogPage: React.FC<BlogPageProps> = ({ blogPosts }) => {
                 <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-emerald-500/20 to-transparent"></div>
 
                 {/* Corner decorations */}
-                {/* <div className="absolute top-0 left-0 w-4 h-4 border-t border-l border-emerald-500/30"></div>
-                <div className="absolute top-0 right-0 w-4 h-4 border-t border-r border-emerald-500/30"></div>
+                {/* <div className="absolute top-0 right-0 w-4 h-4 border-t border-r border-emerald-500/30"></div>
                 <div className="absolute bottom-0 left-0 w-4 h-4 border-b border-l border-emerald-500/30"></div>
-                <div className="absolute bottom-0 right-0 w-4 h-4 border-b border-r border-emerald-500/30"></div> */}
+                <div className="absolute bottom-0 right-0 w-4 h-4 border-b border-r border-emerald-500/30"></div>  */}
 
                 {currentPosts.length > 0 ? (
                   <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2">

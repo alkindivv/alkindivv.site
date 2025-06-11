@@ -71,13 +71,13 @@ export default function Footer() {
     });
   };
   return (
-    <footer className="mt-20 bg-neutral-950">
+    <footer className="mt-20">
       {/* Top Border Gradient */}
       <div className="h-px bg-gradient-to-r from-transparent via-emerald-500/20  to-transparent" />
       {/* <div className="absolute top-0 left-0 right-0 h-0.5 bg-gradient-to-r from-transparent via-emerald-500/20 to-transparent" /> */}
 
-      <div className="mx-auto max-w-7xl">
-        <div className="mx-auto max-w-[1150px] px-0 py-16">
+      <div className="max-w-7xl mx-auto">
+        <div className=" px-0 py-16">
           <div className="grid grid-cols-1 md:grid-cols-[1.5fr,0.8fr,0.8fr,0.8fr,2fr] gap-12 md:gap-6">
             {/* Brand */}
             <div className="space-y-12 md:space-y-0">
@@ -89,8 +89,8 @@ export default function Footer() {
                 }
               >
                 <p className="text-sm text-neutral-500 max-w-[280px] mb-4">
-                  Specializing in corporate Mergers & Acquisitions (M&A),
-                  Capital Markets, Bankruptcy & Insolvency
+                  Focused on corporate Mergers & Acquisitions (M&A), Capital
+                  Markets, Commercial Disputes.
                 </p>
                 <div className="flex gap-4">
                   {socialLinks.map((social) => (

@@ -1,28 +1,14 @@
-/* ------------------------------- Style untuk blog index -------------------------------- */
+/* ------------------------------- Style untuk blog index --------------------------------
 .pageWrapper {
   min-height: calc(100vh - 8rem); /* Mengurangi tinggi header */
-  padding-top: 0rem;
+padding-top: 0rem; {
+
 }
+
 
 .container {
   margin-top: -1rem;
 }
-
-/* .title {
-  font-size: var(--font-size-4xl);
-  font-weight: var(--font-semibold);
-  background: var(--link-gradient);
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-  display: inline-block;
-} */
-
-/* .subtitle {
-  font-size: 1rem;
-  color: #bcc5d4;
-  margin-bottom: 1rem;
-} */
 
 .searchInput {
   width: 100%;
@@ -88,20 +74,6 @@
   align-items: center;
   margin-bottom: 1rem;
   margin-top: 3rem;
-}
-
-.languageButton {
-  background-color: transparent;
-  color: #bcc5d4;
-  padding: 0.5rem 1rem;
-  border-radius: 0.5rem;
-  border: 1px solid #555b64;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-
-.languageButton:hover {
-  background-color: #374151;
 }
 
 .sortContainer {
@@ -468,4 +440,4 @@
   .sortSelect {
     width: 100%;
   }
-}
+} */

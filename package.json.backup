@@ -14,7 +14,11 @@
     "perf": "npm run build && npm run start",
     "debug-prod": "NODE_ENV=production NODE_OPTIONS='--inspect' next dev",
     "prod-local": "npm run build && NODE_ENV=production DEBUG=* PORT=9999 next start",
-    "verbose": "NODE_OPTIONS='--trace-warnings' npm run build && NODE_ENV=production DEBUG=* PORT=9999 next start"
+    "verbose": "NODE_OPTIONS='--trace-warnings' npm run build && NODE_ENV=production DEBUG=* PORT=9999 next start",
+    "clean-js": "node analyze-js.js",
+    "clean-css": "node tailwind-optimize.js",
+    "clean-all": "npm run clean-js && npm run build && npm run clean-css",
+    "optimize": "node optimize-all.js"
   },
   "dependencies": {
     "@tailwindcss/typography": "^0.5.15",
@@ -54,11 +58,16 @@
     "@types/react": "^18",
     "@types/rss": "^0.0.32",
     "autoprefixer": "^10.4.14",
+    "depcheck": "^1.4.7",
     "eslint": "^8.57.0",
     "eslint-config-next": "14.1.0",
+    "glob": "^7.2.3",
+    "next-unused": "^0.0.6",
     "postcss": "^8.4.21",
     "prettier": "^3.3.3",
+    "purgecss": "^7.0.2",
     "tailwindcss": "^3.3.0",
+    "ts-unused-exports": "^11.0.1",
     "typescript": "^5"
   }
 }

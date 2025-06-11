@@ -105,12 +105,12 @@ const BooksPage = () => {
         />
 
         {/* Legal document corner decorations */}
-        <div className="absolute top-24 left-24 opacity-15">
+        {/* <div className="absolute top-24 left-24 opacity-15">
           <div className="w-40 h-40 border-t-2 border-l-2 border-emerald-500/40 rounded-tl-md"></div>
         </div>
         <div className="absolute bottom-24 right-24 opacity-15">
           <div className="w-40 h-40 border-b-2 border-r-2 border-emerald-500/40 rounded-br-md"></div>
-        </div>
+        </div> */}
       </div>
 
       {/* Content */}
@@ -165,10 +165,9 @@ const BooksPage = () => {
                 }}
               >
                 {/* Corner decorations - legal document style */}
-                <div className="absolute top-0 left-0 w-4 h-4 border-t border-l border-emerald-500/30"></div>
-                <div className="absolute top-0 right-0 w-4 h-4 border-t border-r border-emerald-500/30"></div>
+                {/* <div className="absolute top-0 right-0 w-4 h-4 border-t border-r border-emerald-500/30"></div>
                 <div className="absolute bottom-0 left-0 w-4 h-4 border-b border-l border-emerald-500/30"></div>
-                <div className="absolute bottom-0 right-0 w-4 h-4 border-b border-r border-emerald-500/30"></div>
+                <div className="absolute bottom-0 right-0 w-4 h-4 border-b border-r border-emerald-500/30"></div> */}
 
                 {/* Decorative top bar */}
                 <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-emerald-500/20 to-transparent"></div>

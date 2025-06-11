@@ -59,12 +59,12 @@ const AboutPage = () => {
         />
 
         {/* Legal document corner decorations */}
-        <div className="absolute top-24 left-24 opacity-15">
+        {/* <div className="absolute top-24 left-24 opacity-15">
           <div className="w-40 h-40 border-t-2 border-l-2 border-emerald-500/40 rounded-tl-md"></div>
         </div>
         <div className="absolute bottom-24 right-24 opacity-15">
           <div className="w-40 h-40 border-b-2 border-r-2 border-emerald-500/40 rounded-br-md"></div>
-        </div>
+        </div> */}
       </div>
 
       <main className="min-h-screen pt-40 relative z-10">
@@ -101,10 +101,9 @@ const AboutPage = () => {
             <div className="md:float-left md:w-[300px] lg:w-[400px] md:mr-8 mb-6 md:mb-0">
               <div className="relative w-full aspect-square rounded-2xl overflow-hidden shadow-xl transform hover:scale-[1.02] transition-transform duration-300 border border-emerald-900/20">
                 {/* Corner decorations - legal document style */}
-                {/* <div className="absolute top-0 left-0 w-4 h-4 border-t border-l border-emerald-500/30 z-10"></div>
-                <div className="absolute top-0 right-0 w-4 h-4 border-t border-r border-emerald-500/30 z-10"></div>
+                {/* <div className="absolute top-0 right-0 w-4 h-4 border-t border-r border-emerald-500/30 z-10"></div>
                 <div className="absolute bottom-0 left-0 w-4 h-4 border-b border-l border-emerald-500/30 z-10"></div>
-                <div className="absolute bottom-0 right-0 w-4 h-4 border-b border-r border-emerald-500/30 z-10"></div> */}
+                <div className="absolute bottom-0 right-0 w-4 h-4 border-b border-r border-emerald-500/30 z-10"></div>  */}
 
                 <Image
                   src="/images/AL-KINDI.png"
@@ -244,10 +243,9 @@ const AboutPage = () => {
               {/* Experience 1 - Legal Styled */}
               <div className="group relative backdrop-blur-md border border-emerald-900/10 rounded-xl overflow-hidden shadow-[0_0_30px_rgba(16,185,129,0.03)] pt-6">
                 {/* Corner decorations - legal document style */}
-                {/* <div className="absolute top-0 left-0 w-4 h-4 border-t border-l border-emerald-500/30"></div>
-                <div className="absolute top-0 right-0 w-4 h-4 border-t border-r border-emerald-500/30"></div>
+                {/* <div className="absolute top-0 right-0 w-4 h-4 border-t border-r border-emerald-500/30"></div>
                 <div className="absolute bottom-0 left-0 w-4 h-4 border-b border-l border-emerald-500/30"></div>
-                <div className="absolute bottom-0 right-0 w-4 h-4 border-b border-r border-emerald-500/30"></div> */}
+                <div className="absolute bottom-0 right-0 w-4 h-4 border-b border-r border-emerald-500/30"></div>  */}
 
                 {/* Decorative top bar */}
                 <div className="absolute top-0 left-0 right-0 h-0.5 bg-gradient-to-r from-transparent via-emerald-500/20 to-transparent"></div>
@@ -338,8 +336,7 @@ const AboutPage = () => {
               {/* Experience 2 - Legal Styled */}
               <div className="group relative backdrop-blur-md border border-emerald-900/10 rounded-xl overflow-hidden shadow-[0_0_30px_rgba(16,185,129,0.03)] pt-6">
                 {/* Corner decorations - legal document style */}
-                {/* <div className="absolute top-0 left-0 w-4 h-4 border-t border-l border-emerald-500/30"></div>
-                <div className="absolute top-0 right-0 w-4 h-4 border-t border-r border-emerald-500/30"></div>
+                {/* <div className="absolute top-0 right-0 w-4 h-4 border-t border-r border-emerald-500/30"></div>
                 <div className="absolute bottom-0 left-0 w-4 h-4 border-b border-l border-emerald-500/30"></div>
                 <div className="absolute bottom-0 right-0 w-4 h-4 border-b border-r border-emerald-500/30"></div> */}
 
@@ -432,7 +429,6 @@ const AboutPage = () => {
               {/* Experience 3 - Legal Styled */}
               <div className="group relative backdrop-blur-md border border-emerald-900/10 rounded-xl overflow-hidden shadow-[0_0_30px_rgba(16,185,129,0.03)] pt-6">
                 {/* Corner decorations - legal document style */}
-                <div className="absolute top-0 left-0 w-4 h-4 border-t border-l border-emerald-500/30"></div>
                 {/* <div className="absolute top-0 right-0 w-4 h-4 border-t border-r border-emerald-500/30"></div>
                 <div className="absolute bottom-0 left-0 w-4 h-4 border-b border-l border-emerald-500/30"></div>
                 <div className="absolute bottom-0 right-0 w-4 h-4 border-b border-r border-emerald-500/30"></div> */}

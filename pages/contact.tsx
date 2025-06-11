@@ -73,22 +73,22 @@ const ContactPage = () => {
         />
 
         {/* Legal paper texture */}
-        <div
+        {/* <div
           className="absolute inset-0 opacity-10 transition-opacity duration-1000 ease-in-out"
           style={{
             backgroundImage:
               'linear-gradient(0deg, rgba(16,185,129,0.08) 1px, transparent 1px)',
             backgroundSize: '100% 28px',
           }}
-        />
+        /> */}
 
         {/* Legal document corner decorations */}
-        <div className="absolute top-24 left-24 opacity-15">
+        {/* <div className="absolute top-24 left-24 opacity-15">
           <div className="w-40 h-40 border-t-2 border-l-2 border-emerald-500/40 rounded-tl-md"></div>
         </div>
         <div className="absolute bottom-24 right-24 opacity-15">
           <div className="w-40 h-40 border-b-2 border-r-2 border-emerald-500/40 rounded-br-md"></div>
-        </div>
+        </div> */}
       </div>
 
       {/* Hero Section */}
@@ -133,8 +133,7 @@ const ContactPage = () => {
           >
             <div className="">
               {/* Corner decorations - legal document style */}
-              {/* <div className="absolute top-0 left-0 w-4 h-4 border-t border-l border-emerald-500/30"></div>
-              <div className="absolute top-0 right-0 w-4 h-4 border-t border-r border-emerald-500/30"></div>
+              {/* <div className="absolute top-0 right-0 w-4 h-4 border-t border-r border-emerald-500/30"></div>
               <div className="absolute bottom-0 left-0 w-4 h-4 border-b border-l border-emerald-500/30"></div>
               <div className="absolute bottom-0 right-0 w-4 h-4 border-b border-r border-emerald-500/30"></div> */}
 
