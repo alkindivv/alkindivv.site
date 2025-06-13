@@ -1,3 +1,5 @@
+'use client';
+
 import React from 'react';
 import Image from 'next/image';
 import { format } from 'date-fns';
@@ -13,7 +15,7 @@ import { FaBitcoin } from 'react-icons/fa';
 import Link from 'next/link';
 import clsx from 'clsx';
 import { BlogPost } from '@/types/blog';
-import { useRouter } from 'next/router';
+import { useRouter } from 'next/navigation';
 import HighlightedText from '@/components/shared/HighlightedText';
 import { IoLogoBitcoin } from 'react-icons/io';
 
@@ -52,21 +54,11 @@ const BlogCard = ({
   priority = false,
 }: BlogCardProps) => {
   const router = useRouter();
+  const href = `/blog/${post.category.toLowerCase()}/${post.slug}`;
 
   const handleClick = async (e: React.MouseEvent) => {
     e.preventDefault();
-    const href = `/blog/${post.category.toLowerCase()}/${post.slug}`;
-
-    try {
-      await router.push(href);
-      // Reload hanya jika ini adalah related article untuk memperbarui views
-      if (isRelated) {
-        router.reload();
-      }
-    } catch (error) {
-      console.error('Failed to navigate:', error);
-      window.location.href = href;
-    }
+    router.push(href);
   };
 
   // Get the appropriate icon for this post's category
@@ -77,7 +69,7 @@ const BlogCard = ({
     return (
       <article className={clsx('relative h-full', className)}>
         <Link
-          href={`/blog/${post.category.toLowerCase()}/${post.slug}`}
+          href={href}
           className="group h-full flex flex-col relative overflow-hidden rounded-xl border border-neutral-800 hover:border-neutral-700 transition-all duration-300"
           onClick={handleClick}
         >
@@ -152,7 +144,7 @@ const BlogCard = ({
     return (
       <article className={clsx('h-full', className)}>
         <Link
-          href={`/blog/${post.category.toLowerCase()}/${post.slug}`}
+          href={href}
           className="group h-full flex gap-4 p-3 rounded-lg border border-neutral-800 hover:border-neutral-700 bg-black/20 hover:bg-black/40 transition-all duration-300"
           onClick={handleClick}
         >
@@ -193,7 +185,7 @@ const BlogCard = ({
     return (
       <article className={clsx('h-full', className)}>
         <Link
-          href={`/blog/${post.category.toLowerCase()}/${post.slug}`}
+          href={href}
           className="group flex flex-col p-4 rounded-lg hover:bg-neutral-900/30 transition-all duration-300"
           onClick={handleClick}
         >
@@ -217,7 +209,7 @@ const BlogCard = ({
   return (
     <article className={clsx('h-full', className)}>
       <Link
-        href={`/blog/${post.category.toLowerCase()}/${post.slug}`}
+        href={href}
         className="group h-full flex flex-col bg-transparent border border-neutral-800 hover:border-neutral-700 hover:shadow-md hover:shadow-emerald-900/5 rounded-lg transition-all duration-300 overflow-hidden relative"
         onClick={handleClick}
       >

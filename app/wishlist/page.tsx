@@ -1,0 +1,236 @@
+import React from 'react';
+import Layout from '@/components/layout/Layout';
+import Image from 'next/image';
+import { Metadata } from 'next';
+import { HiScale, HiOutlineHeart, HiOutlineCheck } from 'react-icons/hi';
+import clsx from 'clsx';
+
+export const metadata: Metadata = {
+  title: 'Wishlist | AL KINDI',
+  description:
+    'My personal wishlist of books, tools, and items I want to acquire for my legal practice and personal development.',
+  openGraph: {
+    title: 'Wishlist | AL KINDI',
+    description:
+      'My personal wishlist of books, tools, and items I want to acquire for my legal practice and personal development.',
+    type: 'website',
+  },
+};
+
+interface WishlistItem {
+  id: number;
+  title: string;
+  description: string;
+  date?: string;
+  imageUrl?: string;
+  completed: boolean;
+}
+
+const wishlistItems: WishlistItem[] = [
+  {
+    id: 1,
+    title: 'Complete Harvard Law School Online Course',
+    description:
+      'Finish the online certification course on International Business Law from Harvard Law School to enhance my knowledge in global legal frameworks.',
+    date: '2023-12-31',
+    imageUrl: '/images/harvard-law.jpg',
+    completed: false,
+  },
+  {
+    id: 2,
+    title: 'Acquire Complete Set of Indonesian Commercial Law Books',
+    description:
+      'Build a comprehensive collection of authoritative Indonesian commercial law references for my personal library and research.',
+    imageUrl: '/images/law-books.jpg',
+    completed: false,
+  },
+  {
+    id: 3,
+    title: 'Attend Legal Tech Conference',
+    description:
+      'Participate in a major legal technology conference to stay updated on the latest innovations in legal practice and network with industry leaders.',
+    date: '2023-10-15',
+    imageUrl: '/images/legal-tech.jpg',
+    completed: true,
+  },
+  {
+    id: 4,
+    title: 'Publish Legal Research Paper',
+    description:
+      'Complete and publish my research paper on the legal implications of blockchain technology in Indonesian capital markets.',
+    date: '2024-03-01',
+    completed: false,
+  },
+  {
+    id: 5,
+    title: 'Professional Legal Writing Course',
+    description:
+      'Enroll in an advanced legal writing course to improve drafting skills for contracts, legal opinions, and regulatory documents.',
+    completed: true,
+  },
+];
+
+function WishlistCard({
+  title,
+  description,
+  date,
+  imageUrl,
+  completed,
+}: WishlistItem) {
+  return (
+    <div className="group relative backdrop-blur-sm border border-neutral-800 rounded-xl overflow-hidden hover:border-emerald-500/30 transition-all duration-300 hover:shadow-[0_0_30px_rgba(16,185,129,0.05)]">
+      {/* Decorative top bar */}
+      <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-emerald-500/20 to-transparent"></div>
+
+      {/* Status indicator */}
+      <div className="absolute top-4 right-4 z-10">
+        <div
+          className={clsx(
+            'w-8 h-8 rounded-full flex items-center justify-center',
+            completed
+              ? 'bg-emerald-500/20 text-emerald-400'
+              : 'bg-neutral-800/80 text-neutral-400'
+          )}
+        >
+          {completed ? (
+            <HiOutlineCheck className="w-4 h-4" />
+          ) : (
+            <HiOutlineHeart className="w-4 h-4" />
+          )}
+        </div>
+      </div>
+
+      <div className="flex flex-col md:flex-row">
+        {/* Image (if available) */}
+        {imageUrl && (
+          <div className="md:w-1/3 h-[200px] md:h-auto relative">
+            <Image src={imageUrl} alt={title} fill className="object-cover" />
+          </div>
+        )}
+
+        {/* Content */}
+        <div
+          className={clsx(
+            'p-6 flex flex-col',
+            imageUrl ? 'md:w-2/3' : 'w-full'
+          )}
+        >
+          <h2 className="text-xl font-semibold text-white mb-2">{title}</h2>
+
+          {date && (
+            <p className="text-xs text-neutral-500 mb-3">
+              Target:{' '}
+              {new Date(date).toLocaleDateString('id-ID', {
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric',
+              })}
+            </p>
+          )}
+
+          <p className="text-neutral-400 text-sm flex-grow">{description}</p>
+
+          <div className="mt-4 pt-4 border-t border-neutral-800/50">
+            <span
+              className={clsx(
+                'text-xs font-medium px-2 py-1 rounded',
+                completed
+                  ? 'bg-emerald-900/30 text-emerald-400'
+                  : 'bg-neutral-800/50 text-neutral-400'
+              )}
+            >
+              {completed ? 'Completed' : 'Pending'}
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+export default function WishlistPage() {
+  return (
+    <Layout title="Wishlist | AL KINDI">
+      <div
+        className="absolute inset-0 overflow-hidden h-[450px] bg-neutral-950"
+        style={{
+          maskImage: 'linear-gradient(rgb(0, 0, 0) 80%, rgba(0, 0, 0, 0) 100%)',
+        }}
+      >
+        <div
+          aria-hidden="true"
+          className="h-[900px] w-[950px] rounded-full bg-gradient-to-r from-[#2E996C]/70 to-[#0F3324]/10 blur-[150px] absolute top-0 -translate-y-full rotate-45 origin-left z-[-2] left-[15%]"
+        />
+        <Image
+          alt=""
+          width={1280}
+          height={825}
+          className="pointer-events-none select-none absolute w-full inset-0 h-[450px] object-cover z-[-1] opacity-40 mix-blend-overlay"
+          src="/images/textures/crumpled-3.jpg"
+          priority
+        />
+
+        {/* Legal paper texture */}
+        <div
+          className="absolute inset-0 opacity-10 transition-opacity duration-1000 ease-in-out"
+          style={{
+            backgroundImage:
+              'linear-gradient(0deg, rgba(16,185,129,0.08) 1px, transparent 1px)',
+            backgroundSize: '100% 28px',
+          }}
+        />
+      </div>
+
+      {/* Content */}
+      <main className="min-h-screen pt-40 relative z-10">
+        <div className="max-w-6xl mx-auto">
+          {/* Header - Legal Styled */}
+          <div className="mb-12 max-w-2xl mx-auto" data-fade="1">
+            <h3 className="text-4xl md:text-5xl font-bold mb-4 text-center">
+              My <span className="gradient-text">Wishlist</span>
+            </h3>
+            <p className="text-neutral-400 leading-relaxed text-center">
+              Professional goals, resources, and items I hope to acquire
+            </p>
+
+            <div className="relative mt-5 top-0 left-0 right-0 h-0.5 bg-gradient-to-r from-transparent via-emerald-500/20 to-transparent"></div>
+          </div>
+
+          {/* Wishlist Grid */}
+          <div className="space-y-8 mb-12">
+            {wishlistItems.map((item) => (
+              <WishlistCard key={item.id} {...item} />
+            ))}
+          </div>
+
+          {/* Legal footer */}
+          <div className="mt-12 text-end text-[10px] text-neutral-500 font-mono">
+            WISHLIST-{new Date().getFullYear()}
+          </div>
+          <div className="mt-16 text-center relative">
+            {/* Law scale divider */}
+            <div className="flex items-center justify-center mb-6">
+              <div className="h-px w-16 bg-neutral-800"></div>
+              <div className="mx-4">
+                <HiScale className="w-8 h-8 text-emerald-500/30" />
+              </div>
+              <div className="h-px w-16 bg-neutral-800"></div>
+            </div>
+
+            <div className="flex items-center justify-center gap-2 text-xs text-neutral-500">
+              <HiScale className="w-4 h-4 text-emerald-500/50" />
+              <span>Personal Development Goals</span>
+            </div>
+
+            {/* Note */}
+            <p className="mt-4 text-[10px] text-neutral-600 max-w-lg mx-auto">
+              This wishlist represents my professional development goals and
+              resources I aim to acquire to enhance my legal expertise and
+              practice.
+            </p>
+          </div>
+        </div>
+      </main>
+    </Layout>
+  );
+}

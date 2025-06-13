@@ -27,6 +27,10 @@ const nextConfig = {
     scrollRestoration: true,
     optimizePackageImports: ['react-icons'],
     optimizeCss: true,
+    serverActions: {
+      bodySizeLimit: '2mb',
+    },
+    serverComponentsExternalPackages: ['rss'],
   },
   onDemandEntries: {
     maxInactiveAge: 25 * 1000,

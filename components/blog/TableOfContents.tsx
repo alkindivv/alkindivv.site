@@ -1,5 +1,8 @@
+'use client';
+
 import React, { useEffect, useState } from 'react';
-import { useRouter } from 'next/router';
+import { usePathname } from 'next/navigation';
+import { useTOCOptional } from './TOCContext';
 
 interface TOCHeading {
   id: string;
@@ -8,12 +11,17 @@ interface TOCHeading {
 }
 
 interface TableOfContentsProps {
-  headings: TOCHeading[];
+  headings?: TOCHeading[];
 }
 
-export default function TableOfContents({ headings }: TableOfContentsProps) {
-  const router = useRouter();
+export default function TableOfContents({
+  headings = [],
+}: TableOfContentsProps) {
+  const pathname = usePathname();
   const [activeId, setActiveId] = useState<string>('introduction');
+
+  const ctx = useTOCOptional();
+  const providedHeadings = headings.length ? headings : ctx?.headings || [];
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -36,7 +44,7 @@ export default function TableOfContents({ headings }: TableOfContentsProps) {
       observer.observe(introElement);
     }
 
-    headings.forEach((heading) => {
+    providedHeadings.forEach((heading) => {
       const element = document.getElementById(heading.id);
       if (element && (element.tagName === 'H2' || element.tagName === 'H3')) {
         observer.observe(element);
@@ -47,19 +55,19 @@ export default function TableOfContents({ headings }: TableOfContentsProps) {
       if (introElement) {
         observer.unobserve(introElement);
       }
-      headings.forEach((heading) => {
+      providedHeadings.forEach((heading) => {
         const element = document.getElementById(heading.id);
         if (element && (element.tagName === 'H2' || element.tagName === 'H3')) {
           observer.unobserve(element);
         }
       });
     };
-  }, [headings]);
+  }, [providedHeadings]);
 
   // Add Introduction to the headings list
   const allHeadings = [
     { id: 'introduction', title: 'Introduction', level: 2 },
-    ...headings,
+    ...providedHeadings,
   ];
 
   const handleClick = (e: React.MouseEvent<HTMLAnchorElement>, id: string) => {
@@ -68,7 +76,7 @@ export default function TableOfContents({ headings }: TableOfContentsProps) {
     if (element) {
       element.scrollIntoView({ behavior: 'smooth' });
       // Update URL without triggering navigation
-      window.history.pushState({}, '', `${router.asPath.split('#')[0]}#${id}`);
+      window.history.pushState({}, '', `${pathname.split('#')[0]}#${id}`);
     }
   };
 

@@ -1,6 +1,9 @@
+'use client';
+
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { useRouter } from 'next/router';
+import Image from 'next/image';
+import { usePathname } from 'next/navigation';
 import {
   HiNewspaper,
   HiUser,
@@ -41,11 +44,7 @@ export default function Header() {
   const [scrolled, setScrolled] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isMoreOpen, setIsMoreOpen] = useState(false);
-  const router = useRouter();
-
-  // Check if current page is an article page
-  const isArticlePage =
-    router.pathname.includes('/blog/') && router.pathname !== '/blog';
+  const pathname = usePathname();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -60,11 +59,6 @@ export default function Header() {
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, [isMenuOpen, isMoreOpen]);
-
-  // If it's an article page, don't render the header
-  if (isArticlePage) {
-    return null;
-  }
 
   const navItems: NavItem[] = [
     {
@@ -167,10 +161,11 @@ export default function Header() {
           {/* Logo - Legal styled */}
           <Link
             href="/"
+            prefetch={true}
             className="flex items-center gap-2 text-sm hover:text-emerald-400 transition-colors relative"
           >
             <div className="w-8 h-8 flex items-center justify-center text-emerald-400">
-              <img src="/images/logo.png" alt="Logo" className="w-7 h-7" />
+              <Image src="/images/logo.png" alt="Logo" width={28} height={28} />
             </div>
             {/* <div className="flex flex-col">
               <span className="text-[10px] text-neutral-500 font-sans">
@@ -192,7 +187,7 @@ export default function Header() {
                 dropdownItems: moreItems,
               } as NavItemWithDropdown,
             ].map((item: NavItem | NavItemWithDropdown, _index) => {
-              const isActive = router.pathname === item.href;
+              const isActive = pathname === item.href;
               const isMoreDropdown = 'isDropdown' in item && item.isDropdown;
 
               if (isMoreDropdown) {
@@ -241,6 +236,7 @@ export default function Header() {
                           <Link
                             key={dropdownItem.href}
                             href={dropdownItem.href}
+                            prefetch={true}
                             className="flex items-center gap-3 p-2.5 rounded-sm text-gray-400 hover:text-emerald-400 hover:bg-emerald-500/5 transition-all duration-300 border border-transparent hover:border-emerald-500/20"
                           >
                             <div className="w-8 h-8 flex items-center justify-center bg-emerald-500/10 rounded-sm">
@@ -273,6 +269,7 @@ export default function Header() {
                 <Link
                   key={item.href}
                   href={item.href}
+                  prefetch={true}
                   className={clsx(
                     'relative inline-flex items-center gap-1.5 px-3 py-2 rounded-sm',
                     'text-sm font-medium',
@@ -310,105 +307,62 @@ export default function Header() {
       </div>
 
       {/* Mobile Menu - Legal styled */}
-      <div
-        className={clsx(
-          'fixed inset-0 md:hidden z-40',
-          'transition-all duration-300',
-          isMenuOpen
-            ? 'opacity-100 pointer-events-auto'
-            : 'opacity-0 pointer-events-none'
-        )}
-      >
-        <div
-          className={clsx(
-            'absolute inset-0 bg-black/90 backdrop-blur-sm',
-            'transition-opacity duration-300',
-            isMenuOpen ? 'opacity-100' : 'opacity-0'
-          )}
-          onClick={() => setIsMenuOpen(false)}
-        />
-        <div
-          className={clsx(
-            'absolute top-20 inset-x-4',
-            'bg-[#0a0a0a] rounded-sm',
-            'border border-neutral-800/70',
-            'transform transition-all duration-300',
-            'shadow-xl shadow-emerald-500/[0.05]',
-            isMenuOpen ? 'scale-100 opacity-100' : 'scale-95 opacity-0'
-          )}
-        >
-          {/* Legal document styling */}
-          <div className="absolute top-0 left-0 right-0 h-0.5 bg-gradient-to-r from-transparent via-emerald-500/20 to-transparent"></div>
-          {/* <div className="absolute top-0 left-0 w-3 h-3 border-t border-l border-emerald-500/30"></div>
-          <div className="absolute top-0 right-0 w-3 h-3 border-t border-r border-emerald-500/30"></div>
-          <div className="absolute bottom-0 left-0 w-3 h-3 border-b border-l border-emerald-500/30"></div>
-          <div className="absolute bottom-0 right-0 w-3 h-3 border-b border-r border-emerald-500/30"></div> */}
-
-          <div className="p-2 relative">
-            <div className="text-xs text-center text-neutral-500 font-mono border-b border-neutral-800/50  py-1 mb-2">
-              NAVIGATION DOCUMENT
-            </div>
-
-            {navItems.map((item) => {
-              const isActive = router.pathname === item.href;
-              return (
+      {isMenuOpen && (
+        <div className="md:hidden absolute top-full left-0 w-full bg-black/90 border-t border-neutral-800/50 backdrop-blur-md">
+          <div className="container mx-auto px-4 py-2">
+            <div className="space-y-1">
+              {navItems.map((item) => (
                 <Link
                   key={item.href}
                   href={item.href}
+                  prefetch={true}
                   onClick={() => setIsMenuOpen(false)}
                   className={clsx(
-                    'flex items-center gap-3 p-3 rounded-sm',
-                    'transition-all duration-300 border',
-                    'hover:bg-emerald-500/5',
-                    'group',
-                    isActive
-                      ? 'text-emerald-400 bg-emerald-500/10 border-emerald-500/30'
-                      : 'text-gray-300 hover:text-emerald-400 border-transparent hover:border-emerald-500/20'
+                    'block px-3 py-2 rounded-sm',
+                    'transition-all duration-300',
+                    pathname === item.href
+                      ? 'text-emerald-400 bg-emerald-500/5'
+                      : 'text-gray-300 hover:text-emerald-400 hover:bg-emerald-500/5'
                   )}
                 >
-                  <div className="w-9 h-9 flex items-center justify-center bg-emerald-500/10 rounded-sm">
-                    <item.icon className="w-4.5 h-4.5" />
-                  </div>
-                  <div>
-                    <div className="font-medium text-sm">{item.label}</div>
-                    <p className="text-xs text-gray-500 group-hover:text-emerald-400/70">
-                      {item.description}
-                    </p>
+                  <div className="flex items-center gap-3">
+                    <item.icon className="w-5 h-5" />
+                    <span>{item.label}</span>
                   </div>
                 </Link>
-              );
-            })}
+              ))}
+            </div>
 
-            <div className="h-px bg-emerald-500/10 my-2" />
-
-            {moreItems.map((item) => (
-              <Link
-                key={item.href}
-                href={item.href}
-                onClick={() => setIsMenuOpen(false)}
-                className="flex items-center gap-3 p-3 rounded-sm text-gray-300 hover:text-emerald-400 hover:bg-emerald-500/5 transition-all duration-300 border border-transparent hover:border-emerald-500/20"
-              >
-                <div className="w-9 h-9 flex items-center justify-center bg-emerald-500/10 rounded-sm">
-                  <item.icon className="w-4.5 h-4.5" />
-                </div>
-                <div>
-                  <div className="font-medium text-sm">{item.label}</div>
-                  <p className="text-xs text-gray-500 group-hover:text-emerald-400/70">
-                    {item.description}
-                  </p>
-                </div>
-              </Link>
-            ))}
-
-            {/* Document footer */}
-            <div className="mt-4 pt-2 border-t border-neutral-800/30 text-center">
-              <div className="text-[10px] text-neutral-500 font-mono">
-                MENU-{new Date().getFullYear()}
+            <div className="mt-3 pt-3 border-t border-neutral-800/50">
+              <p className="text-xs text-neutral-500 uppercase font-medium tracking-wider mb-2">
+                More
+              </p>
+              <div className="space-y-1">
+                {moreItems.map((item) => (
+                  <Link
+                    key={item.href}
+                    href={item.href}
+                    prefetch={true}
+                    onClick={() => setIsMenuOpen(false)}
+                    className={clsx(
+                      'block px-3 py-2 rounded-sm',
+                      'transition-all duration-300',
+                      pathname === item.href
+                        ? 'text-emerald-400 bg-emerald-500/5'
+                        : 'text-gray-300 hover:text-emerald-400 hover:bg-emerald-500/5'
+                    )}
+                  >
+                    <div className="flex items-center gap-3">
+                      <item.icon className="w-5 h-5" />
+                      <span>{item.label}</span>
+                    </div>
+                  </Link>
+                ))}
               </div>
             </div>
           </div>
         </div>
-      </div>
+      )}
     </header>
   );
 }

@@ -1,3 +1,5 @@
+'use client';
+
 import React, { useState, useEffect } from 'react';
 import GlowingButton from '../shared/GlowingButton';
 import Link from 'next/link';

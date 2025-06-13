@@ -1,40 +1,18 @@
+'use client';
+
 import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { BlogPost } from '@/types/blog';
-import { HiOutlineClock, HiDocumentText, HiCalendar } from 'react-icons/hi';
-import { useRouter } from 'next/router';
+import { HiOutlineClock, HiCalendar } from 'react-icons/hi';
 
 // Komponen untuk setiap artikel
 const RelatedArticleCard = ({ post }: { post: BlogPost }) => {
-  const router = useRouter();
-
-  const handleClick = async (e: React.MouseEvent) => {
-    e.preventDefault();
-    const href = `/blog/${post.category.toLowerCase()}/${post.slug}`;
-
-    try {
-      await router.push(href);
-      router.reload();
-    } catch (error) {
-      console.error('Failed to navigate:', error);
-      window.location.href = href;
-    }
-  };
+  const href = `/blog/${post.category.toLowerCase()}/${post.slug}`;
 
   return (
-    <Link
-      href={`/blog/${post.category.toLowerCase()}/${post.slug}`}
-      className="group block"
-      onClick={handleClick}
-    >
+    <Link href={href} className="group block">
       <article className="flex flex-col gap-4 lg:flex-row-reverse lg:gap-6 lg:items-center py-3 border border-transparent hover:border-neutral-800/70 p-3 hover:bg-[#0a0a0a]/40 rounded-sm transition-all relative">
-        {/* Dekorasi sudut dokumen pada hover */}
-        {/* <div className="absolute top-0 left-0 w-3 h-3 border-t border-l border-emerald-500/0 group-hover:border-emerald-500/30 transition-colors"></div>
-        <div className="absolute top-0 right-0 w-3 h-3 border-t border-r border-emerald-500/0 group-hover:border-emerald-500/30 transition-colors"></div>
-        <div className="absolute bottom-0 left-0 w-3 h-3 border-b border-l border-emerald-500/0 group-hover:border-emerald-500/30 transition-colors"></div>
-        <div className="absolute bottom-0 right-0 w-3 h-3 border-b border-r border-emerald-500/0 group-hover:border-emerald-500/30 transition-colors"></div> */}
-
         {/* Garis dokumen header pada hover */}
         <div className="absolute top-0 left-3 right-3 h-0.5 bg-gradient-to-r from-transparent via-emerald-500/0 group-hover:via-emerald-500/20 to-transparent transition-colors"></div>
 
@@ -100,14 +78,14 @@ const RelatedArticleCard = ({ post }: { post: BlogPost }) => {
   );
 };
 
-interface RelatedArticlesProps {
+export interface RelatedArticlesProps {
   currentPost: BlogPost;
-  allPosts: BlogPost[];
+  posts: BlogPost[];
 }
 
-const RelatedArticles = ({ currentPost, allPosts }: RelatedArticlesProps) => {
+const RelatedArticles = ({ currentPost, posts }: RelatedArticlesProps) => {
   // Filter related posts based on tags and category
-  const relatedPosts = allPosts
+  const relatedPosts = posts
     .filter((post) => {
       if (post.slug === currentPost.slug) return false;
 
@@ -129,10 +107,6 @@ const RelatedArticles = ({ currentPost, allPosts }: RelatedArticlesProps) => {
       ))}
       {relatedPosts.length === 0 && (
         <div className="text-gray-400 text-center py-8 border border-neutral-800/40 rounded-sm p-6 relative">
-          {/* <div className="absolute top-0 left-0 w-3 h-3 border-t border-l border-emerald-500/30"></div>
-          <div className="absolute top-0 right-0 w-3 h-3 border-t border-r border-emerald-500/30"></div>
-          <div className="absolute bottom-0 left-0 w-3 h-3 border-b border-l border-emerald-500/30"></div>
-          <div className="absolute bottom-0 right-0 w-3 h-3 border-b border-r border-emerald-500/30"></div> */}
           <p className="font-mono">No related articles found.</p>
         </div>
       )}

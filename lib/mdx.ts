@@ -7,6 +7,7 @@ import path from 'path';
 import readingTime from 'reading-time';
 import matter from 'gray-matter';
 import { promises as FSPromises } from 'fs';
+import GithubSlugger from 'github-slugger';
 
 // Import fs dengan tipe yang benar
 let fs: typeof FSPromises;
@@ -148,6 +149,18 @@ export async function getPostBySlug(category: string, slug: string) {
     const fileContents = await fs!.readFile(fullPath, 'utf8');
     const { data: frontMatter, content } = matter(fileContents);
 
+    // Extract headings (## or ###) for TOC
+    const slugger = new GithubSlugger();
+    const headingRegex = /^(##|###)\s+(.+)$/gm;
+    const headings: Array<{ id: string; title: string; level: number }> = [];
+    let match;
+    while ((match = headingRegex.exec(content)) !== null) {
+      const level = match[1] === '##' ? 2 : 3;
+      const raw = match[2].trim();
+      const id = slugger.slug(raw);
+      headings.push({ id, title: raw, level });
+    }
+
     const mdxSource = await serialize(content, {
       mdxOptions: {
         remarkPlugins: [remarkGfm],
@@ -184,6 +197,7 @@ export async function getPostBySlug(category: string, slug: string) {
         slug,
       },
       mdxSource,
+      headings,
     };
   } catch (error) {
     console.error(`Error in getPostBySlug for ${category}/${slug}:`, error);

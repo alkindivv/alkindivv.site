@@ -1,0 +1,24 @@
+{
+  "ci": {
+    "collect": {
+      "numberOfRuns": 3,
+      "startServerCommand": "pnpm start",
+      "startServerReadyPattern": "Local:",
+      "url": [
+        "http://localhost:9999/",
+        "http://localhost:9999/blog",
+        "http://localhost:9999/about"
+      ]
+    },
+    "upload": {
+      "target": "filesystem",
+      "outputDir": ".lighthouseci"
+    },
+    "assert": {
+      "assertions": {
+        "categories:performance": ["warn", { "minScore": 0.9 }],
+        "categories:seo": ["error", { "minScore": 1 }]
+      }
+    }
+  }
+}

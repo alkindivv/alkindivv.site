@@ -1,5 +1,7 @@
+'use client';
+
 import React, { useEffect, useState } from 'react';
-import { useRouter } from 'next/router';
+import { usePathname } from 'next/navigation';
 
 interface WebVitals {
   fcp?: number;
@@ -16,7 +18,7 @@ interface PerformanceMonitorProps {
 const PerformanceMonitor: React.FC<PerformanceMonitorProps> = ({
   enabled = process.env.NODE_ENV === 'development',
 }) => {
-  const router = useRouter();
+  const pathname = usePathname();
   const [vitals, setVitals] = useState<WebVitals>({});
   const [isVisible, setIsVisible] = useState(false);
 
@@ -134,9 +136,7 @@ const PerformanceMonitor: React.FC<PerformanceMonitorProps> = ({
           <div className="space-y-3">
             <div className="flex items-center justify-between">
               <h3 className="text-sm font-medium text-white">Web Vitals</h3>
-              <span className="text-xs text-neutral-400">
-                {router.pathname}
-              </span>
+              <span className="text-xs text-neutral-400">{pathname}</span>
             </div>
 
             <div className="space-y-2">

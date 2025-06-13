@@ -1,17 +1,39 @@
-import type { Metadata } from 'next';
 import './globals.css';
-import StructuredData from '@/components/shared/StructuredData';
+import './animations.css';
+import './nprogress.css';
 
-const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://alkindivv.site';
+import 'nprogress/nprogress.css';
+import type { Metadata, Viewport } from 'next';
+import { Inter } from 'next/font/google';
+import GoogleAnalytics from '@/components/shared/GoogleAnalytics';
+import { EventEmitter } from 'events';
+import Script from 'next/script';
+import NavigationEvents from '@/components/shared/NavigationEvents';
+import LoadingOverlay from '@/components/layout/LoadingOverlay';
+
+// Increase MaxListeners limit to prevent memory leaks
+if (typeof EventEmitter !== 'undefined') {
+  EventEmitter.defaultMaxListeners = 20;
+}
+
+// Define viewport export
+// export const viewport: Viewport = {
+//   themeColor: '#111111',
+// };
+
+// Load Google Inter font (swap, preload)
+const inter = Inter({ subsets: ['latin'], display: 'swap', preload: true });
 
 export const metadata: Metadata = {
-  metadataBase: new URL(baseUrl),
   title: {
-    default: 'AL KINDI - Law, Technology & Blockchain Expert',
+    default: 'AL KINDI - Law, Technology, and Cryptocurrency',
     template: '%s | AL KINDI',
   },
   description:
-    'Personal website of AL KINDI - A professional with expertise in Corporate Law, Technology, and Blockchain. Sharing insights on Mergers & Acquisitions, Capital Markets, and Cryptocurrency.',
+    'AL KINDI – Insights on corporate law, technology, blockchain, M&A, and capital markets.',
+  metadataBase: new URL(
+    process.env.NEXT_PUBLIC_BASE_URL || 'https://alkindivv.site'
+  ),
   keywords: [
     // Primary Keywords
     'AL KINDI',
@@ -65,52 +87,146 @@ export const metadata: Metadata = {
     },
   },
   openGraph: {
-    type: 'website',
-    locale: 'id_ID',
-    alternateLocale: 'en_US',
+    title: 'AL KINDI - Law, Technology, and Cryptocurrency',
+    description:
+      'AL KINDI - Exploring the future of legal technology focus on corporate, bankruptcy and capital markets',
     url: 'https://alkindivv.site',
     siteName: 'AL KINDI',
-    title: 'AL KINDI - Law, Technology & Blockchain Expert',
-    description:
-      'Personal website of AL KINDI - A professional with expertise in Corporate Law, Technology, and Blockchain. Sharing insights on Mergers & Acquisitions, Capital Markets, and Cryptocurrency.',
     images: [
       {
-        url: '/og-image.png',
+        url: '/images/default.png',
         width: 1200,
         height: 630,
-        alt: 'AL KINDI - Law, Technology & Blockchain Expert',
+        alt: 'AL KINDI - Law, Technology, and Cryptocurrency',
       },
     ],
+    locale: 'en_US',
+    type: 'website',
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'AL KINDI - Law, Technology & Blockchain Expert',
+    title: 'AL KINDI - Law, Technology, and Cryptocurrency',
     description:
-      'Personal website of AL KINDI - A professional with expertise in Corporate Law, Technology, and Blockchain. Sharing insights on Mergers & Acquisitions, Capital Markets, and Cryptocurrency.',
-    creator: '@alkindivv',
-    images: ['/og-image.png'],
+      'AL KINDI - Exploring the future of legal technology focus on corporate, bankruptcy and capital markets',
+    images: ['/images/default.png'],
   },
-  verification: {
-    google: 'tLWZliQliSbsSXo5T_8Q2d2d5RRHTau1da3C5lt3pN8',
-    yandex: 'your-yandex-verification-code',
-    yahoo: 'your-yahoo-verification-code',
+  icons: {
+    icon: '/favicon.ico',
+    shortcut: '/favicon-16x16.png',
+    apple: '/apple-touch-icon.png',
   },
-  alternates: {
-    canonical: 'https://alkindivv.site',
-    languages: {
-      'id-ID': 'https://alkindivv.site',
-      'en-US': 'https://alkindivv.site/en',
-    },
-  },
-  category: 'Legal Technology',
+  manifest: '/site.webmanifest',
   other: {
     'geo.region': 'ID',
     'geo.placename': 'Indonesia',
     'dc.language': 'id',
-    'article:author': 'AL KINDI',
-    'article:publisher': 'https://alkindivv.site',
+    'content-language': 'id',
+    'google-site-verification': 'tLWZliQliSbsSXo5T_8Q2d2d5RRHTau1da3C5lt3pN8',
   },
+  alternates: {
+    canonical: '/',
+    types: {
+      'application/rss+xml': '/feed.xml',
+      'application/atom+xml': '/atom.xml',
+    },
+  },
+  category: 'Legal Technology',
 };
+
+// Generate default JSON-LD schema
+function generateDefaultSchema() {
+  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://alkindivv.site';
+
+  return {
+    '@context': 'https://schema.org',
+    '@graph': [
+      // Website Schema
+      {
+        '@type': 'WebSite',
+        '@id': `${baseUrl}/#website`,
+        url: baseUrl,
+        name: 'AL KINDI',
+        description:
+          'AL KINDI - Exploring the future of legal technology focus on corporate, bankruptcy and capital markets',
+        publisher: {
+          '@id': `${baseUrl}/#person`,
+        },
+        potentialAction: [
+          {
+            '@type': 'SearchAction',
+            target: {
+              '@type': 'EntryPoint',
+              urlTemplate: `${baseUrl}/blog?search={search_term_string}`,
+            },
+            'query-input': 'required name=search_term_string',
+          },
+        ],
+        inLanguage: 'id-ID',
+      },
+      // Person/Author Schema
+      {
+        '@type': 'Person',
+        '@id': `${baseUrl}/#person`,
+        name: 'AL KINDI',
+        image: {
+          '@type': 'ImageObject',
+          '@id': `${baseUrl}/#personlogo`,
+          inLanguage: 'id-ID',
+          url: `${baseUrl}/images/AL-KINDI.png`,
+          contentUrl: `${baseUrl}/images/AL-KINDI.png`,
+          width: 400,
+          height: 400,
+          caption: 'AL KINDI',
+        },
+        description:
+          'Legal professional specializing in corporate law, capital markets, M&A, bankruptcy, and cryptocurrency regulations',
+        sameAs: [
+          'https://twitter.com/alkindivv',
+          'https://linkedin.com/in/alkindivv',
+          'https://github.com/alkindivv',
+        ],
+        url: baseUrl,
+        jobTitle: 'Trainee Associate',
+        worksFor: {
+          '@type': 'Organization',
+          name: 'Law Firm',
+        },
+        knowsAbout: [
+          'Corporate Law',
+          'Capital Markets',
+          'Mergers and Acquisitions',
+          'Bankruptcy Law',
+          'Cryptocurrency Regulations',
+          'Legal Technology',
+        ],
+      },
+      // Organization Schema
+      {
+        '@type': 'Organization',
+        '@id': `${baseUrl}/#organization`,
+        name: 'AL KINDI',
+        url: baseUrl,
+        logo: {
+          '@type': 'ImageObject',
+          inLanguage: 'id-ID',
+          '@id': `${baseUrl}/#logo`,
+          url: `${baseUrl}/images/default.png`,
+          contentUrl: `${baseUrl}/images/default.png`,
+          width: 1200,
+          height: 630,
+          caption: 'AL KINDI',
+        },
+        image: {
+          '@id': `${baseUrl}/#logo`,
+        },
+        sameAs: [
+          'https://twitter.com/alkindivv',
+          'https://linkedin.com/in/alkindivv',
+        ],
+      },
+    ],
+  };
+}
 
 export default function RootLayout({
   children,
@@ -120,11 +236,7 @@ export default function RootLayout({
   return (
     <html lang="id">
       <head>
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <meta name="geo.region" content="ID" />
-        <meta name="geo.placename" content="Indonesia" />
-        <meta name="dc.language" content="id" />
-        <meta httpEquiv="content-language" content="id" />
+        <meta charSet="utf-8" />
         <meta name="format-detection" content="telephone=no" />
         <meta name="mobile-web-app-capable" content="yes" />
         <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -133,16 +245,12 @@ export default function RootLayout({
           content="black-translucent"
         />
 
-        {/* Preconnect to external domains */}
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link
-          rel="preconnect"
-          href="https://fonts.gstatic.com"
-          crossOrigin="anonymous"
-        />
+        {/* Preconnect untuk performance */}
         <link rel="preconnect" href="https://images.unsplash.com" />
 
         {/* DNS Prefetch */}
+        <link rel="dns-prefetch" href="//fonts.googleapis.com" />
+        <link rel="dns-prefetch" href="//fonts.gstatic.com" />
         <link rel="dns-prefetch" href="//www.google-analytics.com" />
         <link rel="dns-prefetch" href="//www.googletagmanager.com" />
 
@@ -153,73 +261,31 @@ export default function RootLayout({
           as="image"
           type="image/png"
         />
-        <link
-          rel="preload"
-          href="/fonts/inter-var.woff2"
-          as="font"
-          type="font/woff2"
-          crossOrigin="anonymous"
-        />
 
-        {/* Critical CSS inline */}
-        <style
+        {/* JSON-LD Schema */}
+        <script
+          type="application/ld+json"
           dangerouslySetInnerHTML={{
-            __html: `
-            body {
-              background: #000000;
-              color: #ffffff;
-              font-family: ui-sans-serif, system-ui, sans-serif;
-            }
-            .gradient-text {
-              background: linear-gradient(135deg, #10b981, #34d399);
-              -webkit-background-clip: text;
-              -webkit-text-fill-color: transparent;
-              background-clip: text;
-            }
-          `,
+            __html: JSON.stringify(generateDefaultSchema()),
           }}
         />
-
-        <link rel="icon" href="/favicon.ico" />
-        <link
-          rel="apple-touch-icon"
-          sizes="180x180"
-          href="/apple-touch-icon.png"
-        />
-        <link
-          rel="icon"
-          type="image/png"
-          sizes="32x32"
-          href="/favicon-32x32.png"
-        />
-        <link
-          rel="icon"
-          type="image/png"
-          sizes="16x16"
-          href="/favicon-16x16.png"
-        />
-        <link rel="manifest" href="/site.webmanifest" />
-        <link
-          rel="alternate"
-          type="application/rss+xml"
-          title="AL KINDI Blog RSS Feed"
-          href="/feed.xml"
-        />
-        <link
-          rel="alternate"
-          type="application/atom+xml"
-          title="AL KINDI Blog Atom Feed"
-          href="/atom.xml"
-        />
-        <meta name="theme-color" content="#111111" />
-        <meta name="msapplication-TileColor" content="#111111" />
-
-        {/* Structured Data */}
-        <StructuredData type="website" />
-        <StructuredData type="person" />
-        <StructuredData type="organization" />
       </head>
-      <body className="bg-black text-white">{children}</body>
+      <body className={`${inter.className} text-white`}>
+        <a
+          href="#content"
+          className="skip-link sr-only focus:not-sr-only absolute top-0 left-0 m-2 bg-emerald-600 text-white px-4 py-2 rounded z-50"
+        >
+          Skip to content
+        </a>
+        <LoadingOverlay />
+        {/* Google Analytics */}
+        <GoogleAnalytics />
+
+        {/* Komponen untuk mendeteksi navigasi dan memicu NProgress */}
+        <NavigationEvents />
+
+        <main>{children}</main>
+      </body>
     </html>
   );
 }

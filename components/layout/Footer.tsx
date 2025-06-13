@@ -64,12 +64,6 @@ function FooterSection({
 }
 
 export default function Footer() {
-  const scrollToTop = () => {
-    window.scrollTo({
-      top: 0,
-      behavior: 'smooth',
-    });
-  };
   return (
     <footer className="mt-20">
       {/* Top Border Gradient */}
@@ -223,13 +217,13 @@ export default function Footer() {
 
             {/* Arrow di kanan */}
             <div className="absolute right-6 top-1/2 -translate-y-1/2">
-              <button
-                onClick={scrollToTop}
+              <a
+                href="#top"
                 className="group p-2 border border-neutral-800 rounded-full hover:border-neutral-600 transition-colors duration-300"
                 aria-label="Scroll to top"
               >
                 <FiArrowUp className="w-2 h-2 md:w-5 md:h-5 text-neutral-400 group-hover:text-white transition-colors duration-300" />
-              </button>
+              </a>
             </div>
           </div>
         </div>
