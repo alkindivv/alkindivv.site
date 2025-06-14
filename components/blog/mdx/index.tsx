@@ -2,10 +2,9 @@ import React from 'react';
 import Image from 'next/image';
 import clsx from 'clsx';
 import DimensionLink from '@/components/common/DimensionLink';
-
 import Accent from '@/components/shared/Accent';
 
-// Typography Components
+/* -------------------------- Tipografi Komponen -------------------------- */
 interface TypographyProps {
   children: React.ReactNode;
   className?: string;
@@ -40,6 +39,7 @@ export const H2 = ({
     {children}
   </h2>
 );
+
 export const H3 = ({
   id,
   children,
@@ -136,6 +136,7 @@ export const Introduction = ({
   </section>
 );
 
+/* -------------------------- Code Block -------------------------- */
 export const CodeBlock = ({
   children,
   className = '',
@@ -148,14 +149,11 @@ export const CodeBlock = ({
   const language = className?.replace('language-', '');
   const [isCopied, setIsCopied] = React.useState(false);
 
-  const getTextContent = (children: React.ReactNode): string => {
-    if (typeof children === 'string') return children;
-    if (Array.isArray(children)) {
-      return children.map((child) => getTextContent(child)).join('');
-    }
-    if (children && typeof children === 'object' && 'props' in children) {
-      return getTextContent(children.props.children);
-    }
+  const getTextContent = (node: React.ReactNode): string => {
+    if (typeof node === 'string') return node;
+    if (Array.isArray(node)) return node.map(getTextContent).join('');
+    if (node && typeof node === 'object' && 'props' in node)
+      return getTextContent((node as any).props.children);
     return '';
   };
 
@@ -235,30 +233,16 @@ export const InlineCode = ({ children }: { children: React.ReactNode }) => (
   </code>
 );
 
-// MDX Components
+/* ------------------------- MDX Components Map ------------------------- */
 export const MDXComponents = {
-  h1: ({ children, ...props }: TypographyProps) => (
-    <H1 {...props}>{children}</H1>
-  ),
-  h2: ({ children, ...props }: TypographyProps) => (
-    <H2 {...props}>{children}</H2>
-  ),
-  h3: ({ children, ...props }: TypographyProps) => (
-    <H3 {...props}>{children}</H3>
-  ),
-  p: ({ children, ...props }: TypographyProps) => <P {...props}>{children}</P>,
-  blockquote: ({ children, ...props }: TypographyProps) => (
-    <BlockQuote {...props}>{children}</BlockQuote>
-  ),
-  ul: ({ children, ...props }: TypographyProps) => (
-    <UL {...props}>{children}</UL>
-  ),
-  ol: ({ children, ...props }: TypographyProps) => (
-    <OL {...props}>{children}</OL>
-  ),
-  li: ({ children, ...props }: TypographyProps & { ordered?: boolean }) => (
-    <LI {...props}> {children}</LI>
-  ),
+  h1: H1,
+  h2: H2,
+  h3: H3,
+  p: P,
+  blockquote: BlockQuote,
+  ul: UL,
+  ol: OL,
+  li: LI,
   a: ({ href = '#', children, ...props }: TypographyProps) => (
     <DimensionLink href={href} {...props}>
       {children}
@@ -274,7 +258,7 @@ export const MDXComponents = {
       {children}
     </strong>
   ),
-  Image: ({ src, alt, width: _width, height: _height, ...props }: any) => (
+  Image: ({ src, alt, ...props }: any) => (
     <div className="relative w-full aspect-[1.88/1] mb-12 -mt-10 md:mb-12 md:-mt-14 group cursor-zoom-in">
       <div className="absolute inset-0">
         <Image
@@ -298,17 +282,8 @@ export const MDXComponents = {
       {children}
     </DimensionLink>
   ),
-  Introduction: ({ children, className, ...props }: TypographyProps) => (
-    <Introduction className={className} {...props}>
-      {children}
-    </Introduction>
-  ),
-  pre: ({ children, ...props }: { children: React.ReactNode }) => {
-    if (typeof children === 'object' && children && 'type' in children) {
-      return children;
-    }
-    return <pre {...props}>{children}</pre>;
-  },
+  Introduction,
+  pre: ({ children }: { children: React.ReactNode }) => children,
   code: CodeBlock,
   inlineCode: InlineCode,
 };

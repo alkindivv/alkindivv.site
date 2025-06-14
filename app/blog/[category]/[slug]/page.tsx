@@ -5,10 +5,10 @@ import { notFound } from 'next/navigation';
 import { getPostBySlug, getAllPostSlugs, getAllPosts } from '@/lib/mdx';
 import Layout from '@/components/layout/Layout';
 import { BlogPost } from '@/types/blog';
-import { BlogPostContent } from './components';
+import BlogPostLayout from '@/components/blog/layout/BlogPostLayout';
 import { viewport } from '../../../viewport';
 import StructuredData from '@/components/shared/StructuredData';
-import { MDXComponents } from '@/components/blog/BlogContent';
+import { MDXComponents } from '@/components/blog/mdx';
 
 export { viewport };
 
@@ -146,15 +146,15 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
             <div className="relative h-[20vh] md:h-[25vh] w-full bg-gradient-to-b from-[#0a0a0a]/60 to-[#0a0a0a] -mx-[calc((100vw-100%)/2)]" />
           )}
 
-          <BlogPostContent
-            typedFrontMatter={typedFrontMatter}
+          <BlogPostLayout
+            meta={typedFrontMatter}
             category={category}
             slug={slug}
             allPosts={allPosts}
             headings={headings}
           >
             <PostComponent components={MDXComponents as any} />
-          </BlogPostContent>
+          </BlogPostLayout>
           <StructuredData type="article" post={typedFrontMatter as any} />
         </main>
       </Layout>

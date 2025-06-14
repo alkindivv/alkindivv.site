@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState } from 'react';
 import { usePathname } from 'next/navigation';
-import { useTOCOptional } from './TOCContext';
+// import { useTOCOptional } from './TOCContext';
 
 interface TOCHeading {
   id: string;
@@ -20,8 +20,9 @@ export default function TableOfContents({
   const pathname = usePathname();
   const [activeId, setActiveId] = useState<string>('introduction');
 
-  const ctx = useTOCOptional();
-  const providedHeadings = headings.length ? headings : ctx?.headings || [];
+  // const ctx = useTOCOptional();
+  // const providedHeadings = headings.length ? headings : ctx?.headings || [];
+  const providedHeadings = headings;
 
   useEffect(() => {
     const observer = new IntersectionObserver(
