@@ -3,15 +3,7 @@
 import React, { useEffect, useState } from 'react';
 import GlowingButton from '../shared/GlowingButton';
 import Link from 'next/link';
-import {
-  FiArrowRight,
-  FiUser,
-  FiCode,
-  FiBookOpen,
-  FiFileText,
-  FiBriefcase,
-  FiLayers,
-} from 'react-icons/fi';
+
 import { HiLibrary, HiScale, HiDocumentText } from 'react-icons/hi';
 import OptimizedImage from '../shared/OptimizedImage';
 import AccentNormal from '../shared/AccentNormal';
@@ -153,13 +145,13 @@ const AboutPreview = () => {
               transitionDelay: '400ms',
             }}
           >
-            <HiLibrary className="text-emerald-400 w-5 h-5" />
-            <h2 className="text-sm uppercase tracking-wider text-neutral-400 font-medium">
-              About Me
+            {/* <HiLibrary className="text-emerald-400 w-5 h-5" /> */}
+            <h2 className="text-sm  uppercase tracking-wider text-neutral-500 font-medium">
+              BACKROUND
             </h2>
           </div>
           <h3
-            className="text-3xl mb-4 font-bold"
+            className="text-3xl md:text-5xl mb-4 font-bold"
             style={{
               opacity: isVisible ? 1 : 0,
               transform: isVisible ? 'translateY(0)' : 'translateY(10px)',
@@ -378,12 +370,12 @@ const AboutPreview = () => {
                   transitionDelay: '1600ms',
                 }}
               >
-                <div className="text-center">
+                {/* <div className="text-center">
                   <div className="text-xs text-emerald-400 font-medium">
                     PRE-QUALIFIED
                   </div>
                   <div className="text-[10px] text-neutral-500">LAWYER</div>
-                </div>
+                </div> */}
               </div>
             </div>
           </div>

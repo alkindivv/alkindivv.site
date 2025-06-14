@@ -247,13 +247,13 @@ const ResourcesPreview = ({ resources }: ResourcesPreviewProps) => {
               transitionDelay: '400ms',
             }}
           >
-            <FiFileText className="text-emerald-400 w-5 h-5" />
+            {/* <FiFileText className="text-emerald-400 w-5 h-5" />
             <h2 className="text-sm uppercase tracking-wider text-neutral-400 font-medium">
               Resources
-            </h2>
+            </h2> */}
           </div>
           <h3
-            className="text-3xl font-bold mb-4"
+            className="text-3xl md:text-5xl font-bold mb-4"
             style={{
               opacity: isVisible ? 1 : 0,
               transform: isVisible ? 'translateY(0)' : 'translateY(10px)',
@@ -261,7 +261,7 @@ const ResourcesPreview = ({ resources }: ResourcesPreviewProps) => {
               transitionDelay: '500ms',
             }}
           >
-            <span className="gradient-text">Legal Resources</span> & Templates
+            Resources &<span className="gradient-text">Templates</span>
           </h3>
           <p
             className="text-neutral-400 leading-relaxed"

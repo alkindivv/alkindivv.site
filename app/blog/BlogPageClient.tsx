@@ -4,7 +4,7 @@ import React, { useState, useEffect } from 'react';
 import { useRouter, usePathname } from 'next/navigation';
 import Layout from '@/components/layout/Layout';
 import BlogCard from '@/components/blog/BlogCard';
-
+import Breadcrumb from '@/components/shared/Breadcrumb';
 import {
   HiChevronLeft,
   HiChevronRight,
@@ -121,6 +121,7 @@ export default function BlogPageClient({
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
+  const breadcrumbItems = [{ label: 'Blog' }];
   return (
     <Layout>
       {/* Optimized Background Effect */}
@@ -146,13 +147,18 @@ export default function BlogPageClient({
 
       <main className="content-spacing relative overflow-hidden">
         {/* Content - Immediate Load */}
+
         <section className="min-h-screen pt-40 relative z-10">
+          <div className=" mb-4">
+            <Breadcrumb items={breadcrumbItems} />
+          </div>
           <div className="max-w-6xl mx-auto">
             {/* Header Section - Matching LatestBlogPosts Style */}
             <div className="mb-12 max-w-2xl mx-auto" data-fade="1">
               <h3 className="text-4xl md:text-5xl font-bold mb-4 text-center">
                 Thoughts & <span className="gradient-text">Articles</span>
               </h3>
+
               <p className="text-neutral-400 leading-relaxed text-center">
                 Thought, Opinion, and Insights about Law, Technology, and
                 Cryptocurrency

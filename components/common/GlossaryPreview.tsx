@@ -235,13 +235,13 @@ const GlossaryPreview = ({ items = [] }: GlossaryPreviewProps) => {
               transitionDelay: '400ms',
             }}
           >
-            <HiBookOpen className="text-emerald-400 w-5 h-5" />
+            {/* <HiBookOpen className="text-emerald-400 w-5 h-5" />
             <h2 className="text-sm uppercase tracking-wider text-neutral-400 font-medium">
               Legal Glossary
-            </h2>
+            </h2> */}
           </div>
           <h3
-            className="text-3xl font-bold mb-4"
+            className="text-3xl md:text-5xl font-bold mb-4"
             style={{
               opacity: isVisible ? 1 : 0,
               transform: isVisible ? 'translateY(0)' : 'translateY(10px)',
@@ -249,7 +249,7 @@ const GlossaryPreview = ({ items = [] }: GlossaryPreviewProps) => {
               transitionDelay: '500ms',
             }}
           >
-            <span className="gradient-text">Legal Terminology</span> Dictionary
+            Legal<span className="gradient-text"> Dictionary</span>
           </h3>
           <p
             className="text-neutral-400 leading-relaxed"

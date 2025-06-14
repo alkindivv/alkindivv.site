@@ -8,7 +8,7 @@ import { loadSlim } from 'tsparticles-slim';
 import GlowingButton from '../shared/GlowingButton';
 import SocialMedia from '../social/SocialMedia';
 import { useReducedMotion } from '@/lib/hooks/useReducedMotion';
-import { HiChevronRight, HiChevronDoubleDown } from 'react-icons/hi';
+import { HiChevronDoubleDown, HiScale } from 'react-icons/hi';
 import type { ISourceOptions, OutMode } from 'tsparticles-engine';
 
 // Varian animasi untuk container utama
@@ -152,16 +152,9 @@ const HeroSection = () => {
   };
 
   return (
-    <section className="relative min-h-screen flex items-center overflow-hidden  hero-section">
+    <section className="w-full relative min-h-screen flex items-center overflow-hidden ">
       {/* 1. Latar Belakang Partikel Interaktif - HANYA DI HERO SECTION */}
-      {!prefersReducedMotion && (
-        <Particles
-          id="tsparticles"
-          init={particlesInit}
-          options={particlesOptions}
-          className="absolute inset-0 -z-20"
-        />
-      )}
+      {/* Particle background disabled as per request */}
 
       {/* 2. Efek Sorotan Mengikuti Mouse */}
       {/* {!prefersReducedMotion && (
@@ -173,8 +166,33 @@ const HeroSection = () => {
         />
       )} */}
 
-      {/* 3. Elemen Dekoratif Grid */}
-      <div className=""></div>
+      {/* 3. Decorative diagonal grid */}
+      <div className="pointer-events-none absolute inset-0 -z-10 opacity-[0.04] [mask-image:radial-gradient(ellipse_at_center,rgba(0,0,0,0.6)_0%,rgba(0,0,0,1)_70%)]">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="100%"
+          height="100%"
+          className="text-emerald-500/20"
+        >
+          <defs>
+            <pattern
+              id="grid"
+              width="60"
+              height="60"
+              patternUnits="userSpaceOnUse"
+              patternTransform="rotate(45)"
+            >
+              <path
+                d="M 60 0 L 0 0 0 60"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="1"
+              />
+            </pattern>
+          </defs>
+          <rect width="100%" height="100%" fill="url(#grid)" />
+        </svg>
+      </div>
 
       {/* Konten Utama */}
       <motion.div
@@ -186,46 +204,38 @@ const HeroSection = () => {
         {/* 4. Kartu Glassmorphism untuk Konten */}
         <motion.div className=" " variants={itemVariants}>
           <div className="space-y-8">
-            {/* Status Badge */}
+            {/* Small Intro Badge */}
             <motion.div
-              className="inline-flex items-center gap-3 py-2 px-4 rounded-full border bg-emerald-500/10 border-emerald-500/20 text-emerald-300"
+              className="inline-flex items-center gap-2 py-1.5 px-3 rounded-full border border-emerald-500/30 bg-emerald-500/10 text-emerald-300 text-xs md:text-sm font-medium backdrop-blur-sm"
               variants={itemVariants}
             >
-              <div className="relative flex h-2 w-2">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-                <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500" />
-              </div>
-              <span className="text-xs md:text-sm font-medium">
-                Available for new opportunities
-              </span>
-              <HiChevronRight className="w-4 h-4 text-emerald-400/80" />
+              <HiScale className="w-4 h-4" />
+              Looking for opportunities
             </motion.div>
 
-            {/* Main Headline dengan Animasi per Karakter */}
+            {/* Headline */}
             <motion.h1
-              className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight tracking-tight text-white"
+              className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight tracking-tight text-white max-w-3xl"
               variants={containerVariants}
             >
-              <span className="whitespace-nowrap">I'm </span>
-              <span className="gradient-text whitespace-nowrap">AL KINDI</span>
+              I'm <span className="gradient-text">AL KINDI</span>
             </motion.h1>
 
-            {/* Subtitle */}
+            {/* Sub-headline */}
             <motion.div variants={itemVariants}>
-              <p className="text-lg md:text-xl text-neutral-300 leading-relaxed">
-                <span className="font-semibold text-white">Law</span> &{' '}
-                <span className="font-semibold text-white">Technology</span>
+              <p className="text-lg md:text-xl text-neutral-300 leading-relaxed max-w-2xl">
+                Developing my expertise in corporate M&A, and capital market,
+                and as writing about law, tech, and crypto.
               </p>
             </motion.div>
 
-            {/* Description */}
-            <motion.p
-              className="text-base md:text-lg text-neutral-400 leading-relaxed max-w-2xl"
+            {/* Tagline below sub-headline */}
+            {/* <motion.p
+              className="text-sm md:text-base text-neutral-500 leading-relaxed max-w-lg"
               variants={itemVariants}
             >
-              Exploring the synergy between law and technology, and sharing
-              insights on the future of legal practice in a digital world.
-            </motion.p>
+              Bridging complex regulations with innovative technology solutions.
+            </motion.p> */}
 
             {/* CTA Buttons */}
             <motion.div
@@ -237,8 +247,13 @@ const HeroSection = () => {
                 variant="default"
                 iconPosition="down"
               >
-                <span className="flex items-left gap-2">Learn How</span>
+                Learn How
               </GlowingButton>
+              {/* <Link href="/services" className="inline-block">
+                <GlowingButton variant="default" iconPosition="right">
+                  Explore Services
+                </GlowingButton>
+              </Link> */}
             </motion.div>
 
             {/* Social Links */}
@@ -264,7 +279,7 @@ const HeroSection = () => {
           className="group flex flex-col items-center gap-1 text-neutral-500 hover:text-emerald-400 transition-colors duration-300 px-4 py-2 rounded-full bg-black/20 backdrop-blur-sm "
           aria-label="Scroll to next section"
         >
-          <span className="text-xs font-medium">Scroll Down</span>
+          {/* <span className="text-xs font-medium">Scroll Down</span> */}
           <HiChevronDoubleDown className="w-5 h-5 animate-bounce" />
         </button>
       </div>

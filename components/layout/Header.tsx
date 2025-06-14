@@ -13,8 +13,6 @@ import {
   HiX,
   HiBookOpen,
   HiSparkles,
-  HiDocument,
-  HiScale,
 } from 'react-icons/hi';
 import clsx from 'clsx';
 import { FaChevronDown } from 'react-icons/fa';
@@ -46,6 +44,12 @@ export default function Header() {
   const [isMoreOpen, setIsMoreOpen] = useState(false);
   const pathname = usePathname();
 
+  // Detect article pages: any path that starts with /blog/ and has at least two
+  // additional segments (e.g., /blog/category/slug or deeper)
+  const isArticlePage =
+    pathname.startsWith('/blog/') &&
+    pathname.split('/').filter(Boolean).length >= 3;
+
   useEffect(() => {
     const handleScroll = () => {
       setScrolled(window.scrollY > 0);
@@ -56,9 +60,19 @@ export default function Header() {
         setIsMoreOpen(false);
       }
     };
+
+    // Attach scroll listener
     window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+
+    // Cleanup on unmount or deps change
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
   }, [isMenuOpen, isMoreOpen]);
+
+  if (isArticlePage) {
+    return null;
+  }
 
   const navItems: NavItem[] = [
     {
@@ -111,12 +125,6 @@ export default function Header() {
       label: 'Wishlist',
       description: 'Life Goals & Aspirations',
       icon: HiSparkles,
-    },
-    {
-      href: '/docs',
-      label: 'Docs',
-      description: 'Tutorials & Guides',
-      icon: HiDocument,
     },
   ];
 

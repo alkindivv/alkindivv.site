@@ -2,31 +2,51 @@ import React from 'react';
 import { Metadata } from 'next';
 import Layout from '@/components/layout/Layout';
 import Image from 'next/image';
-import Link from 'next/link';
+
+import Breadcrumb from '@/components/shared/Breadcrumb';
 
 import DimensionLink from '@/components/common/DimensionLink';
 import { FaRegCalendarAlt } from 'react-icons/fa';
 import AccentNormal from '@/components/shared/AccentNormal';
-import {
-  HiScale,
-  HiDocumentText,
-  HiLibrary,
-  HiOutlineDocumentSearch,
-} from 'react-icons/hi';
+import { HiScale } from 'react-icons/hi';
 import { viewport } from '../viewport';
 
 export { viewport };
 
 export const metadata: Metadata = {
-  title: 'About - AL KINDI',
+  title: 'About',
   description:
-    'About AL KINDI - Legal professional specializing in corporate law, capital markets, mergers & acquisitions, bankruptcy, and cryptocurrency regulations',
+    'Focusing my expertise in corporate M&A, capital markets, and cryptocurrency',
   alternates: {
     canonical: '/about',
+  },
+  openGraph: {
+    title: 'About - AL KINDI',
+    description:
+      'Focusing my expertise in corporate M&A, capital markets, and cryptocurrency',
+    url: '/about',
+    type: 'website',
+    images: [
+      {
+        url: '/images/default.png',
+        width: 1200,
+        height: 630,
+        alt: 'AL KINDI',
+      },
+    ],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'About - AL KINDI',
+    description:
+      'About AL KINDI - Legal professional specializing in corporate law, capital markets, M&A, bankruptcy, and cryptocurrency regulations',
+    images: ['/images/default.png'],
   },
 };
 
 const AboutPage = () => {
+  const breadcrumbItems = [{ label: 'About' }];
+
   return (
     <Layout>
       {/* Background Effect - Legal Themed */}
@@ -70,6 +90,11 @@ const AboutPage = () => {
 
       <main className="min-h-screen pt-40 relative z-10">
         <div className="max-w-6xl mx-auto">
+          {/* Breadcrumb - left aligned */}
+          <div className="mb-6">
+            <Breadcrumb items={breadcrumbItems} />
+          </div>
+
           {/* Header Section - Legal Styled */}
           <div className="mb-12 max-w-2xl mx-auto" data-fade="1">
             {/* <div className="flex items-center space-x-2 mb-2 justify-center">
@@ -84,15 +109,6 @@ const AboutPage = () => {
             <p className="text-neutral-400 leading-relaxed text-center">
               Professional background, qualifications, and legal expertise
             </p>
-
-            {/* Document Number Line */}
-            {/* <div className="flex items-center my-8">
-              <div className="h-px flex-grow bg-neutral-800/50"></div>
-              <div className="px-4 py-1 text-xs font-mono text-emerald-400 border border-emerald-500/20 rounded-sm bg-emerald-900/10">
-                CURRICULUM VITAE
-              </div>
-              <div className="h-px flex-grow bg-neutral-800/50"></div>
-            </div> */}
             <div className="relative mt-5 top-0 left-0 right-0 h-0.5 bg-gradient-to-r from-transparent via-emerald-500/20 to-transparent"></div>
           </div>
 

@@ -139,7 +139,7 @@ export default function BlogPostLayout({
               {meta.tags.map((tag) => (
                 <Link
                   key={tag}
-                  href={`/blog/tag/${tag.toLowerCase()}`}
+                  href={`/blog/tag/${encodeURIComponent(tag.toLowerCase())}`}
                   className="px-4 py-1.5 text-xs tracking-wide bg-[#0d1117]/80 hover:bg-emerald-500/10 text-gray-400 hover:text-emerald-400 rounded-full border border-white/5 hover:border-emerald-500/20 transition-all duration-300"
                 >
                   #{tag}

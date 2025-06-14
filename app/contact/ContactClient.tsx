@@ -7,8 +7,10 @@ import Image from 'next/image';
 import { HiScale, HiDocumentText, HiLibrary } from 'react-icons/hi';
 import { RiContactsFill } from 'react-icons/ri';
 import { GrContact } from 'react-icons/gr';
+import Breadcrumb from '@/components/shared/Breadcrumb';
 
 export default function ContactClient() {
+  const breadcrumbItems = [{ label: 'Contact' }];
   const [isLoading, setIsLoading] = useState(false);
   const [statusType, setStatusType] = useState<'success' | 'error' | null>(
     null
@@ -91,6 +93,9 @@ export default function ContactClient() {
       {/* Hero Section */}
       <main className="min-h-screen pt-40 relative z-10">
         <div className="max-w-6xl mx-auto">
+          <div className=" mb-4">
+            <Breadcrumb items={breadcrumbItems} />
+          </div>
           {/* Header - Legal Styled */}
           <div className="mb-12 max-w-2xl mx-auto" data-fade="1">
             <h3 className="text-4xl md:text-5xl font-bold mb-4 text-center">

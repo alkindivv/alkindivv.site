@@ -6,7 +6,7 @@ import LatestBlogPosts from '@/components/common/LatestBlogPosts';
 import ChatPreview from '@/components/common/ChatPreview';
 import GlossaryPreview from '@/components/common/GlossaryPreview';
 import ResourcesPreview from '@/components/common/ResourcesPreview';
-import { getAllPosts } from '@/lib/mdx';
+import { getAllPosts } from '@/lib/posts';
 import { BlogPost } from '@/types/blog';
 
 // Type untuk resource preview - disesuaikan dengan komponen ResourcesPreview baru

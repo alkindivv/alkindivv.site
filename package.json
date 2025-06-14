@@ -38,13 +38,16 @@
     "reading-time": "^1.5.0",
     "rehype-autolink-headings": "^7.1.0",
     "remark": "^15.0.1",
+    "remark-code-titles": "^0.1.2",
     "remark-frontmatter": "^5.0.0",
     "remark-html": "^16.0.1",
+    "remark-smartypants": "^3.0.2",
     "rss": "^1.2.2",
     "sharp": "^0.34.2",
     "shiki": "^1.1.7",
     "tailwind-merge": "^2.2.1",
     "tsparticles-slim": "^2.12.0",
+    "unist-util-visit": "^5.0.0",
     "zustand": "^5.0.5"
   },
   "devDependencies": {

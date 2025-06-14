@@ -1,5 +1,5 @@
 import { Feed } from 'feed';
-import { getAllPosts } from './mdx';
+import { getAllPosts } from './posts';
 
 export async function generateRSSFeed() {
   const baseUrl = 'https://alkindivv.site';

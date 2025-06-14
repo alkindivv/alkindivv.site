@@ -1,5 +1,5 @@
 import { MetadataRoute } from 'next';
-import { getAllPosts, getAllCategories } from '@/lib/mdx';
+import { getAllPosts, getAllCategories, getAllTags } from '@/lib/posts';
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://alkindivv.site';
@@ -21,6 +21,18 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     changeFrequency: 'weekly' as const,
     priority: 0.8,
   }));
+
+  // Get all tags
+  const tags = await getAllTags();
+  const tagUrls = tags.map((rawTag) => {
+    const tag = encodeURIComponent(rawTag);
+    return {
+      url: `${baseUrl}/blog/tag/${tag}`,
+      lastModified: new Date(),
+      changeFrequency: 'weekly' as const,
+      priority: 0.6,
+    };
+  });
 
   // Static pages
   const staticPages = [
@@ -66,7 +78,13 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       changeFrequency: 'monthly' as const,
       priority: 0.8,
     },
+    {
+      url: `${baseUrl}/wishlist`,
+      lastModified: new Date(),
+      changeFrequency: 'monthly' as const,
+      priority: 0.6,
+    },
   ];
 
-  return [...staticPages, ...categoryUrls, ...blogUrls];
+  return [...staticPages, ...categoryUrls, ...tagUrls, ...blogUrls];
 }

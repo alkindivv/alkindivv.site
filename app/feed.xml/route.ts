@@ -1,4 +1,4 @@
-import { getAllPosts } from '@/lib/mdx';
+import { getAllPosts } from '@/lib/posts';
 import RSS from 'rss';
 
 export async function GET() {

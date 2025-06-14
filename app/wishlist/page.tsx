@@ -4,16 +4,30 @@ import Image from 'next/image';
 import { Metadata } from 'next';
 import { HiScale, HiOutlineHeart, HiOutlineCheck } from 'react-icons/hi';
 import clsx from 'clsx';
+import Breadcrumb from '@/components/shared/Breadcrumb';
 
 export const metadata: Metadata = {
-  title: 'Wishlist | AL KINDI',
+  title: 'Wishlist',
   description:
     'My personal wishlist of books, tools, and items I want to acquire for my legal practice and personal development.',
   openGraph: {
-    title: 'Wishlist | AL KINDI',
-    description:
-      'My personal wishlist of books, tools, and items I want to acquire for my legal practice and personal development.',
+    title: 'Wishlist - AL KINDI',
+    description: 'Life goals and aspirations of AL KINDI',
     type: 'website',
+    images: [
+      {
+        url: '/images/default.png',
+        width: 1200,
+        height: 630,
+        alt: 'AL KINDI',
+      },
+    ],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Wishlist - AL KINDI',
+    description: 'Life goals and aspirations of AL KINDI',
+    images: ['/images/default.png'],
   },
 };
 
@@ -149,8 +163,9 @@ function WishlistCard({
 }
 
 export default function WishlistPage() {
+  const breadcrumbItems = [{ label: 'Wishlist' }];
   return (
-    <Layout title="Wishlist | AL KINDI">
+    <Layout title="Wishlist">
       <div
         className="absolute inset-0 overflow-hidden h-[450px] bg-neutral-950"
         style={{
@@ -184,6 +199,9 @@ export default function WishlistPage() {
       {/* Content */}
       <main className="min-h-screen pt-40 relative z-10">
         <div className="max-w-6xl mx-auto">
+          <div className=" mb-4">
+            <Breadcrumb items={breadcrumbItems} />
+          </div>
           {/* Header - Legal Styled */}
           <div className="mb-12 max-w-2xl mx-auto" data-fade="1">
             <h3 className="text-4xl md:text-5xl font-bold mb-4 text-center">

@@ -1,5 +1,5 @@
 import { ImageResponse } from 'next/og';
-import { getPostBySlug } from '@/lib/mdx';
+import { getPostBySlug } from '@/lib/posts';
 
 export const runtime = 'nodejs';
 export const revalidate = 3600;

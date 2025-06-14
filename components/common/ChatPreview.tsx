@@ -286,13 +286,13 @@ const ChatPreview = () => {
               transitionDelay: '400ms',
             }}
           >
-            <HiLibrary className="text-emerald-400 w-5 h-5" />
+            {/* <HiLibrary className="text-emerald-400 w-5 h-5" />
             <h2 className="text-sm uppercase tracking-wider text-neutral-400 font-medium">
               Qustions
-            </h2>
+            </h2> */}
           </div>
           <h3
-            className="text-3xl font-bold mb-4 text-center"
+            className="text-3xl md:text-5xl font-bold mb-4 text-center"
             style={{
               opacity: isVisible ? 1 : 0,
               transform: isVisible ? 'translateY(0)' : 'translateY(10px)',

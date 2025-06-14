@@ -14,6 +14,7 @@ import Image from 'next/image';
 import Accent from '@/components/shared/Accent';
 import Link from 'next/link';
 import GlowingButton from '@/components/shared/GlowingButton';
+import Breadcrumb from '@/components/shared/Breadcrumb';
 
 // Data istilah hukum
 const legalTerms = [
@@ -234,6 +235,7 @@ const alphabet = Array.from({ length: 26 }, (_, i) =>
 alphabet.push('#');
 
 export default function GlossaryClient() {
+  const breadcrumbItems = [{ label: 'Glossary' }];
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedLetter, setSelectedLetter] = useState('');
   const [selectedTags, setSelectedTags] = useState<string[]>([]);
@@ -362,6 +364,9 @@ export default function GlossaryClient() {
       {/* Content */}
       <main className="min-h-screen pt-40 relative z-10">
         <div className="max-w-6xl mx-auto">
+          <div className=" mb-4">
+            <Breadcrumb items={breadcrumbItems} />
+          </div>
           {/* Header - Matching Blog Style */}
           <div className="mb-12 max-w-4xl mx-auto" data-fade="1">
             {/* <div className="flex items-center space-x-2 mb-2 justify-center">

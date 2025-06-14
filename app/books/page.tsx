@@ -10,16 +10,32 @@ import {
   HiScale,
 } from 'react-icons/hi';
 import { IoBookSharp } from 'react-icons/io5';
+import Breadcrumb from '@/components/shared/Breadcrumb';
 
 export const metadata: Metadata = {
-  title: 'Books Collection | AL KINDI',
+  title: 'Books Collection',
   description:
     'A curated collection of legal and technology books with personal notes and takeaways.',
   openGraph: {
-    title: 'Books Collection | AL KINDI',
+    title: 'Books Collection',
     description:
       'A curated collection of legal and technology books with personal notes and takeaways.',
     type: 'website',
+    images: [
+      {
+        url: '/images/default.png',
+        width: 1200,
+        height: 630,
+        alt: 'AL KINDI',
+      },
+    ],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Books Collection',
+    description:
+      'A curated collection of legal and technology books with personal notes and takeaways.',
+    images: ['/images/default.png'],
   },
 };
 
@@ -73,8 +89,9 @@ const books: Book[] = [
 ];
 
 export default function BooksPage() {
+  const breadcrumbItems = [{ label: 'Books' }];
   return (
-    <Layout title="Books | AL KINDI">
+    <Layout title="Books">
       <div
         className="absolute inset-0 overflow-hidden h-[450px] bg-neutral-950"
         style={{
@@ -108,6 +125,9 @@ export default function BooksPage() {
       {/* Content */}
       <main className="min-h-screen pt-40 relative z-10">
         <div className="max-w-6xl mx-auto">
+          <div className=" mb-4">
+            <Breadcrumb items={breadcrumbItems} />
+          </div>
           {/* Header - Legal Styled */}
           <div className="mb-12 max-w-2xl mx-auto" data-fade="1">
             <h3 className="text-4xl md:text-5xl font-bold mb-4 text-center">

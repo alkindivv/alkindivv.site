@@ -13,16 +13,31 @@ import {
 } from 'react-icons/hi';
 import Link from 'next/link';
 import { Metadata } from 'next';
-
+import Breadcrumb from '@/components/shared/Breadcrumb';
 export const metadata: Metadata = {
-  title: 'Resources | AL KINDI',
+  title: 'Resources',
   description:
     'Curated collection of legal resources, tools, and references for corporate law, capital markets, M&A, bankruptcy, and cryptocurrency regulations.',
   openGraph: {
-    title: 'Resources | AL KINDI',
+    title: 'Resources',
     description:
       'Curated collection of legal resources, tools, and references for corporate law, capital markets, M&A, bankruptcy, and cryptocurrency regulations.',
     type: 'website',
+    images: [
+      {
+        url: '/images/default.png',
+        width: 1200,
+        height: 630,
+        alt: 'AL KINDI',
+      },
+    ],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Resources',
+    description:
+      'Curated collection of legal resources, tools, and references for corporate law, capital markets, M&A, bankruptcy, and cryptocurrency regulations.',
+    images: ['/images/default.png'],
   },
 };
 
@@ -164,8 +179,9 @@ const resources: Resource[] = [
 
 // Halaman Resources yang lebih simpel dan modern
 export default function ResourcesPage() {
+  const breadcrumbItems = [{ label: 'Resources' }];
   return (
-    <Layout title="Legal Resources | AL KINDI" isHomePage={false}>
+    <Layout title="Legal Resources" isHomePage={false}>
       <main className="content-spacing">
         {/* Simplified Background with Legal Theme */}
         <div className="absolute inset-0 overflow-hidden h-[300px] bg-neutral-950">
@@ -201,10 +217,13 @@ export default function ResourcesPage() {
 
         {/* Content */}
         <section className="min-h-screen pt-32 relative z-10 ">
+          <div className=" mb-4">
+            <Breadcrumb items={breadcrumbItems} />
+          </div>
           {/* Header - Legal Styled Matching Blog */}
           <div className="mb-12 max-w-2xl mx-auto text-center">
             <h3 className="text-4xl md:text-5xl font-bold mb-4">
-              Legal <span className="gradient-text">Resources</span>
+              Resources & <span className="gradient-text">Templates</span>
             </h3>
             <p className="text-neutral-400 leading-relaxed text-center">
               A curated collection of legal templates, documents, and reference

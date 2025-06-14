@@ -5,7 +5,13 @@ module.exports = async () => {
   const withMDX = require('@next/mdx')({
     extension: /\.mdx?$/,
     options: {
-      remarkPlugins: [remarkGfm, (await import('remark-frontmatter')).default],
+      remarkPlugins: [
+        remarkGfm,
+        (await import('remark-frontmatter')).default,
+        (await import('remark-smartypants')).default,
+        (await import('remark-code-titles')).default,
+        (await import('./lib/plugins/remark-internal-links.js')).default,
+      ],
       rehypePlugins: [
         rehypeSlug,
         [rehypePrettyCode, { theme: 'one-dark-pro' }],

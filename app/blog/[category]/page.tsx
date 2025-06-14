@@ -1,15 +1,14 @@
 import React from 'react';
 import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
-import { getAllPosts, getAllCategories } from '@/lib/mdx';
+import { getAllPosts, getAllCategories } from '@/lib/posts';
 import Layout from '@/components/layout/Layout';
-import Link from 'next/link';
-import Image from 'next/image';
-import { HiOutlineClock, HiLibrary, HiSearch, HiScale } from 'react-icons/hi';
+import { HiLibrary, HiSearch, HiScale } from 'react-icons/hi';
 import clsx from 'clsx';
 import Breadcrumb from '@/components/shared/Breadcrumb';
 import Accent from '@/components/shared/Accent';
 import { viewport } from '../../viewport';
+import ArticleCardAlt from '@/components/blog/ArticleCardAlt';
 
 export { viewport };
 
@@ -34,100 +33,6 @@ const debugProduction = (message: string, data?: any) => {
   }
 };
 
-// Komponen untuk setiap post
-const BlogPostCard = ({ post }: { post: any }) => {
-  return (
-    <Link
-      key={post.slug}
-      href={`/blog/${post.category.toLowerCase()}/${post.slug}`}
-      className="group block relative"
-    >
-      <article className="flex flex-col gap-4 lg:flex-row-reverse lg:gap-6 lg:items-center py-4 px-4 rounded-sm transition-colors border border-neutral-800/70 hover:border-emerald-500/30 relative">
-        {/* Legal document styling */}
-        {/* <div className="absolute top-0 left-0 right-0 h-0.5 bg-gradient-to-r from-transparent via-emerald-500/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
-        <div className="absolute top-0 left-0 w-3 h-3 border-t border-l border-emerald-500/0 group-hover:border-emerald-500/30 transition-colors"></div>
-        <div className="absolute top-0 right-0 w-3 h-3 border-t border-r border-emerald-500/0 group-hover:border-emerald-500/30 transition-colors"></div>
-        <div className="absolute bottom-0 left-0 w-3 h-3 border-b border-l border-emerald-500/0 group-hover:border-emerald-500/30 transition-colors"></div>
-        <div className="absolute bottom-0 right-0 w-3 h-3 border-b border-r border-emerald-500/0 group-hover:border-emerald-500/30 transition-colors"></div> */}
-
-        {/* Document filing number - legal style */}
-        <div className="absolute top-2 right-2 z-10">
-          <div className="text-[10px] text-neutral-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300 font-mono">
-            REF-{post.slug.substring(0, 2).toUpperCase()}/
-            {new Date(post.date).getFullYear().toString().substring(2)}
-          </div>
-        </div>
-
-        {/* Image */}
-        <figure className="isolate z-[1] pointer-events-none overflow-hidden rounded-sm lg:max-w-44 lg:w-full">
-          <div className="relative pt-[60%]">
-            <div className="absolute left-0 top-0 w-full h-full">
-              <Image
-                src={post.featuredImage || ''}
-                alt={post.title}
-                fill
-                className="object-cover"
-                sizes="(min-width: 1024px) 176px, 100vw"
-              />
-            </div>
-          </div>
-        </figure>
-
-        {/* Content */}
-        <div className="w-full">
-          <div className="flex items-center gap-3">
-            <p className="text-sm text-neutral-400 font-mono flex items-center gap-1.5">
-              <span className="h-[1px] w-3 bg-neutral-700"></span>
-              {new Date(post.date).toLocaleDateString('id-ID', {
-                year: 'numeric',
-                month: 'long',
-                day: 'numeric',
-              })}
-              <span className="h-[1px] flex-grow bg-neutral-700"></span>
-            </p>
-          </div>
-
-          <h3 className="mt-3 text-xl font-semibold relative group-hover:text-emerald-500 transition-colors">
-            <span
-              className="bg-gradient-to-r from-emerald-500/30 via-emerald-500/90 to-emerald-500/30 box-decoration-clone group-hover:opacity-30 opacity-0 transition text-transparent"
-              aria-hidden="true"
-            >
-              {post.title}
-            </span>
-            <span className="absolute left-0 top-0">{post.title}</span>
-          </h3>
-
-          <p className="text-sm text-neutral-400 mt-1 line-clamp-2">
-            {post.description || post.excerpt}
-          </p>
-
-          <div className="flex justify-between mt-5 flex-col gap-4 lg:flex-row lg:items-center">
-            <div className="flex items-center gap-5">
-              <div className="flex items-center gap-2">
-                <HiOutlineClock className="w-4 h-4 text-emerald-500" />
-                <p className="text-xs text-neutral-400">
-                  {post.readingTime} min read
-                </p>
-              </div>
-            </div>
-
-            <div className="flex flex-wrap gap-2">
-              {post.tags?.map((tag: string) => (
-                <span
-                  key={tag}
-                  className="inline-block rounded-sm px-1.5 py-0.5 text-xs font-medium bg-neutral-900 text-neutral-400 border border-neutral-800 group-hover:border-neutral-700 transition-colors"
-                >
-                  {tag}
-                </span>
-              ))}
-            </div>
-          </div>
-        </div>
-      </article>
-    </Link>
-  );
-};
-
 export async function generateMetadata({
   params,
 }: CategoryPageProps): Promise<Metadata> {
@@ -143,7 +48,7 @@ export async function generateMetadata({
   }
 
   return {
-    title: `${categoryData.name} Articles - AL KINDI`,
+    title: `${categoryData.name} Articles`,
     description: `Explore ${categoryData.name.toLowerCase()} articles by AL KINDI. In-depth analysis and insights on ${categoryData.name.toLowerCase()} topics.`,
     alternates: {
       canonical: `/blog/${category}`,
@@ -200,13 +105,6 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
               </p>
 
               {/* Document Number Line */}
-              <div className="flex items-center my-8">
-                <div className="h-px flex-grow bg-neutral-800/50"></div>
-                <div className="px-4 py-1 text-xs font-mono text-emerald-400 border border-emerald-500/20 rounded-sm bg-emerald-900/10">
-                  CATEGORY INDEX
-                </div>
-                <div className="h-px flex-grow bg-neutral-800/50"></div>
-              </div>
             </div>
 
             <div className="mb-6">
@@ -242,7 +140,7 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
               <div className="space-y-6 py-6">
                 {filteredPosts?.length > 0 ? (
                   filteredPosts.map((post) => (
-                    <BlogPostCard key={post.slug} post={post} />
+                    <ArticleCardAlt key={post.slug} post={post} />
                   ))
                 ) : (
                   <div className="text-center py-10 border border-neutral-800/70 rounded-sm p-6 relative">
@@ -262,7 +160,7 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
               </div>
 
               {/* Document footer */}
-              <div className="mt-8 text-center text-[10px] text-neutral-500 font-mono">
+              {/* <div className="mt-8 text-center text-[10px] text-neutral-500 font-mono">
                 <div className="flex items-center justify-center gap-2 mb-1">
                   <div className="h-px w-12 bg-neutral-800"></div>
                   <HiScale className="w-4 h-4 text-emerald-500/40" />
@@ -270,7 +168,7 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
                 </div>
                 BLOG- {categoryData.slug.toUpperCase()}-
                 {new Date().getFullYear()}
-              </div>
+              </div> */}
             </div>
           </div>
         </section>

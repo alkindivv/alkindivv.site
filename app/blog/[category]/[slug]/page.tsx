@@ -2,7 +2,7 @@ import React from 'react';
 import { Metadata } from 'next';
 import Image from 'next/image';
 import { notFound } from 'next/navigation';
-import { getPostBySlug, getAllPostSlugs, getAllPosts } from '@/lib/mdx';
+import { getPostBySlug, getAllPostSlugs, getAllPosts } from '@/lib/posts';
 import Layout from '@/components/layout/Layout';
 import { BlogPost } from '@/types/blog';
 import BlogPostLayout from '@/components/blog/layout/BlogPostLayout';
