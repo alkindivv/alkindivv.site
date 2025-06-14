@@ -29,6 +29,9 @@ export const metadata: Metadata = {
     description: 'Life goals and aspirations of AL KINDI',
     images: ['/images/default.png'],
   },
+  alternates: {
+    canonical: '/wishlist',
+  },
 };
 
 interface WishlistItem {

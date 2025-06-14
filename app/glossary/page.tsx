@@ -23,10 +23,13 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Legal Glossary | AL KINDI',
+    title: 'Legal Glossary',
     description:
       'Comprehensive legal glossary covering corporate law, capital markets, M&A, bankruptcy, and cryptocurrency terms. Essential reference for legal professionals.',
     images: ['/images/default.png'],
+  },
+  alternates: {
+    canonical: '/glossary',
   },
 };
 

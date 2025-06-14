@@ -37,6 +37,9 @@ export const metadata: Metadata = {
       'A curated collection of legal and technology books with personal notes and takeaways.',
     images: ['/images/default.png'],
   },
+  alternates: {
+    canonical: '/books',
+  },
 };
 
 interface Book {

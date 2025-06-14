@@ -39,6 +39,9 @@ export const metadata: Metadata = {
       'Curated collection of legal resources, tools, and references for corporate law, capital markets, M&A, bankruptcy, and cryptocurrency regulations.',
     images: ['/images/default.png'],
   },
+  alternates: {
+    canonical: '/resources',
+  },
 };
 
 // Simplified resource type - unified structure for all resources
