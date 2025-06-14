@@ -8,6 +8,7 @@ import { BlogPost } from '@/types/blog';
 import { BlogPostContent } from './components';
 import { viewport } from '../../../viewport';
 import StructuredData from '@/components/shared/StructuredData';
+import { MDXComponents } from '@/components/blog/BlogContent';
 
 export { viewport };
 
@@ -101,14 +102,15 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
 
   try {
     // Get the current post data
-    const { frontMatter, mdxSource, headings } = await getPostBySlug(
-      category,
-      slug
-    );
+    const { frontMatter, headings } = await getPostBySlug(category, slug);
     const typedFrontMatter = frontMatter as FrontMatter;
 
     // Get all posts for related articles
     const allPosts = await getAllPosts();
+
+    // Dynamically import the compiled MDX component
+    const PostModule = await import(`@/content/blog/${category}/${slug}.mdx`);
+    const PostComponent = PostModule.default;
 
     // Debug data di mode production
     if (process.env.NODE_ENV === 'production') {
@@ -116,7 +118,6 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
         title: typedFrontMatter?.title,
         category: typedFrontMatter?.category,
         slug: typedFrontMatter?.slug,
-        hasMdxSource: Boolean(mdxSource),
         relatedPostsCount: allPosts?.length,
       });
     }
@@ -147,12 +148,13 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
 
           <BlogPostContent
             typedFrontMatter={typedFrontMatter}
-            mdxSource={mdxSource}
             category={category}
             slug={slug}
             allPosts={allPosts}
             headings={headings}
-          />
+          >
+            <PostComponent components={MDXComponents as any} />
+          </BlogPostContent>
           <StructuredData type="article" post={typedFrontMatter as any} />
         </main>
       </Layout>

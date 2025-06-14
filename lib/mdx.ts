@@ -1,8 +1,4 @@
 import { BlogPost, BlogCategory } from '@/types/blog';
-import { serialize } from 'next-mdx-remote/serialize';
-import remarkGfm from 'remark-gfm';
-import rehypeSlug from 'rehype-slug';
-import rehypePrettyCode from 'rehype-pretty-code';
 import path from 'path';
 import readingTime from 'reading-time';
 import matter from 'gray-matter';
@@ -161,34 +157,6 @@ export async function getPostBySlug(category: string, slug: string) {
       headings.push({ id, title: raw, level });
     }
 
-    const mdxSource = await serialize(content, {
-      mdxOptions: {
-        remarkPlugins: [remarkGfm],
-        rehypePlugins: [
-          rehypeSlug,
-          [
-            rehypePrettyCode as any,
-            {
-              theme: 'one-dark-pro',
-              onVisitLine(node: any) {
-                if (node.children.length === 0) {
-                  node.children = [{ type: 'text', value: ' ' }];
-                }
-              },
-              onVisitHighlightedLine(node: any) {
-                node.properties.className.push('highlighted');
-              },
-              onVisitHighlightedWord(node: any) {
-                node.properties.className = ['word'];
-              },
-            },
-          ],
-        ],
-      },
-      parseFrontmatter: true,
-      scope: frontMatter,
-    });
-
     logInProduction(`Successfully processed post: ${category}/${slug}`);
     return {
       frontMatter: {
@@ -196,7 +164,6 @@ export async function getPostBySlug(category: string, slug: string) {
         readingTime: Math.ceil(readingTime(content).minutes),
         slug,
       },
-      mdxSource,
       headings,
     };
   } catch (error) {

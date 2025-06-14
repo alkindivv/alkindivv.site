@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState, useEffect, useRef } from 'react';
-import { MDXRemote } from 'next-mdx-remote';
+import { MDXProvider } from '@mdx-js/react';
 import { MDXComponents } from '@/components/blog/BlogContent';
 import { TOCProvider } from '@/components/blog/TOCContext';
 import TableOfContents from '@/components/blog/TableOfContents';
@@ -15,7 +15,6 @@ import Image from 'next/image';
 import Accent from '@/components/shared/Accent';
 import clsx from 'clsx';
 import { BlogPost } from '@/types/blog';
-import ReactChildren from 'react';
 
 // Define the breadcrumb item interface
 interface BreadcrumbItem {
@@ -34,7 +33,7 @@ interface FrontMatter extends BlogPost {
 
 interface BlogPostContentProps {
   typedFrontMatter: FrontMatter;
-  mdxSource: any;
+  children: React.ReactNode;
   category: string;
   slug: string;
   allPosts: BlogPost[];
@@ -56,7 +55,7 @@ const debugProduction = (message: string, data?: any) => {
 
 export function BlogPostContent({
   typedFrontMatter,
-  mdxSource,
+  children,
   category,
   slug,
   allPosts,
@@ -71,10 +70,10 @@ export function BlogPostContent({
       title: typedFrontMatter?.title,
       category: typedFrontMatter?.category,
       slug: typedFrontMatter?.slug,
-      hasMdxSource: Boolean(mdxSource),
+      hasMdxSource: true,
       relatedPostsCount: allPosts?.length,
     });
-  }, [typedFrontMatter, mdxSource, allPosts]);
+  }, [typedFrontMatter, allPosts]);
 
   // Format date
   const formattedDate = new Date(typedFrontMatter.date).toLocaleDateString(
@@ -192,7 +191,7 @@ export function BlogPostContent({
                 max-w-none`}
               ref={articleContentRef}
             >
-              <MDXRemote {...mdxSource} components={mdxComponents as any} />
+              {children}
             </div>
 
             {/* Article Footer */}
