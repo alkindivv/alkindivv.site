@@ -46,44 +46,40 @@ interface WishlistItem {
 const wishlistItems: WishlistItem[] = [
   {
     id: 1,
-    title: 'Complete Harvard Law School Online Course',
-    description:
-      'Finish the online certification course on International Business Law from Harvard Law School to enhance my knowledge in global legal frameworks.',
+    title: 'Graduate from law school',
+    description: 'Graduate from law school and pass the bar exam',
     date: '2023-12-31',
-    imageUrl: '/images/harvard-law.jpg',
-    completed: false,
+    // imageUrl: '/images/harvard-law.jpg',
+    completed: true,
   },
   {
     id: 2,
-    title: 'Acquire Complete Set of Indonesian Commercial Law Books',
-    description:
-      'Build a comprehensive collection of authoritative Indonesian commercial law references for my personal library and research.',
-    imageUrl: '/images/law-books.jpg',
+    title: 'Join top tier corporate law firm',
+    description: 'Joining a law firm and become a partner',
+    // imageUrl: '/images/law-books.jpg',
     completed: false,
   },
   {
     id: 3,
-    title: 'Attend Legal Tech Conference',
-    description:
-      'Participate in a major legal technology conference to stay updated on the latest innovations in legal practice and network with industry leaders.',
+    title: 'Travel to 10 countries',
+    description: 'Travel to 10 countries and experience the culture and people',
     date: '2023-10-15',
-    imageUrl: '/images/legal-tech.jpg',
-    completed: true,
-  },
-  {
-    id: 4,
-    title: 'Publish Legal Research Paper',
-    description:
-      'Complete and publish my research paper on the legal implications of blockchain technology in Indonesian capital markets.',
-    date: '2024-03-01',
+    // imageUrl: '/images/legal-tech.jpg',
     completed: false,
   },
+  // {
+  //   id: 4,
+  //   title: 'Publish Legal Research Paper',
+  //   description:
+  //     'Complete and publish my research paper on the legal implications of blockchain technology in Indonesian capital markets.',
+  //   date: '2024-03-01',
+  //   completed: false,
+  // },
   {
-    id: 5,
-    title: 'Professional Legal Writing Course',
-    description:
-      'Enroll in an advanced legal writing course to improve drafting skills for contracts, legal opinions, and regulatory documents.',
-    completed: true,
+    id: 4,
+    title: 'Buy a house',
+    description: 'Buy a house and build a family',
+    completed: false,
   },
 ];
 
@@ -225,9 +221,9 @@ export default function WishlistPage() {
           </div>
 
           {/* Legal footer */}
-          <div className="mt-12 text-end text-[10px] text-neutral-500 font-mono">
+          {/* <div className="mt-12 text-end text-[10px] text-neutral-500 font-mono">
             WISHLIST-{new Date().getFullYear()}
-          </div>
+          </div> */}
           <div className="mt-16 text-center relative">
             {/* Law scale divider */}
             <div className="flex items-center justify-center mb-6">
