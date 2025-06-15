@@ -49,7 +49,7 @@ export async function generateMetadata({
         `${typedFrontMatter.title} - Article by ${typedFrontMatter.author}`,
       authors: [{ name: typedFrontMatter.author }],
       alternates: {
-        canonical: `/blog/${category}/${slug}`,
+        canonical: `/blog/${category}/${slug}/`,
       },
       openGraph: {
         title: typedFrontMatter.title,
@@ -57,7 +57,7 @@ export async function generateMetadata({
           typedFrontMatter.excerpt ||
           typedFrontMatter.description ||
           `${typedFrontMatter.title} - Article by ${typedFrontMatter.author}`,
-        url: `https://alkindivv.site/blog/${category}/${slug}`,
+        url: `https://alkindivv.site/blog/${category}/${slug}/`,
         type: 'article',
         publishedTime: typedFrontMatter.date,
         authors: typedFrontMatter.author,

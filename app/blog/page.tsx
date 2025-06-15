@@ -11,13 +11,13 @@ export const metadata: Metadata = {
   description:
     'Articles and insights on law, technology, and cryptocurrency by AL KINDI',
   alternates: {
-    canonical: '/blog',
+    canonical: '/blog/',
   },
   openGraph: {
     title: 'Blog - AL KINDI',
     description:
       'Articles and insights on law, technology, and cryptocurrency by AL KINDI',
-    url: 'https://alkindivv.site/blog',
+    url: 'https://alkindivv.site/blog/',
     type: 'website',
     images: [
       {

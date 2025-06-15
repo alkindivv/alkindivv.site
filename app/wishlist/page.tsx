@@ -14,6 +14,7 @@ export const metadata: Metadata = {
     title: 'Wishlist - AL KINDI',
     description: 'Life goals and aspirations of AL KINDI',
     type: 'website',
+    url: '/wishlist/',
     images: [
       {
         url: '/images/default.png',
@@ -30,7 +31,7 @@ export const metadata: Metadata = {
     images: ['/images/default.png'],
   },
   alternates: {
-    canonical: '/wishlist',
+    canonical: '/wishlist/',
   },
 };
 

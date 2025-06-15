@@ -23,6 +23,7 @@ export const metadata: Metadata = {
     description:
       'Curated collection of legal resources, tools, and references for corporate law, capital markets, M&A, bankruptcy, and cryptocurrency regulations.',
     type: 'website',
+    url: '/resources/',
     images: [
       {
         url: '/images/default.png',
@@ -40,7 +41,7 @@ export const metadata: Metadata = {
     images: ['/images/default.png'],
   },
   alternates: {
-    canonical: '/resources',
+    canonical: '/resources/',
   },
 };
 
@@ -149,7 +150,7 @@ const resources: Resource[] = [
     meta: 'M. Yahya Harahap, S.H.',
     action: {
       label: 'View Book',
-      url: '/books',
+      url: '/books/',
     },
   },
   {
@@ -161,7 +162,7 @@ const resources: Resource[] = [
     meta: 'Dr. Rr. Rina Antasari, S.H., M.Hum.',
     action: {
       label: 'View Book',
-      url: '/books',
+      url: '/books/',
     },
   },
 

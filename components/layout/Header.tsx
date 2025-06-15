@@ -82,19 +82,19 @@ export default function Header() {
       icon: HiHome,
     },
     {
-      href: '/blog',
+      href: '/blog/',
       label: 'Blog',
       description: 'Thoughts, mental models, and tutorials',
       icon: HiNewspaper,
     },
     {
-      href: '/about',
+      href: '/about/',
       label: 'About',
       description: 'Learn more about me',
       icon: HiUser,
     },
     {
-      href: '/glossary',
+      href: '/glossary/',
       label: 'Glossary',
       description: 'Legal Glossary',
       icon: GoLaw,
@@ -103,25 +103,25 @@ export default function Header() {
 
   const moreItems: MoreItem[] = [
     {
-      href: '/books',
+      href: '/books/',
       label: 'Books',
       description: 'My Book Collections',
       icon: HiBookOpen,
     },
     {
-      href: '/contact',
+      href: '/contact/',
       label: 'Contact',
       description: 'Get in touch with me',
       icon: HiMail,
     },
     {
-      href: '/resources',
+      href: '/resources/',
       label: 'Resources',
       description: 'Resources and templates',
       icon: HiBookOpen,
     },
     {
-      href: '/wishlist',
+      href: '/wishlist/',
       label: 'Wishlist',
       description: 'Life Goals & Aspirations',
       icon: HiSparkles,

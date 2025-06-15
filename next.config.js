@@ -192,6 +192,15 @@ module.exports = async () => {
 
       return config;
     },
+    async redirects() {
+      return [
+        {
+          source: '/:path((?!.*\\/).*)', // versi tanpa slash
+          destination: '/:path/', // versi dengan slash
+          permanent: true,
+        },
+      ];
+    },
   };
 
   return withMDX(nextConfig);

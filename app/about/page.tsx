@@ -18,13 +18,13 @@ export const metadata: Metadata = {
   description:
     'Focusing my expertise in corporate M&A, capital markets, and cryptocurrency',
   alternates: {
-    canonical: '/about',
+    canonical: '/about/',
   },
   openGraph: {
     title: 'About - AL KINDI',
     description:
       'Focusing my expertise in corporate M&A, capital markets, and cryptocurrency',
-    url: '/about',
+    url: '/about/',
     type: 'website',
     images: [
       {

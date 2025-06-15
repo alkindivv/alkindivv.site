@@ -22,12 +22,12 @@ export async function generateMetadata({
     title,
     description,
     alternates: {
-      canonical: `/blog/tag/${tag}`,
+      canonical: `/blog/tag/${tag}/`,
     },
     openGraph: {
       title,
       description,
-      url: `/blog/tag/${tag}`,
+      url: `/blog/tag/${tag}/`,
       type: 'website',
       images: [
         {

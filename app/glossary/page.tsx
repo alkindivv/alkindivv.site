@@ -11,7 +11,7 @@ export const metadata: Metadata = {
     description:
       'Comprehensive legal glossary covering corporate law, capital markets, M&A, bankruptcy, and cryptocurrency terms. Essential reference for legal professionals.',
     type: 'website',
-    url: '/glossary',
+    url: '/glossary/',
     images: [
       {
         url: '/images/default.png',
@@ -29,7 +29,7 @@ export const metadata: Metadata = {
     images: ['/images/default.png'],
   },
   alternates: {
-    canonical: '/glossary',
+    canonical: '/glossary/',
   },
 };
 

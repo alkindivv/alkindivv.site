@@ -10,13 +10,13 @@ export const metadata: Metadata = {
   description:
     'Get in touch with AL KINDI for inquiries about corporate law, capital markets, mergers & acquisitions, bankruptcy, and cryptocurrency regulations',
   alternates: {
-    canonical: '/contact',
+    canonical: '/contact/',
   },
   openGraph: {
     title: 'Contact - AL KINDI',
     description:
       'Get in touch with AL KINDI for legal consultations, collaborations, or inquiries.',
-    url: '/contact',
+    url: '/contact/',
     type: 'website',
     images: [
       {

@@ -4,10 +4,13 @@ import { getAllPosts, getAllCategories, getAllTags } from '@/lib/posts';
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://alkindivv.site';
 
+  // Helper to ensure trailing slash (Next.js config `trailingSlash: true`)
+  const withSlash = (url: string) => (url.endsWith('/') ? url : `${url}/`);
+
   // Get all blog posts
   const posts = await getAllPosts();
   const blogUrls = posts.map((post) => ({
-    url: `${baseUrl}/blog/${post.category}/${post.slug}`,
+    url: withSlash(`${baseUrl}/blog/${post.category}/${post.slug}`),
     lastModified: new Date(post.date),
     changeFrequency: 'monthly' as const,
     priority: 0.7,
@@ -16,7 +19,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   // Get all categories
   const categories = await getAllCategories();
   const categoryUrls = categories.map((category) => ({
-    url: `${baseUrl}/blog/${category.slug}`,
+    url: withSlash(`${baseUrl}/blog/${category.slug}`),
     lastModified: new Date(),
     changeFrequency: 'weekly' as const,
     priority: 0.8,
@@ -24,10 +27,9 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
   // Get all tags
   const tags = await getAllTags();
-  const tagUrls = tags.map((rawTag) => {
-    const tag = encodeURIComponent(rawTag);
+  const tagUrls = tags.map((tag) => {
     return {
-      url: `${baseUrl}/blog/tag/${tag}`,
+      url: withSlash(`${baseUrl}/blog/tag/${tag}`),
       lastModified: new Date(),
       changeFrequency: 'weekly' as const,
       priority: 0.6,
@@ -37,49 +39,49 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   // Static pages
   const staticPages = [
     {
-      url: baseUrl,
+      url: withSlash(baseUrl),
       lastModified: new Date(),
       changeFrequency: 'daily' as const,
       priority: 1.0,
     },
     {
-      url: `${baseUrl}/about`,
+      url: withSlash(`${baseUrl}/about`),
       lastModified: new Date(),
       changeFrequency: 'monthly' as const,
       priority: 0.8,
     },
     {
-      url: `${baseUrl}/blog`,
+      url: withSlash(`${baseUrl}/blog`),
       lastModified: new Date(),
       changeFrequency: 'daily' as const,
       priority: 0.9,
     },
     {
-      url: `${baseUrl}/resources`,
+      url: withSlash(`${baseUrl}/resources`),
       lastModified: new Date(),
       changeFrequency: 'weekly' as const,
       priority: 0.8,
     },
     {
-      url: `${baseUrl}/contact`,
+      url: withSlash(`${baseUrl}/contact`),
       lastModified: new Date(),
       changeFrequency: 'monthly' as const,
       priority: 0.7,
     },
     {
-      url: `${baseUrl}/books`,
+      url: withSlash(`${baseUrl}/books`),
       lastModified: new Date(),
       changeFrequency: 'monthly' as const,
       priority: 0.7,
     },
     {
-      url: `${baseUrl}/glossary`,
+      url: withSlash(`${baseUrl}/glossary`),
       lastModified: new Date(),
       changeFrequency: 'monthly' as const,
       priority: 0.8,
     },
     {
-      url: `${baseUrl}/wishlist`,
+      url: withSlash(`${baseUrl}/wishlist`),
       lastModified: new Date(),
       changeFrequency: 'monthly' as const,
       priority: 0.6,

@@ -21,6 +21,7 @@ export const metadata: Metadata = {
     description:
       'A curated collection of legal and technology books with personal notes and takeaways.',
     type: 'website',
+    url: '/books/',
     images: [
       {
         url: '/images/default.png',
@@ -38,7 +39,7 @@ export const metadata: Metadata = {
     images: ['/images/default.png'],
   },
   alternates: {
-    canonical: '/books',
+    canonical: '/books/',
   },
 };
 

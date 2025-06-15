@@ -33,16 +33,16 @@ const socialLinks = [
 
 const quickLinks = [
   { name: 'Home', href: '/' },
-  { name: 'About', href: '/about' },
-  { name: 'Blog', href: '/blog' },
-  { name: 'Contact', href: '/contact' },
+  { name: 'About', href: '/about/' },
+  { name: 'Blog', href: '/blog/' },
+  { name: 'Contact', href: '/contact/' },
 ] as const;
 
 const resourceLinks = [
-  { name: 'Glossary', href: '/glossary' },
-  { name: 'Books', href: '/resources' },
-  { name: 'Wishlist', href: '/wishlist' },
-  { name: 'Docs', href: '/docs' },
+  { name: 'Glossary', href: '/glossary/' },
+  { name: 'Books', href: '/books/' },
+  { name: 'Wishlist', href: '/wishlist/' },
+
   { name: 'RSS', href: '/feed.xml' },
 ] as const;
 
@@ -160,18 +160,18 @@ export default function Footer() {
               <FooterSection title="Articles">
                 <ul className="space-y-2">
                   <li className="text-neutral-50 text-sm">
-                    <Link href="/blog/law" className="block text-white">
+                    <Link href="/blog/law/" className="block text-white">
                       Law
                     </Link>
                   </li>
                   <li className="text-neutral-400 text-sm">
-                    <Link href="/blog/hackintosh" className="block text-white">
+                    <Link href="/blog/hackintosh/" className="block text-white">
                       Hackintosh
                     </Link>
                   </li>
                   <li className="text-neutral-400 text-sm">
                     <Link
-                      href="/blog/cryptocurrency"
+                      href="/blog/cryptocurrency/"
                       className="block text-white"
                     >
                       Crypto

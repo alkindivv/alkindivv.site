@@ -51,7 +51,7 @@ export async function generateMetadata({
     title: `${categoryData.name} Articles`,
     description: `Explore ${categoryData.name.toLowerCase()} articles by AL KINDI. In-depth analysis and insights on ${categoryData.name.toLowerCase()} topics.`,
     alternates: {
-      canonical: `/blog/${category}`,
+      canonical: `/blog/${category}/`,
     },
   };
 }
