@@ -95,8 +95,8 @@ export default function TableOfContents({
               href={`#${heading.id}`}
               onClick={(e) => handleClick(e, heading.id)}
               className={`
+              hover:text-white/90
                 group relative flex
-                hover:text-white/90
                 ${activeId === heading.id ? 'text-white/90' : 'text-[#525252]'}
                 text-[13px] leading-relaxed tracking-wide
               `}
@@ -105,9 +105,9 @@ export default function TableOfContents({
                 className={`
                 absolute left-0 top-1/2
                 ${heading.level === 2 ? '' : 'h-1.5 w-1.5'}
-                ${activeId === heading.id ? 'bg-white/20' : ''}
+                ${activeId === heading.id ? '' : ''}
                 ${heading.level === 2 ? 'opacity-100' : 'opacity-50'}
-                group-hover:bg-white/20 group-hover:opacity-100
+                 group-hover:bg-white/20 group-hover:opacity-100
                 `}
               ></span>
               <span className="line-clamp-2 font-paragraf">
