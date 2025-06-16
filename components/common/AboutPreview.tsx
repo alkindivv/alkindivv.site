@@ -4,7 +4,12 @@ import React, { useEffect, useState } from 'react';
 import GlowingButton from '../shared/GlowingButton';
 import Link from 'next/link';
 
-import { HiLibrary, HiScale, HiDocumentText } from 'react-icons/hi';
+import {
+  HiLibrary,
+  HiScale,
+  HiDocumentText,
+  HiOutlineClock,
+} from 'react-icons/hi';
 import OptimizedImage from '../shared/OptimizedImage';
 import AccentNormal from '../shared/AccentNormal';
 
@@ -160,28 +165,6 @@ const AboutPreview = () => {
             }}
           >
             About <span className="gradient-text">Me</span>
-            <svg
-              width="75"
-              height="62"
-              viewBox="0 0 75 62"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-              className="translate-y-7 hidden sm:block"
-            >
-              <path
-                d="M1 1C6.24431 1.21626 11.5365 2.05428 16.6516 3.13955C28.7596 5.70848 41.2898 9.45859 51.3287 17.0631C61.1747 24.5214 66.3737 34.4703 69.1034 46.2597C70.3557 51.6681 70.3959 56.1136 70.6176 61.434"
-                stroke="#D4D4D4"
-                strokeWidth="0.5"
-                strokeLinecap="round"
-                strokeDasharray="4 4"
-              />
-              <path
-                d="M63 57.185C65.135 58.2982 67.2076 59.4555 69.2541 60.7235C70.1813 61.2979 70.997 62.1916 71.624 60.9045C72.5057 59.0948 73.0026 57.3294 74.5536 56"
-                stroke="#D4D4D4"
-                strokeWidth="0.5"
-                strokeLinecap="round"
-              />
-            </svg>
           </h3>
           {/* <p
             className="text-neutral-400 leading-relaxed"
@@ -366,7 +349,7 @@ const AboutPreview = () => {
                         <HiScale className="w-5 h-5 text-emerald-400" />
                       </div>
                       <div>
-                        <h4 className="text-base font-medium text-white">
+                        <h4 className="text-base font-medium gradient-text">
                           AL KINDI
                         </h4>
                         <p className="text-xs text-neutral-300">

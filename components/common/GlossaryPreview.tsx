@@ -348,7 +348,7 @@ const GlossaryPreview = ({ items = [] }: GlossaryPreviewProps) => {
                           <div className="rounded-lg p-4 border border-emerald-900/10 bg-[#080b0e]/60">
                             <h5 className="text-sm font-medium text-emerald-400 mb-2 flex items-center">
                               <span className="inline-block w-4 h-4 mr-1 border-t border-l border-emerald-900/40"></span>
-                              Case Example:
+                              Example:
                             </h5>
                             <p className="text-sm text-neutral-400 leading-relaxed">
                               {item.example}

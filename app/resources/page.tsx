@@ -250,12 +250,12 @@ export default function ResourcesPage() {
                   {/* Content */}
                   <div className="flex-1">
                     <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
-                      <h4 className="font-medium text-white text-base">
+                      <h4 className="font-medium  border-decoration-bottom text-white text-lg md:text-xl">
                         {resource.title}
                       </h4>
                       <Link
                         href={resource.action.url}
-                        className="inline-flex items-center text-sm font-medium text-emerald-400 hover:text-emerald-300"
+                        className="inline-flex items-center text-sm font-medium text-emerald-500 hover:text-emerald-300"
                       >
                         {resource.action.label}
                         {resource.type === 'document' ||
@@ -266,7 +266,7 @@ export default function ResourcesPage() {
                         )}
                       </Link>
                     </div>
-                    <p className="text-neutral-400 text-sm leading-relaxed mt-1">
+                    <p className="paragraph-text leading-relaxed mt-1">
                       {resource.description}
                     </p>
                     <span className="text-xs text-neutral-500 mt-1 inline-block">
@@ -284,13 +284,13 @@ export default function ResourcesPage() {
             <div className="flex items-center justify-center mb-6">
               <div className="h-px w-16 bg-neutral-800"></div>
               <div className="mx-4">
-                <HiScale className="w-8 h-8 text-emerald-500/30" />
+                <HiDocumentText className="w-8 h-8 text-emerald-500/30" />
               </div>
               <div className="h-px w-16 bg-neutral-800"></div>
             </div>
 
             <div className="flex items-center justify-center gap-2 text-xs text-neutral-500">
-              <HiScale className="w-4 h-4 text-emerald-500/50" />
+              <HiDocumentText className="w-4 h-4 text-emerald-500/50" />
               <span>For reference only</span>
             </div>
 

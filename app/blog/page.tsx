@@ -48,8 +48,7 @@ export default async function BlogPage({ searchParams }: BlogPageProps) {
   // Extract query parameters
   const search =
     typeof searchParams?.search === 'string' ? searchParams.search : '';
-  const topic =
-    typeof searchParams?.topic === 'string' ? searchParams.topic : '';
+  const tag = typeof searchParams?.tag === 'string' ? searchParams.tag : '';
   const page =
     typeof searchParams?.page === 'string' ? parseInt(searchParams.page) : 1;
 
@@ -67,11 +66,10 @@ export default async function BlogPage({ searchParams }: BlogPageProps) {
 
       const matchesSearch =
         !search || searchContent.includes(search.toLowerCase());
-      const matchesTopic =
-        !topic ||
-        post.tags?.some((tag) => tag.toLowerCase() === topic.toLowerCase());
+      const matchesTag =
+        !tag || post.tags?.some((tg) => tg.toLowerCase() === tag.toLowerCase());
 
-      return matchesSearch && matchesTopic;
+      return matchesSearch && matchesTag;
     })
     .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
 
@@ -79,7 +77,7 @@ export default async function BlogPage({ searchParams }: BlogPageProps) {
     <BlogPageClient
       initialPosts={filtered}
       initialSearch={search}
-      initialTopic={topic}
+      initialTag={tag}
       initialPage={page}
     />
   );

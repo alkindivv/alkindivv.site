@@ -19,6 +19,9 @@
   .border-decoration-bottom {
     @apply underline underline-offset-2 decoration-[#4e4e4e] hover:decoration-neutral-50 decoration-2 transition-colors duration-200;
   }
+  .glass-bg {
+    @apply bg-white/5 backdrop-blur-md saturate-150;
+  }
 }
 
 /* Root Variables */
@@ -69,6 +72,19 @@
   font-variation-settings: normal;
   -webkit-tap-highlight-color: transparent;
   -webkit-text-size-adjust: 100%;
+
+  /* Button Glow Variables */
+  --btn-accent: #08a875;
+  --btn-glow-inner: rgba(8, 168, 117, 0.35);
+  --btn-glow-outer: rgba(8, 168, 117, 0.12);
+}
+
+@media (prefers-color-scheme: light) {
+  :root {
+    --btn-accent: #026646;
+    --btn-glow-inner: rgba(2, 102, 70, 0.28);
+    --btn-glow-outer: rgba(2, 102, 70, 0.08);
+  }
 }
 
 /* Global Styles */
@@ -680,6 +696,10 @@ code {
   -webkit-mask-composite: xor;
   mask-composite: exclude;
   pointer-events: none;
+}
+
+.gradient-border:hover::before {
+  background: linear-gradient(45deg, #026646 0%, #59fbc093 50%, #026646 100%);
 }
 
 .gradient-border select {

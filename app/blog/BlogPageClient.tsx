@@ -11,17 +11,19 @@ import {
   HiSearch,
   HiScale,
 } from 'react-icons/hi';
+import { FaTags } from 'react-icons/fa';
 import clsx from 'clsx';
 import HighlightedText from '@/components/shared/HighlightedText';
 import Image from 'next/image';
 import { BlogPost } from '@/types/blog';
 
-const topics = [
+const tagOptions = [
   'banking & finance',
   'bankruptcy',
   'blockchain',
   'capital market',
   'competition & antitrust',
+  'corporate',
   'cryptocurrency',
   'dispute resolution',
   'energy',
@@ -42,20 +44,20 @@ const POSTS_PER_PAGE = 9;
 interface BlogPageClientProps {
   initialPosts: BlogPost[];
   initialSearch?: string;
-  initialTopic?: string;
+  initialTag?: string;
   initialPage?: number;
 }
 
 export default function BlogPageClient({
   initialPosts,
   initialSearch = '',
-  initialTopic = '',
+  initialTag = '',
   initialPage = 1,
 }: BlogPageClientProps) {
   const router = useRouter();
   const pathname = usePathname();
-  const [selectedTopic, setSelectedTopic] = useState<string | null>(
-    initialTopic || null
+  const [selectedTag, setSelectedTag] = useState<string | null>(
+    initialTag || null
   );
   const [currentPage, setCurrentPage] = useState(initialPage);
   const [searchQuery, setSearchQuery] = useState(initialSearch);
@@ -66,14 +68,14 @@ export default function BlogPageClient({
   useEffect(() => {
     const params = new URLSearchParams();
     if (searchQuery) params.set('search', searchQuery);
-    if (selectedTopic) params.set('topic', selectedTopic);
+    if (selectedTag) params.set('tag', selectedTag);
     if (currentPage > 1) params.set('page', currentPage.toString());
 
     const query = params.toString();
     router.replace(query ? `${pathname}?${query}` : pathname, {
       scroll: false,
     });
-  }, [searchQuery, selectedTopic, currentPage, pathname, router]);
+  }, [searchQuery, selectedTag, currentPage, pathname, router]);
 
   // Handle search input
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -81,8 +83,8 @@ export default function BlogPageClient({
     setCurrentPage(1);
   };
 
-  const handleTopicClick = (topic: string) => {
-    setSelectedTopic(selectedTopic === topic ? null : topic);
+  const handleTagClick = (tag: string) => {
+    setSelectedTag(selectedTag === tag ? null : tag);
     setCurrentPage(1);
   };
 
@@ -99,13 +101,11 @@ export default function BlogPageClient({
 
       const matchesSearch =
         !searchQuery || searchContent.includes(searchQuery.toLowerCase());
-      const matchesTopic =
-        !selectedTopic ||
-        post.tags?.some(
-          (tag) => tag.toLowerCase() === selectedTopic.toLowerCase()
-        );
+      const matchesTag =
+        !selectedTag ||
+        post.tags?.some((tg) => tg.toLowerCase() === selectedTag.toLowerCase());
 
-      return matchesSearch && matchesTopic;
+      return matchesSearch && matchesTag;
     })
     .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
 
@@ -168,7 +168,7 @@ export default function BlogPageClient({
               <div className="relative mx-auto max-w-2xl">
                 <div className="relative group h-full border border-neutral-800/70 rounded-md overflow-hidden hover:border-emerald-500/30 transition-all duration-300 bg-neutral-900/20">
                   {/* Legal document styling */}
-                  <div className="absolute top-0 left-0 right-0 h-0.5 bg-gradient-to-r from-transparent via-emerald-500/20 to-transparent"></div>
+                  {/* <div className="absolute top-0 left-0 right-0 h-0.5 bg-gradient-to-r from-transparent via-emerald-500/20 to-transparent"></div> */}
 
                   <input
                     type="text"
@@ -194,21 +194,19 @@ export default function BlogPageClient({
 
             <div className="mt-6 mb-8" data-fade="3">
               <div className="flex flex-wrap gap-2 items-center">
-                <span className="text-xs md:text-sm text-neutral-50 mr-2">
-                  choose topic:
-                </span>
-                {topics.map((topic) => (
+                <FaTags className="w-4 h-4 text-emerald-500 mr-2" />
+                {tagOptions.map((tag) => (
                   <button
-                    key={topic}
-                    onClick={() => handleTopicClick(topic)}
+                    key={tag}
+                    onClick={() => handleTagClick(tag)}
                     className={clsx(
                       'px-1.5 py-1 text-xs rounded-lg md:text-sm transition-all duration-300',
-                      selectedTopic === topic
+                      selectedTag === tag
                         ? 'border-emerald-500 text-neutral-50 bg-emerald-500/10'
                         : ' bg-[#17171799] font-medium text-[#9e9e9e] hover:text-neutral-50'
                     )}
                   >
-                    <HighlightedText text={topic} searchQuery={searchQuery} />
+                    <HighlightedText text={tag} searchQuery={searchQuery} />
                   </button>
                 ))}
               </div>
@@ -218,9 +216,6 @@ export default function BlogPageClient({
             <div className="mb-12" data-fade="5">
               {/* Legal document corner decorations */}
               <div className="relative mb-8">
-                {/* Top decoration */}
-                <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-emerald-500/20 to-transparent"></div>
-
                 {currentPosts.length > 0 ? (
                   <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2">
                     {currentPosts.map((post, index) => (
@@ -234,10 +229,10 @@ export default function BlogPageClient({
                   </div>
                 ) : (
                   <div className="text-center py-12">
-                    <div className="text-gray-400 mb-1 text-2xl md:text-3xl">
+                    <div className=" mb-1 text-2xl md:text-3xl font-semibold gradient-text">
                       <span className="gradient-text">No articles found</span>
                     </div>
-                    <p className=" text-neutral-500 text-sm md:text-xl">
+                    <p className=" text-neutral-500 text-sm md:text-base">
                       Try adjusting your search or filter criteria
                     </p>
                   </div>

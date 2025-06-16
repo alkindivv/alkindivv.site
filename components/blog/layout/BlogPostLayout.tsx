@@ -11,8 +11,11 @@ import ArticleNewsletterPopup from '@/components/blog/ArticleNewsletterPopup';
 import Accent from '@/components/shared/Accent';
 import { MDXComponents } from '@/components/blog/mdx';
 import { BlogPost } from '@/types/blog';
+import SocialMedia from '@/components/social/SocialMedia';
+import { FiLinkedin, FiMail, FiTwitter } from 'react-icons/fi';
+import { FaTags } from 'react-icons/fa';
 
-interface FrontMatter extends BlogPost {
+interface PostData extends BlogPost {
   readingTime: number;
   description?: string;
   excerpt?: string;
@@ -20,7 +23,7 @@ interface FrontMatter extends BlogPost {
 }
 
 interface BlogPostLayoutProps {
-  meta: FrontMatter;
+  post: PostData;
   category: string;
   slug: string;
   allPosts: BlogPost[];
@@ -35,7 +38,7 @@ const debugProd = (msg: string, data?: any) => {
 };
 
 export default function BlogPostLayout({
-  meta,
+  post,
   category,
   slug,
   allPosts,
@@ -48,7 +51,7 @@ export default function BlogPostLayout({
     debugProd('mounted', { slug });
   }, [slug]);
 
-  const formattedDate = new Date(meta.date).toLocaleDateString('en-US', {
+  const formattedDate = new Date(post.date).toLocaleDateString('en-US', {
     month: 'long',
     day: 'numeric',
     year: 'numeric',
@@ -56,13 +59,14 @@ export default function BlogPostLayout({
 
   const breadcrumbItems = [
     { label: 'Blog', href: '/blog' },
-    { label: meta.category, href: `/blog/${meta.category.toLowerCase()}` },
-    { label: meta.title },
+    { label: post.category, href: `/blog/${post.category.toLowerCase()}` },
+    { label: post.title },
   ];
 
   return (
     <div className="fade-wrapper max-w-[1400px] mx-auto">
       {/* Header */}
+
       <div className="mb-8 sm:mb-12 -mt-20 relative z-10">
         <div className="mb-1" data-fade="2">
           <Breadcrumb items={breadcrumbItems} />
@@ -71,13 +75,13 @@ export default function BlogPostLayout({
           className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-[1.15] tracking-tight mb-2 sm:mb-2"
           data-fade="3"
         >
-          {meta.title}
+          {post.title}
         </h1>
         <p
           className="text-[0.825rem] md:text-[0.925rem] font-paragraf leading-relaxed tracking-wide text-[#A3A3A3]"
           data-fade="4"
         >
-          {meta.excerpt}
+          {post.excerpt}
         </p>
       </div>
 
@@ -90,7 +94,7 @@ export default function BlogPostLayout({
           <div className="relative w-12 h-12 overflow-hidden rounded-full ring-5 ">
             <Image
               src="/images/AL-KINDI.png"
-              alt={meta.author}
+              alt={post.author}
               fill
               sizes="64px"
               className="object-cover"
@@ -98,7 +102,7 @@ export default function BlogPostLayout({
           </div>
           <div>
             <div className="text-sm sm:text-base font-paragraf font-semibold gradient-text">
-              {meta.author}
+              {post.author}
             </div>
             <div className="text-xs md:text-xs font-paragraf text-neutral-300">
               {formattedDate}
@@ -112,7 +116,7 @@ export default function BlogPostLayout({
           <span className="flex items-center gap-2">
             <HiOutlineClock className="w-4 h-4 text-emerald-600" />
             <span className="text-xs md:text-md text-neutral-300 font-paragraf">
-              {meta.readingTime} min read
+              {post.readingTime} min read
             </span>
           </span>
         </div>
@@ -133,20 +137,95 @@ export default function BlogPostLayout({
             </MDXProvider>
           </div>
           {/* Tags */}
-          {meta.tags?.length && (
-            <div className="flex flex-wrap gap-2 mb-10 sm:mb-14 mt-12">
-              {meta.tags.map((tag) => (
+
+          {/* <ArticleNewsletterPopup slug={slug} /> */}
+
+          <div className="relative group">
+            {/* Gradient Border */}
+            {/* <div className="absolute -inset-[1px] bg-gradient-to-r from-emerald-500/0 via-emerald-500/10 to-emerald-500/0 rounded-2xl opacity-0 group-hover:opacity-100 transition-all duration-700" /> */}
+
+            {/* Content Container */}
+            <div className="relative flex flex-col sm:flex-row gap-6 sm:gap-8 p-6 sm:p-8 bg-[#0a0a0a]/90 backdrop-blur-md rounded-2xl border border-white/[0.05]">
+              {/* Author Image Container */}
+              <div className="relative sm:flex-shrink-0">
+                {/* Image Glow Effect */}
+                {/* <div className="absolute -inset-0.5 bg-gradient-to-br from-emerald-500/30 to-emerald-500/0 rounded-xl blur-sm opacity-0 group-hover:opacity-20 transition-all duration-700" /> */}
+
+                {/* Image */}
+                <div className="relative w-16 h-16 sm:w-24 sm:h-24 overflow-hidden rounded-xl ring-1 ring-white/[0.05]">
+                  <Image
+                    src="/images/AL-KINDI.png"
+                    alt={post.author || 'AL KINDI'}
+                    fill
+                    sizes="(max-width: 640px) 3rem, (max-width: 768px) 3rem, 6rem"
+                    className="object-cover"
+                    loading="eager"
+                    quality={90}
+                  />
+                </div>
+              </div>
+
+              {/* Author Info */}
+              <div className="flex-1 space-y-1">
+                {/* Name and Role */}
+                <div className="space-y-0">
+                  <h3 className="text-base sm:text-lg font-semibold tracking-tight">
+                    <span className="gradient-text">{post.author}</span>
+                  </h3>
+                </div>
+
+                {/* Bio */}
+                <p className="text-[13px] sm:text-[14px] text-[#A3A3A3]leading-relaxed font-paragraf">
+                  Focusing my expertise in corporate M&A, capital markets, and
+                  bankruptcy. Passionate about the intersection of law and
+                  technology, exploring innovative solutions in legal practice.
+                </p>
+
+                {/* Social Links */}
+                <div className="flex flex-wrap items-center gap-x-5 gap-y-2 pt-1">
+                  <a
+                    href="https://twitter.com/alkindivv"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center gap-2 text-[13px] text-gray-400/80 transition-colors duration-300"
+                  >
+                    <FiTwitter className="w-4 h-4" />
+                    <span className="font-medium">@alkindivv</span>
+                  </a>
+                  <a
+                    href="https://linkedin.com/in/alkindivv"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center gap-2 text-[13px] text-gray-400/80 hover:text-emerald-400/90 transition-colors duration-300"
+                  >
+                    <FiLinkedin className="w-4 h-4" />
+
+                    <span className="font-medium">LinkedIn</span>
+                  </a>
+                  <a
+                    href="mailto:alkindivv@gmail.com"
+                    className="flex items-center gap-2 text-[13px] text-gray-400/80 hover:text-emerald-400/90 transition-colors duration-300"
+                  >
+                    <FiMail className="w-4 h-4" />
+                    <span className="font-medium">Email</span>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+          {post.tags?.length && (
+            <div className="flex items-center gap-2 mt-2">
+              {post.tags.map((tag) => (
                 <Link
                   key={tag}
                   href={`/blog/tag/${encodeURIComponent(tag.toLowerCase())}`}
-                  className="px-4 py-1.5 text-xs tracking-wide bg-[#0d1117]/80 hover:bg-emerald-500/10 text-gray-400 hover:text-emerald-400 rounded-full border border-white/5 hover:border-emerald-500/20 transition-all duration-300"
+                  className="px-1.5 py-1 text-xs rounded-lg md:text-sm transition-all duration-300 tracking-widebg-[#17171799] font-medium text-[#9e9e9e] border-emerald-500 bg-emerald-500/10"
                 >
-                  #{tag}
+                  {tag}
                 </Link>
               ))}
             </div>
           )}
-          {/* <ArticleNewsletterPopup slug={slug} /> */}
         </article>
 
         <aside className="hidden lg:block w-50">
@@ -162,7 +241,7 @@ export default function BlogPostLayout({
           <Accent>Related Articles</Accent>
         </h2>
         <RelatedArticles
-          currentPost={{ ...meta, readingTime: meta.readingTime }}
+          currentPost={{ ...post, readingTime: post.readingTime }}
           posts={allPosts}
         />
       </section>
@@ -214,7 +293,7 @@ export default function BlogPostLayout({
           );
         })()}
       </div>
-      <ArticleNewsletterPopup slug={meta.slug} />
+      <ArticleNewsletterPopup slug={post.slug} />
     </div>
   );
 }

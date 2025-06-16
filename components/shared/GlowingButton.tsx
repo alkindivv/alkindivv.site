@@ -40,20 +40,22 @@ IconWrapper.displayName = 'IconWrapper';
 const GlowEffect = React.memo(function GlowEffect() {
   return (
     <>
-      <div className="pointer-events-none select-none absolute inset-[-1px] rounded-[inherit] p-px overflow-hidden">
+      {/* Inner glow */}
+      <div className="pointer-events-none select-none absolute inset-[-1px] rounded-[inherit] overflow-hidden">
         <div
           className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
           style={{
             background:
-              'radial-gradient(circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(255,255,255,0.15), transparent 50%)',
+              'radial-gradient(circle at var(--mouse-x,50%) var(--mouse-y,50%), var(--btn-glow-inner), transparent 55%)',
           }}
         />
       </div>
+      {/* Outer subtle glow */}
       <div
-        className="pointer-events-none select-none absolute inset-0 opacity-0 group-hover:opacity-100 transition-all duration-500 ease-out"
+        className="pointer-events-none select-none absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
         style={{
           background:
-            'radial-gradient(circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(255,255,255,0.08), transparent 45%)',
+            'radial-gradient(circle at var(--mouse-x,50%) var(--mouse-y,50%), var(--btn-glow-outer), transparent 60%)',
         }}
       />
     </>
@@ -113,12 +115,12 @@ const GlowingButton = React.forwardRef<HTMLButtonElement, GlowingButtonProps>(
     const buttonIcon = icon || getDefaultIcon();
 
     const baseStyles = cn(
-      'relative group inline-flex items-center gap-3 transition-all duration-300 ease-out',
+      'relative group inline-flex items-center gap-3 transition-all duration-300 ease-out motion-safe:group-hover:scale-[1.03]',
       disabled && 'opacity-50 cursor-not-allowed pointer-events-none',
       variant === 'default' &&
-        'gradient-border bg-black/90 hover:bg-black/80 backdrop-blur-sm supports-[backdrop-filter]:bg-transparent px-4 py-3 rounded-xl',
+        'gradient-border glass-bg hover:bg-white/5 px-4 py-3 rounded-xl',
       variant === 'small' &&
-        'gradient-border bg-black/90 hover:bg-black/80 backdrop-blur-sm supports-[backdrop-filter]:bg-transparent px-3 py-2 text-sm rounded-lg md:px-3 md:py-2.5 md:text-base md:rounded-xl',
+        'gradient-border glass-bg hover:bg-white/5 px-3 py-2 text-sm rounded-lg md:px-3 md:py-2.5 md:text-base md:rounded-xl',
       variant === 'minimal' &&
         'bg-transparent hover:bg-transparent backdrop-blur-none',
       className

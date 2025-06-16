@@ -214,10 +214,10 @@ const BlogCard = ({
         onClick={handleClick}
       >
         {/* Legal document corner decorations - only visible on hover */}
-        <div className="absolute top-0 left-0 w-3 h-3 border-t border-l border-emerald-500/0 group-hover:border-emerald-500/30 transition-colors duration-300 z-10"></div>
+        {/* <div className="absolute top-0 left-0 w-3 h-3 border-t border-l border-emerald-500/0 group-hover:border-emerald-500/30 transition-colors duration-300 z-10"></div>
         <div className="absolute top-0 right-0 w-3 h-3 border-t border-r border-emerald-500/0 group-hover:border-emerald-500/30 transition-colors duration-300 z-10"></div>
         <div className="absolute bottom-0 left-0 w-3 h-3 border-b border-l border-emerald-500/0 group-hover:border-emerald-500/30 transition-colors duration-300 z-10"></div>
-        <div className="absolute bottom-0 right-0 w-3 h-3 border-b border-r border-emerald-500/0 group-hover:border-emerald-500/30 transition-colors duration-300 z-10"></div>
+        <div className="absolute bottom-0 right-0 w-3 h-3 border-b border-r border-emerald-500/0 group-hover:border-emerald-500/30 transition-colors duration-300 z-10"></div> */}
 
         {/* Document filing number - legal style */}
         {/* <div className="absolute top-2 left-2 z-20">
@@ -267,11 +267,11 @@ const BlogCard = ({
 
           {/* Date - Document filing style */}
           <div className="flex items-center gap-1.5 mb-2">
-            <div className="h-[1px] w-3 bg-neutral-700"></div>
-            <p className="text-xs text-neutral-400 transition-colors group-hover:text-neutral-300 font-mono">
+            {/* <div className="h-[1px] w-3 bg-neutral-700"></div> */}
+            <p className="text-xs text-neutral-400 transition-colors group-hover:text-neutral-300 paragraph-text">
               {format(new Date(post.date), 'MMMM dd, yyyy')}
             </p>
-            <div className="h-[1px] flex-grow bg-neutral-700"></div>
+            {/* <div className="h-[1px] flex-grow bg-neutral-700"></div> */}
           </div>
 
           {/* Title */}

@@ -4,6 +4,7 @@ import Image from 'next/image';
 import { Metadata } from 'next';
 import { HiOutlineBookOpen } from 'react-icons/hi';
 import Breadcrumb from '@/components/shared/Breadcrumb';
+import DimensionLink from '@/components/common/DimensionLink';
 
 export const metadata: Metadata = {
   title: 'Books Collection',
@@ -46,6 +47,7 @@ interface Book {
   description: string;
   keyTakeaways?: string[];
   personalThoughts?: string;
+  url?: string;
 }
 
 const books: Book[] = [
@@ -65,6 +67,7 @@ const books: Book[] = [
       'Company governance principles',
       'Shareholder rights and obligations',
     ],
+    url: 'https://simpus.mkri.id/opac/detail-opac?id=7162',
   },
   {
     id: 2,
@@ -82,6 +85,7 @@ const books: Book[] = [
       'Framework of M&A',
       'Bankruptcy procedures',
     ],
+    url: 'https://perpus.s1.fisip.hangtuah.ac.id/index.php?p=show_detail&id=2744&keywords=',
   },
 ];
 
@@ -125,10 +129,11 @@ export default function BooksPage() {
           {/* Header - Legal Styled */}
           <div className="mb-12 max-w-2xl mx-auto" data-fade="1">
             <h3 className="text-4xl md:text-5xl font-bold mb-4 text-center">
-              My Books <span className="gradient-text">Refrences</span>
+              Books <span className="gradient-text">Refrences</span>
             </h3>
             <p className="text-neutral-400 leading-relaxed text-center">
-              Essential legal textbooks with personal annotations and key points
+              Some of the books that I have read and annotated with my personal
+              notes.
             </p>
 
             <div className="relative mt-5 top-0 left-0 right-0 h-0.5 bg-gradient-to-r from-transparent via-emerald-500/20 to-transparent"></div>
@@ -147,7 +152,7 @@ export default function BooksPage() {
                   <Image
                     src={book.coverImage}
                     alt={book.title}
-                    width={64}
+                    width={124}
                     height={96}
                     className="object-cover rounded"
                   />
@@ -155,18 +160,20 @@ export default function BooksPage() {
 
                 {/* Details */}
                 <div className="flex-1">
-                  <h4 className="font-semibold text-white leading-snug">
-                    {book.title}
+                  <h4 className="text-lg md:text-2xl font-semibold text-white leading-snug">
+                    <DimensionLink href={book.url || ''}>
+                      {book.title}
+                    </DimensionLink>
                   </h4>
-                  <p className="text-xs text-neutral-500 mb-2">
+                  <p className="text-xs md:text-sm text-neutral-500 mb-2">
                     {book.author} • {book.publishYear} • {book.category}
                   </p>
-                  <p className="text-neutral-400 text-sm leading-relaxed">
+                  <p className="paragraph-text leading-relaxed">
                     {book.description}
                   </p>
 
                   {book.keyTakeaways && (
-                    <ul className="mt-3 list-disc list-inside space-y-1 text-neutral-400 text-sm">
+                    <ul className="mt-3 list-disc list-inside space-y-1 paragraph-text leading-relaxed">
                       {book.keyTakeaways.map((take, idx) => (
                         <li key={idx}>{take}</li>
                       ))}
@@ -178,9 +185,9 @@ export default function BooksPage() {
           </ul>
 
           {/* Legal footer */}
-          <div className="mt-12 text-end text-[10px] text-neutral-500 font-mono">
+          {/* <div className="mt-12 text-end text-[10px] text-neutral-500 font-mono">
             BOOKS-{new Date().getFullYear()}
-          </div>
+          </div> */}
           <div className="mt-16 text-center relative">
             {/* Law scale divider */}
             <div className="flex items-center justify-center mb-6">

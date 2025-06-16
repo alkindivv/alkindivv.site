@@ -29,7 +29,7 @@ const ArticleCardAlt = ({ post }: ArticleCardAltProps) => {
 
         {/* Content */}
         <div className="w-full">
-          <p className="text-sm text-neutral-400">
+          <p className="text-sm text-neutral-400 ">
             {new Date(post.date).toLocaleDateString('en-US', {
               year: 'numeric',
               month: 'long',
@@ -60,6 +60,20 @@ const ArticleCardAlt = ({ post }: ArticleCardAltProps) => {
                 </p>
               </div>
             </div>
+
+            {post.tags?.length ? (
+              <div className="flex flex-wrap gap-2 lg:justify-end">
+                {post.tags.slice(0, 3).map((tag) => (
+                  <Link
+                    key={tag}
+                    href={`/blog/tag/${encodeURIComponent(tag.toLowerCase())}`}
+                    className="px-1.5 py-1 text-xs rounded-lg transition-all duration-300 tracking-widebg-[#17171799] font-medium text-[#9e9e9e] border-emerald-500 bg-emerald-500/10"
+                  >
+                    {tag}
+                  </Link>
+                ))}
+              </div>
+            ) : null}
           </div>
         </div>
       </article>

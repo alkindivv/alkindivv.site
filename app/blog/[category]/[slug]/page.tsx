@@ -147,7 +147,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
           )}
 
           <BlogPostLayout
-            meta={typedFrontMatter}
+            post={typedFrontMatter}
             category={category}
             slug={slug}
             allPosts={allPosts}
