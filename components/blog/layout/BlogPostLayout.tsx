@@ -4,7 +4,6 @@ import { MDXProvider } from '@mdx-js/react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { HiOutlineClock } from 'react-icons/hi';
-import clsx from 'clsx';
 import Breadcrumb from '@/components/shared/Breadcrumb';
 import TableOfContents from '@/components/blog/TableOfContents';
 import RelatedArticles from '@/components/blog/RelatedArticles';
@@ -186,7 +185,7 @@ export default function BlogPostLayout({
                   className="group flex-1 max-w-[280px] pr-4 hover:underline"
                 >
                   <p className="text-xs text-neutral-400 mb-1 group-hover:text-emerald-400 transition-colors">
-                    Artikel Sebelumnya
+                    Previous Article
                   </p>
                   <span className="text-sm font-semibold text-neutral-200 group-hover:text-white line-clamp-2">
                     {prevPost.title}
@@ -202,7 +201,7 @@ export default function BlogPostLayout({
                   className="group flex-1 max-w-[280px] text-right pl-4 hover:underline"
                 >
                   <p className="text-xs text-neutral-400 mb-1 group-hover:text-emerald-400 transition-colors">
-                    Artikel Selanjutnya
+                    Next Article
                   </p>
                   <span className="text-sm font-semibold text-neutral-200 group-hover:text-white line-clamp-2">
                     {nextPost.title}

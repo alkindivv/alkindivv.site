@@ -33,7 +33,7 @@ const RelatedArticles = ({ currentPost, posts }: RelatedArticlesProps) => {
         </div>
       ))}
       {relatedPosts.length === 0 && (
-        <div className="text-gray-400 text-center py-8 border border-neutral-800/40 rounded-sm p-6 relative">
+        <div className="gradient-text text-center py-8 border border-neutral-800/40 rounded-sm p-6 relative">
           <p className="font-mono">No related articles found.</p>
         </div>
       )}

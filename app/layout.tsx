@@ -179,7 +179,7 @@ function generateDefaultSchema() {
           caption: 'AL KINDI',
         },
         description:
-          'Legal professional specializing in corporate law, capital markets, M&A, bankruptcy, and cryptocurrency regulations',
+          'A law graduate focusing my expertise in corporate M&A, capital markets, and crypto assets regulations and compliance',
         sameAs: [
           'https://twitter.com/alkindivv',
           'https://linkedin.com/in/alkindivv',

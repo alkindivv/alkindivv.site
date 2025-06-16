@@ -88,7 +88,7 @@ const AboutPage = () => {
               About <span className="gradient-text">Me</span>
             </h1>
             <p className="text-neutral-400 leading-relaxed text-center">
-              Professional background, qualifications, and legal expertise
+              Background, qualifications, and expertise
             </p>
             <div className="relative mt-5 top-0 left-0 right-0 h-0.5 bg-gradient-to-r from-transparent via-emerald-500/20 to-transparent"></div>
           </div>
@@ -112,32 +112,10 @@ const AboutPage = () => {
 
                 {/* Legal stamp/watermark */}
               </div>
-
-              {/* Legal credential tag */}
-              {/* <div className="absolute -bottom-3 right-3 p-2 rounded-md bg-[#060a0d]/90 border border-emerald-900/30 shadow-lg transform rotate-2 transition-all duration-700">
-                <div className="text-center">
-                  <div className="text-xs text-emerald-400 font-medium">
-                    VERIFIED
-                  </div>
-                  <div className="text-[10px] text-neutral-500">
-                    Legal Practitioner
-                  </div>
-                </div>
-              </div> */}
             </div>
 
             {/* Text Content - Legal Styled */}
             <div className="prose prose-invert max-w-none ">
-              {/* Document number */}
-              {/* <div className="absolute top-3 right-3">
-                <div className="text-[10px] text-neutral-500 font-mono">
-                  DOC-BIO/{new Date().getFullYear().toString().substring(2)}
-                </div>
-              </div> */}
-
-              {/* Decorative top bar */}
-              {/* <div className="absolute top-0 left-0 right-0 h-0.5 bg-gradient-to-r from-transparent via-emerald-500/20 to-transparent"></div> */}
-
               <p
                 className="text-justify paragraph-text leading-relaxed"
                 data-fade="2"
@@ -193,15 +171,16 @@ const AboutPage = () => {
               </p>
             </div>
             <div className="clear-both mb-20" />
-            <div className="relative mt-5 top-0 left-0 right-0 h-0.5 bg-gradient-to-r from-transparent via-emerald-500/20 to-transparent"></div>
           </div>
+
+          {/* <div className="relative mt-0 top-0 left-0 right-0 h-0.5 bg-gradient-to-r from-transparent via-emerald-500/20 to-transparent"></div> */}
 
           {/* Experience Section - Legal Styled */}
           <section className="pb-5 pt-25">
             <h2 className="text-2xl md:text-5xl font-bold mb-6 text-center mt-24">
               <span className="gradient-text">Experiences</span>
             </h2>
-            <div className="text-center">
+            {/* <div className="text-center">
               <p
                 className="text-neutral-400 mb-4 inline-block"
                 data-fade="8"
@@ -215,7 +194,7 @@ const AboutPage = () => {
               >
                 Some of my experiences, education, and background
               </p>
-            </div>
+            </div> */}
 
             <div
               className="space-y-14"

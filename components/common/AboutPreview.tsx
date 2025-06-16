@@ -136,7 +136,7 @@ const AboutPreview = () => {
       {/* Content Container */}
       <div className="relative z-10 ">
         {/* Section Header - Clean & Minimal */}
-        <div className="mb-12 max-w-3xl ">
+        <div className="mb-1 max-w-3xl ">
           <div
             className="flex items-center space-x-2 mb-2"
             style={{
@@ -146,12 +146,12 @@ const AboutPreview = () => {
             }}
           >
             {/* <HiLibrary className="text-emerald-400 w-5 h-5" /> */}
-            <h2 className="text-sm  uppercase tracking-wider text-neutral-500 font-medium">
+            {/* <h2 className="text-sm  uppercase tracking-wider text-neutral-500 font-medium">
               BACKROUND
-            </h2>
+            </h2> */}
           </div>
           <h3
-            className="text-3xl md:text-5xl mb-4 font-bold"
+            className="text-3xl md:text-5xl mb-2 font-bold flex gap-3"
             style={{
               opacity: isVisible ? 1 : 0,
               transform: isVisible ? 'translateY(0)' : 'translateY(10px)',
@@ -160,8 +160,30 @@ const AboutPreview = () => {
             }}
           >
             About <span className="gradient-text">Me</span>
+            <svg
+              width="75"
+              height="62"
+              viewBox="0 0 75 62"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+              className="translate-y-7 hidden sm:block"
+            >
+              <path
+                d="M1 1C6.24431 1.21626 11.5365 2.05428 16.6516 3.13955C28.7596 5.70848 41.2898 9.45859 51.3287 17.0631C61.1747 24.5214 66.3737 34.4703 69.1034 46.2597C70.3557 51.6681 70.3959 56.1136 70.6176 61.434"
+                stroke="#D4D4D4"
+                strokeWidth="0.5"
+                strokeLinecap="round"
+                strokeDasharray="4 4"
+              />
+              <path
+                d="M63 57.185C65.135 58.2982 67.2076 59.4555 69.2541 60.7235C70.1813 61.2979 70.997 62.1916 71.624 60.9045C72.5057 59.0948 73.0026 57.3294 74.5536 56"
+                stroke="#D4D4D4"
+                strokeWidth="0.5"
+                strokeLinecap="round"
+              />
+            </svg>
           </h3>
-          <p
+          {/* <p
             className="text-neutral-400 leading-relaxed"
             style={{
               opacity: isVisible ? 1 : 0,
@@ -172,7 +194,7 @@ const AboutPreview = () => {
           >
             Background, experience, and expertise in law and technology at the
             intersection of legal practice and emerging technologies.
-          </p>
+          </p> */}
 
           <div
           // className="flex items-center mt-4"
@@ -204,78 +226,78 @@ const AboutPreview = () => {
             {/* Main Description - Minimal styling */}
             <div className="space-y-4 relative rounded-lg ">
               <p className="paragraph-text leading-relaxed">
-                Hi, I'm <AccentNormal>AL</AccentNormal> or{' '}
-                <AccentNormal>KINDI</AccentNormal>. I'm passionate about
-                exploring the intersection between
-                <span className="text-emerald-300 font-medium">
+                Hello!, I'm <AccentNormal>AL KINDI</AccentNormal>. I'm
+                passionate about exploring the intersection between
+                <span className=" paragraph-text leading-relaxed">
                   {' '}
-                  law and technology
+                  law and technology. I hold a law degree and have always
+                  enjoyed writing and sharing what I learn. I’m someone who is
+                  naturally curious and always eager to learn new things,
+                  whether it's about law, technology, or anything else.
                 </span>
               </p>
 
-              <p className="paragraph-text leading-relaxed">
+              {/* <p className="paragraph-text leading-relaxed">
                 My journey spans across corporate legal practice, regulatory
                 compliance, blockchain technologies, and web development, giving
                 me a unique perspective at the intersection between law and
                 emerging technologies.
-              </p>
+              </p> */}
             </div>
 
             {/* Expertise Cards - Simplified */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-2">
               <div
-                className="group relative p-4 rounded-lg border border-neutral-800/50 bg-neutral-900/20 backdrop-blur-sm hover:border-emerald-500/20 transition-all duration-300
-                transform"
-                style={{
-                  opacity: isVisible ? 1 : 0,
-                  transform: isVisible ? 'translateY(0)' : 'translateY(8px)',
-                  transition:
-                    'opacity 700ms ease-out, transform 700ms ease-out',
-                  transitionDelay: '900ms',
-                }}
+              // className="group relative p-4 rounded-lg border border-neutral-800/50 bg-neutral-900/20 backdrop-blur-sm hover:border-emerald-500/20 transition-all duration-300
+              // transform"
+              // style={{
+              //   opacity: isVisible ? 1 : 0,
+              //   transform: isVisible ? 'translateY(0)' : 'translateY(8px)',
+              //   transition:
+              //     'opacity 700ms ease-out, transform 700ms ease-out',
+              //   transitionDelay: '900ms',
+              // }}
               >
                 {/* Decorative line */}
-                <div className="absolute top-0 left-0 right-0 h-0.5 bg-gradient-to-r from-transparent via-emerald-500/20 to-transparent"></div>
+                {/* <div className="absolute top-0 left-0 right-0 h-0.5 bg-gradient-to-r from-transparent via-emerald-500/20 to-transparent"></div> */}
 
                 <div className="flex items-center gap-3 mb-2">
-                  <div className="w-8 h-8 rounded-lg bg-emerald-900/20 flex items-center justify-center">
+                  {/* <div className="w-8 h-8 rounded-lg bg-emerald-900/20 flex items-center justify-center">
                     <HiScale className="w-4 h-4 text-emerald-400" />
-                  </div>
-                  <h3 className="font-medium text-white group-hover:text-emerald-300 transition-colors">
-                    Legal Expertise
+                  </div> */}
+                  <h3 className="font-medium text-white group-hover:text-emerald-300 transition-colors relative leading-tight border-decoration-bottom">
+                    Law Focus
                   </h3>
                 </div>
                 <p className="text-sm text-neutral-400 group-hover:text-neutral-300 transition-colors">
-                  Corporate M&A, Crypto Regulatory Compliance & Commercial
-                  Disputes
+                  Corporate M&A, Capital Markets, Crypto Regulatory Compliance
                 </p>
               </div>
 
               <div
-                className="group relative p-4 rounded-lg border border-neutral-800/50 bg-neutral-900/20 backdrop-blur-sm hover:border-emerald-500/20 transition-all duration-300
-                transform"
-                style={{
-                  opacity: isVisible ? 1 : 0,
-                  transform: isVisible ? 'translateY(0)' : 'translateY(8px)',
-                  transition:
-                    'opacity 700ms ease-out, transform 700ms ease-out',
-                  transitionDelay: '1100ms',
-                }}
+              // className="group relative p-4 rounded-lg border border-neutral-800/50 bg-neutral-900/20 backdrop-blur-sm hover:border-emerald-500/20 transition-all duration-300
+              // transform"
+              // style={{
+              //   opacity: isVisible ? 1 : 0,
+              //   transform: isVisible ? 'translateY(0)' : 'translateY(8px)',
+              //   transition:
+              //     'opacity 700ms ease-out, transform 700ms ease-out',
+              //   transitionDelay: '1100ms',
+              // }}
               >
                 {/* Decorative line */}
-                <div className="absolute top-0 left-0 right-0 h-0.5 bg-gradient-to-r from-transparent via-emerald-500/20 to-transparent"></div>
+                {/* <div className="absolute top-0 left-0 right-0 h-0.5 bg-gradient-to-r from-transparent via-emerald-500/20 to-transparent"></div> */}
 
                 <div className="flex items-center gap-3 mb-2">
-                  <div className="w-8 h-8 rounded-lg bg-emerald-900/20 flex items-center justify-center">
+                  {/* <div className="w-8 h-8 rounded-lg bg-emerald-900/20 flex items-center justify-center">
                     <HiDocumentText className="w-4 h-4 text-emerald-400" />
-                  </div>
-                  <h3 className="font-medium text-white group-hover:text-emerald-300 transition-colors">
-                    Technology Law
+                  </div> */}
+                  <h3 className="font-medium text-white group-hover:text-emerald-300 transition-colors  leading-tight border-decoration-bottom">
+                    Technology
                   </h3>
                 </div>
                 <p className="text-sm text-neutral-400 group-hover:text-neutral-300 transition-colors">
-                  Digital assets regulation, smart contracts, blockchain
-                  governance
+                  Web Development, Smart Contracts, Blockchain technologies
                 </p>
               </div>
             </div>
@@ -292,9 +314,7 @@ const AboutPreview = () => {
             >
               <Link href="/about" className="group inline-flex">
                 <GlowingButton variant="small" iconPosition="link">
-                  <span className="flex items-center gap-2">
-                    Learn More About Me
-                  </span>
+                  <span className="flex items-center gap-2">More About Me</span>
                 </GlowingButton>
               </Link>
             </div>

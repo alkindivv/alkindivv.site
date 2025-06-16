@@ -1,7 +1,7 @@
 import React from 'react';
 import Image from 'next/image';
 import clsx from 'clsx';
-import DimensionLink from '@/components/common/DimensionLink';
+import DimensionLink from '@/components/blog/mdx/DimensionLink';
 import Accent from '@/components/shared/Accent';
 
 /* -------------------------- Tipografi Komponen -------------------------- */
@@ -33,7 +33,7 @@ export const H2 = ({
 }) => (
   <h2
     id={id}
-    className="text-[1.45rem] md:text-[1.65rem] text-[#F5F5F5] decoration-[#A3A3A3] decoration-2 font-semibold scroll-mt-20 mb-6 relative leading-tight underline "
+    className="text-[1.55rem] md:text-[1.75rem] text-[#F5F5F5] font-semibold scroll-mt-20 mb-6 relative leading-tight border-decoration-bottom"
     {...props}
   >
     {children}

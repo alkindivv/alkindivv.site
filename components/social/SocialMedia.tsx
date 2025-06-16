@@ -42,7 +42,7 @@ export default function SocialMedia() {
   ];
 
   return (
-    <div className="flex flex-wrap gap-6">
+    <div className="flex flex-wrap gap-4">
       {socialLinks.map((link, index) => (
         <a
           key={index}

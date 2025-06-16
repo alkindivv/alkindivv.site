@@ -15,6 +15,7 @@ import {
   HiChevronRight,
   HiOutlineClock,
 } from 'react-icons/hi';
+import ArticleCardAlt from '../blog/ArticleCardAlt';
 
 interface LatestBlogPostsProps {
   posts: BlogPost[];
@@ -58,6 +59,11 @@ const LatestBlogPosts = ({ posts }: LatestBlogPostsProps) => {
         (post) => post.category.toLowerCase() === selectedCategory.toLowerCase()
       )
     : posts;
+
+  // Urutkan berdasarkan tanggal terbaru
+  const sortedPosts = [...filteredPosts].sort(
+    (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
+  );
 
   // Dapatkan semua kategori unik
   const categories = Array.from(new Set(posts.map((post) => post.category)));
@@ -174,7 +180,7 @@ const LatestBlogPosts = ({ posts }: LatestBlogPostsProps) => {
             </h2> */}
           </div>
           <h3
-            className="text-3xl md:text-5xl font-bold mb-4"
+            className="text-3xl md:text-5xl font-bold mb-2"
             style={{
               opacity: isVisible ? 1 : 0,
               transform: isVisible ? 'translateY(0)' : 'translateY(10px)',
@@ -182,7 +188,7 @@ const LatestBlogPosts = ({ posts }: LatestBlogPostsProps) => {
               transitionDelay: '500ms',
             }}
           >
-            Thoughts & <span className="gradient-text">Articles</span>
+            Featured <span className="gradient-text">Articles</span>
           </h3>
           <p
             className="text-neutral-400 leading-relaxed"
@@ -199,7 +205,7 @@ const LatestBlogPosts = ({ posts }: LatestBlogPostsProps) => {
         </div>
 
         {/* Category Filter Bar - Clean & Minimal */}
-        <div
+        {/* <div
           className="flex items-center justify-between border-t border-b border-neutral-800/30 py-2 px-2 mb-8 overflow-x-auto no-scrollbar"
           style={{
             opacity: isVisible ? 1 : 0,
@@ -239,102 +245,21 @@ const LatestBlogPosts = ({ posts }: LatestBlogPostsProps) => {
               </button>
             ))}
           </div>
-        </div>
+        </div> */}
 
-        {/* Featured Post - Clean & Minimal Style */}
-        {filteredPosts.length > 0 && (
-          <div
-            className="mb-10 group"
-            style={{
-              opacity: isVisible ? 1 : 0,
-              transform: isVisible ? 'translateY(0)' : 'translateY(20px)',
-              transition: 'opacity 700ms ease-out, transform 700ms ease-out',
-              transitionDelay: '800ms',
-            }}
-          >
-            <div className="relative transition-all duration-300 backdrop-blur-sm">
-              {/* Top decoration */}
-              {/* <div className="absolute top-0 left-0 right-0 h-0.5 bg-gradient-to-r from-transparent via-emerald-500/20 to-transparent"></div> */}
-
-              <div className="p-1">
-                <BlogCard
-                  post={filteredPosts[0]}
-                  variant="featured"
-                  index={0}
-                  className="border-0"
-                />
-              </div>
-            </div>
-          </div>
-        )}
-
-        {/* Minimal divider */}
-        <div
-          className="flex items-center my-1"
-          style={{
-            opacity: isVisible ? 1 : 0,
-            transition: 'opacity 700ms ease-out',
-            transitionDelay: '900ms',
-          }}
-        >
-          {/* <div className="h-px flex-grow bg-gradient-to-r from-transparent via-neutral-800/50 to-transparent"></div>
-          <div className="px-4 py-1 text-xs font-mono text-emerald-400 border border-emerald-500/20 rounded-sm bg-emerald-900/10">
-            ARTICLE INDEX
-          </div>
-          <div className="h-px flex-grow bg-gradient-to-r from-transparent via-neutral-800/50 to-transparent"></div> */}
-        </div>
-
-        {/* Secondary Posts - Clean Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6">
-          {filteredPosts.slice(1).map((post, index) => (
+        {/* Latest 3 posts  */}
+        <div className="space-y-6">
+          {sortedPosts.slice(0, 3).map((post, index) => (
             <div
               key={post.slug}
               style={{
                 opacity: isVisible ? 1 : 0,
                 transform: isVisible ? 'translateY(0)' : 'translateY(20px)',
                 transition: 'opacity 700ms ease-out, transform 700ms ease-out',
-                transitionDelay: `${1000 + index * 100}ms`,
+                transitionDelay: `${800 + index * 150}ms`,
               }}
-              className="group"
             >
-              <div className="relative h-full border hover:border-emerald-500/30  border-neutral-800/50 rounded-lg overflow-hidden transition-all duration-300 bg-neutral-900/20 backdrop-blur-sm">
-                {/* Clean minimal styling */}
-                <div className="absolute top-0 left-0 right-0 h-0.5 bg-gradient-to-r from-transparent via-emerald-500/20 to-transparent"></div>
-
-                {/* Content */}
-                <div className="p-5">
-                  <div className="flex items-center justify-between mb-3">
-                    <span className="text-xs font-medium text-emerald-400 bg-emerald-900/20 px-2 py-0.5 rounded-lg border border-emerald-500/20">
-                      {post.category}
-                    </span>
-                    <span className="text-xs text-neutral-500">
-                      {format(new Date(post.date), 'MMMM dd, yyyy')}
-                    </span>
-                  </div>
-
-                  <Link
-                    href={`/blog/${post.category.toLowerCase()}/${post.slug}`}
-                    className="block"
-                  >
-                    <h3 className="text-lg font-semibold text-white mb-2 line-clamp-2 group-hover:text-emerald-400 transition-colors">
-                      {post.title}
-                    </h3>
-                    <p className="text-sm text-neutral-400 mb-4 line-clamp-2">
-                      {post.excerpt}
-                    </p>
-
-                    <div className="flex items-center justify-between text-xs">
-                      <div className="flex items-center gap-1 text-neutral-500">
-                        <HiOutlineClock className="w-3.5 h-3.5" />
-                        <span>{post.readingTime} min read</span>
-                      </div>
-                      <span className="flex items-center gap-1 text-emerald-400 group-hover:translate-x-0.5 transition-transform">
-                        View Article <HiChevronRight className="w-3.5 h-3.5" />
-                      </span>
-                    </div>
-                  </Link>
-                </div>
-              </div>
+              <ArticleCardAlt post={post} />
             </div>
           ))}
         </div>
@@ -351,7 +276,7 @@ const LatestBlogPosts = ({ posts }: LatestBlogPostsProps) => {
           <Link href="/blog">
             <GlowingButton variant="small">
               <span className="flex items-center gap-2">
-                Explore More Articles
+                View More Articles
               </span>
             </GlowingButton>
           </Link>

@@ -241,7 +241,7 @@ const GlossaryPreview = ({ items = [] }: GlossaryPreviewProps) => {
             </h2> */}
           </div>
           <h3
-            className="text-3xl md:text-5xl font-bold mb-4"
+            className="text-3xl md:text-5xl font-bold mb-2"
             style={{
               opacity: isVisible ? 1 : 0,
               transform: isVisible ? 'translateY(0)' : 'translateY(10px)',
@@ -398,7 +398,7 @@ const GlossaryPreview = ({ items = [] }: GlossaryPreviewProps) => {
             <Link href="/glossary">
               <GlowingButton variant="minimal">
                 <span className="flex items-center gap-2">
-                  View Complete Glossary
+                  Complete Glossary
                 </span>
               </GlowingButton>
             </Link>

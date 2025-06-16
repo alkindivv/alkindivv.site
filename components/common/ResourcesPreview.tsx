@@ -253,7 +253,7 @@ const ResourcesPreview = ({ resources }: ResourcesPreviewProps) => {
             </h2> */}
           </div>
           <h3
-            className="text-3xl md:text-5xl font-bold mb-4"
+            className="text-3xl md:text-5xl font-bold mb-2"
             style={{
               opacity: isVisible ? 1 : 0,
               transform: isVisible ? 'translateY(0)' : 'translateY(10px)',
@@ -405,7 +405,7 @@ const ResourcesPreview = ({ resources }: ResourcesPreviewProps) => {
           <Link href="/resources">
             <GlowingButton variant="small" iconPosition="link">
               <span className="flex items-center gap-2">
-                All Resources Templates
+                Explore More Templates
               </span>
             </GlowingButton>
           </Link>

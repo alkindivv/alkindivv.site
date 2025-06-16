@@ -206,7 +206,7 @@ const HeroSection = () => {
           <div className="space-y-8">
             {/* Small Intro Badge */}
             <motion.div
-              className="inline-flex items-center gap-2 py-1.5 px-3 rounded-full border border-emerald-500/30 bg-emerald-500/10 text-emerald-300 text-xs md:text-sm font-medium backdrop-blur-sm"
+              className="inline-flex items-center gap-2 py-1.5 px-3 rounded-full border border-transparent bg-emerald-500/10 text-emerald-300 text-xs md:text-sm font-medium backdrop-blur-sm"
               variants={itemVariants}
             >
               <HiScale className="w-4 h-4" />
@@ -218,31 +218,27 @@ const HeroSection = () => {
               className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight tracking-tight text-white max-w-3xl"
               variants={containerVariants}
             >
-              I'm <span className="gradient-text">AL KINDI</span>
+              I'm <span className="">AL KINDI</span>
             </motion.h1>
 
             {/* Sub-headline */}
             <motion.div variants={itemVariants}>
-              <p className="text-lg md:text-xl text-neutral-500 leading-relaxed max-w-2xl">
+              <p className="text-lg md:text-xl text-neutral-400 leading-relaxed max-w-2xl">
                 Bridging the intersection between law & technology — growing my
                 skills in M&A and capital markets, and sharing insights on law,
                 tech, and crypto through this website.
               </p>
             </motion.div>
 
-            {/* Tagline below sub-headline */}
-            {/* <motion.p
-              className="text-sm md:text-base text-neutral-500 leading-relaxed max-w-lg"
-              variants={itemVariants}
-            >
-              Bridging complex regulations with innovative technology solutions.
-            </motion.p> */}
-
-            {/* CTA Buttons */}
             <motion.div
               className="flex flex-row gap-4 flex-wrap"
               variants={itemVariants}
             >
+              <Link href="/contact" className="inline-block">
+                <GlowingButton variant="default" iconPosition="right">
+                  Get in Touch
+                </GlowingButton>
+              </Link>
               <GlowingButton
                 onClick={handleScrollDown}
                 variant="default"
@@ -250,11 +246,6 @@ const HeroSection = () => {
               >
                 Learn How
               </GlowingButton>
-              {/* <Link href="/services" className="inline-block">
-                <GlowingButton variant="default" iconPosition="right">
-                  Explore Services
-                </GlowingButton>
-              </Link> */}
             </motion.div>
 
             {/* Social Links */}
