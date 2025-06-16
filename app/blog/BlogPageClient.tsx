@@ -149,9 +149,6 @@ export default function BlogPageClient({
         {/* Content - Immediate Load */}
 
         <section className="min-h-screen pt-40 relative z-10">
-          <div className=" mb-4">
-            <Breadcrumb items={breadcrumbItems} />
-          </div>
           <div className="max-w-6xl mx-auto">
             {/* Header Section - Matching LatestBlogPosts Style */}
             <div className="mb-12 max-w-2xl mx-auto" data-fade="1">
@@ -189,6 +186,10 @@ export default function BlogPageClient({
                   </div>
                 </div>
               </div>
+            </div>
+
+            <div className=" mb-4">
+              <Breadcrumb items={breadcrumbItems} />
             </div>
 
             <div className="mt-6 mb-8" data-fade="3">

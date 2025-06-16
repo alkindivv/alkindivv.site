@@ -211,13 +211,12 @@ const AboutPreview = () => {
                   {' '}
                   law and technology
                 </span>
-                .
               </p>
 
               <p className="paragraph-text leading-relaxed">
                 My journey spans across corporate legal practice, regulatory
                 compliance, blockchain technologies, and web development, giving
-                me a unique perspective at the crossroads of traditional law and
+                me a unique perspective at the intersection between law and
                 emerging technologies.
               </p>
             </div>

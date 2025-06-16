@@ -223,9 +223,10 @@ const HeroSection = () => {
 
             {/* Sub-headline */}
             <motion.div variants={itemVariants}>
-              <p className="text-lg md:text-xl text-neutral-300 leading-relaxed max-w-2xl">
-                Developing my expertise in corporate M&A, and capital market,
-                and as writing about law, tech, and crypto.
+              <p className="text-lg md:text-xl text-neutral-500 leading-relaxed max-w-2xl">
+                Bridging the intersection between law & technology — growing my
+                skills in M&A and capital markets, and sharing insights on law,
+                tech, and crypto through this website.
               </p>
             </motion.div>
 
@@ -258,7 +259,7 @@ const HeroSection = () => {
 
             {/* Social Links */}
             <motion.div
-              className="flex flex-col  gap-4 pt-6"
+              className="flex flex-col  gap-4 pt-1"
               variants={itemVariants}
             >
               <div className="flex items-center gap-6">

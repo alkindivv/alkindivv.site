@@ -9,14 +9,14 @@ export { viewport };
 export const metadata: Metadata = {
   title: 'Blog',
   description:
-    'Articles and insights on law, technology, and cryptocurrency by AL KINDI',
+    'Article, News, Thoughts, and Insights about law, technology, and cryptocurrency written by me based on my personal experiences and research',
   alternates: {
     canonical: '/blog/',
   },
   openGraph: {
     title: 'Blog - AL KINDI',
     description:
-      'Articles and insights on law, technology, and cryptocurrency by AL KINDI',
+      'Article, News, Thoughts, and Insights about law, technology, and cryptocurrency written by me based on my personal experiences and research',
     url: 'https://alkindivv.site/blog/',
     type: 'website',
     images: [
@@ -32,7 +32,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'Blog - AL KINDI',
     description:
-      'Articles and insights on law, technology, and cryptocurrency by AL KINDI',
+      'Article, News, Thoughts, and Insights about law, technology, and cryptocurrency written by me based on my personal experiences and research',
     images: ['/images/default.png'],
   },
 };

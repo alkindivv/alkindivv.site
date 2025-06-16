@@ -2,14 +2,11 @@ import React from 'react';
 import Image from 'next/image';
 import Layout from '@/components/layout/Layout';
 import {
-  HiTemplate,
   HiDocumentText,
   HiBookOpen,
   HiDownload,
   HiExternalLink,
-  HiLibrary,
   HiScale,
-  HiOutlineDocumentSearch,
 } from 'react-icons/hi';
 import Link from 'next/link';
 import { Metadata } from 'next';
@@ -17,11 +14,11 @@ import Breadcrumb from '@/components/shared/Breadcrumb';
 export const metadata: Metadata = {
   title: 'Resources',
   description:
-    'Curated collection of legal resources, tools, and references for corporate law, capital markets, M&A, bankruptcy, and cryptocurrency regulations.',
+    'Curated collection of legal resources, templates, and references for corporate law, capital markets, M&A, bankruptcy, and cryptocurrency regulations.',
   openGraph: {
     title: 'Resources',
     description:
-      'Curated collection of legal resources, tools, and references for corporate law, capital markets, M&A, bankruptcy, and cryptocurrency regulations.',
+      'Curated collection of legal resources, templates, and references for corporate law, capital markets, M&A, bankruptcy, and cryptocurrency regulations.',
     type: 'website',
     url: '/resources/',
     images: [
@@ -37,7 +34,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'Resources',
     description:
-      'Curated collection of legal resources, tools, and references for corporate law, capital markets, M&A, bankruptcy, and cryptocurrency regulations.',
+      'Curated collection of legal resources, templates, and references for corporate law, capital markets, M&A, bankruptcy, and cryptocurrency regulations.',
     images: ['/images/default.png'],
   },
   alternates: {
@@ -69,7 +66,7 @@ const resources: Resource[] = [
     meta: 'DOCX',
     action: {
       label: 'Download',
-      url: '/resources/documents/somasi.docx',
+      url: '/resources/documents/tets.docx',
     },
   },
   {
@@ -221,9 +218,6 @@ export default function ResourcesPage() {
 
         {/* Content */}
         <section className="min-h-screen pt-32 relative z-10 ">
-          <div className=" mb-4">
-            <Breadcrumb items={breadcrumbItems} />
-          </div>
           {/* Header - Legal Styled Matching Blog */}
           <div className="mb-12 max-w-2xl mx-auto text-center">
             <h3 className="text-4xl md:text-5xl font-bold mb-4">
@@ -236,71 +230,52 @@ export default function ResourcesPage() {
 
             <div className="relative mt-5 top-0 left-0 right-0 h-0.5 bg-gradient-to-r from-transparent via-emerald-500/20 to-transparent"></div>
           </div>
+          <div className=" mb-4">
+            <Breadcrumb items={breadcrumbItems} />
+          </div>
 
-          {/* Resources Grid - Legal Styled - Match Blog */}
-          <div className="relative mb-8">
-            {/* Resources grid */}
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {/* Resources List - Simple & Elegant */}
+          <div className="relative mb-16">
+            <ul className="space-y-4 divide-y divide-neutral-800/60">
               {resources.map((resource, index) => (
-                <div
+                <li
                   key={index}
-                  className="group h-full flex flex-col bg-neutral-900/50 backdrop-blur-sm border border-neutral-800 rounded-sm p-6 hover:border-emerald-500/40 transition-all duration-300 hover:shadow-[0_4px_20px_rgba(16,185,129,0.1)] relative"
+                  className="pt-4 first:pt-0 flex items-start gap-4"
                 >
-                  {/* Corner decorations - legal document style */}
-                  <div className="absolute top-0 left-0 w-3 h-3 border-t border-l border-emerald-500/0 group-hover:border-emerald-500/30 transition-colors duration-300"></div>
-                  <div className="absolute top-0 right-0 w-3 h-3 border-t border-r border-emerald-500/0 group-hover:border-emerald-500/30 transition-colors duration-300"></div>
-                  <div className="absolute bottom-0 left-0 w-3 h-3 border-b border-l border-emerald-500/0 group-hover:border-emerald-500/30 transition-colors duration-300"></div>
-                  <div className="absolute bottom-0 right-0 w-3 h-3 border-b border-r border-emerald-500/0 group-hover:border-emerald-500/30 transition-colors duration-300"></div>
-
-                  {/* Decorative top bar */}
-                  <div className="absolute top-0 left-0 right-0 h-0.5 bg-gradient-to-r from-transparent via-emerald-500/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-
-                  {/* Header with Icon and Title */}
-                  <div className="flex items-center space-x-4 mb-5">
-                    <div className="p-3 rounded-sm bg-emerald-500/10 text-emerald-400 group-hover:bg-emerald-500/20 transition-colors duration-300">
-                      {resource.icon}
-                    </div>
-                    <h3 className="font-medium text-lg text-white group-hover:text-emerald-300 transition-colors duration-300">
-                      {resource.title}
-                    </h3>
+                  {/* Icon */}
+                  <div className="text-emerald-400 shrink-0 mt-1">
+                    {resource.icon}
                   </div>
 
-                  {/* Description */}
-                  <p className="text-neutral-400 text-sm mb-6 flex-grow group-hover:text-neutral-300 transition-colors duration-300">
-                    {resource.description}
-                  </p>
-
-                  {/* Footer with Meta and Action */}
-                  <div className="flex items-center justify-between mt-auto pt-3 border-t border-neutral-800/60">
-                    <span className="text-xs text-neutral-500">
+                  {/* Content */}
+                  <div className="flex-1">
+                    <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
+                      <h4 className="font-medium text-white text-base">
+                        {resource.title}
+                      </h4>
+                      <Link
+                        href={resource.action.url}
+                        className="inline-flex items-center text-sm font-medium text-emerald-400 hover:text-emerald-300"
+                      >
+                        {resource.action.label}
+                        {resource.type === 'document' ||
+                        resource.type === 'form' ? (
+                          <HiDownload className="w-4 h-4 ml-1" />
+                        ) : (
+                          <HiExternalLink className="w-4 h-4 ml-1" />
+                        )}
+                      </Link>
+                    </div>
+                    <p className="text-neutral-400 text-sm leading-relaxed mt-1">
+                      {resource.description}
+                    </p>
+                    <span className="text-xs text-neutral-500 mt-1 inline-block">
                       {resource.meta}
                     </span>
-                    <Link
-                      href={resource.action.url}
-                      className="inline-flex items-center text-sm font-medium text-emerald-400 hover:text-emerald-300 transition-colors duration-300"
-                    >
-                      <span className="mr-2">{resource.action.label}</span>
-                      {resource.type === 'document' ||
-                      resource.type === 'form' ? (
-                        <HiDownload className="w-4 h-4" />
-                      ) : (
-                        <HiExternalLink className="w-4 h-4" />
-                      )}
-                    </Link>
                   </div>
-                </div>
+                </li>
               ))}
-            </div>
-
-            {/* Document footer */}
-            <div className="mt-8 text-center text-[10px] text-neutral-500 font-mono">
-              <div className="flex items-center justify-center gap-2 mb-1">
-                <div className="h-px w-12 bg-neutral-800"></div>
-                <HiScale className="w-4 h-4 text-emerald-500/40" />
-                <div className="h-px w-12 bg-neutral-800"></div>
-              </div>
-              DOCUMENT ID: RES-{new Date().getFullYear()}
-            </div>
+            </ul>
           </div>
 
           {/* Legal footer */}
@@ -316,14 +291,14 @@ export default function ResourcesPage() {
 
             <div className="flex items-center justify-center gap-2 text-xs text-neutral-500">
               <HiScale className="w-4 h-4 text-emerald-500/50" />
-              <span>For professional reference only</span>
+              <span>For reference only</span>
             </div>
 
             {/* Legal disclaimer */}
             <p className="mt-4 text-[10px] text-neutral-600 max-w-lg mx-auto">
               These resources are provided for informational purposes only and
               do not constitute legal advice. Always consult with a qualified
-              legal professional before using these documents.
+              professional before using these documents.
             </p>
           </div>
         </section>

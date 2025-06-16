@@ -64,7 +64,7 @@ const wishlistItems: WishlistItem[] = [
     id: 3,
     title: 'Travel to 10 countries',
     description: 'Travel to 10 countries and experience the culture and people',
-    date: '2023-10-15',
+
     // imageUrl: '/images/legal-tech.jpg',
     completed: false,
   },
@@ -199,9 +199,6 @@ export default function WishlistPage() {
       {/* Content */}
       <main className="min-h-screen pt-40 relative z-10">
         <div className="max-w-6xl mx-auto">
-          <div className=" mb-4">
-            <Breadcrumb items={breadcrumbItems} />
-          </div>
           {/* Header - Legal Styled */}
           <div className="mb-12 max-w-2xl mx-auto" data-fade="1">
             <h3 className="text-4xl md:text-5xl font-bold mb-4 text-center">
@@ -213,39 +210,15 @@ export default function WishlistPage() {
 
             <div className="relative mt-5 top-0 left-0 right-0 h-0.5 bg-gradient-to-r from-transparent via-emerald-500/20 to-transparent"></div>
           </div>
+          <div className="mb-6">
+            <Breadcrumb items={breadcrumbItems} />
+          </div>
 
           {/* Wishlist Grid */}
           <div className="space-y-8 mb-12">
             {wishlistItems.map((item) => (
               <WishlistCard key={item.id} {...item} />
             ))}
-          </div>
-
-          {/* Legal footer */}
-          {/* <div className="mt-12 text-end text-[10px] text-neutral-500 font-mono">
-            WISHLIST-{new Date().getFullYear()}
-          </div> */}
-          <div className="mt-16 text-center relative">
-            {/* Law scale divider */}
-            <div className="flex items-center justify-center mb-6">
-              <div className="h-px w-16 bg-neutral-800"></div>
-              <div className="mx-4">
-                <HiScale className="w-8 h-8 text-emerald-500/30" />
-              </div>
-              <div className="h-px w-16 bg-neutral-800"></div>
-            </div>
-
-            <div className="flex items-center justify-center gap-2 text-xs text-neutral-500">
-              <HiScale className="w-4 h-4 text-emerald-500/50" />
-              <span>Personal Development Goals</span>
-            </div>
-
-            {/* Note */}
-            <p className="mt-4 text-[10px] text-neutral-600 max-w-lg mx-auto">
-              This wishlist represents my professional development goals and
-              resources I aim to acquire to enhance my legal expertise and
-              practice.
-            </p>
           </div>
         </div>
       </main>

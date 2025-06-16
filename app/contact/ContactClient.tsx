@@ -93,9 +93,6 @@ export default function ContactClient() {
       {/* Hero Section */}
       <main className="min-h-screen pt-40 relative z-10">
         <div className="max-w-6xl mx-auto">
-          <div className=" mb-4">
-            <Breadcrumb items={breadcrumbItems} />
-          </div>
           {/* Header - Legal Styled */}
           <div className="mb-12 max-w-2xl mx-auto" data-fade="1">
             <h3 className="text-4xl md:text-5xl font-bold mb-4 text-center">
@@ -107,9 +104,13 @@ export default function ContactClient() {
             <div className="relative mt-5 top-0 left-0 right-0 h-0.5 bg-gradient-to-r from-transparent via-emerald-500/20 to-transparent"></div>
           </div>
 
+          <div className=" mb-4">
+            <Breadcrumb items={breadcrumbItems} />
+          </div>
+
           {/* Contact Form - Legal Styled */}
           <div
-            className="max-w-5xl mx-auto md:col-span-2 h-full"
+            className="mx-auto md:col-span-2 h-full"
             data-fade="3"
             style={{
               opacity: isVisible ? 1 : 0,
@@ -124,9 +125,9 @@ export default function ContactClient() {
                 data-fade="4"
               >
                 <div className="flex items-center gap-3">
-                  <div className="p-2 rounded-lg bg-emerald-500/10 text-emerald-400">
+                  {/* <div className="p-2 rounded-lg bg-emerald-500/10 text-emerald-400">
                     <HiDocumentText className="w-5 h-5" />
-                  </div>
+                  </div> */}
                   <h2 className="text-sm sm:text-xl font-semibold">
                     Contact <Accent> Form</Accent>
                   </h2>
@@ -158,9 +159,9 @@ export default function ContactClient() {
                         className="w-full bg-transparent border-b border-dotted border-neutral-700 hover:border-neutral-600 focus:border-neutral-500 transition-colors px-0 py-2 text-sm sm:text-base focus:outline-none focus:ring-0 placeholder:text-neutral-600"
                         placeholder="your@email.com"
                       />
-                      <div className="absolute right-0 top-0 text-[10px] text-neutral-500 font-mono">
+                      {/* <div className="absolute right-0 top-0 text-[10px] text-neutral-500 font-mono">
                         CONTACT
-                      </div>
+                      </div> */}
                     </div>
                   </div>
 
@@ -172,9 +173,9 @@ export default function ContactClient() {
                       className="w-full bg-transparent border-b border-dotted border-neutral-700 hover:border-neutral-600 focus:border-neutral-500 transition-colors px-0 py-2 text-sm sm:text-base focus:outline-none focus:ring-0 placeholder:text-neutral-600"
                       placeholder="Subject"
                     />
-                    <div className="absolute right-0 top-0 text-[10px] text-neutral-500 font-mono">
+                    {/* <div className="absolute right-0 top-0 text-[10px] text-neutral-500 font-mono">
                       MATTER
-                    </div>
+                    </div> */}
                   </div>
 
                   <div className="space-y-2 mt-6 relative">
@@ -185,9 +186,9 @@ export default function ContactClient() {
                       className="w-full bg-transparent border-b border-dotted border-neutral-700 hover:border-neutral-600 focus:border-neutral-500 transition-colors px-0 py-2 text-sm sm:text-base focus:outline-none focus:ring-0 resize-none placeholder:text-neutral-600"
                       placeholder="Your message"
                     />
-                    <div className="absolute right-0 top-0 text-[10px] text-neutral-500 font-mono">
+                    {/* <div className="absolute right-0 top-0 text-[10px] text-neutral-500 font-mono">
                       STATEMENT
-                    </div>
+                    </div> */}
                   </div>
 
                   {statusMessage && (
@@ -205,7 +206,7 @@ export default function ContactClient() {
 
                 <div className="flex items-center justify-between pt-2 sm:pt-4 mt-auto border-t border-neutral-800/40">
                   <div className="flex items-center gap-2 text-xs text-neutral-500">
-                    <GrContact className="w-4 h-4" />
+                    {/* <GrContact className="w-4 h-4" /> */}
                     <span>I'm looking forward to hearing from you!</span>
                   </div>
                   <GlowingButton
@@ -213,15 +214,13 @@ export default function ContactClient() {
                     disabled={isLoading}
                     isLoading={isLoading}
                     variant="small"
+                    iconPosition="link"
                   >
                     Send Message
                   </GlowingButton>
                 </div>
               </form>
-              <div className="mt-12 text-end text-[10px] text-neutral-500 font-mono">
-                <div className="flex items-center justify-center gap-2 mb-1"></div>
-                ID: CONTACT-{new Date().getFullYear()}
-              </div>
+
               <div
                 className="mt-16 text-center"
                 style={{

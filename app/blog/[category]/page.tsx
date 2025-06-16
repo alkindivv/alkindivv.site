@@ -92,7 +92,7 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
               <div className="flex items-center space-x-2 mb-2 justify-center">
                 <HiLibrary className="text-emerald-400 w-5 h-5" />
                 <h2 className="text-sm uppercase tracking-wider text-neutral-400 font-medium">
-                  {categoryData.name} Collection
+                  {categoryData.name} Article Collection
                 </h2>
               </div>
 
@@ -117,8 +117,6 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
                 <div className="relative group h-full border border-neutral-800/70 rounded-md overflow-hidden hover:border-emerald-500/30 transition-all duration-300 bg-neutral-900/20">
                   {/* Legal document styling */}
                   <div className="absolute top-0 left-0 right-0 h-0.5 bg-gradient-to-r from-transparent via-emerald-500/20 to-transparent"></div>
-                  {/* <div className="absolute top-2 left-2 w-3 h-3 border-t border-l border-emerald-500/30"></div>
-                  <div className="absolute bottom-2 right-2 w-3 h-3 border-b border-r border-emerald-500/30"></div> */}
 
                   <input
                     type="text"
@@ -134,8 +132,6 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
             <div className="relative mb-8" data-fade="3">
               {/* Legal document styling */}
               <div className="absolute top-0 left-0 right-0 h-0.5 bg-gradient-to-r from-transparent via-emerald-500/20 to-transparent"></div>
-              {/* <div className="absolute top-2 left-2 w-3 h-3 border-t border-l border-emerald-500/30"></div>
-              <div className="absolute bottom-2 right-2 w-3 h-3 border-b border-r border-emerald-500/30"></div> */}
 
               <div className="space-y-6 py-6">
                 {filteredPosts?.length > 0 ? (
@@ -145,9 +141,6 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
                 ) : (
                   <div className="text-center py-10 border border-neutral-800/70 rounded-sm p-6 relative">
                     {/* Legal document styling */}
-                    {/* <div className="absolute top-0 left-0 right-0 h-0.5 bg-gradient-to-r from-transparent via-emerald-500/20 to-transparent"></div>
-                    <div className="absolute top-2 left-2 w-3 h-3 border-t border-l border-emerald-500/30"></div>
-                    <div className="absolute bottom-2 right-2 w-3 h-3 border-b border-r border-emerald-500/30"></div> */}
 
                     <h3 className="text-xl font-bold mb-1">
                       Sorry, <Accent>article not found</Accent>
@@ -158,17 +151,6 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
                   </div>
                 )}
               </div>
-
-              {/* Document footer */}
-              {/* <div className="mt-8 text-center text-[10px] text-neutral-500 font-mono">
-                <div className="flex items-center justify-center gap-2 mb-1">
-                  <div className="h-px w-12 bg-neutral-800"></div>
-                  <HiScale className="w-4 h-4 text-emerald-500/40" />
-                  <div className="h-px w-12 bg-neutral-800"></div>
-                </div>
-                BLOG- {categoryData.slug.toUpperCase()}-
-                {new Date().getFullYear()}
-              </div> */}
             </div>
           </div>
         </section>

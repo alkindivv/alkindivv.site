@@ -8,14 +8,14 @@ export { viewport };
 export const metadata: Metadata = {
   title: 'Contact',
   description:
-    'Get in touch with AL KINDI for inquiries about corporate law, capital markets, mergers & acquisitions, bankruptcy, and cryptocurrency regulations',
+    'Get in touch with me and you can ask me anything whether it is about law, technology, cryptocurrency or anything else.',
   alternates: {
     canonical: '/contact/',
   },
   openGraph: {
     title: 'Contact - AL KINDI',
     description:
-      'Get in touch with AL KINDI for legal consultations, collaborations, or inquiries.',
+      'Get in touch with me and you can ask me anything whether it is about law, technology, cryptocurrency or anything else.',
     url: '/contact/',
     type: 'website',
     images: [
@@ -31,7 +31,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'Contact - AL KINDI',
     description:
-      'Get in touch with AL KINDI for legal consultations, collaborations, or inquiries.',
+      'Get in touch with me and you can ask me anything whether it is about law, technology, cryptocurrency or anything else.',
     images: ['/images/default.png'],
   },
 };

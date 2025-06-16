@@ -364,9 +364,6 @@ export default function GlossaryClient() {
       {/* Content */}
       <main className="min-h-screen pt-40 relative z-10">
         <div className="max-w-6xl mx-auto">
-          <div className=" mb-4">
-            <Breadcrumb items={breadcrumbItems} />
-          </div>
           {/* Header - Matching Blog Style */}
           <div className="mb-12 max-w-4xl mx-auto" data-fade="1">
             {/* <div className="flex items-center space-x-2 mb-2 justify-center">
@@ -398,6 +395,10 @@ export default function GlossaryClient() {
             data-fade="2"
           /> */}
 
+          <div className=" mb-4">
+            <Breadcrumb items={breadcrumbItems} />
+          </div>
+
           {/* Main Content with Sidebar Layout */}
           <div className="relative mt-12">
             {/* Search and Filters */}
@@ -407,9 +408,8 @@ export default function GlossaryClient() {
                 <div className="relative">
                   <div className="relative group h-full border border-neutral-800/70 rounded-md overflow-hidden hover:border-emerald-500/30 transition-all duration-300 bg-neutral-900/20">
                     {/* Legal document styling */}
+
                     <div className="absolute top-0 left-0 right-0 h-0.5 bg-gradient-to-r from-transparent via-emerald-500/20 to-transparent"></div>
-                    {/* <div className="absolute top-2 left-2 w-3 h-3 border-t border-l border-emerald-500/30"></div>
-                    <div className="absolute bottom-2 right-2 w-3 h-3 border-b border-r border-emerald-500/30"></div> */}
 
                     <input
                       type="text"

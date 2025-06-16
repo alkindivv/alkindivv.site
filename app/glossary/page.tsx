@@ -5,11 +5,11 @@ import Layout from '@/components/layout/Layout';
 export const metadata: Metadata = {
   title: 'Legal Glossary',
   description:
-    'Comprehensive legal glossary covering corporate law, capital markets, M&A, bankruptcy, and cryptocurrency terms. Essential reference for legal professionals.',
+    'Some of the terms that I have learned and its explanation, to help you to understand the basic terms in law, especially in corporate law.',
   openGraph: {
     title: 'Legal Glossary',
     description:
-      'Comprehensive legal glossary covering corporate law, capital markets, M&A, bankruptcy, and cryptocurrency terms. Essential reference for legal professionals.',
+      'Some of the terms that I have learned and its explanation, to help you to understand the basic terms in law, especially in corporate law.',
     type: 'website',
     url: '/glossary/',
     images: [
@@ -25,7 +25,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'Legal Glossary',
     description:
-      'Comprehensive legal glossary covering corporate law, capital markets, M&A, bankruptcy, and cryptocurrency terms. Essential reference for legal professionals.',
+      'Some of the terms that I have learned and its explanation, to help you to understand the basic terms in law, especially in corporate law.',
     images: ['/images/default.png'],
   },
   alternates: {

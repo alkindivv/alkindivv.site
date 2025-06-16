@@ -53,7 +53,7 @@ export default function SocialMedia() {
           data-tooltip={link.text}
         >
           <link.icon
-            className="w-5 h-5 social-icon text-neutral-400"
+            className="w-5 h-5 social-icon text-neutral-500"
             style={{
               animationDelay: `${index * 0.2}s`,
             }}
