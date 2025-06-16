@@ -6,9 +6,8 @@ import LatestBlogPosts from '@/components/common/LatestBlogPosts';
 import ChatPreview from '@/components/common/ChatPreview';
 import GlossaryPreview from '@/components/common/GlossaryPreview';
 import ResourcesPreview from '@/components/common/ResourcesPreview';
-import ComplexThingsPreview from '@/components/common/ComplexThingsPreview';
+
 import { getAllPosts } from '@/lib/posts';
-import { BlogPost } from '@/types/blog';
 
 // Type untuk resource preview - disesuaikan dengan komponen ResourcesPreview baru
 type ResourcePreview = {
@@ -93,9 +92,6 @@ export default async function HomePage() {
 
         {/* Content Sections Container */}
         <div id="content-sections" className="w-full">
-          {/* Complex Things Preview */}
-          <ComplexThingsPreview />
-
           {/* About Preview - Full Width Section */}
           <AboutPreview />
 
