@@ -21,6 +21,7 @@ import {
 import Accent from '../shared/Accent';
 import GlowingButton from '../shared/GlowingButton';
 import OptimizedImage from '../shared/OptimizedImage';
+import DimensionLink from './DimensionLink';
 
 // Tipe untuk resource item dari props
 type ResourcePreview = {
@@ -261,7 +262,7 @@ const ResourcesPreview = ({ resources }: ResourcesPreviewProps) => {
               transitionDelay: '500ms',
             }}
           >
-            Resources &<span className="gradient-text">Templates</span>
+            Resources &<span className="gradient-text ">Templates</span>
           </h3>
           <p
             className="text-neutral-400 leading-relaxed"
@@ -279,7 +280,7 @@ const ResourcesPreview = ({ resources }: ResourcesPreviewProps) => {
 
         {/* Resource Cards with animation */}
         <div
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
+          className="grid grid-rows-1 md:grid-rows-2 lg:grid-rows-3 gap-6"
           data-fade="2"
         >
           {resources
@@ -296,8 +297,8 @@ const ResourcesPreview = ({ resources }: ResourcesPreviewProps) => {
                     transitionDelay: `${800 + index * 150}ms`,
                   }}
                 >
-                  <div className="absolute -inset-0.5 rounded-lg bg-gradient-to-br from-emerald-900/0 to-emerald-900/0 group-hover:from-emerald-900/10 group-hover:to-emerald-700/10 transition-all duration-300"></div>
-                  <div className="relative h-full p-5 rounded-lg bg-[#080b0e]/60 border border-neutral-800/60 hover:border-emerald-900/30 transition-all duration-300 flex flex-col">
+                  <div className="absolute -inset-0.5 "></div>
+                  <div className="relative h-full pt-3 flex flex-col">
                     {/* Legal document corner fold */}
                     <div className="absolute top-0 right-0 w-6 h-6 bg-emerald-900/5 rounded-bl-md">
                       <div className="absolute top-0 right-0 border-t-8 border-r-8 border-t-emerald-900/20 border-r-emerald-900/20 rounded-tr-md"></div>
@@ -305,7 +306,7 @@ const ResourcesPreview = ({ resources }: ResourcesPreviewProps) => {
 
                     {/* Document header */}
                     <div className="mb-4 flex items-center gap-4">
-                      <div className="w-10 h-10 rounded-md flex items-center justify-center bg-emerald-900/10 border border-emerald-900/20 shadow-sm">
+                      {/* <div className="w-10 h-10 rounded-md flex items-center justify-center bg-emerald-900/10 border border-emerald-900/20 shadow-sm">
                         {resource.type === 'document' && (
                           <HiDocumentText className="w-5 h-5 text-emerald-400" />
                         )}
@@ -318,27 +319,29 @@ const ResourcesPreview = ({ resources }: ResourcesPreviewProps) => {
                         {resource.type === 'link' && (
                           <FiLayers className="w-5 h-5 text-emerald-400" />
                         )}
-                      </div>
-                      <h3 className="font-semibold text-base text-white group-hover:text-emerald-300 transition-colors duration-300 flex-1">
-                        {resource.title}
+                      </div> */}
+                      <h3 className="font-semibold text-lg md:text-xl text-white flex-1 ">
+                        <DimensionLink href={resource.url}>
+                          {resource.title}
+                        </DimensionLink>
                       </h3>
                     </div>
 
                     {/* Content */}
-                    <p className="mb-5 text-sm text-neutral-400 group-hover:text-neutral-300 transition-colors duration-300 flex-grow">
+                    <p className="mb-5 paragraph-text text-neutral-400 group-hover:text-neutral-300 transition-colors duration-300 flex-grow">
                       {resource.description}
                     </p>
 
                     {/* Footer with legal document styling */}
-                    <div className="flex items-center justify-between pt-3 border-t border-neutral-800/20">
-                      <div className="text-xs text-neutral-500 font-mono">
-                        RESOURCES
+                    {/* <div className="flex items-center justify-between pt-3 border-t border-neutral-800/20">
+                      <div className="text-xs text-neutral-500 "></div>
+                      <div className="flex items-center text-neutral-50 text-xs md:text-sm font-medium">
+                        <Link href={resource.url}>
+                          <span className="mr-1">View</span>
+                          <FiArrowRight className="w-3.5 h-3.5 transform group-hover:translate-x-1 transition-transform duration-300" />
+                        </Link>
                       </div>
-                      <div className="flex items-center text-emerald-400 text-sm font-medium">
-                        <span className="mr-1">View</span>
-                        <FiArrowRight className="w-3.5 h-3.5 transform group-hover:translate-x-1 transition-transform duration-300" />
-                      </div>
-                    </div>
+                    </div> */}
                   </div>
                 </div>
               ))
@@ -373,7 +376,7 @@ const ResourcesPreview = ({ resources }: ResourcesPreviewProps) => {
                     </div>
 
                     {/* Content */}
-                    <p className="mb-5 text-sm text-neutral-400 group-hover:text-neutral-300 transition-colors duration-300 flex-grow">
+                    <p className="mb-5 text-sm paragraph-text text-neutral-400 group-hover:text-neutral-300 transition-colors duration-300 flex-grow">
                       {item.excerpt}
                     </p>
 
@@ -382,7 +385,8 @@ const ResourcesPreview = ({ resources }: ResourcesPreviewProps) => {
                       <div className="text-xs text-neutral-500 font-mono">
                         RESOURCES
                       </div>
-                      <div className="flex items-center text-emerald-400 text-sm font-medium">
+
+                      <div className="justify-end flex items-center text-emerald-400 text-sm font-medium">
                         <span className="mr-1">View</span>
                         <FiArrowRight className="w-3.5 h-3.5 transform group-hover:translate-x-1 transition-transform duration-300" />
                       </div>
@@ -405,7 +409,7 @@ const ResourcesPreview = ({ resources }: ResourcesPreviewProps) => {
           <Link href="/resources">
             <GlowingButton variant="small" iconPosition="link">
               <span className="flex items-center gap-2">
-                Explore More Templates
+                Explore More Resources
               </span>
             </GlowingButton>
           </Link>

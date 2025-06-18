@@ -2,19 +2,10 @@
 
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { FiArrowRight, FiTag } from 'react-icons/fi';
-import BlogCard from '../blog/BlogCard';
+
 import { BlogPost } from '@/types/blog';
 import GlowingButton from '../shared/GlowingButton';
-import { format } from 'date-fns';
-import {
-  HiBookOpen,
-  HiScale,
-  HiDocumentText,
-  HiLibrary,
-  HiChevronRight,
-  HiOutlineClock,
-} from 'react-icons/hi';
+
 import ArticleCardAlt from '../blog/ArticleCardAlt';
 
 interface LatestBlogPostsProps {
@@ -173,14 +164,9 @@ const LatestBlogPosts = ({ posts }: LatestBlogPostsProps) => {
               transition: 'opacity 700ms ease-out',
               transitionDelay: '400ms',
             }}
-          >
-            {/* <HiLibrary className="text-emerald-400 w-5 h-5" />
-            <h2 className="text-sm uppercase tracking-wider text-neutral-400 font-medium">
-              Legal Journal
-            </h2> */}
-          </div>
+          ></div>
           <h3
-            className="text-3xl md:text-5xl font-bold mb-2"
+            className="text-3xl md:text-5xl font-bold mb-2 border-decoration-bottom"
             style={{
               opacity: isVisible ? 1 : 0,
               transform: isVisible ? 'translateY(0)' : 'translateY(10px)',
@@ -188,7 +174,7 @@ const LatestBlogPosts = ({ posts }: LatestBlogPostsProps) => {
               transitionDelay: '500ms',
             }}
           >
-            Featured <span className="gradient-text">Articles</span>
+            <span className="gradient-text">Featured</span> Articles
           </h3>
           <p
             className="text-neutral-400 leading-relaxed"
@@ -203,49 +189,6 @@ const LatestBlogPosts = ({ posts }: LatestBlogPostsProps) => {
             Cryptocurrency
           </p>
         </div>
-
-        {/* Category Filter Bar - Clean & Minimal */}
-        {/* <div
-          className="flex items-center justify-between border-t border-b border-neutral-800/30 py-2 px-2 mb-8 overflow-x-auto no-scrollbar"
-          style={{
-            opacity: isVisible ? 1 : 0,
-            transform: isVisible ? 'translateY(0)' : 'translateY(10px)',
-            transition: 'opacity 700ms ease-out, transform 700ms ease-out',
-            transitionDelay: '700ms',
-          }}
-        >
-          <div className="flex items-center space-x-2 text-sm">
-            <span className="text-neutral-400 whitespace-nowrap">
-              Filter by:
-            </span>
-            <HiBookOpen className="w-4 h-4 text-emerald-400" />
-          </div>
-          <div className="flex items-center space-x-2 overflow-x-auto no-scrollbar">
-            <button
-              onClick={() => setSelectedCategory(null)}
-              className={`px-3 py-1 text-xs font-medium rounded-sm transition-colors ${
-                selectedCategory === null
-                  ? 'bg-emerald-900/30 text-emerald-400 border border-emerald-500/30'
-                  : 'text-neutral-400 hover:text-emerald-400 border border-transparent hover:border-emerald-500/20'
-              }`}
-            >
-              All
-            </button>
-            {categories.map((category) => (
-              <button
-                key={category}
-                onClick={() => setSelectedCategory(category)}
-                className={`px-3 py-1 text-xs font-medium rounded-sm transition-colors whitespace-nowrap ${
-                  selectedCategory === category
-                    ? 'bg-emerald-900/30 text-emerald-400 border border-emerald-500/30'
-                    : 'text-neutral-400 hover:text-emerald-400 border border-transparent hover:border-emerald-500/20'
-                }`}
-              >
-                {category}
-              </button>
-            ))}
-          </div>
-        </div> */}
 
         {/* Latest 3 posts  */}
         <div className="space-y-6">

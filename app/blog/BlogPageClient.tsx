@@ -239,10 +239,10 @@ export default function BlogPageClient({
                 )}
 
                 {/* Document footer */}
-                <div className="mt-8 text-end text-[10px] text-neutral-500 font-mono">
+                {/* <div className="mt-8 text-end text-[10px] text-neutral-500 font-mono">
                   <div className="flex items-center justify-center gap-2 mb-1"></div>
                   ID: BLOG-{new Date().getFullYear()}
-                </div>
+                </div> */}
               </div>
             </div>
 
@@ -317,14 +317,14 @@ export default function BlogPageClient({
             </div>
 
             <div className="flex items-center justify-center gap-2 text-xs text-neutral-500">
-              <span>For professional reference only</span>
+              <span>For reference only</span>
             </div>
 
             {/* Legal disclaimer */}
             <p className="mt-4 text-[10px] text-neutral-600 max-w-lg mx-auto">
-              These resources are provided for informational purposes only and
-              do not constitute legal advice. Always consult with a qualified
-              legal professional before using these documents.
+              These articles are provided for informational purposes only and do
+              not constitute legal advice. Always consult with a qualified
+              lawyer before using these articles.
             </p>
           </div>
         </section>

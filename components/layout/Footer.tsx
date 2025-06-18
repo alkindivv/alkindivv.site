@@ -211,7 +211,7 @@ export default function Footer() {
             {/* Copyright text di tengah */}
             <div className="w-full text-center">
               <p className="text-neutral-500 text-sm">
-                © {new Date().getFullYear()} Al Kindi. All rights reserved.
+                © {new Date().getFullYear()} AL KINDI. All rights reserved.
               </p>
             </div>
 

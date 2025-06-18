@@ -3,9 +3,10 @@ import Layout from '@/components/layout/Layout';
 import dynamic from 'next/dynamic';
 import AboutPreview from '@/components/common/AboutPreview';
 import LatestBlogPosts from '@/components/common/LatestBlogPosts';
-import ChatPreview from '@/components/common/ChatPreview';
+
 import GlossaryPreview from '@/components/common/GlossaryPreview';
 import ResourcesPreview from '@/components/common/ResourcesPreview';
+import DiscussionPreview from '@/components/common/DiscussionPreview';
 
 import { getAllPosts } from '@/lib/posts';
 
@@ -108,12 +109,19 @@ export default async function HomePage() {
           {/* Resources Preview - Full Width Section */}
           <ResourcesPreview resources={resourceItems} />
 
-          {/* Chat/AMA Preview - Full Width Section with inner container */}
+          {/* Discussion Preview - Full Width Section */}
           <section className="w-full relative overflow-hidden">
+            <div className="relative z-10">
+              <DiscussionPreview />
+            </div>
+          </section>
+
+          {/* Chat/AMA Preview - Full Width Section with inner container */}
+          {/* <section className="w-full relative overflow-hidden">
             <div className="relative z-10">
               <ChatPreview />
             </div>
-          </section>
+          </section> */}
         </div>
       </main>
     </Layout>

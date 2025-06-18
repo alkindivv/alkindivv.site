@@ -249,7 +249,7 @@ const GlossaryPreview = ({ items = [] }: GlossaryPreviewProps) => {
               transitionDelay: '500ms',
             }}
           >
-            Legal<span className="gradient-text"> Dictionary</span>
+            Legal<span className="gradient-text"> Glossary</span>
           </h3>
           <p
             className="text-neutral-400 leading-relaxed"
@@ -266,8 +266,7 @@ const GlossaryPreview = ({ items = [] }: GlossaryPreviewProps) => {
         </div>
 
         <div className="grid grid-cols-1 gap-8">
-          {/* A-Z Index Bar - Legal Styled */}
-          <div
+          {/* <div
             className="flex items-center justify-between border-t border-b border-neutral-800/50 py-2 px-2 mb-8 overflow-x-auto no-scrollbar"
             style={{
               opacity: isVisible ? 1 : 0,
@@ -293,7 +292,7 @@ const GlossaryPreview = ({ items = [] }: GlossaryPreviewProps) => {
               ))}
               <div className="pl-1 text-neutral-600">...</div>
             </div>
-          </div>
+          </div> */}
 
           {/* Glossary Items */}
           <div className="space-y-4 mb-10">
@@ -316,27 +315,25 @@ const GlossaryPreview = ({ items = [] }: GlossaryPreviewProps) => {
                     )
                   }
                   className={clsx(
-                    'w-full flex items-center justify-between p-4 rounded-lg transition-all duration-200 text-left',
-                    expandedTerm === item.term
-                      ? 'border border-emerald-800/20 bg-emerald-900/5'
-                      : 'bg-[#080b0e]/60 border border-[#1a1a1a]/40 hover:border-[#232323]'
+                    'w-full flex items-center justify-between pt-4 rounded-lg transition-all duration-200 text-left',
+                    expandedTerm === item.term ? '' : ''
                   )}
                 >
-                  <div className="space-y-1 pr-4 flex-1">
+                  <div className="space-y-1 pt-4 flex-1">
                     <h4
                       className={clsx(
-                        'text-base font-semibold tracking-wide transition-colors',
+                        'text-lg md:text-xl font-semibold tracking-wide transition-colors  underline underline-offset-2 decoration-[#4e4e4e] decoration-2 hover:decoration-white',
                         expandedTerm === item.term
-                          ? 'gradient-text'
-                          : 'text-gray-200 group-hover:text-emerald-400'
+                          ? 'inline-block underline-offset-2 decoration-white decoration-2'
+                          : 'text-gray-200'
                       )}
                     >
                       {item.term}
                     </h4>
                     <p
                       className={clsx(
-                        'text-sm text-neutral-400 transition-all duration-200',
-                        expandedTerm === item.term ? '' : 'line-clamp-2'
+                        'glossary-text text-neutral-400 transition-all duration-200',
+                        expandedTerm === item.term ? '' : 'line-clamp-3'
                       )}
                     >
                       {item.definition}
@@ -372,7 +369,7 @@ const GlossaryPreview = ({ items = [] }: GlossaryPreviewProps) => {
 
                   <div
                     className={clsx(
-                      'w-6 h-6 rounded-full flex items-center justify-center transition-colors',
+                      'w-5 h-5 rounded-full flex items-center justify-center transition-colors',
                       expandedTerm === item.term
                         ? 'bg-emerald-900/20 text-emerald-400'
                         : 'bg-neutral-800/40 text-neutral-400 group-hover:bg-emerald-900/20 group-hover:text-emerald-400'

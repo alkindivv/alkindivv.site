@@ -1,7 +1,6 @@
 import React from 'react';
 import Link from 'next/link';
 import clsx from 'clsx';
-import { HiMiniArrowTopRightOnSquare } from 'react-icons/hi2';
 
 interface DimensionLinkProps {
   href: string;
@@ -14,32 +13,25 @@ export default function DimensionLink({
   children,
   className,
 }: DimensionLinkProps) {
-  const isExternal = href.startsWith('https');
+  // Tautan dianggap eksternal jika diawali dengan `http` / `https`
+  const isExternal = href.startsWith('http');
 
   const linkClasses = clsx(
     'relative',
-    ' items-center gap-1',
+    'items-center gap-1',
     'group',
-    'text-decoration-none',
     'font-medium',
-    'items-center gap-2',
+    'cursor-pointer',
     className
   );
 
-  const textStyles = {
-    background: 'text-[#d0d2d7] ',
-    WebkitBackgroundClip: 'text',
-    backgroundClip: 'text',
-    color: 'transparent',
-  };
-
   const iconClasses = clsx(
-    'inline-block w-[12px] h-[12px] gap-2',
-    'transition-all duration-300 ease-out',
-    'text-neutral-50 group-hover:text-[#d0d2d7]',
-
+    'inline-block w-[14px] h-[14px]',
+    'ml-1',
+    'transition-transform duration-300 ease-out',
+    'text-neutral-400 group-hover:text-[#d0d2d7]',
     '-translate-y-[1px]',
-    'group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:opacity-100'
+    'group-hover:translate-x-1 group-hover:-translate-y-1'
   );
 
   if (isExternal) {
@@ -50,9 +42,7 @@ export default function DimensionLink({
         rel="noopener noreferrer"
         className={linkClasses}
       >
-        <span className="dimension-link" style={textStyles}>
-          {children}
-        </span>
+        <span className="dimension-link">{children}</span>
         <svg
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 24 24"
@@ -71,9 +61,7 @@ export default function DimensionLink({
 
   return (
     <Link href={href} className={linkClasses}>
-      <span className="dimension-link" style={textStyles}>
-        {children}
-      </span>
+      <span className="dimension-link">{children}</span>
       <svg
         xmlns="http://www.w3.org/2000/svg"
         viewBox="0 0 24 24"

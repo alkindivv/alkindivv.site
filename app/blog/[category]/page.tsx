@@ -90,10 +90,10 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
             {/* Header Section - Matching Blog Style */}
             <div className="mb-12 max-w-2xl mx-auto text-center" data-fade="1">
               <div className="flex items-center space-x-2 mb-2 justify-center">
-                <HiLibrary className="text-emerald-400 w-5 h-5" />
+                {/* <HiLibrary className="text-emerald-400 w-5 h-5" />
                 <h2 className="text-sm uppercase tracking-wider text-neutral-400 font-medium">
                   {categoryData.name} Article Collection
-                </h2>
+                </h2> */}
               </div>
 
               <h3 className="text-4xl md:text-5xl font-bold mb-4 text-center">
@@ -102,13 +102,10 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
               </h3>
               <p className="text-neutral-400 leading-relaxed text-center">
                 {categoryData.description}
+                <div className="relative mt-5 top-0 left-0 right-0 h-0.5 bg-gradient-to-r from-transparent via-emerald-500/20 to-transparent"></div>
               </p>
 
               {/* Document Number Line */}
-            </div>
-
-            <div className="mb-6">
-              <Breadcrumb items={breadcrumbItems} />
             </div>
 
             {/* Search Input - Matching Blog Style */}
@@ -116,7 +113,7 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
               <div className="relative mx-auto max-w-2xl">
                 <div className="relative group h-full border border-neutral-800/70 rounded-md overflow-hidden hover:border-emerald-500/30 transition-all duration-300 bg-neutral-900/20">
                   {/* Legal document styling */}
-                  <div className="absolute top-0 left-0 right-0 h-0.5 bg-gradient-to-r from-transparent via-emerald-500/20 to-transparent"></div>
+                  {/* <div className="absolute top-0 left-0 right-0 h-0.5 bg-gradient-to-r from-transparent via-emerald-500/20 to-transparent"></div> */}
 
                   <input
                     type="text"
@@ -128,10 +125,13 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
               </div>
             </div>
 
+            <div className="mb-6">
+              <Breadcrumb items={breadcrumbItems} />
+            </div>
+
             {/* Blog Posts List - Legal Styled */}
             <div className="relative mb-8" data-fade="3">
               {/* Legal document styling */}
-              <div className="absolute top-0 left-0 right-0 h-0.5 bg-gradient-to-r from-transparent via-emerald-500/20 to-transparent"></div>
 
               <div className="space-y-6 py-6">
                 {filteredPosts?.length > 0 ? (

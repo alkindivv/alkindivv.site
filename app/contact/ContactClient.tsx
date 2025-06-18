@@ -4,9 +4,8 @@ import React, { useState, useRef, useEffect } from 'react';
 import Accent from '@/components/shared/Accent';
 import GlowingButton from '@/components/shared/GlowingButton';
 import Image from 'next/image';
-import { HiScale, HiDocumentText, HiLibrary } from 'react-icons/hi';
-import { RiContactsFill } from 'react-icons/ri';
-import { GrContact } from 'react-icons/gr';
+import { HiScale } from 'react-icons/hi';
+
 import Breadcrumb from '@/components/shared/Breadcrumb';
 
 export default function ContactClient() {
@@ -125,9 +124,6 @@ export default function ContactClient() {
                 data-fade="4"
               >
                 <div className="flex items-center gap-3">
-                  {/* <div className="p-2 rounded-lg bg-emerald-500/10 text-emerald-400">
-                    <HiDocumentText className="w-5 h-5" />
-                  </div> */}
                   <h2 className="text-sm sm:text-xl font-semibold">
                     Contact <Accent> Form</Accent>
                   </h2>
@@ -159,9 +155,6 @@ export default function ContactClient() {
                         className="w-full bg-transparent border-b border-dotted border-neutral-700 hover:border-neutral-600 focus:border-neutral-500 transition-colors px-0 py-2 text-sm sm:text-base focus:outline-none focus:ring-0 placeholder:text-neutral-600"
                         placeholder="your@email.com"
                       />
-                      {/* <div className="absolute right-0 top-0 text-[10px] text-neutral-500 font-mono">
-                        CONTACT
-                      </div> */}
                     </div>
                   </div>
 
@@ -173,9 +166,6 @@ export default function ContactClient() {
                       className="w-full bg-transparent border-b border-dotted border-neutral-700 hover:border-neutral-600 focus:border-neutral-500 transition-colors px-0 py-2 text-sm sm:text-base focus:outline-none focus:ring-0 placeholder:text-neutral-600"
                       placeholder="Subject"
                     />
-                    {/* <div className="absolute right-0 top-0 text-[10px] text-neutral-500 font-mono">
-                      MATTER
-                    </div> */}
                   </div>
 
                   <div className="space-y-2 mt-6 relative">
@@ -186,9 +176,6 @@ export default function ContactClient() {
                       className="w-full bg-transparent border-b border-dotted border-neutral-700 hover:border-neutral-600 focus:border-neutral-500 transition-colors px-0 py-2 text-sm sm:text-base focus:outline-none focus:ring-0 resize-none placeholder:text-neutral-600"
                       placeholder="Your message"
                     />
-                    {/* <div className="absolute right-0 top-0 text-[10px] text-neutral-500 font-mono">
-                      STATEMENT
-                    </div> */}
                   </div>
 
                   {statusMessage && (

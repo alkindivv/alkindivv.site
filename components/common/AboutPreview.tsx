@@ -4,12 +4,7 @@ import React, { useEffect, useState } from 'react';
 import GlowingButton from '../shared/GlowingButton';
 import Link from 'next/link';
 
-import {
-  HiLibrary,
-  HiScale,
-  HiDocumentText,
-  HiOutlineClock,
-} from 'react-icons/hi';
+import { HiScale } from 'react-icons/hi';
 import OptimizedImage from '../shared/OptimizedImage';
 import AccentNormal from '../shared/AccentNormal';
 
@@ -149,12 +144,7 @@ const AboutPreview = () => {
               transition: 'opacity 700ms ease-out',
               transitionDelay: '400ms',
             }}
-          >
-            {/* <HiLibrary className="text-emerald-400 w-5 h-5" /> */}
-            {/* <h2 className="text-sm  uppercase tracking-wider text-neutral-500 font-medium">
-              BACKROUND
-            </h2> */}
-          </div>
+          ></div>
           <h3
             className="text-3xl md:text-5xl mb-2 font-bold flex gap-3"
             style={{
@@ -166,33 +156,8 @@ const AboutPreview = () => {
           >
             About <span className="gradient-text">Me</span>
           </h3>
-          {/* <p
-            className="text-neutral-400 leading-relaxed"
-            style={{
-              opacity: isVisible ? 1 : 0,
-              transform: isVisible ? 'translateY(0)' : 'translateY(10px)',
-              transition: 'opacity 700ms ease-out, transform 700ms ease-out',
-              transitionDelay: '600ms',
-            }}
-          >
-            Background, experience, and expertise in law and technology at the
-            intersection of legal practice and emerging technologies.
-          </p> */}
 
-          <div
-          // className="flex items-center mt-4"
-          // style={{
-          //   opacity: isVisible ? 1 : 0,
-          //   transition: 'opacity 700ms ease-out',
-          //   transitionDelay: '700ms',
-          // }}
-          >
-            {/* <div className="h-px flex-grow bg-gradient-to-r from-transparent via-neutral-800/50 to-transparent"></div>
-            <div className="px-4 py-1 text-xs font-mono text-emerald-400 border border-emerald-500/20 rounded-sm bg-emerald-900/10">
-              CURRICULUM VITAE
-            </div>
-            <div className="h-px flex-grow bg-gradient-to-r from-transparent via-neutral-800/50 to-transparent"></div> */}
-          </div>
+          <div></div>
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
@@ -209,8 +174,8 @@ const AboutPreview = () => {
             {/* Main Description - Minimal styling */}
             <div className="space-y-4 relative rounded-lg ">
               <p className="paragraph-text leading-relaxed">
-                Hello!, I'm <AccentNormal>AL KINDI</AccentNormal>. I'm
-                passionate about exploring the intersection between
+                Hello!, I'm <span className="text-neutral-50">AL KINDI</span>.
+                I'm passionate about exploring the intersection between
                 <span className=" paragraph-text leading-relaxed">
                   {' '}
                   law and technology. I hold a law degree and have always
@@ -219,37 +184,14 @@ const AboutPreview = () => {
                   whether it's about law, technology, or anything else.
                 </span>
               </p>
-
-              {/* <p className="paragraph-text leading-relaxed">
-                My journey spans across corporate legal practice, regulatory
-                compliance, blockchain technologies, and web development, giving
-                me a unique perspective at the intersection between law and
-                emerging technologies.
-              </p> */}
             </div>
 
             {/* Expertise Cards - Simplified */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-2">
-              <div
-              // className="group relative p-4 rounded-lg border border-neutral-800/50 bg-neutral-900/20 backdrop-blur-sm hover:border-emerald-500/20 transition-all duration-300
-              // transform"
-              // style={{
-              //   opacity: isVisible ? 1 : 0,
-              //   transform: isVisible ? 'translateY(0)' : 'translateY(8px)',
-              //   transition:
-              //     'opacity 700ms ease-out, transform 700ms ease-out',
-              //   transitionDelay: '900ms',
-              // }}
-              >
-                {/* Decorative line */}
-                {/* <div className="absolute top-0 left-0 right-0 h-0.5 bg-gradient-to-r from-transparent via-emerald-500/20 to-transparent"></div> */}
-
+              <div>
                 <div className="flex items-center gap-3 mb-2">
-                  {/* <div className="w-8 h-8 rounded-lg bg-emerald-900/20 flex items-center justify-center">
-                    <HiScale className="w-4 h-4 text-emerald-400" />
-                  </div> */}
                   <h3 className="font-medium text-white group-hover:text-emerald-300 transition-colors relative leading-tight border-decoration-bottom">
-                    Law Focus
+                    Law
                   </h3>
                 </div>
                 <p className="text-sm text-neutral-400 group-hover:text-neutral-300 transition-colors">
@@ -257,24 +199,8 @@ const AboutPreview = () => {
                 </p>
               </div>
 
-              <div
-              // className="group relative p-4 rounded-lg border border-neutral-800/50 bg-neutral-900/20 backdrop-blur-sm hover:border-emerald-500/20 transition-all duration-300
-              // transform"
-              // style={{
-              //   opacity: isVisible ? 1 : 0,
-              //   transform: isVisible ? 'translateY(0)' : 'translateY(8px)',
-              //   transition:
-              //     'opacity 700ms ease-out, transform 700ms ease-out',
-              //   transitionDelay: '1100ms',
-              // }}
-              >
-                {/* Decorative line */}
-                {/* <div className="absolute top-0 left-0 right-0 h-0.5 bg-gradient-to-r from-transparent via-emerald-500/20 to-transparent"></div> */}
-
+              <div>
                 <div className="flex items-center gap-3 mb-2">
-                  {/* <div className="w-8 h-8 rounded-lg bg-emerald-900/20 flex items-center justify-center">
-                    <HiDocumentText className="w-4 h-4 text-emerald-400" />
-                  </div> */}
                   <h3 className="font-medium text-white group-hover:text-emerald-300 transition-colors  leading-tight border-decoration-bottom">
                     Technology
                   </h3>
@@ -295,7 +221,7 @@ const AboutPreview = () => {
                 transitionDelay: '1300ms',
               }}
             >
-              <Link href="/about" className="group inline-flex">
+              <Link href="/about" className="">
                 <GlowingButton variant="small" iconPosition="link">
                   <span className="flex items-center gap-2">More About Me</span>
                 </GlowingButton>

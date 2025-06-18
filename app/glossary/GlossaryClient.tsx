@@ -366,12 +366,6 @@ export default function GlossaryClient() {
         <div className="max-w-6xl mx-auto">
           {/* Header - Matching Blog Style */}
           <div className="mb-12 max-w-4xl mx-auto" data-fade="1">
-            {/* <div className="flex items-center space-x-2 mb-2 justify-center">
-              <HiScale className="text-emerald-400 w-5 h-5" />
-              <h2 className="text-sm uppercase tracking-wider text-neutral-400 font-medium">
-                Legal References
-              </h2>
-            </div> */}
             <h3 className="text-4xl md:text-5xl font-bold mb-4 text-center">
               <span className="gradient-text">Legal Glossary </span>Dictionary
             </h3>
@@ -379,21 +373,9 @@ export default function GlossaryClient() {
               A glossary of legal terms related to technology law, corporate and
               commercial transactions, with explanations in Indonesian language.
             </p>
-            {/* Document Number Line */}
-            {/* <div className="flex items-center my-8">
-              <div className="h-px flex-grow bg-neutral-800/50"></div>
-              <div className="px-4 py-1 text-xs font-mono text-emerald-400 border border-emerald-500/20 rounded-sm bg-emerald-900/10">
-                TERMS
-              </div>
-              <div className="h-px flex-grow bg-neutral-800/50"></div>
-            </div> */}
+
             <div className="relative mt-5 top-0 left-0 right-0 h-0.5 bg-gradient-to-r from-transparent via-emerald-500/20 to-transparent"></div>
           </div>
-
-          {/* <div
-            className="h-px bg-gradient-to-r from-transparent via-gray-600 to-transparent mb-10 mt-5"
-            data-fade="2"
-          /> */}
 
           <div className=" mb-4">
             <Breadcrumb items={breadcrumbItems} />
@@ -409,7 +391,7 @@ export default function GlossaryClient() {
                   <div className="relative group h-full border border-neutral-800/70 rounded-md overflow-hidden hover:border-emerald-500/30 transition-all duration-300 bg-neutral-900/20">
                     {/* Legal document styling */}
 
-                    <div className="absolute top-0 left-0 right-0 h-0.5 bg-gradient-to-r from-transparent via-emerald-500/20 to-transparent"></div>
+                    {/* <div className="absolute top-0 left-0 right-0 h-0.5 bg-gradient-to-r from-transparent via-emerald-500/20 to-transparent"></div> */}
 
                     <input
                       type="text"
@@ -439,7 +421,7 @@ export default function GlossaryClient() {
                     {filteredTerms.length > 0 && (
                       <button
                         onClick={() => setSearchTerm('')}
-                        className="mt-2 text-xs text-emerald-500 hover:text-emerald-400 transition-colors"
+                        className="mt-2 text-xs md:text-sm text-emerald-500 hover:text-emerald-400 transition-colors"
                       >
                         Clear search
                       </button>
@@ -555,7 +537,7 @@ export default function GlossaryClient() {
               </div>
 
               {/* Active Filters - Styled as tags */}
-              {(selectedTags.length > 0 || selectedLetter || searchTerm) && (
+              {/* {(selectedTags.length > 0 || selectedLetter || searchTerm) && (
                 <div
                   className="flex flex-wrap gap-2 items-center mb-8 border-t border-b border-neutral-800/50 py-2 px-2"
                   data-fade="6"
@@ -592,7 +574,7 @@ export default function GlossaryClient() {
                     Reset All
                   </button>
                 </div>
-              )}
+              )} */}
 
               {/* Alphabet navigation - styled as legal tabs */}
               <div
@@ -644,9 +626,7 @@ export default function GlossaryClient() {
                 {filteredTerms.length > 0 ? (
                   <div className="space-y-10 relative">
                     {/* Legal document styling */}
-                    <div className="absolute top-0 left-0 right-0 h-0.5 bg-gradient-to-r from-transparent via-emerald-500/20 to-transparent"></div>
-                    {/* <div className="absolute top-2 left-2 w-3 h-3 border-t border-l border-emerald-500/30"></div>
-                    <div className="absolute bottom-2 right-2 w-3 h-3 border-b border-r border-emerald-500/30"></div> */}
+                    {/* <div className="absolute top-0 left-0 right-0 h-0.5 bg-gradient-to-r from-transparent via-emerald-500/20 to-transparent"></div> */}
 
                     {groupedTerms.map(([letter, terms]) => (
                       <div key={letter} className="scroll-mt-32" data-fade="9">
@@ -682,7 +662,7 @@ export default function GlossaryClient() {
                                 <div className="space-y-1 pr-4">
                                   <h3
                                     className={clsx(
-                                      'text-base font-semibold tracking-wide transition-colors',
+                                      'text-lg md:text-xl font-semibold tracking-wide transition-colors',
                                       expandedTerm === item.term
                                         ? 'gradient-text'
                                         : 'text-gray-200 group-hover:text-emerald-400'
@@ -692,10 +672,10 @@ export default function GlossaryClient() {
                                   </h3>
                                   <p
                                     className={clsx(
-                                      'text-sm paragraph-text transition-all duration-200',
+                                      'glossary-text transition-all duration-200',
                                       expandedTerm === item.term
                                         ? ''
-                                        : 'line-clamp-2'
+                                        : 'line-clamp-3'
                                     )}
                                   >
                                     {item.definition}
@@ -705,12 +685,8 @@ export default function GlossaryClient() {
                                       {item.example && (
                                         <div className="rounded-lg p-4 border border-emerald-900/20 relative">
                                           {/* Corner decorations - legal document style */}
-                                          <div className="absolute top-0 left-0 w-2 h-2 border-t border-l border-emerald-500/30"></div>
-                                          <div className="absolute top-0 right-0 w-2 h-2 border-t border-r border-emerald-500/30"></div>
-                                          <div className="absolute bottom-0 left-0 w-2 h-2 border-b border-l border-emerald-500/30"></div>
-                                          <div className="absolute bottom-0 right-0 w-2 h-2 border-b border-r border-emerald-500/30"></div>
 
-                                          <h4 className="text-sm font-medium text-emerald-400 mb-2">
+                                          <h4 className="text-sm font-medium text-neutral-50 mb-2">
                                             Example:
                                           </h4>
                                           <p className="text-sm text-neutral-400 leading-relaxed">
@@ -753,48 +729,20 @@ export default function GlossaryClient() {
                   </div>
                 ) : (
                   <div
-                    className="text-center py-12 relative border border-neutral-800/70 rounded-lg overflow-hidden bg-neutral-900/5"
+                    className="text-center py-12 relative overflow-hidden"
                     data-fade="11"
                   >
-                    {/* Legal document styling */}
-                    <div className="absolute top-0 left-0 right-0 h-0.5 bg-gradient-to-r from-transparent via-emerald-500/20 to-transparent"></div>
-                    <div className="absolute top-2 left-2 w-3 h-3 border-t border-l border-emerald-500/30"></div>
-                    <div className="absolute bottom-2 right-2 w-3 h-3 border-b border-r border-emerald-500/30"></div>
-
-                    <p className="text-xl mb-3">
-                      <Accent>No results found</Accent>
+                    <p className="gradient-text text-2xl md:text-3xl font-bold mb-3">
+                      No results found
                     </p>
-                    <p className="text-neutral-400 mb-6">
+                    <p className="text-neutral-400 mb-6 text-xs md:text-base">
                       Try adjusting your filters or search query
                     </p>
-                    <button
-                      onClick={resetFilters}
-                      className="px-4 py-2 bg-emerald-500/10 text-emerald-400 rounded-sm border border-emerald-500/30 hover:bg-emerald-500/20 transition-colors"
-                    >
-                      Reset Filters
-                    </button>
-
-                    {/* Document footer */}
-                    <div className="mt-8 text-center text-[10px] text-neutral-500 font-mono">
-                      <div className="flex items-center justify-center gap-2 mb-1">
-                        <div className="h-px w-12 bg-neutral-800"></div>
-                        <HiScale className="w-4 h-4 text-emerald-500/40" />
-                        <div className="h-px w-12 bg-neutral-800"></div>
-                      </div>
-                      GLOSSARY ID: GLO-{new Date().getFullYear()}
-                    </div>
                   </div>
                 )}
 
                 {/* Document footer */}
-                <div className="mt-12 text-end text-[10px] text-neutral-500 font-mono">
-                  <div className="flex items-center justify-center gap-2 mb-1">
-                    {/* <div className="h-px w-12 bg-neutral-800"></div>
-                    <HiScale className="w-4 h-4 text-emerald-500/40" />
-                    <div className="h-px w-12 bg-neutral-800"></div> */}
-                  </div>
-                  ID: GLOSSARY-{new Date().getFullYear()}
-                </div>
+
                 <div
                   className="mt-16 text-center opacity-0 transition-opacity duration-700 ease-out"
                   style={{
@@ -803,9 +751,8 @@ export default function GlossaryClient() {
                   }}
                 >
                   <p className="text-xs md:text-sm text-neutral-500 max-w-xl font-light italic mx-auto mb-6">
-                    This glossary is continuously updated with new legal terms
-                    and definitions. Check back regularly for the latest
-                    additions.
+                    This glossary is continuously updated. Check back regularly
+                    for the latest additions.
                   </p>
                   <Link href="/contact">
                     <GlowingButton

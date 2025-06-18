@@ -2,13 +2,11 @@ import React from 'react';
 import { Metadata } from 'next';
 import Layout from '@/components/layout/Layout';
 import Image from 'next/image';
-
 import Breadcrumb from '@/components/shared/Breadcrumb';
-
 import DimensionLink from '@/components/common/DimensionLink';
-import { FaRegCalendarAlt } from 'react-icons/fa';
 import AccentNormal from '@/components/shared/AccentNormal';
-import { HiScale } from 'react-icons/hi';
+import { IoCalendarOutline } from 'react-icons/io5';
+
 import { viewport } from '../viewport';
 
 export { viewport };
@@ -173,28 +171,11 @@ const AboutPage = () => {
             <div className="clear-both mb-20" />
           </div>
 
-          {/* <div className="relative mt-0 top-0 left-0 right-0 h-0.5 bg-gradient-to-r from-transparent via-emerald-500/20 to-transparent"></div> */}
-
           {/* Experience Section - Legal Styled */}
           <section className="pb-5 pt-25">
-            <h2 className="text-2xl md:text-5xl font-bold mb-6 text-center mt-24">
+            <h2 className="text-4xl md:text-5xl font-bold mb-6 text-center mt-24">
               <span className="gradient-text">Experiences</span>
             </h2>
-            {/* <div className="text-center">
-              <p
-                className="text-neutral-400 mb-4 inline-block"
-                data-fade="8"
-                style={{
-                  opacity: 1,
-                  transform: 'translateY(0)',
-                  transition:
-                    'opacity 700ms ease-out, transform 700ms ease-out',
-                  transitionDelay: '1000ms',
-                }}
-              >
-                Some of my experiences, education, and background
-              </p>
-            </div> */}
 
             <div
               className="space-y-14"
@@ -210,13 +191,13 @@ const AboutPage = () => {
                 {/* Decorative top bar */}
                 <div className="absolute top-0 left-0 right-0 h-0.5 bg-gradient-to-r from-transparent via-emerald-500/20 to-transparent"></div>
 
-                <div className="grid grid-cols-1 md:grid-cols-[300px,1fr] gap-8 data-fade-8">
+                <div className="grid grid-cols-1 md:grid-cols-[300px,1fr] gap-6 data-fade-8">
                   <div>
                     <div
-                      className="paragraph-text text-[0.9rem] md:text-[0.95rem] leading-relaxed tracking-wider -mb-10 md:-mb-0 flex items-center"
+                      className="paragraph-text text-[0.75rem] md:text-[0.85rem] leading-relaxed tracking-wider  -mb-10 md:-mb-0 flex items-center"
                       data-fade="10"
                     >
-                      <FaRegCalendarAlt className="w-4 h-4 text-emerald-400 mr-2" />
+                      <IoCalendarOutline className="w-3.5 h-3.5 text-neutral-50 mr-2" />
                       <span>Nov 2023 — Dec 2024</span>
                     </div>
                   </div>
@@ -290,13 +271,13 @@ const AboutPage = () => {
                 {/* Decorative top bar */}
                 <div className="absolute top-0 left-0 right-0 h-0.5 bg-gradient-to-r from-transparent via-emerald-500/20 to-transparent"></div>
 
-                <div className="grid grid-cols-1 md:grid-cols-[300px,1fr] gap-8 data-fade-8">
+                <div className="grid grid-cols-1 md:grid-cols-[300px,1fr] gap-6 data-fade-8">
                   <div>
                     <div
-                      className="paragraph-text text-[0.9rem] md:text-[0.95rem] leading-relaxed tracking-wider -mb-10 md:-mb-0 flex items-center"
+                      className="paragraph-text text-[0.75rem] md:text-[0.85rem] leading-relaxed tracking-wider -mb-10 md:-mb-0 flex items-center"
                       data-fade="10"
                     >
-                      <FaRegCalendarAlt className="w-4 h-4 text-emerald-400 mr-2" />
+                      <IoCalendarOutline className="w-3.5 h-3.5 text-neutral-50 mr-2" />
                       <span>Jan 2022 — Feb 2022</span>
                     </div>
                   </div>
@@ -370,13 +351,13 @@ const AboutPage = () => {
                 {/* Decorative top bar */}
                 <div className="absolute top-0 left-0 right-0 h-0.5 bg-gradient-to-r from-transparent via-emerald-500/20 to-transparent"></div>
 
-                <div className="grid grid-cols-1 md:grid-cols-[300px,1fr] gap-8 data-fade-8">
+                <div className="grid grid-cols-1 md:grid-cols-[300px,1fr] gap-6 data-fade-8">
                   <div>
                     <div
-                      className="paragraph-text text-[0.9rem] md:text-[0.95rem] leading-relaxed tracking-wider -mb-10 md:-mb-0 flex items-center"
+                      className="paragraph-text text-[0.75rem] md:text-[0.85rem] leading-relaxed tracking-wider -mb-10 md:-mb-0 flex items-center"
                       data-fade="10"
                     >
-                      <FaRegCalendarAlt className="w-4 h-4 text-emerald-400 mr-2" />
+                      <IoCalendarOutline className="w-3.5 h-3.5 text-neutral-50 mr-2" />
                       <span>Feb 2021 — Dec 2023</span>
                     </div>
                   </div>
@@ -443,43 +424,6 @@ const AboutPage = () => {
                 </div>
               </div>
             </div>
-
-            {/* Legal footer */}
-            {/* <div className="mt-12 text-end text-[10px] text-neutral-500 font-mono">
-              <div className="flex items-center justify-center gap-2 mb-1">
-
-              </div>
-              ID: ABOUT-{new Date().getFullYear()}
-            </div> */}
-            {/* <div
-              className="mt-16 text-center relative"
-              style={{
-                opacity: 1,
-                transition: 'opacity 800ms ease-out',
-                transitionDelay: '1400ms',
-              }}
-            >
-
-              <div className="flex items-center justify-center mb-6">
-                <div className="h-px w-16 bg-neutral-800"></div>
-                <div className="mx-4">
-                  <HiScale className="w-8 h-8 text-emerald-500/30" />
-                </div>
-                <div className="h-px w-16 bg-neutral-800"></div>
-              </div>
-
-              <div className="flex items-center justify-center gap-2 text-xs text-neutral-500">
-                <HiScale className="w-4 h-4 text-emerald-500/50" />
-                <span>ABOUT</span>
-              </div>
-
-
-              <p className="mt-4 text-[10px] text-neutral-600 max-w-lg mx-auto">
-                These are provided for informational purposes only and do not
-                constitute legal advice. Always consult with a qualified legal
-                professional before using these for references.
-              </p>
-            </div> */}
           </section>
         </div>
       </main>

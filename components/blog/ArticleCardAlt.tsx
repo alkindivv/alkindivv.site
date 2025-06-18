@@ -29,7 +29,7 @@ const ArticleCardAlt = ({ post }: ArticleCardAltProps) => {
 
         {/* Content */}
         <div className="w-full">
-          <p className="text-sm text-neutral-400 ">
+          <p className="text-xs md:text-sm text-neutral-400 ">
             {new Date(post.date).toLocaleDateString('en-US', {
               year: 'numeric',
               month: 'long',
@@ -37,7 +37,7 @@ const ArticleCardAlt = ({ post }: ArticleCardAltProps) => {
             })}
           </p>
 
-          <h3 className="mt-3 text-xl font-semibold relative group-hover:text-emerald-500 transition-colors">
+          <div className="mt-3 text-base md:text-xl font-semibold relative group-hover:text-emerald-500 transition-colors">
             <span
               className="bg-gradient-to-r from-emerald-500/30 via-emerald-500/90 to-emerald-500/30 box-decoration-clone group-hover:opacity-30 opacity-0 transition text-transparent"
               aria-hidden="true"
@@ -45,9 +45,9 @@ const ArticleCardAlt = ({ post }: ArticleCardAltProps) => {
               {post.title}
             </span>
             <span className="absolute left-0 top-0">{post.title}</span>
-          </h3>
+          </div>
 
-          <p className="text-sm text-neutral-400 mt-1 line-clamp-2">
+          <p className="text-xs md:text-sm text-neutral-400 mt-1 line-clamp-2">
             {post.description || post.excerpt}
           </p>
 
@@ -55,7 +55,7 @@ const ArticleCardAlt = ({ post }: ArticleCardAltProps) => {
             <div className="flex items-center gap-5">
               <div className="flex items-center gap-2">
                 <HiOutlineClock className="w-4 h-4 text-emerald-500" />
-                <p className="text-xs text-neutral-400">
+                <p className="text-xs md:text-sm text-neutral-400">
                   {post.readingTime} min read
                 </p>
               </div>
