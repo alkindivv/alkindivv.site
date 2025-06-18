@@ -192,15 +192,45 @@ module.exports = async () => {
 
       return config;
     },
-    // async redirects() {
-    //   return [
-    //     {
-    //       source: '/:path((?!.*\\/).*)', // versi tanpa slash
-    //       destination: '/:path/', // versi dengan slash
-    //       permanent: true,
-    //     },
-    //   ];
-    // },
+    async redirects() {
+      return [
+        {
+          source: '/feed.xml/',
+          destination: '/feed.xml',
+          permanent: true,
+        },
+        {
+          source: '/atom.xml/',
+          destination: '/atom.xml',
+          permanent: true,
+        },
+        {
+          source: '/sitemap.xml/',
+          destination: '/sitemap.xml',
+          permanent: true,
+        },
+        {
+          source: '/robots.txt/',
+          destination: '/robots.txt',
+          permanent: true,
+        },
+        {
+          source: '/site.webmanifest/',
+          destination: '/site.webmanifest',
+          permanent: true,
+        },
+        {
+          source: '/favicon.ico/',
+          destination: '/favicon.ico',
+          permanent: true,
+        },
+        {
+          source: '/:path*//:rest*',
+          destination: '/:path*/:rest*',
+          permanent: true,
+        },
+      ];
+    },
   };
 
   return withMDX(nextConfig);

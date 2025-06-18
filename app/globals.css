@@ -42,7 +42,8 @@
   --color-list: #e2e8f0;
 
   --color-border: #374151;
-  --color-background: #0a0a0a;
+  /* --color-background: #0a0a0a; */
+  --color-background: #000000;
   --color-hover: #1f1f1f;
   --link-gradient: linear-gradient(45deg, #08c488 50%, #59fbbf 100%);
   --link-gradient-button: linear-gradient(45deg, #08c488 25%, #59fbbf 100%);

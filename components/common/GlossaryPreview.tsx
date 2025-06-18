@@ -2,16 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { FiArrowRight, FiArrowUpRight } from 'react-icons/fi';
-import {
-  HiSearch,
-  HiChevronRight,
-  HiBookOpen,
-  HiDocumentText,
-  HiScale,
-  HiLibrary,
-} from 'react-icons/hi';
-import Accent from '../shared/Accent';
+import { HiChevronRight } from 'react-icons/hi';
 import clsx from 'clsx';
 import GlowingButton from '../shared/GlowingButton';
 
@@ -241,7 +232,7 @@ const GlossaryPreview = ({ items = [] }: GlossaryPreviewProps) => {
             </h2> */}
           </div>
           <h3
-            className="text-3xl md:text-5xl font-bold mb-2"
+            className="text-4xl md:text-5xl font-bold mb-2"
             style={{
               opacity: isVisible ? 1 : 0,
               transform: isVisible ? 'translateY(0)' : 'translateY(10px)',
@@ -252,7 +243,7 @@ const GlossaryPreview = ({ items = [] }: GlossaryPreviewProps) => {
             Legal<span className="gradient-text"> Glossary</span>
           </h3>
           <p
-            className="text-neutral-400 leading-relaxed"
+            className="text-neutral-400 text-sm md:text-base leading-relaxed"
             style={{
               opacity: isVisible ? 1 : 0,
               transform: isVisible ? 'translateY(0)' : 'translateY(10px)',

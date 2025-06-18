@@ -146,7 +146,7 @@ const AboutPreview = () => {
             }}
           ></div>
           <h3
-            className="text-3xl md:text-5xl mb-2 font-bold flex gap-3"
+            className="text-4xl md:text-5xl mb-2 font-bold flex gap-3"
             style={{
               opacity: isVisible ? 1 : 0,
               transform: isVisible ? 'translateY(0)' : 'translateY(10px)',

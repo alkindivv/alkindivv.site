@@ -137,22 +137,22 @@ export default function BlogPageClient({
         />
         <Image
           alt=""
-          width={1280}
-          height={825}
+          width={10}
+          height={25}
           className="pointer-events-none select-none absolute w-full inset-0 h-[950px] object-cover z-[-1] opacity-40 mix-blend-overlay"
           src="/images/textures/crumpled-3.jpg"
           priority
         />
       </div>
 
-      <main className="content-spacing relative overflow-hidden">
+      <main className="">
         {/* Content - Immediate Load */}
 
         <section className="min-h-screen pt-40 relative z-10">
           <div className="max-w-6xl mx-auto">
             {/* Header Section - Matching LatestBlogPosts Style */}
             <div className="mb-12 max-w-2xl mx-auto" data-fade="1">
-              <h3 className="text-4xl md:text-5xl font-bold mb-4 text-center">
+              <h3 className="text-4xl md:text-5xl font-bold mb-4 text-center ">
                 Thoughts & <span className="gradient-text">Articles</span>
               </h3>
 
@@ -161,6 +161,7 @@ export default function BlogPageClient({
                 Cryptocurrency
               </p>
               <div className="relative mt-5 top-0 left-0 right-0 h-0.5 bg-gradient-to-r from-transparent via-emerald-500/20 to-transparent"></div>
+              {/* <div className="h-px w-full bg-gradient-to-r from-[#08a875]/0 via-[#08a875]/70 to-[#34d399]/0" /> */}
             </div>
 
             {/* Search Input - Matching LatestBlogPosts Legal Document Style */}

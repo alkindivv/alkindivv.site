@@ -254,7 +254,7 @@ const ResourcesPreview = ({ resources }: ResourcesPreviewProps) => {
             </h2> */}
           </div>
           <h3
-            className="text-3xl md:text-5xl font-bold mb-2"
+            className="text-4xl md:text-5xl font-bold mb-2"
             style={{
               opacity: isVisible ? 1 : 0,
               transform: isVisible ? 'translateY(0)' : 'translateY(10px)',
@@ -265,7 +265,7 @@ const ResourcesPreview = ({ resources }: ResourcesPreviewProps) => {
             Resources &<span className="gradient-text ">Templates</span>
           </h3>
           <p
-            className="text-neutral-400 leading-relaxed"
+            className="text-neutral-400 text-sm md:text-base leading-relaxed"
             style={{
               opacity: isVisible ? 1 : 0,
               transform: isVisible ? 'translateY(0)' : 'translateY(10px)',
