@@ -94,7 +94,7 @@ export default function BooksPage() {
   return (
     <Layout title="Books">
       <div
-        className="absolute inset-0 overflow-hidden h-[450px] bg-neutral-950"
+        className="absolute inset-0 overflow-hidden h-[450px] bg-[#08a875]"
         style={{
           maskImage: 'linear-gradient(rgb(0, 0, 0) 80%, rgba(0, 0, 0, 0) 100%)',
         }}
