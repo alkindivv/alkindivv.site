@@ -2,7 +2,12 @@ import React from 'react';
 import Layout from '@/components/layout/Layout';
 import Image from 'next/image';
 import { Metadata } from 'next';
-import { HiScale, HiOutlineHeart, HiOutlineCheck } from 'react-icons/hi';
+import {
+  HiScale,
+  HiOutlineHeart,
+  HiOutlineCheck,
+  HiOutlineCalendar,
+} from 'react-icons/hi';
 import clsx from 'clsx';
 import Breadcrumb from '@/components/shared/Breadcrumb';
 
@@ -47,39 +52,48 @@ interface WishlistItem {
 const wishlistItems: WishlistItem[] = [
   {
     id: 1,
-    title: 'Graduate from law school',
-    description: 'Graduate from law school and pass the bar exam',
-    date: '2023-12-31',
-    // imageUrl: '/images/harvard-law.jpg',
+    title: 'Graduate from university',
+    description:
+      'Graduate from Islamic University of Indonesia with a degree in law.',
+    date: 'August 2023',
     completed: true,
   },
   {
     id: 2,
-    title: 'Join top tier corporate law firm',
-    description: 'Joining a law firm and become a partner',
-    // imageUrl: '/images/law-books.jpg',
-    completed: false,
+    title: 'Pass the bar exam',
+    date: 'February 2025',
+    description: 'Pass the bar exam from the Indonesian Bar Association',
+    completed: true,
   },
   {
     id: 3,
-    title: 'Travel to 10 countries',
-    description: 'Travel to 10 countries and experience the culture and people',
-
-    // imageUrl: '/images/legal-tech.jpg',
+    title:
+      'Become a junior or trainee associate at a top tier corporate law firm',
+    description: '',
     completed: false,
   },
-  // {
-  //   id: 4,
-  //   title: 'Publish Legal Research Paper',
-  //   description:
-  //     'Complete and publish my research paper on the legal implications of blockchain technology in Indonesian capital markets.',
-  //   date: '2024-03-01',
-  //   completed: false,
-  // },
   {
     id: 4,
     title: 'Buy a house',
-    description: 'Buy a house and build a family',
+    description: '',
+    completed: false,
+  },
+  {
+    id: 5,
+    title: 'Speak at an international conference',
+    description: '',
+    completed: false,
+  },
+  {
+    id: 6,
+    title: 'Solo travel to another country',
+    description: '',
+    completed: false,
+  },
+  {
+    id: 7,
+    title: 'Establish my own corporate law firm',
+    description: '',
     completed: false,
   },
 ];
@@ -92,133 +106,105 @@ function WishlistCard({
   completed,
 }: WishlistItem) {
   return (
-    <div className="group relative backdrop-blur-sm border border-neutral-800 rounded-xl overflow-hidden hover:border-emerald-500/30 transition-all duration-300 hover:shadow-[0_0_30px_rgba(16,185,129,0.05)]">
-      {/* Decorative top bar */}
-      <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-emerald-500/20 to-transparent"></div>
-
-      {/* Status indicator */}
-      <div className="absolute top-4 right-4 z-10">
-        <div
-          className={clsx(
-            'w-8 h-8 rounded-full flex items-center justify-center',
-            completed
-              ? 'bg-emerald-500/20 text-emerald-400'
-              : 'bg-neutral-800/80 text-neutral-400'
-          )}
-        >
-          {completed ? (
-            <HiOutlineCheck className="w-4 h-4" />
-          ) : (
-            <HiOutlineHeart className="w-4 h-4" />
-          )}
-        </div>
+    <div className="group flex items-start gap-4 py-4">
+      {/* Checkbox */}
+      <div
+        className={`flex-shrink-0 w-6 h-6 mt-1 rounded-sm border ${completed ? 'border-emerald-800' : 'border-gray-800'} flex items-center justify-center`}
+      >
+        {completed && (
+          <svg
+            className="w-5 h-5 text-emerald-400"
+            viewBox="0 0 20 20"
+            fill="currentColor"
+          >
+            <path
+              fillRule="evenodd"
+              d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+              clipRule="evenodd"
+            />
+          </svg>
+        )}
       </div>
 
-      <div className="flex flex-col md:flex-row">
-        {/* Image (if available) */}
-        {imageUrl && (
-          <div className="md:w-1/3 h-[200px] md:h-auto relative">
-            <Image src={imageUrl} alt={title} fill className="object-cover" />
+      {/* Content */}
+      <div className="flex-1">
+        <div className="flex items-center gap-3">
+          <h3 className={`text-base font-medium text-white`}>{title}</h3>
+        </div>
+        {description && (
+          <p className="text-sm paragraph-text text-neutral-400">
+            {description}
+          </p>
+        )}
+        {date && (
+          <div className="flex mt-2 items-center gap-2 text-xs paragraph-text text-neutral-500">
+            <HiOutlineCalendar className="w-4 h-4" />
+            <span>{date}</span>
           </div>
         )}
-
-        {/* Content */}
-        <div
-          className={clsx(
-            'p-6 flex flex-col',
-            imageUrl ? 'md:w-2/3' : 'w-full'
-          )}
-        >
-          <h2 className="text-xl font-semibold text-white mb-2">{title}</h2>
-
-          {date && (
-            <p className="text-xs text-neutral-500 mb-3">
-              Target:{' '}
-              {new Date(date).toLocaleDateString('id-ID', {
-                year: 'numeric',
-                month: 'long',
-                day: 'numeric',
-              })}
-            </p>
-          )}
-
-          <p className="text-neutral-400 text-sm flex-grow">{description}</p>
-
-          <div className="mt-4 pt-4 border-t border-neutral-800/50">
-            <span
-              className={clsx(
-                'text-xs font-medium px-2 py-1 rounded',
-                completed
-                  ? 'bg-emerald-900/30 text-emerald-400'
-                  : 'bg-neutral-800/50 text-neutral-400'
-              )}
-            >
-              {completed ? 'Completed' : 'Pending'}
-            </span>
-          </div>
-        </div>
       </div>
+
+      {/* Image */}
+      {imageUrl && (
+        <div className="flex-shrink-0 w-24 h-16 rounded-md overflow-hidden">
+          <Image
+            src={imageUrl}
+            alt={title}
+            width={96}
+            height={64}
+            className="object-cover w-full h-full"
+          />
+        </div>
+      )}
     </div>
   );
 }
 
 export default function WishlistPage() {
+  const completedCount = wishlistItems.filter((i) => i.completed).length;
   const breadcrumbItems = [{ label: 'Wishlist' }];
   return (
-    <Layout title="Wishlist">
+    <Layout title="Wishlist | AL KINDI" isHomePage={false}>
+      {/* Background */}
       <div
         className="absolute inset-0 overflow-hidden h-[450px] bg-neutral-950"
         style={{
-          maskImage: 'linear-gradient(rgb(0, 0, 0) 80%, rgba(0, 0, 0, 0) 100%)',
+          WebkitMaskImage:
+            'linear-gradient(rgb(0,0,0) 80%, rgba(0,0,0,0) 100%)',
+          maskImage: 'linear-gradient(rgb(0,0,0) 80%, rgba(0,0,0,0) 100%)',
         }}
       >
         <div
           aria-hidden="true"
-          className="h-[900px] w-[950px] rounded-full bg-gradient-to-r from-[#2E996C]/70 to-[#0F3324]/10 blur-[150px] absolute top-0 -translate-y-full rotate-45 origin-left z-[-2] left-[15%]"
-        />
-        <Image
-          alt=""
-          width={1280}
-          height={825}
-          className="pointer-events-none select-none absolute w-full inset-0 h-[450px] object-cover z-[-1] opacity-40 mix-blend-overlay"
-          src="/images/textures/crumpled-3.jpg"
-          priority
-        />
-
-        {/* Legal paper texture */}
-        <div
-          className="absolute inset-0 opacity-10 transition-opacity duration-1000 ease-in-out"
-          style={{
-            backgroundImage:
-              'linear-gradient(0deg, rgba(16,185,129,0.08) 1px, transparent 1px)',
-            backgroundSize: '100% 28px',
-          }}
+          className="h-[400px] w-[650px] rounded-full bg-gradient-to-r from-[#2E996C]/30 to-[#0F3324]/30 blur-[150px] absolute top-0 -translate-y-full rotate-45 origin-left z-[-2] left-[15%]"
         />
       </div>
-
-      {/* Content */}
       <main className="min-h-screen pt-40 relative z-10">
-        <div className="max-w-6xl mx-auto">
-          {/* Header - Legal Styled */}
-          <div className="mb-12 max-w-2xl mx-auto" data-fade="1">
-            <h3 className="text-4xl md:text-5xl font-bold mb-4 text-center">
+        <div className=" max-w-4xl mx-auto ">
+          {/* Header */}
+          <div className="mb-12 space-y-4 text-center">
+            <h1 className="font-sans text-[2.5rem] md:text-[3rem] lg:text-[3.5rem] font-bold leading-tight">
               My <span className="gradient-text">Wishlist</span>
-            </h3>
-            <p className="text-neutral-400 leading-relaxed text-center">
-              Professional goals, resources, and items I hope to acquire
+            </h1>
+            <p className="text-neutral-400 leading-relaxed text-center ">
+              Things I want to achieve and experience in life
             </p>
-
             <div className="relative mt-5 top-0 left-0 right-0 h-0.5 bg-gradient-to-r from-transparent via-emerald-500/20 to-transparent"></div>
           </div>
           <div className="mb-6">
             <Breadcrumb items={breadcrumbItems} />
           </div>
 
-          {/* Wishlist Grid */}
-          <div className="space-y-8 mb-12">
-            {wishlistItems.map((item) => (
-              <WishlistCard key={item.id} {...item} />
-            ))}
+          {/* Content */}
+          <div>
+            <div className="divide-y divide-gray-900">
+              {wishlistItems.map((item) => (
+                <WishlistCard key={item.id} {...item} />
+              ))}
+            </div>
+            <div className="mt-8 text-sm text-neutral-500 text-right">
+              {completedCount} of {wishlistItems.length} completed.
+            </div>
           </div>
         </div>
       </main>

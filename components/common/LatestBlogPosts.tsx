@@ -166,7 +166,7 @@ const LatestBlogPosts = ({ posts }: LatestBlogPostsProps) => {
             }}
           ></div>
           <h3
-            className="text-3xl md:text-5xl font-bold mb-2 border-decoration-bottom"
+            className="text-3xl md:text-5xl font-bold mb-2"
             style={{
               opacity: isVisible ? 1 : 0,
               transform: isVisible ? 'translateY(0)' : 'translateY(10px)',
