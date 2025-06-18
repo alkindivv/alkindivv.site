@@ -1,3 +1,4 @@
+import { lastDayOfISOWeekYear } from 'date-fns';
 import { Metadata } from 'next';
 
 interface SEOProps {
@@ -120,6 +121,18 @@ export function generateMetadata({
         'Bankruptcy Law',
         'Cryptocurrency Regulations',
         'Legal Technology',
+        'Blockchain',
+        'Lawyer',
+        'Law Firm',
+        'Law Practice',
+        'corporate lawyer',
+        'tech lawyer',
+        'Web3',
+        'NFT',
+        'DeFi',
+        'DAO',
+        'Web3',
+        'NFT',
       ],
     };
 

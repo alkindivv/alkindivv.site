@@ -232,13 +232,6 @@ export default function Header() {
                         'group-hover:opacity-100 group-hover:visible group-hover:translate-y-0'
                       )}
                     >
-                      {/* Legal document styling */}
-                      <div className="absolute top-0 left-0 right-0 h-0.5 bg-gradient-to-r from-transparent via-emerald-500/20 to-transparent"></div>
-                      {/* <div className="absolute top-0 left-0 w-3 h-3 border-t border-l border-emerald-500/30"></div>
-                      <div className="absolute top-0 right-0 w-3 h-3 border-t border-r border-emerald-500/30"></div>
-                      <div className="absolute bottom-0 left-0 w-3 h-3 border-b border-l border-emerald-500/30"></div>
-                      <div className="absolute bottom-0 right-0 w-3 h-3 border-b border-r border-emerald-500/30"></div> */}
-
                       <div className="space-y-1">
                         {item.dropdownItems?.map((dropdownItem) => (
                           <Link
@@ -274,8 +267,8 @@ export default function Header() {
                   className={clsx(
                     'relative inline-flex  items-center gap-1.5 py-2 mx-3',
                     'text-sm font-medium',
-                    'transition-all duration-300 border-b border-transparent ',
-                    ' hover:border-b-2 hover:border-emerald-400',
+                    'transition-all duration-300  ',
+
                     isActive
                       ? 'text-emerald-400 '
                       : 'text-gray-300 hover:text-emerald-400 '
@@ -293,8 +286,8 @@ export default function Header() {
             className={clsx(
               'md:hidden p-2 rounded-sm',
               'transition-all duration-300',
-              'text-gray-400 hover:text-emerald-400 border border-transparent',
-              'hover:bg-emerald-500/5 hover:border-emerald-500/20'
+              'text-gray-400 hover:text-emerald-400 ',
+              'hover:bg-emerald-500/5 '
             )}
             aria-label="Toggle menu"
           >

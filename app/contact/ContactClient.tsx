@@ -70,7 +70,7 @@ export default function ContactClient() {
   return (
     <>
       <div
-        className="absolute inset-0 overflow-hidden h-[450px] bg-neutral-950]"
+        className="absolute inset-0 overflow-hidden h-[450px] bg-neutral-950"
         style={{
           maskImage: 'linear-gradient(rgb(0, 0, 0) 80%, rgba(0, 0, 0, 0) 100%)',
         }}
