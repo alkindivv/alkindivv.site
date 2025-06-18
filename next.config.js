@@ -224,11 +224,6 @@ module.exports = async () => {
           destination: '/favicon.ico',
           permanent: true,
         },
-        {
-          source: '/:path*//:rest*',
-          destination: '/:path*/:rest*',
-          permanent: true,
-        },
       ];
     },
   };
