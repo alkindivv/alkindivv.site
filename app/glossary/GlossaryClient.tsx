@@ -655,17 +655,19 @@ export default function GlossaryClient() {
                                 className={clsx(
                                   'w-full flex items-center justify-between p-4 rounded-lg transition-all duration-200 text-left',
                                   expandedTerm === item.term
-                                    ? 'border border-emerald-800/30'
-                                    : 'bg-[#0a0a0a] border border-[#1a1a1a] hover:border-[#232323]'
+                                    ? // ? 'border border-emerald-800/30'
+                                      // : 'bg-[#0a0a0a] border border-[#1a1a1a] hover:border-[#232323]'
+                                      ''
+                                    : ''
                                 )}
                               >
                                 <div className="space-y-1 pr-4">
                                   <h3
                                     className={clsx(
-                                      'text-lg md:text-xl font-semibold tracking-wide transition-colors',
+                                      'text-lg md:text-xl font-semibold tracking-wide transition-colors  underline underline-offset-2 decoration-[#4e4e4e] decoration-2 hover:decoration-white',
                                       expandedTerm === item.term
-                                        ? 'gradient-text'
-                                        : 'text-gray-200 group-hover:text-emerald-400'
+                                        ? 'inline-block underline-offset-2 decoration-white decoration-2'
+                                        : 'text-gray-200'
                                     )}
                                   >
                                     {item.term}
