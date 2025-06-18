@@ -174,7 +174,6 @@ const AboutPreview = () => {
             {/* Main Description - Minimal styling */}
             <div className="space-y-4 relative rounded-lg ">
               <p className="paragraph-text leading-relaxed">
-                Hello!, I'm <span className="text-neutral-50">AL KINDI</span>.
                 I'm passionate about exploring the intersection between
                 <span className=" paragraph-text leading-relaxed">
                   {' '}
@@ -271,12 +270,12 @@ const AboutPreview = () => {
                     }}
                   >
                     <div className="flex items-center gap-3">
-                      <div className="w-10 h-10 rounded-md bg-emerald-900/20 border border-emerald-800/40 flex items-center justify-center">
-                        <HiScale className="w-5 h-5 text-emerald-400" />
+                      <div className="w-10 h-10 rounded-md border border-emerald-800/40 flex items-center justify-center">
+                        <HiScale className="w-5 h-5 text-neutral-300" />
                       </div>
                       <div>
-                        <h4 className="text-base font-medium gradient-text">
-                          AL KINDI
+                        <h4 className="text-base font-medium ">
+                          <AccentNormal>AL KINDI</AccentNormal>
                         </h4>
                         <p className="text-xs text-neutral-300">
                           Law & Technology

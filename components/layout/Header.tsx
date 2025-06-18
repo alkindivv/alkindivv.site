@@ -207,8 +207,8 @@ export default function Header() {
                         'relative inline-flex items-center gap-1.5 px-3 py-2 rounded-sm',
                         'text-sm font-medium',
                         'transition-all duration-300',
-                        'hover:bg-emerald-500/5 border border-transparent',
-                        'text-gray-300 hover:text-emerald-400 hover:border-emerald-500/20'
+                        'hover:bg-emerald-500/5 ',
+                        'text-gray-300 hover:text-emerald-400 '
                       )}
                     >
                       More
@@ -225,7 +225,7 @@ export default function Header() {
                       className={clsx(
                         'absolute right-0 mt-2 w-64 p-2',
                         'bg-[#0a0a0a]/95 backdrop-blur-xl rounded-sm',
-                        'border border-neutral-800/70',
+                        // 'border border-neutral-800/70',
                         'shadow-xl shadow-emerald-500/[0.05]',
                         'transition-all duration-300',
                         'opacity-0 invisible translate-y-2',
@@ -245,7 +245,7 @@ export default function Header() {
                             key={dropdownItem.href}
                             href={dropdownItem.href}
                             prefetch={true}
-                            className="flex items-center gap-3 p-2.5 rounded-sm text-gray-400 hover:text-emerald-400 hover:bg-emerald-500/5 transition-all duration-300 border border-transparent hover:border-emerald-500/20"
+                            className="flex items-center gap-3 p-2.5 rounded-sm text-gray-400 hover:text-emerald-400 hover:bg-emerald-500/5 transition-all duration-300 "
                           >
                             <div className="w-8 h-8 flex items-center justify-center bg-emerald-500/10 rounded-sm">
                               <dropdownItem.icon className="w-4 h-4" />
@@ -261,13 +261,6 @@ export default function Header() {
                           </Link>
                         ))}
                       </div>
-
-                      {/* Document footer */}
-                      <div className="mt-4 pt-2 border-t border-neutral-800/30 text-center">
-                        <div className="text-[10px] text-neutral-500 font-mono">
-                          MENU-{new Date().getFullYear()}
-                        </div>
-                      </div>
                     </div>
                   </div>
                 );
@@ -279,13 +272,13 @@ export default function Header() {
                   href={item.href}
                   prefetch={true}
                   className={clsx(
-                    'relative inline-flex items-center gap-1.5 px-3 py-2 rounded-sm',
+                    'relative inline-flex  items-center gap-1.5 py-2 mx-3',
                     'text-sm font-medium',
-                    'transition-all duration-300 border',
-                    'hover:bg-emerald-500/5',
+                    'transition-all duration-300 border-b border-transparent ',
+                    ' hover:border-b-2 hover:border-emerald-400',
                     isActive
-                      ? 'text-emerald-400 border-transparent '
-                      : 'text-gray-300 hover:text-emerald-400 border-transparent hover:border-emerald-500/20'
+                      ? 'text-emerald-400 '
+                      : 'text-gray-300 hover:text-emerald-400 '
                   )}
                 >
                   {item.label}
@@ -328,6 +321,7 @@ export default function Header() {
                   className={clsx(
                     'block px-3 py-2 rounded-sm',
                     'transition-all duration-300',
+
                     pathname === item.href
                       ? 'text-emerald-400 bg-emerald-500/5'
                       : 'text-gray-300 hover:text-emerald-400 hover:bg-emerald-500/5'
@@ -354,10 +348,10 @@ export default function Header() {
                     onClick={() => setIsMenuOpen(false)}
                     className={clsx(
                       'block px-3 py-2 rounded-sm',
-                      'transition-all duration-300',
+                      'transition-all duration-300 ',
                       pathname === item.href
-                        ? 'text-emerald-400 bg-emerald-500/5'
-                        : 'text-gray-300 hover:text-emerald-400 hover:bg-emerald-500/5'
+                        ? 'text-emerald-400 '
+                        : 'text-gray-300 hover:text-emerald-400 '
                     )}
                   >
                     <div className="flex items-center gap-3">

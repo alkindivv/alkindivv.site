@@ -1,8 +1,7 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import Link from 'next/link';
-import Image from 'next/image';
+
 import { BlogPost, BlogCategory } from '@/types/blog';
 import { HiOutlineSearch, HiOutlineFilter, HiOutlineX } from 'react-icons/hi';
 import BlogCard from './BlogCard';

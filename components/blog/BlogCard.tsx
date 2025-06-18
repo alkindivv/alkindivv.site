@@ -127,7 +127,7 @@ const BlogCard = ({
           {/* Meta Info */}
           <div className="flex items-center gap-3 mb-4">
             <div className="flex items-center gap-1">
-              <HiOutlineClock className="w-3.5 h-3.5 text-emerald-500" />
+              <HiOutlineClock className="w-3.5 h-3.5 text-[#08c488]" />
               <p className="text-xs md:text-sm text-neutral-200 font-medium">
                 {post.readingTime} min read
               </p>

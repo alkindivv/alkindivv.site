@@ -195,7 +195,7 @@ export default function BlogPageClient({
 
             <div className="mt-6 mb-8" data-fade="3">
               <div className="flex flex-wrap gap-2 items-center">
-                <FaTags className="w-4 h-4 text-emerald-500 mr-2" />
+                <FaTags className="w-4 h-4 text-[#08c488] mr-2" />
                 {tagOptions.map((tag) => (
                   <button
                     key={tag}

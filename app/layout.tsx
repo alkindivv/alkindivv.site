@@ -1,8 +1,8 @@
 import './globals.css';
 import './animations.css';
-import './nprogress.css';
-
 import 'nprogress/nprogress.css';
+
+import './nprogress.css';
 import type { Metadata, Viewport } from 'next';
 import { Inter } from 'next/font/google';
 import GoogleAnalytics from '@/components/shared/GoogleAnalytics';

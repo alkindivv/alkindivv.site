@@ -14,6 +14,7 @@ import { BlogPost } from '@/types/blog';
 import SocialMedia from '@/components/social/SocialMedia';
 import { FiLinkedin, FiMail, FiTwitter } from 'react-icons/fi';
 import { FaTags } from 'react-icons/fa';
+import AccentNormal from '@/components/shared/AccentNormal';
 
 interface PostData extends BlogPost {
   readingTime: number;
@@ -72,7 +73,7 @@ export default function BlogPostLayout({
           <Breadcrumb items={breadcrumbItems} />
         </div>
         <h1
-          className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-[1.15] tracking-tight mb-2 sm:mb-2"
+          className="text-2xl md:text-4xl font-bold text-white leading-[1.15] tracking-tight mb-2 sm:mb-2"
           data-fade="3"
         >
           {post.title}
@@ -101,8 +102,8 @@ export default function BlogPostLayout({
             />
           </div>
           <div>
-            <div className="text-sm sm:text-base font-paragraf font-semibold gradient-text">
-              {post.author}
+            <div className="text-sm sm:text-base font-paragraf font-semibold ">
+              <AccentNormal>{post.author}</AccentNormal>
             </div>
             <div className="text-xs md:text-xs font-paragraf text-neutral-300">
               {formattedDate}
@@ -114,7 +115,8 @@ export default function BlogPostLayout({
           data-fade="5"
         >
           <span className="flex items-center gap-2">
-            <HiOutlineClock className="w-4 h-4 text-emerald-600" />
+            <HiOutlineClock className="w-4 h-4 text-[#08c488]" />
+
             <span className="text-xs md:text-md text-neutral-300 font-paragraf">
               {post.readingTime} min read
             </span>
@@ -170,7 +172,7 @@ export default function BlogPostLayout({
                 {/* Name and Role */}
                 <div className="space-y-0">
                   <h3 className="text-base sm:text-lg font-semibold tracking-tight">
-                    <span className="gradient-text">{post.author}</span>
+                    <span className="">{post.author}</span>
                   </h3>
                 </div>
 
@@ -237,8 +239,8 @@ export default function BlogPostLayout({
 
       {/* Related Articles - placed below main flex so TOC height stops here */}
       <section className="mt-16" data-fade="9">
-        <h2 className="text-base sm:text-xl font-bold mb-4 sm:mb-6">
-          <Accent>Related Articles</Accent>
+        <h2 className="text-2xl md:text-3xl font-bold mb-4 sm:mb-6">
+          <span className="gradient-text">Related Articles</span>
         </h2>
         <RelatedArticles
           currentPost={{ ...post, readingTime: post.readingTime }}
@@ -279,10 +281,10 @@ export default function BlogPostLayout({
                   href={`/blog/${nextPost.category}/${nextPost.slug}`}
                   className="group flex-1 max-w-[280px] text-right pl-4 hover:underline"
                 >
-                  <p className="text-xs text-neutral-400 mb-1 group-hover:text-emerald-400 transition-colors">
+                  <p className="text-xs text-neutral-400 mb-1 group-hover:text-emerald-400 transition-colors ">
                     Next Article
                   </p>
-                  <span className="text-sm font-semibold text-neutral-200 group-hover:text-white line-clamp-2">
+                  <span className="text-sm font-semibold text-neutral-200 group-hover:text-white  line-clamp-2">
                     {nextPost.title}
                   </span>
                 </Link>

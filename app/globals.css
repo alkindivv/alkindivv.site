@@ -9,6 +9,12 @@
   font-style: normal;
 }
 
+@font-face {
+  font-family: 'Samarata';
+  src: url('/fonts/Samarata.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
 /* Tailwind Imports */
 @tailwind base;
 @tailwind components;
@@ -28,6 +34,7 @@
 :root {
   /* Font Families */
   --font-serif: 'Apple Homemade';
+  --font-samarata: 'Samarata';
   --font-sans: 'DM Sans';
   --font-paragraf: 'system-ui';
   --color-primary: #08a875;
@@ -161,7 +168,8 @@ html {
 /* Background styling dengan tema hukum */
 #content-sections > section {
   background-color: rgba(5, 5, 5, 0.2);
-  background-image: linear-gradient(
+  background-image:
+    linear-gradient(
       to bottom,
       rgba(20, 84, 74, 0.05),
       transparent 15%,
@@ -175,7 +183,8 @@ html {
 /* Efek marmer subtle untuk section hukum */
 #content-sections > section:nth-child(odd) {
   background-color: rgba(10, 13, 16, 0.4);
-  background-image: linear-gradient(
+  background-image:
+    linear-gradient(
       to bottom,
       rgba(20, 84, 74, 0.05),
       transparent 15%,
@@ -187,7 +196,8 @@ html {
 
 #content-sections > section:nth-child(even) {
   background-color: rgba(7, 10, 12, 0.2);
-  background-image: linear-gradient(
+  background-image:
+    linear-gradient(
       to bottom,
       rgba(20, 84, 74, 0.03),
       transparent 15%,
@@ -769,6 +779,10 @@ select option {
 
 .font-apple-homemade {
   font-family: 'Apple Homemade', sans-serif;
+}
+
+.font-samarata {
+  font-family: 'Samarata', sans-serif;
 }
 
 /* Hero Illustration Card */

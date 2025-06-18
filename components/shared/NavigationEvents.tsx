@@ -14,9 +14,10 @@ export default function NavigationEvents() {
   useEffect(() => {
     // Konfigurasi NProgress untuk performa yang lebih baik
     NProgress.configure({
-      minimum: 0.1,
-      trickleSpeed: 200,
-      showSpinner: false,
+      showSpinner: false, // sembunyikan spinner
+      trickleSpeed: 120, // kecepatan gerak
+      minimum: 0.1, // progress awal
+      easing: 'ease', // animasi
     });
 
     // Mulai progress bar ketika halaman berganti

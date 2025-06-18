@@ -32,14 +32,14 @@ export default function DiscussionPreview() {
       <div className="absolute inset-0 -z-10 bg-gradient-to-br from-[#0a1015]/30 via-transparent to-[#081a17]/20" />
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center max-w-2xl">
         <h3
-          className="text-4xl md:text-5xl font-bold mb-4 underline underline-offset-2 decoration-white decoration-2"
+          className="text-6xl md:text-7xl mb-4 underline underline-offset-2 decoration-white decoration-2 font-samarata"
           style={{
             opacity: isVisible ? 1 : 0,
             transform: isVisible ? 'translateY(0)' : 'translateY(10px)',
             transition: 'opacity 700ms ease-out, transform 700ms ease-out',
           }}
         >
-          Any Questions?
+          Any questions?
         </h3>
         <p
           className="text-neutral-400 mb-8 text-sm md:text-base"
