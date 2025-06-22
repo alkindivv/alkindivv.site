@@ -72,9 +72,18 @@ const resourceItems: ResourcePreview[] = [
   },
 ];
 
+// Dynamic import HeroSection dengan fallback agar pengguna tidak melihat layar kosong
 const HeroSection = dynamic(() => import('@/components/common/HeroSection'), {
   ssr: false,
-  loading: () => null,
+  // Fallback sederhana (skeleton) ketika komponen utama masih dimuat
+  loading: () => (
+    <section className="w-full relative min-h-screen flex items-center justify-center bg-gradient-to-b from-[#0b0b0b] to-[#0d0d0d]">
+      <div className="flex flex-col items-center gap-4">
+        <div className="size-10 border-2 border-emerald-500 border-t-transparent rounded-full animate-spin" />
+        <p className="text-sm text-neutral-400">Memuat tampilan…</p>
+      </div>
+    </section>
+  ),
 });
 
 export default async function HomePage() {
