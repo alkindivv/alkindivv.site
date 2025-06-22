@@ -102,8 +102,8 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
               </h3>
               <p className="text-neutral-400 leading-relaxed text-center">
                 {categoryData.description}
-                <div className="relative mt-5 top-0 left-0 right-0 h-0.5 bg-gradient-to-r from-transparent via-emerald-500/20 to-transparent"></div>
               </p>
+              <div className="relative mt-5 top-0 left-0 right-0 h-0.5 bg-gradient-to-r from-transparent via-emerald-500/20 to-transparent"></div>
 
               {/* Document Number Line */}
             </div>
