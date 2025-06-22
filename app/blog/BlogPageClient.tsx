@@ -16,6 +16,7 @@ import clsx from 'clsx';
 import HighlightedText from '@/components/shared/HighlightedText';
 import Image from 'next/image';
 import { BlogPost } from '@/types/blog';
+import { slugify } from '@/lib/utils/slug';
 
 const tagOptions = [
   'banking & finance',
@@ -84,7 +85,8 @@ export default function BlogPageClient({
   };
 
   const handleTagClick = (tag: string) => {
-    setSelectedTag(selectedTag === tag ? null : tag);
+    const slug = slugify(tag);
+    setSelectedTag(selectedTag === slug ? null : slug);
     setCurrentPage(1);
   };
 
@@ -102,8 +104,7 @@ export default function BlogPageClient({
       const matchesSearch =
         !searchQuery || searchContent.includes(searchQuery.toLowerCase());
       const matchesTag =
-        !selectedTag ||
-        post.tags?.some((tg) => tg.toLowerCase() === selectedTag.toLowerCase());
+        !selectedTag || post.tags?.some((tg) => slugify(tg) === selectedTag);
 
       return matchesSearch && matchesTag;
     })
@@ -196,20 +197,23 @@ export default function BlogPageClient({
             <div className="mt-6 mb-8" data-fade="3">
               <div className="flex flex-wrap gap-2 items-center">
                 <FaTags className="w-4 h-4 text-[#08c488] mr-2" />
-                {tagOptions.map((tag) => (
-                  <button
-                    key={tag}
-                    onClick={() => handleTagClick(tag)}
-                    className={clsx(
-                      'px-1.5 py-1 text-xs rounded-lg md:text-sm transition-all duration-300',
-                      selectedTag === tag
-                        ? 'border-emerald-500 text-neutral-50 bg-emerald-500/10'
-                        : ' bg-[#17171799] font-medium text-[#9e9e9e] hover:text-neutral-50'
-                    )}
-                  >
-                    <HighlightedText text={tag} searchQuery={searchQuery} />
-                  </button>
-                ))}
+                {tagOptions.map((tag) => {
+                  const slug = slugify(tag);
+                  return (
+                    <button
+                      key={tag}
+                      onClick={() => handleTagClick(tag)}
+                      className={clsx(
+                        'px-1.5 py-1 text-xs rounded-lg md:text-sm transition-all duration-300',
+                        selectedTag === slug
+                          ? 'border-emerald-500 text-neutral-50 bg-emerald-500/10'
+                          : ' bg-[#17171799] font-medium text-[#9e9e9e] hover:text-neutral-50'
+                      )}
+                    >
+                      <HighlightedText text={tag} searchQuery={searchQuery} />
+                    </button>
+                  );
+                })}
               </div>
             </div>
 

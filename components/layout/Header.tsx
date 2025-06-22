@@ -14,10 +14,11 @@ import {
   HiBookOpen,
   HiSparkles,
 } from 'react-icons/hi';
-import clsx from 'clsx';
 import { FaChevronDown } from 'react-icons/fa';
 import type { IconType } from 'react-icons';
 import { GoLaw } from 'react-icons/go';
+import { Menu, Transition } from '@headlessui/react';
+import clsx from 'clsx';
 
 interface MoreItem {
   href: string;
@@ -41,7 +42,6 @@ interface NavItemWithDropdown extends NavItem {
 export default function Header() {
   const [scrolled, setScrolled] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [isMoreOpen, setIsMoreOpen] = useState(false);
   const pathname = usePathname();
 
   // Detect article pages: any path that starts with /blog/ and has at least two
@@ -56,9 +56,6 @@ export default function Header() {
       if (isMenuOpen) {
         setIsMenuOpen(false);
       }
-      if (isMoreOpen) {
-        setIsMoreOpen(false);
-      }
     };
 
     // Attach scroll listener
@@ -68,7 +65,7 @@ export default function Header() {
     return () => {
       window.removeEventListener('scroll', handleScroll);
     };
-  }, [isMenuOpen, isMoreOpen]);
+  }, [isMenuOpen]);
 
   if (isArticlePage) {
     return null;
@@ -200,62 +197,67 @@ export default function Header() {
 
               if (isMoreDropdown) {
                 return (
-                  <div key="more" className="relative group">
-                    <button
-                      onClick={() => setIsMoreOpen(!isMoreOpen)}
-                      className={clsx(
-                        'relative inline-flex items-center gap-1.5 px-3 py-2 rounded-sm',
-                        'text-sm font-medium',
-                        'transition-all duration-300',
-                        'hover:bg-emerald-500/5 ',
-                        'text-gray-300 hover:text-emerald-400 '
-                      )}
-                    >
-                      More
-                      <FaChevronDown
-                        className={clsx(
-                          'w-3 h-3 transition-transform duration-300',
-                          isMoreOpen && 'rotate-180'
-                        )}
-                      />
-                    </button>
+                  <Menu as="div" className="relative" key="more">
+                    {({ open }) => (
+                      <>
+                        <Menu.Button
+                          className={clsx(
+                            'inline-flex items-center gap-1.5 px-3 py-2 rounded-sm',
+                            'text-sm font-medium text-gray-300 hover:text-emerald-400',
+                            'transition-colors duration-300 hover:bg-emerald-500/5'
+                          )}
+                        >
+                          More
+                          <FaChevronDown
+                            className={clsx(
+                              'w-3 h-3 transition-transform',
+                              open && 'rotate-180'
+                            )}
+                          />
+                        </Menu.Button>
 
-                    {/* Dropdown Menu - Legal styled */}
-                    <div
-                      className={clsx(
-                        'absolute right-0 mt-2 w-64 p-2',
-                        'bg-[#0a0a0a]/95 backdrop-blur-xl rounded-sm',
-                        // 'border border-neutral-800/70',
-                        'shadow-xl shadow-emerald-500/[0.05]',
-                        'transition-all duration-300',
-                        'opacity-0 invisible translate-y-2',
-                        'group-hover:opacity-100 group-hover:visible group-hover:translate-y-0'
-                      )}
-                    >
-                      <div className="space-y-1">
-                        {item.dropdownItems?.map((dropdownItem) => (
-                          <Link
-                            key={dropdownItem.href}
-                            href={dropdownItem.href}
-                            prefetch={true}
-                            className="flex items-center gap-3 p-2.5 rounded-sm text-gray-400 hover:text-emerald-400 hover:bg-emerald-500/5 transition-all duration-300 "
-                          >
-                            <div className="w-8 h-8 flex items-center justify-center bg-emerald-500/10 rounded-sm">
-                              <dropdownItem.icon className="w-4 h-4" />
-                            </div>
-                            <div>
-                              <div className="font-medium text-sm text-gray-200">
-                                {dropdownItem.label}
-                              </div>
-                              <div className="text-xs text-gray-500">
-                                {dropdownItem.description}
-                              </div>
-                            </div>
-                          </Link>
-                        ))}
-                      </div>
-                    </div>
-                  </div>
+                        <Transition
+                          enter="transition ease-out duration-100"
+                          enterFrom="transform opacity-0 scale-95"
+                          enterTo="transform opacity-100 scale-100"
+                          leave="transition ease-in duration-75"
+                          leaveFrom="transform opacity-100 scale-100"
+                          leaveTo="transform opacity-0 scale-95"
+                        >
+                          <Menu.Items className="absolute right-0 mt-2 w-64 p-2 bg-[#0a0a0a]/95 backdrop-blur-xl rounded-sm shadow-xl shadow-emerald-500/[0.05] focus:outline-none">
+                            {item.dropdownItems?.map((dropdownItem) => (
+                              <Menu.Item key={dropdownItem.href}>
+                                {({ active }) => (
+                                  <Link
+                                    href={dropdownItem.href}
+                                    prefetch={true}
+                                    className={clsx(
+                                      'flex items-center gap-3 p-2.5 rounded-sm transition-colors',
+                                      active
+                                        ? 'bg-emerald-500/10 text-emerald-400'
+                                        : 'text-gray-400 hover:text-emerald-400'
+                                    )}
+                                  >
+                                    <div className="w-8 h-8 flex items-center justify-center bg-emerald-500/10 rounded-sm">
+                                      <dropdownItem.icon className="w-4 h-4" />
+                                    </div>
+                                    <div>
+                                      <div className="font-medium text-sm text-gray-200">
+                                        {dropdownItem.label}
+                                      </div>
+                                      <div className="text-xs text-gray-500">
+                                        {dropdownItem.description}
+                                      </div>
+                                    </div>
+                                  </Link>
+                                )}
+                              </Menu.Item>
+                            ))}
+                          </Menu.Items>
+                        </Transition>
+                      </>
+                    )}
+                  </Menu>
                 );
               }
 

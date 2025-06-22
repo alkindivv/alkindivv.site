@@ -2,6 +2,7 @@ import React from 'react';
 import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { getAllPosts, getAllTags } from '@/lib/posts';
+import { slugify } from '@/lib/utils/slug';
 import Layout from '@/components/layout/Layout';
 import { HiTag } from 'react-icons/hi';
 import Breadcrumb from '@/components/shared/Breadcrumb';
@@ -15,8 +16,9 @@ export async function generateMetadata({
   params,
 }: TagPageProps): Promise<Metadata> {
   const { tag } = params;
-  const title = `Posts tagged '${tag}'`;
-  const description = `All the articles related to '${tag}' by AL KINDI.`;
+  const humanTag = tag.replace(/-/g, ' ');
+  const title = `Posts tagged '${humanTag}'`;
+  const description = `All the articles related to '${humanTag}' by AL KINDI.`;
 
   return {
     title,
@@ -53,10 +55,10 @@ export async function generateStaticParams() {
 }
 
 export default async function TagPage({ params }: TagPageProps) {
-  const decodedTag = decodeURIComponent(params.tag);
+  const decodedTag = params.tag;
   const posts = await getAllPosts();
   const filteredPosts = posts.filter((post) =>
-    post.tags?.some((t) => t.toLowerCase() === decodedTag.toLowerCase())
+    post.tags?.some((t) => slugify(t) === decodedTag)
   );
 
   if (!filteredPosts.length) {
@@ -65,7 +67,7 @@ export default async function TagPage({ params }: TagPageProps) {
 
   const breadcrumbItems = [
     { label: 'Blog', href: '/blog' },
-    { label: `Tag: ${decodedTag}` },
+    { label: `Tag: ${decodedTag.replace(/-/g, ' ')}` },
   ];
 
   return (
@@ -76,7 +78,8 @@ export default async function TagPage({ params }: TagPageProps) {
             <Breadcrumb items={breadcrumbItems} />
           </div>
           <h1 className="text-4xl font-bold mb-8 flex items-center gap-2">
-            <HiTag className="text-emerald-400 w-6 h-6" /> Tag: {decodedTag}
+            <HiTag className="text-emerald-400 w-6 h-6" /> Tag:{' '}
+            {decodedTag.replace(/-/g, ' ')}
           </h1>
           <div className="space-y-6">
             {filteredPosts.map((post) => (

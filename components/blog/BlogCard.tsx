@@ -18,6 +18,7 @@ import { BlogPost } from '@/types/blog';
 import { useRouter } from 'next/navigation';
 import HighlightedText from '@/components/shared/HighlightedText';
 import { IoLogoBitcoin } from 'react-icons/io';
+import { slugify } from '@/lib/utils/slug';
 
 interface BlogCardProps {
   post: BlogPost;
@@ -145,8 +146,9 @@ const BlogCard = ({
           {/* Tags */}
           <div className="mt-auto flex flex-wrap gap-2">
             {post.tags?.slice(0, 3).map((tag) => (
-              <span
+              <Link
                 key={tag}
+                href={`/blog/tag/${slugify(tag)}`}
                 className={clsx(
                   'px-1.5 py-1 text-xs rounded-lg transition-all duration-300',
                   checkTagged?.(tag)
@@ -155,7 +157,7 @@ const BlogCard = ({
                 )}
               >
                 <HighlightedText text={tag} searchQuery={searchQuery} />
-              </span>
+              </Link>
             ))}
           </div>
 

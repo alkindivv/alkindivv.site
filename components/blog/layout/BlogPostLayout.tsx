@@ -8,13 +8,12 @@ import Breadcrumb from '@/components/shared/Breadcrumb';
 import TableOfContents from '@/components/blog/TableOfContents';
 import RelatedArticles from '@/components/blog/RelatedArticles';
 import ArticleNewsletterPopup from '@/components/blog/ArticleNewsletterPopup';
-import Accent from '@/components/shared/Accent';
 import { MDXComponents } from '@/components/blog/mdx';
 import { BlogPost } from '@/types/blog';
-import SocialMedia from '@/components/social/SocialMedia';
 import { FiLinkedin, FiMail, FiTwitter } from 'react-icons/fi';
-import { FaTags } from 'react-icons/fa';
 import AccentNormal from '@/components/shared/AccentNormal';
+import { slugify } from '@/lib/utils/slug';
+import { format } from 'date-fns';
 
 interface PostData extends BlogPost {
   readingTime: number;
@@ -52,11 +51,7 @@ export default function BlogPostLayout({
     debugProd('mounted', { slug });
   }, [slug]);
 
-  const formattedDate = new Date(post.date).toLocaleDateString('en-US', {
-    month: 'long',
-    day: 'numeric',
-    year: 'numeric',
-  });
+  const formattedDate = format(new Date(post.date), 'MMMM dd, yyyy');
 
   const breadcrumbItems = [
     { label: 'Blog', href: '/blog' },
@@ -220,7 +215,7 @@ export default function BlogPostLayout({
               {post.tags.map((tag) => (
                 <Link
                   key={tag}
-                  href={`/blog/tag/${encodeURIComponent(tag.toLowerCase())}`}
+                  href={`/blog/tag/${slugify(tag)}`}
                   className="px-1.5 py-1 text-xs rounded-lg md:text-sm transition-all duration-300 tracking-widebg-[#17171799] font-medium text-[#9e9e9e] border-emerald-500 bg-emerald-500/10"
                 >
                   {tag}

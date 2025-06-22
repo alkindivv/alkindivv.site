@@ -148,7 +148,7 @@ export default function BooksPage() {
             {books.map((book) => (
               <li key={book.id} className="py-6 flex items-start gap-6">
                 {/* Cover thumbnail */}
-                <div className="shrink-0">
+                <div className="shrink-0 hidden md:block">
                   <Image
                     src={book.coverImage}
                     alt={book.title}

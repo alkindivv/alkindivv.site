@@ -4,6 +4,7 @@ import Image from 'next/image';
 import { BlogPost } from '@/types/blog';
 import { HiOutlineClock } from 'react-icons/hi';
 import { format } from 'date-fns';
+import { slugify } from '@/lib/utils/slug';
 
 interface ArticleCardAltProps {
   post: BlogPost;
@@ -14,10 +15,10 @@ const ArticleCardAlt = ({ post }: ArticleCardAltProps) => {
 
   return (
     <Link href={href} className="group block">
-      <article className="flex flex-col gap-4 lg:flex-row-reverse lg:gap-6 lg:items-center py-3 rounded-lg transition-colors hover:bg-[#0a0a0a]/40">
+      <article className="flex flex-col gap-4 lg:flex-row-reverse lg:gap-6 lg:items-start py-3 rounded-lg transition-colors hover:bg-[#0a0a0a]/40">
         {/* Image */}
-        <figure className="hidden sm:block isolate z-[1] pointer-events-none overflow-hidden rounded-md lg:max-w-44 lg:w-full">
-          <div className="relative pt-[60%]">
+        <figure className="hidden sm:block isolate z-[1] pointer-events-none overflow-hidden rounded-md lg:w-44 flex-shrink-0">
+          <div className="relative pt-[60%] h-full w-full">
             <Image
               src={post.featuredImage || '/images/default-blog-image.jpg'}
               alt={post.title}
@@ -63,7 +64,7 @@ const ArticleCardAlt = ({ post }: ArticleCardAltProps) => {
                 {post.tags.slice(0, 3).map((tag) => (
                   <Link
                     key={tag}
-                    href={`/blog/tag/${encodeURIComponent(tag.toLowerCase())}`}
+                    href={`/blog/tag/${slugify(tag)}`}
                     className="px-1.5 py-1 text-xs rounded-lg transition-all duration-300 tracking-widebg-[#17171799] font-medium text-[#9e9e9e] border-emerald-500 bg-emerald-500/10"
                   >
                     {tag}
