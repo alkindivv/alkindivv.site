@@ -3,6 +3,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { BlogPost } from '@/types/blog';
 import { HiOutlineClock } from 'react-icons/hi';
+import { format } from 'date-fns';
 
 interface ArticleCardAltProps {
   post: BlogPost;
@@ -30,11 +31,7 @@ const ArticleCardAlt = ({ post }: ArticleCardAltProps) => {
         {/* Content */}
         <div className="w-full">
           <p className="text-xs md:text-sm text-neutral-400 ">
-            {new Date(post.date).toLocaleDateString('en-US', {
-              year: 'numeric',
-              month: 'long',
-              day: 'numeric',
-            })}
+            {format(new Date(post.date), 'MMMM dd, yyyy')}
           </p>
 
           <div className="mt-3 text-base md:text-xl font-semibold relative group-hover:text-emerald-500 transition-colors">

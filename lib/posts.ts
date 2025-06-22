@@ -4,6 +4,7 @@ import readingTime from 'reading-time';
 import matter from 'gray-matter';
 import { promises as FSPromises } from 'fs';
 import GithubSlugger from 'github-slugger';
+import slugify from 'slugify';
 
 let fs: typeof FSPromises;
 if (typeof window === 'undefined') {
@@ -112,9 +113,10 @@ export async function getAllTags(): Promise<string[]> {
   const posts = await getAllPosts();
   const tagSet = new Set<string>();
   posts.forEach((post) => {
-    post.tags?.forEach((tag) =>
-      tagSet.add(encodeURIComponent(tag.toLowerCase()))
-    );
+    post.tags?.forEach((tag) => {
+      const slug = slugify(tag, { lower: true, strict: true });
+      tagSet.add(slug);
+    });
   });
   return Array.from(tagSet);
 }

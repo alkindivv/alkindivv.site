@@ -78,12 +78,24 @@ const StructuredData: React.FC<StructuredDataProps> = ({ type, post }) => {
 
       case 'article':
         if (!post) return null;
+
+        const imageUrl = post.featuredImage
+          ? post.featuredImage.startsWith('http')
+            ? post.featuredImage
+            : `${baseUrl}${post.featuredImage}`
+          : `${baseUrl}/images/default.png`;
+
+        const description =
+          post.description || post.excerpt || `${post.title} by ${post.author}`;
+
+        const keywords = post.tags?.length ? post.tags.join(', ') : undefined;
+
         return {
           '@context': 'https://schema.org',
           '@type': 'Article',
           headline: post.title,
-          description: post.description,
-          image: post.featuredImage || `${baseUrl}/images/default-blog.png`,
+          description,
+          image: imageUrl,
           datePublished: post.date,
           dateModified: post.date,
           author: {
@@ -105,14 +117,18 @@ const StructuredData: React.FC<StructuredDataProps> = ({ type, post }) => {
             '@id': `${baseUrl}/blog/${post.category}/${post.slug}`,
           },
           articleSection: post.category,
-          keywords: post.tags?.join(', '),
+          ...(keywords ? { keywords } : {}),
           wordCount: post.readingTime ? post.readingTime * 200 : undefined,
           timeRequired: post.readingTime ? `PT${post.readingTime}M` : undefined,
           inLanguage: 'id-ID',
-          about: post.tags?.map((tag) => ({
-            '@type': 'Thing',
-            name: tag,
-          })),
+          ...(post.tags?.length
+            ? {
+                about: post.tags.map((tag) => ({
+                  '@type': 'Thing',
+                  name: tag,
+                })),
+              }
+            : {}),
         };
 
       case 'organization':

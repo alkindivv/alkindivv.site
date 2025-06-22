@@ -50,7 +50,7 @@ export const H3 = ({
 }) => (
   <h3
     id={id}
-    className="text-[1.35rem] md:text-[1.55rem] text-[#E5E7EB] font-bold scroll-mt-20 mb-6 mt-25 relative leading-tight "
+    className="text-[1.35rem] md:text-[1.55rem] text-[#E5E7EB] font-bold scroll-mt-20 mb-6 mt-25 relative leading-relaxed "
     {...props}
   >
     {children}
@@ -104,7 +104,7 @@ export const LI = ({ children, className = '' }: TypographyProps) => (
 export const BlockQuote = ({ children, className = '' }: TypographyProps) => (
   <blockquote
     className={clsx(
-      'pl-4 -mt-2 -mb-2 italic font-[system-ui] text-[0.95rem] md:text-[1.05rem] text-[#D4D4D4] [&>*]:!text-[#E5E7EB] leading-loose',
+      'not-prose  pl-4 italic text-[1.05rem] md:text-[1.15rem] text-neutral-100 [&>*]:!text-[#A3A3A3]',
       className
     )}
   >
@@ -249,12 +249,12 @@ export const MDXComponents = {
     </DimensionLink>
   ),
   em: ({ children }: { children: React.ReactNode }) => (
-    <em className="text-[0.95rem] md:text-[1.05rem] font-paragraf text-[#A3A3A3] italic">
+    <em className="text-[0.95rem] md:text-[1.05rem] font-paragraf text-[#A3A3A3]">
       {children}
     </em>
   ),
   strong: ({ children }: { children: React.ReactNode }) => (
-    <strong className="text-[0.95rem] md:text-[1.05rem] font-paragraf text-[#D4D4D4] font-semibold">
+    <strong className="text-[0.95rem] md:text-[1.05rem] font-paragraf text-[#F5F5F5] font-semibold">
       {children}
     </strong>
   ),

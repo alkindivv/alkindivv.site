@@ -1,19 +1,31 @@
 import { ImageResponse } from 'next/og';
-import { getPostBySlug } from '@/lib/posts';
+import { getPostBySlug, getAllPosts } from '@/lib/posts';
 
 export const runtime = 'nodejs';
 export const revalidate = 3600;
 
 export async function GET(
-  req: Request,
+  _req: Request,
   { params }: { params: { slug: string } }
 ) {
   const { slug } = params;
-  // Simple styling; in real world you can add background etc.
+
   try {
-    const { frontMatter } = await getPostBySlug('cryptocurrency', slug).catch(
-      () => ({ frontMatter: { title: slug } })
-    );
+    // Temukan kategori berdasarkan slug
+    const allPosts = await getAllPosts();
+    const found = allPosts.find((p) => p.slug === slug);
+
+    let titleToRender = slug;
+
+    if (found) {
+      try {
+        const { frontMatter } = await getPostBySlug(found.category, slug);
+        titleToRender = (frontMatter as any).title ?? slug;
+      } catch {
+        titleToRender = found.title;
+      }
+    }
+
     return new ImageResponse(
       (
         <div
@@ -26,9 +38,11 @@ export async function GET(
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
+            padding: '0 60px',
+            textAlign: 'center',
           }}
         >
-          {(frontMatter as any).title ?? slug}
+          {titleToRender}
         </div>
       ),
       {
@@ -37,6 +51,6 @@ export async function GET(
       }
     );
   } catch (e) {
-    return new Response('Failed to generate', { status: 500 });
+    return new Response('Failed to generate OG image', { status: 500 });
   }
 }

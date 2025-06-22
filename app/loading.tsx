@@ -12,7 +12,7 @@ export default function Loading() {
             <div className="absolute inset-0 rounded-full border-4 border-emerald-500/20"></div>
             <div className="absolute inset-0 rounded-full border-4 border-emerald-500 border-t-transparent animate-spin"></div>
           </div>
-          <p className="text-lg text-neutral-300">Loading content...</p>
+          <p className="text-lg text-emerald-500">Loading content...</p>
         </div>
       </main>
       <Footer />

@@ -271,12 +271,6 @@ export default function RootLayout({
         />
       </head>
       <body className={`${inter.className} text-white`}>
-        <a
-          href="#content"
-          className="skip-link sr-only focus:not-sr-only absolute top-0 left-0 m-2 bg-emerald-600 text-white px-4 py-2 rounded z-50"
-        >
-          Skip to content
-        </a>
         <LoadingOverlay />
         {/* Google Analytics */}
         <GoogleAnalytics />

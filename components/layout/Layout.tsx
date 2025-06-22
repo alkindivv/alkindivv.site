@@ -1,7 +1,7 @@
 'use client';
 
 import React, { memo } from 'react';
-import Header from './HeaderServer';
+import Header from './Header';
 import Footer from './Footer';
 import clsx from 'clsx';
 import { useIsLoading, useLoadingMessage } from '@/lib/stores/useLoadingStore';
