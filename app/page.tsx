@@ -115,13 +115,6 @@ export default async function HomePage() {
               <DiscussionPreview />
             </div>
           </section>
-
-          {/* Chat/AMA Preview - Full Width Section with inner container */}
-          {/* <section className="w-full relative overflow-hidden">
-            <div className="relative z-10">
-              <ChatPreview />
-            </div>
-          </section> */}
         </div>
       </main>
     </Layout>
