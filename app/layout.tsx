@@ -1,15 +1,14 @@
 import './globals.css';
 import './animations.css';
 import 'nprogress/nprogress.css';
-
 import './nprogress.css';
 import type { Metadata, Viewport } from 'next';
 import { Inter } from 'next/font/google';
 import GoogleAnalytics from '@/components/shared/GoogleAnalytics';
 import { EventEmitter } from 'events';
-import Script from 'next/script';
 import NavigationEvents from '@/components/shared/NavigationEvents';
 import LoadingOverlay from '@/components/layout/LoadingOverlay';
+import { PHASE_DEVELOPMENT_SERVER } from 'next/dist/shared/lib/constants';
 
 // Increase MaxListeners limit to prevent memory leaks
 if (typeof EventEmitter !== 'undefined') {
@@ -17,9 +16,9 @@ if (typeof EventEmitter !== 'undefined') {
 }
 
 // Define viewport export
-// export const viewport: Viewport = {
-//   themeColor: '#111111',
-// };
+export const viewport: Viewport = {
+  themeColor: '#08a875',
+};
 
 // Load Google Inter font (swap, preload)
 const inter = Inter({ subsets: ['latin'], display: 'swap', preload: true });
@@ -30,7 +29,7 @@ export const metadata: Metadata = {
     template: '%s | AL KINDI',
   },
   description:
-    'AL KINDI – Insights on corporate law, technology, blockchain, M&A, and capital markets.',
+    'Insights & Thoughts about corporate M&A, and capital markets technology, blockchain and smart contracts',
   metadataBase: new URL(
     process.env.NEXT_PUBLIC_BASE_URL || 'https://alkindivv.site'
   ),
@@ -198,6 +197,18 @@ function generateDefaultSchema() {
           'Bankruptcy Law',
           'Cryptocurrency Regulations',
           'Legal Technology',
+          'Smart Contracts',
+          'DeFi',
+          'Web3',
+          'Corporate Legal',
+          'Tech Lawyer',
+          'Blockchain Law',
+          'Crypto Regulations',
+          'web developer',
+          'smart contract developer',
+          'lawyer',
+          'law firm',
+          'law firm lawyer',
         ],
       },
       // Organization Schema
@@ -256,7 +267,7 @@ export default function RootLayout({
 
         {/* Preload critical resources */}
         <link
-          rel="preload"
+          rel="prefetch"
           href="/images/AL-KINDI.png"
           as="image"
           type="image/png"

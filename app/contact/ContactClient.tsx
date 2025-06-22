@@ -124,9 +124,9 @@ export default function ContactClient() {
                 data-fade="4"
               >
                 <div className="flex items-center gap-3">
-                  <h2 className="text-sm sm:text-xl font-semibold">
+                  <h3 className="text-2xl md:text-3xl font-semibold">
                     Contact <Accent> Form</Accent>
-                  </h2>
+                  </h3>
                 </div>
               </div>
 

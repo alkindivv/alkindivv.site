@@ -262,7 +262,7 @@ const ResourcesPreview = ({ resources }: ResourcesPreviewProps) => {
               transitionDelay: '500ms',
             }}
           >
-            Legal & <span className="gradient-text ">Resources</span>
+            Legal <span className="gradient-text ">Resources</span>
           </h3>
           <p
             className="text-neutral-400 text-sm md:text-base leading-relaxed"

@@ -221,7 +221,7 @@ export default function ResourcesPage() {
           {/* Header - Legal Styled Matching Blog */}
           <div className="mb-12 max-w-2xl mx-auto text-center">
             <h3 className="text-4xl md:text-5xl font-bold mb-4">
-              Resources & <span className="gradient-text">Templates</span>
+              Legal <span className="gradient-text">Resources</span>
             </h3>
             <p className="text-neutral-400 leading-relaxed text-center">
               A curated collection of legal templates, documents, and reference

@@ -113,7 +113,7 @@ const HeroSection = () => {
       >
         {/* 4. Kartu Glassmorphism untuk Konten */}
         <motion.div className=" " variants={itemVariants}>
-          <div className="space-y-8">
+          <div className="space-y-8 px-1">
             {/* Small Intro Badge */}
             <motion.div
               className="inline-flex items-center gap-2 py-1.5 px-3 rounded-full border border-transparent bg-emerald-500/10 text-emerald-300 text-xs md:text-sm font-medium backdrop-blur-sm"
