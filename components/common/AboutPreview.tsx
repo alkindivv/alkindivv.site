@@ -156,8 +156,17 @@ const AboutPreview = () => {
           >
             About <span className="gradient-text">Me</span>
           </h3>
-
-          <div></div>
+          <p
+            className="text-neutral-400 text-sm md:text-base leading-relaxed mb-5 md:mb-0"
+            style={{
+              opacity: isVisible ? 1 : 0,
+              transform: isVisible ? 'translateY(0)' : 'translateY(10px)',
+              transition: 'opacity 700ms ease-out, transform 700ms ease-out',
+              transitionDelay: '600ms',
+            }}
+          >
+            Backround
+          </p>
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
@@ -172,16 +181,13 @@ const AboutPreview = () => {
             }}
           >
             {/* Main Description - Minimal styling */}
-            <div className="space-y-4 relative rounded-lg ">
+            <div className="space-y-6 relative rounded-lg md:-mt-8">
               <p className="paragraph-text leading-relaxed">
-                I'm passionate about exploring the intersection between
-                <span className=" paragraph-text leading-relaxed">
-                  {' '}
-                  law and technology. I hold a law degree and have always
-                  enjoyed writing and sharing what I learn. I’m someone who is
-                  naturally curious and always eager to learn new things,
-                  whether it's about law, technology, or anything else.
-                </span>
+                I'm passionate about exploring the intersection between law and
+                technology. I hold a law degree and have always enjoyed writing
+                and sharing what I learn. I’m someone who is naturally curious
+                and always eager to learn new things, whether it's about law,
+                technology, or anything else.
               </p>
             </div>
 

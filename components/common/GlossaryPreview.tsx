@@ -251,8 +251,7 @@ const GlossaryPreview = ({ items = [] }: GlossaryPreviewProps) => {
               transitionDelay: '600ms',
             }}
           >
-            A glossary of legal terms related to technology law, corporate and
-            commercial transactions, with explanations in Indonesian language.
+            Terms & Definitions
           </p>
         </div>
 

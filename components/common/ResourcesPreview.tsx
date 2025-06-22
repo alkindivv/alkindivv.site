@@ -262,7 +262,7 @@ const ResourcesPreview = ({ resources }: ResourcesPreviewProps) => {
               transitionDelay: '500ms',
             }}
           >
-            Resources &<span className="gradient-text ">Templates</span>
+            Legal & <span className="gradient-text ">Resources</span>
           </h3>
           <p
             className="text-neutral-400 text-sm md:text-base leading-relaxed"
@@ -273,8 +273,7 @@ const ResourcesPreview = ({ resources }: ResourcesPreviewProps) => {
               transitionDelay: '600ms',
             }}
           >
-            A curated collection of legal templates, documents, and reference
-            materials
+            Templates, documents, and references
           </p>
         </div>
 
@@ -306,21 +305,7 @@ const ResourcesPreview = ({ resources }: ResourcesPreviewProps) => {
 
                     {/* Document header */}
                     <div className="mb-4 flex items-center gap-4">
-                      {/* <div className="w-10 h-10 rounded-md flex items-center justify-center bg-emerald-900/10 border border-emerald-900/20 shadow-sm">
-                        {resource.type === 'document' && (
-                          <HiDocumentText className="w-5 h-5 text-emerald-400" />
-                        )}
-                        {resource.type === 'book' && (
-                          <FiBookOpen className="w-5 h-5 text-emerald-400" />
-                        )}
-                        {resource.type === 'form' && (
-                          <HiClipboardCheck className="w-5 h-5 text-emerald-400" />
-                        )}
-                        {resource.type === 'link' && (
-                          <FiLayers className="w-5 h-5 text-emerald-400" />
-                        )}
-                      </div> */}
-                      <h3 className="font-semibold text-lg md:text-xl text-white flex-1 ">
+                      <h3 className="font-semibold text-base md:text-lg text-white flex-1 ">
                         <DimensionLink href={resource.url}>
                           {resource.title}
                         </DimensionLink>
@@ -331,17 +316,6 @@ const ResourcesPreview = ({ resources }: ResourcesPreviewProps) => {
                     <p className="mb-5 paragraph-text text-neutral-400 group-hover:text-neutral-300 transition-colors duration-300 flex-grow">
                       {resource.description}
                     </p>
-
-                    {/* Footer with legal document styling */}
-                    {/* <div className="flex items-center justify-between pt-3 border-t border-neutral-800/20">
-                      <div className="text-xs text-neutral-500 "></div>
-                      <div className="flex items-center text-neutral-50 text-xs md:text-sm font-medium">
-                        <Link href={resource.url}>
-                          <span className="mr-1">View</span>
-                          <FiArrowRight className="w-3.5 h-3.5 transform group-hover:translate-x-1 transition-transform duration-300" />
-                        </Link>
-                      </div>
-                    </div> */}
                   </div>
                 </div>
               ))

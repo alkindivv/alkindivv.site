@@ -233,7 +233,7 @@ const AboutPage = () => {
                         className="flex gap-3 text-justify paragraph-text leading-relaxed"
                         data-fade="15"
                       >
-                        <span className="flex-shrink-0 w-1.5 h-1.5 rounded-full bg-emerald-500/30 border border-emerald-500/10 mt-2" />
+                        <span className="flex-shrink-0 w-1.5 h-1.5 rounded-full bg-[#9C9C9C] border border-[#9C9C9C] mt-2" />
                         <span>
                           Assisted in drafting and filing various legal
                           documents, including lawsuits, and contracts, while
@@ -244,7 +244,7 @@ const AboutPage = () => {
                         className="flex gap-3 text-justify paragraph-text leading-relaxed"
                         data-fade="15"
                       >
-                        <span className="flex-shrink-0 w-1.5 h-1.5 rounded-full bg-emerald-500/30 border border-emerald-500/10 mt-2" />
+                        <span className="flex-shrink-0 w-1.5 h-1.5 rounded-full bg-[#9C9C9C] border border-[#9C9C9C] mt-2" />
                         <span>
                           Conducted through legal research and case analysis to
                           support utilizing legal databases and academic
@@ -255,7 +255,7 @@ const AboutPage = () => {
                         className="flex gap-3 text-justify paragraph-text leading-relaxed"
                         data-fade="15"
                       >
-                        <span className="flex-shrink-0 w-1.5 h-1.5 rounded-full bg-emerald-500/30 border border-emerald-500/10 mt-2" />
+                        <span className="flex-shrink-0 w-1.5 h-1.5 rounded-full bg-[#9C9C9C] border border-[#9C9C9C] mt-2" />
                         <span>
                           Collaborated in case strategy meetings, contributing
                           to tailored legal arguments and solutions.
@@ -314,7 +314,7 @@ const AboutPage = () => {
                         className="flex gap-3 text-justify paragraph-text leading-relaxed"
                         data-fade="15"
                       >
-                        <span className="flex-shrink-0 w-1.5 h-1.5 rounded-full bg-emerald-500/30 border border-emerald-500/10 mt-2" />
+                        <span className="flex-shrink-0 w-1.5 h-1.5 rounded-full bg-[#9C9C9C] border border-[#9C9C9C] mt-2" />
                         <span>
                           Interned simultaneously at three law firms to gain
                           broader exposure to legal practice
@@ -324,7 +324,7 @@ const AboutPage = () => {
                         className="flex gap-3 text-justify paragraph-text leading-relaxed"
                         data-fade="15"
                       >
-                        <span className="flex-shrink-0 w-1.5 h-1.5 rounded-full bg-emerald-500/30 border border-emerald-500/10 mt-2" />
+                        <span className="flex-shrink-0 w-1.5 h-1.5 rounded-full bg-[#9C9C9C] border border-[#9C9C9C] mt-2" />
                         <span>
                           Developed practical skills in legal drafting,
                           research, and courtroom procedures.
@@ -334,7 +334,7 @@ const AboutPage = () => {
                         className="flex gap-3 text-justify paragraph-text leading-relaxed"
                         data-fade="15"
                       >
-                        <span className="flex-shrink-0 w-1.5 h-1.5 rounded-full bg-emerald-500/30 border border-emerald-500/10 mt-2" />
+                        <span className="flex-shrink-0 w-1.5 h-1.5 rounded-full bg-[#9C9C9C] border border-[#9C9C9C] mt-2" />
                         <span>
                           Developed foundational advocacy techniques and
                           assisted in administrative tasks related to the
@@ -389,7 +389,7 @@ const AboutPage = () => {
                           className="flex gap-3 text-justify paragraph-text leading-relaxed"
                           data-fade="15"
                         >
-                          <span className="flex-shrink-0 w-1.5 h-1.5 rounded-full bg-emerald-500/30 border border-emerald-500/10 mt-2" />
+                          <span className="flex-shrink-0 w-1.5 h-1.5 rounded-full bg-[#9C9C9C] border border-[#9C9C9C] mt-2" />
                           <span>
                             Install and configure macOS on non-Apple hardware,
                             ensuring full system functionality and performance
@@ -400,7 +400,7 @@ const AboutPage = () => {
                           className="flex gap-3 text-justify paragraph-text leading-relaxed"
                           data-fade="15"
                         >
-                          <span className="flex-shrink-0 w-1.5 h-1.5 rounded-full bg-emerald-500/30 border border-emerald-500/10 mt-2" />
+                          <span className="flex-shrink-0 w-1.5 h-1.5 rounded-full bg-[#9C9C9C] border border-[#9C9C9C] mt-2" />
                           <span>
                             Analyze and optimize hardware compatibility to
                             ensure a fully functional macOS on non-Apple
@@ -411,7 +411,7 @@ const AboutPage = () => {
                           className="flex gap-3 text-justify paragraph-text leading-relaxed"
                           data-fade="15"
                         >
-                          <span className="flex-shrink-0 w-1.5 h-1.5 rounded-full bg-emerald-500/30 border border-emerald-500/10 mt-2" />
+                          <span className="flex-shrink-0 w-1.5 h-1.5 rounded-full bg-[#9C9C9C] border border-[#9C9C9C] mt-2" />
                           <span>
                             Customize configurations according to client
                             specifications (laptop/desktop model, CPU, GPU, RAM,
