@@ -2,39 +2,11 @@
 
 import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
-import { motion, AnimatePresence } from 'framer-motion';
 import GlowingButton from '../shared/GlowingButton';
 import SocialMedia from '../social/SocialMedia';
-import { useReducedMotion } from '@/lib/hooks/useReducedMotion';
 import { HiChevronDoubleDown, HiScale } from 'react-icons/hi';
 
-// Varian animasi untuk container utama
-const containerVariants = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: {
-      staggerChildren: 0.1,
-      delayChildren: 0.3,
-    },
-  },
-};
-
-// Varian animasi untuk item anak (teks, tombol, dll.)
-const itemVariants = {
-  hidden: { y: 20, opacity: 0 },
-  visible: {
-    y: 0,
-    opacity: 1,
-    transition: {
-      type: 'spring',
-      stiffness: 100,
-    },
-  },
-};
-
 const HeroSection = () => {
-  const prefersReducedMotion = useReducedMotion();
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
 
   // Efek untuk melacak posisi mouse
@@ -65,19 +37,19 @@ const HeroSection = () => {
       // Scroll ke posisi yang sudah dihitung
       window.scrollTo({
         top: offsetPosition,
-        behavior: prefersReducedMotion ? 'auto' : 'smooth',
+        behavior: 'smooth',
       });
     } else {
       // Fallback jika tidak menemukan section
       window.scrollTo({
         top: window.innerHeight,
-        behavior: prefersReducedMotion ? 'auto' : 'smooth',
+        behavior: 'smooth',
       });
     }
   };
 
   return (
-    <section className="w-full relative min-h-screen flex items-center overflow-hidden ">
+    <section className="w-full relative min-h-screen flex items-center overflow-hidden">
       {/* 1. Latar Belakang Partikel Interaktif - HANYA DI HERO SECTION */}
       {/* Particle background disabled as per request */}
 
@@ -120,71 +92,43 @@ const HeroSection = () => {
       </div>
 
       {/* Konten Utama */}
-      <motion.div
-        className=""
-        initial="hidden"
-        animate="visible"
-        variants={containerVariants}
-      >
-        {/* 4. Kartu Glassmorphism untuk Konten */}
-        <motion.div className=" " variants={itemVariants}>
-          <div className="space-y-8">
-            {/* Small Intro Badge */}
-            <motion.div
-              className="inline-flex items-center gap-2 py-1.5 px-3 rounded-full border border-transparent bg-emerald-500/10 text-emerald-300 text-xs md:text-sm font-medium backdrop-blur-sm"
-              variants={itemVariants}
-            >
-              <HiScale className="w-4 h-4" />
-              Looking for opportunities
-            </motion.div>
-
-            {/* Headline */}
-            <motion.h1
-              className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight tracking-tight text-white max-w-3xl"
-              variants={containerVariants}
-            >
-              I'm <span className="">AL KINDI</span>
-            </motion.h1>
-
-            {/* Sub-headline */}
-            <motion.div variants={itemVariants}>
-              <p className="text-lg md:text-xl text-neutral-400 leading-relaxed max-w-2xl">
-                Bridging the intersection between law & technology — growing my
-                skills in M&A and capital markets, and sharing insights on law,
-                tech, and crypto through this website.
-              </p>
-            </motion.div>
-
-            <motion.div
-              className="flex flex-row gap-4 flex-wrap"
-              variants={itemVariants}
-            >
-              <Link href="/contact" className="inline-block">
-                <GlowingButton variant="default" iconPosition="right">
-                  Get in Touch
-                </GlowingButton>
-              </Link>
-              <GlowingButton
-                onClick={handleScrollDown}
-                variant="default"
-                iconPosition="down"
-              >
-                Learn How
-              </GlowingButton>
-            </motion.div>
-
-            {/* Social Links */}
-            <motion.div
-              className="flex flex-col  gap-4 pt-1"
-              variants={itemVariants}
-            >
-              <div className="flex items-center gap-6">
-                <SocialMedia />
-              </div>
-            </motion.div>
+      <div className="mx-auto">
+        <div className="space-y-8 text-center">
+          <div className="inline-flex items-center gap-2 py-1.5 px-3 rounded-full bg-emerald-500/10 text-emerald-300 text-xs md:text-sm font-medium">
+            <HiScale className="w-4 h-4" />
+            Looking for opportunities
           </div>
-        </motion.div>
-      </motion.div>
+
+          <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold">
+            I'm <span>AL KINDI</span>
+          </h1>
+
+          <p className="text-lg md:text-xl text-neutral-400 max-w-2xl mx-auto">
+            Bridging the intersection between law & technology — growing my
+            skills in M&A and capital markets, and sharing insights on law,
+            tech, and crypto through this website.
+          </p>
+
+          <div className="flex justify-center gap-4 flex-wrap">
+            <Link href="/contact">
+              <GlowingButton variant="default" iconPosition="right">
+                Get in Touch
+              </GlowingButton>
+            </Link>
+            <GlowingButton
+              onClick={handleScrollDown}
+              variant="default"
+              iconPosition="down"
+            >
+              Learn How
+            </GlowingButton>
+          </div>
+
+          <div className="flex justify-center pt-1">
+            <SocialMedia />
+          </div>
+        </div>
+      </div>
 
       {/* Scroll Indicator - Perbaikan posisi dan visibilitas */}
       <div
