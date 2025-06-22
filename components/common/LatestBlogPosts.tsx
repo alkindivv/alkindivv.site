@@ -16,6 +16,11 @@ interface LatestBlogPostsProps {
 const LatestBlogPosts = ({ posts }: LatestBlogPostsProps) => {
   const sectionRef = useRef<HTMLElement | null>(null);
   const isVisible = useSectionInView(sectionRef);
+
+  if (process.env.NODE_ENV !== 'production') {
+    console.log('LatestBlogPosts visible?', isVisible);
+  }
+
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
   const alphabetLetters = ['A', 'B', 'C', 'D', 'E', 'F', 'G'];
 

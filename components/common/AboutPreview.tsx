@@ -13,6 +13,11 @@ const AboutPreview = () => {
   const sectionRef = useRef<HTMLElement | null>(null);
   const isVisible = useSectionInView(sectionRef);
 
+  // Debug visibility state
+  if (process.env.NODE_ENV !== 'production') {
+    console.log('AboutPreview visible?', isVisible);
+  }
+
   return (
     <section
       ref={sectionRef}

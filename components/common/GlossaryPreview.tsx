@@ -24,6 +24,10 @@ const GlossaryPreview = ({ items = [] }: GlossaryPreviewProps) => {
   const sectionRef = useRef<HTMLElement | null>(null);
   const isVisible = useSectionInView(sectionRef);
 
+  if (process.env.NODE_ENV !== 'production') {
+    console.log('GlossaryPreview visible?', isVisible);
+  }
+
   // Fallback items matching the full glossary style - limited to 4 terms for preview
   const previewItems =
     items.length > 0

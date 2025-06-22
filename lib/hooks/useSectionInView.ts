@@ -12,8 +12,8 @@ const useSectionInView = (
   const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
-    // Jika elemen belum ter-mount / sudah terlihat, lewati
-    if (!ref.current || isVisible) return;
+    const element = ref.current; // Ambil elemen terbaru ketika efek dijalankan
+    if (!element || isVisible) return;
 
     const observer = new IntersectionObserver((entries) => {
       const entry = entries[0];
@@ -23,7 +23,7 @@ const useSectionInView = (
       }
     }, options);
 
-    observer.observe(ref.current);
+    observer.observe(element);
 
     return () => observer.disconnect();
   }, [ref, isVisible, options]);

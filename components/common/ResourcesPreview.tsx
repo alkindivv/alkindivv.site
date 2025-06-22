@@ -41,6 +41,10 @@ const ResourcesPreview = ({ resources }: ResourcesPreviewProps) => {
   const sectionRef = useRef<HTMLElement | null>(null);
   const isVisible = useSectionInView(sectionRef);
 
+  if (process.env.NODE_ENV !== 'production') {
+    console.log('ResourcesPreview visible?', isVisible);
+  }
+
   // Resource items with improved UX and styling
   const resourceItems = [
     {
