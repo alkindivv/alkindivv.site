@@ -1,15 +1,12 @@
 'use client';
 
-import React, { useEffect, useState, useCallback } from 'react';
+import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { motion, AnimatePresence } from 'framer-motion';
-import Particles from 'react-particles';
-import { loadSlim } from 'tsparticles-slim';
 import GlowingButton from '../shared/GlowingButton';
 import SocialMedia from '../social/SocialMedia';
 import { useReducedMotion } from '@/lib/hooks/useReducedMotion';
 import { HiChevronDoubleDown, HiScale } from 'react-icons/hi';
-import type { ISourceOptions, OutMode } from 'tsparticles-engine';
 
 // Varian animasi untuk container utama
 const containerVariants = {
@@ -39,11 +36,6 @@ const itemVariants = {
 const HeroSection = () => {
   const prefersReducedMotion = useReducedMotion();
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
-
-  // Inisialisasi particles.js
-  const particlesInit = useCallback(async (engine: any) => {
-    await loadSlim(engine);
-  }, []);
 
   // Efek untuk melacak posisi mouse
   useEffect(() => {
@@ -82,73 +74,6 @@ const HeroSection = () => {
         behavior: prefersReducedMotion ? 'auto' : 'smooth',
       });
     }
-  };
-
-  // Opsi konfigurasi untuk Particles.js
-  const particlesOptions: ISourceOptions = {
-    background: {
-      color: {
-        value: 'transparent',
-      },
-    },
-    fpsLimit: 120,
-    interactivity: {
-      events: {
-        onHover: {
-          enable: true,
-          mode: 'repulse',
-        },
-        resize: true,
-      },
-      modes: {
-        repulse: {
-          distance: 100,
-          duration: 0.4,
-        },
-      },
-    },
-    particles: {
-      color: {
-        value: '#10b981', // Emerald-500
-      },
-      links: {
-        color: '#10b981',
-        distance: 150,
-        enable: true,
-        opacity: 0.1,
-        width: 1,
-      },
-      collisions: {
-        enable: true,
-      },
-      move: {
-        direction: 'none',
-        enable: true,
-        outModes: {
-          default: 'bounce' as OutMode,
-        },
-        random: false,
-        speed: 0.5,
-        straight: false,
-      },
-      number: {
-        density: {
-          enable: true,
-          area: 800,
-        },
-        value: 50,
-      },
-      opacity: {
-        value: 0.2,
-      },
-      shape: {
-        type: 'circle',
-      },
-      size: {
-        value: { min: 1, max: 3 },
-      },
-    },
-    detectRetina: true,
   };
 
   return (
