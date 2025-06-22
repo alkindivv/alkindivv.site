@@ -50,6 +50,8 @@ module.exports = async () => {
           ? 'https://alkindivv.site'
           : 'http://localhost:3000',
     },
+    // Mengaktifkan source maps di browser production untuk debugging lebih mudah
+    productionBrowserSourceMaps: true,
     pageExtensions: ['ts', 'tsx', 'md', 'mdx'],
     poweredByHeader: false,
     compress: true,

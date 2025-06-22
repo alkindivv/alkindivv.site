@@ -1,28 +1,45 @@
 'use client';
 
-import React, { useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import GlowingButton from '../shared/GlowingButton';
-import Link from 'next/link';
-import useSectionInView from '@/lib/hooks/useSectionInView';
 
 import { HiScale } from 'react-icons/hi';
 import OptimizedImage from '../shared/OptimizedImage';
 import AccentNormal from '../shared/AccentNormal';
+import Link from 'next/link';
 
 const AboutPreview = () => {
-  const sectionRef = useRef<HTMLElement | null>(null);
-  const isVisible = useSectionInView(sectionRef);
+  const [isVisible, setIsVisible] = useState(false);
 
-  // Debug visibility state
-  if (process.env.NODE_ENV !== 'production') {
-    console.log('AboutPreview visible?', isVisible);
-  }
+  useEffect(() => {
+    // Observer untuk trigger animasi saat section masuk viewport
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setIsVisible(true);
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.2 }
+    );
+
+    // Target section untuk observe
+    const section = document.querySelector('.about-preview-section');
+    if (section) {
+      observer.observe(section);
+    }
+
+    return () => {
+      if (section) {
+        observer.unobserve(section);
+      }
+    };
+  }, []);
 
   return (
-    <section
-      ref={sectionRef}
-      className="w-full py-16 relative overflow-hidden about-preview-section"
-    >
+    <section className="w-full py-16 relative overflow-hidden about-preview-section">
       {/* Clean minimal background */}
       <div className="absolute inset-0 -z-10">
         {/* Subtle gradient background */}
@@ -139,17 +156,6 @@ const AboutPreview = () => {
           >
             About <span className="gradient-text">Me</span>
           </h3>
-          <p
-            className="text-neutral-400 text-sm md:text-base leading-relaxed mb-5 md:mb-0"
-            style={{
-              opacity: isVisible ? 1 : 0,
-              transform: isVisible ? 'translateY(0)' : 'translateY(10px)',
-              transition: 'opacity 700ms ease-out, transform 700ms ease-out',
-              transitionDelay: '600ms',
-            }}
-          >
-            Backround
-          </p>
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">

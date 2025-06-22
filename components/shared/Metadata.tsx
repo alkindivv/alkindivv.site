@@ -127,12 +127,10 @@ export function generateMetadata({
         'Law Practice',
         'corporate lawyer',
         'tech lawyer',
-        'Web3',
         'NFT',
         'DeFi',
         'DAO',
         'Web3',
-        'NFT',
       ],
     };
 

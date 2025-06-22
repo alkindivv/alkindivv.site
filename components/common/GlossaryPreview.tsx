@@ -1,11 +1,10 @@
 'use client';
 
-import React, { useState, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { HiChevronRight } from 'react-icons/hi';
 import clsx from 'clsx';
 import GlowingButton from '../shared/GlowingButton';
-import useSectionInView from '@/lib/hooks/useSectionInView';
 
 type GlossaryItem = {
   term: string;
@@ -21,12 +20,34 @@ interface GlossaryPreviewProps {
 const GlossaryPreview = ({ items = [] }: GlossaryPreviewProps) => {
   const [expandedTerm, setExpandedTerm] = useState<string | null>(null);
   const alphabetLetters = ['A', 'B', 'C', 'D', 'E', 'F', 'G'];
-  const sectionRef = useRef<HTMLElement | null>(null);
-  const isVisible = useSectionInView(sectionRef);
+  const [isVisible, setIsVisible] = useState(false);
 
-  if (process.env.NODE_ENV !== 'production') {
-    console.log('GlossaryPreview visible?', isVisible);
-  }
+  useEffect(() => {
+    // Observer untuk trigger animasi saat section masuk viewport
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setIsVisible(true);
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.2 }
+    );
+
+    // Target section untuk observe
+    const section = document.querySelector('.glossary-preview-section');
+    if (section) {
+      observer.observe(section);
+    }
+
+    return () => {
+      if (section) {
+        observer.unobserve(section);
+      }
+    };
+  }, []);
 
   // Fallback items matching the full glossary style - limited to 4 terms for preview
   const previewItems =
@@ -70,10 +91,7 @@ const GlossaryPreview = ({ items = [] }: GlossaryPreviewProps) => {
         ].sort((a, b) => a.term.localeCompare(b.term));
 
   return (
-    <section
-      ref={sectionRef}
-      className="w-full py-24 relative overflow-hidden glossary-preview-section"
-    >
+    <section className="w-full py-24 relative overflow-hidden glossary-preview-section">
       {/* Legal themed decorative elements */}
       <div className="absolute inset-0 -z-10">
         {/* Background texture */}

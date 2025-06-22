@@ -1,8 +1,7 @@
 'use client';
 
-import React, { useState, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
-import useSectionInView from '@/lib/hooks/useSectionInView';
 
 import { BlogPost } from '@/types/blog';
 import GlowingButton from '../shared/GlowingButton';
@@ -14,15 +13,36 @@ interface LatestBlogPostsProps {
 }
 
 const LatestBlogPosts = ({ posts }: LatestBlogPostsProps) => {
-  const sectionRef = useRef<HTMLElement | null>(null);
-  const isVisible = useSectionInView(sectionRef);
-
-  if (process.env.NODE_ENV !== 'production') {
-    console.log('LatestBlogPosts visible?', isVisible);
-  }
-
+  const [isVisible, setIsVisible] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
   const alphabetLetters = ['A', 'B', 'C', 'D', 'E', 'F', 'G'];
+
+  useEffect(() => {
+    // Observer untuk trigger animasi saat section masuk viewport
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setIsVisible(true);
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.2 }
+    );
+
+    // Target section untuk observe
+    const section = document.querySelector('.latest-posts-section');
+    if (section) {
+      observer.observe(section);
+    }
+
+    return () => {
+      if (section) {
+        observer.unobserve(section);
+      }
+    };
+  }, []);
 
   // Fungsi untuk filter posts berdasarkan kategori
   const filteredPosts = selectedCategory
@@ -40,10 +60,7 @@ const LatestBlogPosts = ({ posts }: LatestBlogPostsProps) => {
   const categories = Array.from(new Set(posts.map((post) => post.category)));
 
   return (
-    <section
-      ref={sectionRef}
-      className="w-full py-16 relative overflow-hidden latest-posts-section"
-    >
+    <section className="w-full py-16 relative overflow-hidden latest-posts-section">
       {/* Clean minimal background */}
       <div className="absolute inset-0 -z-10">
         {/* Subtle gradient background */}

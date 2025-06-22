@@ -73,7 +73,10 @@ const resourceItems: ResourcePreview[] = [
 ];
 
 // Import langsung HeroSection untuk server-side rendering
-import HeroSection from '@/components/common/HeroSection';
+const HeroSection = dynamic(() => import('@/components/common/HeroSection'), {
+  ssr: false,
+  loading: () => null,
+});
 
 export default async function HomePage() {
   const posts = await getAllPosts();
