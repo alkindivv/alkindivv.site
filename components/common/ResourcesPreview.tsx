@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useRef } from 'react';
 import Link from 'next/link';
 import {
   FiArrowRight,
@@ -22,6 +22,7 @@ import Accent from '../shared/Accent';
 import GlowingButton from '../shared/GlowingButton';
 import OptimizedImage from '../shared/OptimizedImage';
 import DimensionLink from './DimensionLink';
+import useSectionInView from '@/lib/hooks/useSectionInView';
 
 // Tipe untuk resource item dari props
 type ResourcePreview = {
@@ -37,34 +38,8 @@ interface ResourcesPreviewProps {
 }
 
 const ResourcesPreview = ({ resources }: ResourcesPreviewProps) => {
-  const [isVisible, setIsVisible] = useState(false);
-
-  useEffect(() => {
-    // Observer untuk trigger animasi saat section masuk viewport
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            setIsVisible(true);
-            observer.unobserve(entry.target);
-          }
-        });
-      },
-      { threshold: 0.2 }
-    );
-
-    // Target section untuk observe
-    const section = document.querySelector('.resources-preview-section');
-    if (section) {
-      observer.observe(section);
-    }
-
-    return () => {
-      if (section) {
-        observer.unobserve(section);
-      }
-    };
-  }, []);
+  const sectionRef = useRef<HTMLElement | null>(null);
+  const isVisible = useSectionInView(sectionRef);
 
   // Resource items with improved UX and styling
   const resourceItems = [
@@ -102,7 +77,10 @@ const ResourcesPreview = ({ resources }: ResourcesPreviewProps) => {
   const itemsToShow = resources || resourceItems;
 
   return (
-    <section className="w-full py-24 relative overflow-hidden resources-preview-section">
+    <section
+      ref={sectionRef}
+      className="w-full py-24 relative overflow-hidden resources-preview-section"
+    >
       {/* Legal themed decorative background */}
       <div className="absolute inset-0 -z-10">
         {/* Legal texture background */}

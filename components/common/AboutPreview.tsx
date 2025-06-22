@@ -1,45 +1,23 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
+import React, { useRef } from 'react';
 import GlowingButton from '../shared/GlowingButton';
 import Link from 'next/link';
+import useSectionInView from '@/lib/hooks/useSectionInView';
 
 import { HiScale } from 'react-icons/hi';
 import OptimizedImage from '../shared/OptimizedImage';
 import AccentNormal from '../shared/AccentNormal';
 
 const AboutPreview = () => {
-  const [isVisible, setIsVisible] = useState(false);
-
-  useEffect(() => {
-    // Observer untuk trigger animasi saat section masuk viewport
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            setIsVisible(true);
-            observer.unobserve(entry.target);
-          }
-        });
-      },
-      { threshold: 0.2 }
-    );
-
-    // Target section untuk observe
-    const section = document.querySelector('.about-preview-section');
-    if (section) {
-      observer.observe(section);
-    }
-
-    return () => {
-      if (section) {
-        observer.unobserve(section);
-      }
-    };
-  }, []);
+  const sectionRef = useRef<HTMLElement | null>(null);
+  const isVisible = useSectionInView(sectionRef);
 
   return (
-    <section className="w-full py-16 relative overflow-hidden about-preview-section">
+    <section
+      ref={sectionRef}
+      className="w-full py-16 relative overflow-hidden about-preview-section"
+    >
       {/* Clean minimal background */}
       <div className="absolute inset-0 -z-10">
         {/* Subtle gradient background */}
@@ -185,7 +163,7 @@ const AboutPreview = () => {
               <p className="paragraph-text leading-relaxed">
                 I'm passionate about exploring the intersection between law and
                 technology. I hold a law degree and have always enjoyed writing
-                and sharing what I learn. I’m someone who is naturally curious
+                and sharing what I learn. I'm someone who is naturally curious
                 and always eager to learn new things, whether it's about law,
                 technology, or anything else.
               </p>

@@ -67,104 +67,114 @@ const BlogCard = ({
 
   // Default Card
   return (
-    <article className={clsx('h-full', className)}>
-      <Link
-        href={href}
-        className="group h-full flex flex-col bg-transparent border border-neutral-800 hover:border-neutral-700 hover:shadow-md hover:shadow-emerald-900/5 rounded-lg transition-all duration-300 overflow-hidden relative"
-        onClick={handleClick}
-      >
-        {/* Featured Image */}
-        {post.featuredImage && (
-          <div className="relative h-48 overflow-hidden">
-            <Image
-              src={post.featuredImage}
-              alt={post.title}
-              fill
-              sizes="(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw"
-              className=""
-              priority={priority || (_index !== undefined && _index < 2)}
-              quality={75}
-            />
-            {/* Overlay Gradient */}
-            <div className="absolute inset-0 bg-gradient-to-t from-neutral-900/80 via-neutral-900/40 to-transparent opacity-60 group-hover:opacity-80 transition-opacity" />
+    <article
+      role="link"
+      tabIndex={0}
+      onClick={handleClick}
+      onKeyDown={(e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          handleClick(e as unknown as React.MouseEvent);
+        }
+      }}
+      className={clsx(
+        'group h-full flex flex-col bg-transparent border border-neutral-800 hover:border-neutral-700 hover:shadow-md hover:shadow-emerald-900/5 rounded-lg transition-all duration-300 overflow-hidden relative cursor-pointer',
+        className
+      )}
+    >
+      {/* Featured Image */}
+      {post.featuredImage && (
+        <div className="relative h-48 overflow-hidden">
+          <Image
+            src={post.featuredImage}
+            alt={post.title}
+            fill
+            sizes="(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw"
+            className=""
+            priority={priority || (_index !== undefined && _index < 2)}
+            quality={75}
+          />
+          {/* Overlay Gradient */}
+          <div className="absolute inset-0 bg-gradient-to-t from-neutral-900/80 via-neutral-900/40 to-transparent opacity-60 group-hover:opacity-80 transition-opacity" />
 
-            {/* Category Badge - Legal document style */}
-            <div className="absolute top-3 right-3">
-              <span className="px-1 py-0.5 text-xs font-medium bg-black/40 backdrop-blur-sm text-neutral-200 rounded-lg border border-neutral-800/50 flex items-center gap-1.5">
-                {categoryIcon}
-                {post.category}
-              </span>
-            </div>
+          {/* Category Badge - Legal document style */}
+          <div className="absolute top-3 right-3">
+            <span className="px-1 py-0.5 text-xs font-medium bg-black/40 backdrop-blur-sm text-neutral-200 rounded-lg border border-neutral-800/50 flex items-center gap-1.5">
+              {categoryIcon}
+              {post.category}
+            </span>
           </div>
-        )}
-
-        <div className="flex-1 p-4 md:p-5 flex flex-col relative">
-          {/* Watermark - Legal document style */}
-          <div className="absolute right-3 bottom-3 opacity-0 group-hover:opacity-5 transition-opacity duration-300">
-            {post.category.toLowerCase() === 'law' ? (
-              <GoLaw className="w-20 h-20" />
-            ) : post.category.toLowerCase() === 'crypto' ||
-              post.category.toLowerCase() === 'cryptocurrency' ? (
-              <FaBitcoin className="w-20 h-20" />
-            ) : (
-              <HiOutlineScale className="w-20 h-20" />
-            )}
-          </div>
-
-          {/* Date - Document filing style */}
-          <div className="flex items-center gap-1.5 mb-2">
-            {/* <div className="h-[1px] w-3 bg-neutral-700"></div> */}
-            <p className="text-xs md:text-sm text-neutral-400 transition-colors group-hover:text-neutral-300 paragraph-text">
-              {format(new Date(post.date), 'MMMM dd, yyyy')}
-            </p>
-            {/* <div className="h-[1px] flex-grow bg-neutral-700"></div> */}
-          </div>
-
-          {/* Title */}
-          <h2 className="text-base md:text-lg font-semibold text-neutral-50 mb-3 line-clamp-2 transition-colors group-hover:text-white">
-            <HighlightedText text={post.title} searchQuery={searchQuery} />
-          </h2>
-
-          {/* Meta Info */}
-          <div className="flex items-center gap-3 mb-4">
-            <div className="flex items-center gap-1">
-              <HiOutlineClock className="w-3.5 h-3.5 text-[#08c488]" />
-              <p className="text-xs md:text-sm text-neutral-200 font-medium">
-                {post.readingTime} min read
-              </p>
-            </div>
-          </div>
-
-          {/* Excerpt */}
-          <p className="excerpt mb-4 line-clamp-3 transition-colors group-hover:text-neutral-300">
-            <HighlightedText
-              text={post.excerpt || ''}
-              searchQuery={searchQuery}
-            />
-          </p>
-
-          {/* Tags */}
-          <div className="mt-auto flex flex-wrap gap-2">
-            {post.tags?.slice(0, 3).map((tag) => (
-              <Link
-                key={tag}
-                href={`/blog/tag/${slugify(tag)}`}
-                className={clsx(
-                  'px-1.5 py-1 text-xs rounded-lg transition-all duration-300',
-                  checkTagged?.(tag)
-                    ? ' text-emerald-500 bg-emerald-500/10'
-                    : 'bg-neutral-900 text-neutral-400 group-hover:bg-neutral-800 group-hover:text-neutral-300 border-neutral-800 group-hover:border-neutral-700'
-                )}
-              >
-                <HighlightedText text={tag} searchQuery={searchQuery} />
-              </Link>
-            ))}
-          </div>
-
-          {/* Bottom line - Document footer */}
-          <div className="absolute bottom-0 left-5 right-5 h-[1px] bg-neutral-800/50 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
         </div>
-      </Link>
+      )}
+
+      <div className="flex-1 p-4 md:p-5 flex flex-col relative">
+        {/* Watermark - Legal document style */}
+        <div className="absolute right-3 bottom-3 opacity-0 group-hover:opacity-5 transition-opacity duration-300">
+          {post.category.toLowerCase() === 'law' ? (
+            <GoLaw className="w-20 h-20" />
+          ) : post.category.toLowerCase() === 'crypto' ||
+            post.category.toLowerCase() === 'cryptocurrency' ? (
+            <FaBitcoin className="w-20 h-20" />
+          ) : (
+            <HiOutlineScale className="w-20 h-20" />
+          )}
+        </div>
+
+        {/* Date - Document filing style */}
+        <div className="flex items-center gap-1.5 mb-2">
+          {/* <div className="h-[1px] w-3 bg-neutral-700"></div> */}
+          <p className="text-xs md:text-sm text-neutral-400 transition-colors group-hover:text-neutral-300 paragraph-text">
+            {format(new Date(post.date), 'MMMM dd, yyyy')}
+          </p>
+          {/* <div className="h-[1px] flex-grow bg-neutral-700"></div> */}
+        </div>
+
+        {/* Title */}
+        <h2 className="text-base md:text-lg font-semibold text-neutral-50 mb-3 line-clamp-2 transition-colors group-hover:text-white">
+          <HighlightedText text={post.title} searchQuery={searchQuery} />
+        </h2>
+
+        {/* Meta Info */}
+        <div className="flex items-center gap-3 mb-4">
+          <div className="flex items-center gap-1">
+            <HiOutlineClock className="w-3.5 h-3.5 text-[#08c488]" />
+            <p className="text-xs md:text-sm text-neutral-200 font-medium">
+              {post.readingTime} min read
+            </p>
+          </div>
+        </div>
+
+        {/* Excerpt */}
+        <p className="excerpt mb-4 line-clamp-3 transition-colors group-hover:text-neutral-300">
+          <HighlightedText
+            text={post.excerpt || ''}
+            searchQuery={searchQuery}
+          />
+        </p>
+
+        {/* Tags */}
+        <div className="mt-auto flex flex-wrap gap-2">
+          {post.tags?.slice(0, 3).map((tag) => (
+            <button
+              key={tag}
+              onClick={(e) => {
+                e.stopPropagation();
+                router.push(`/blog/tag/${slugify(tag)}`);
+              }}
+              className={clsx(
+                'px-1.5 py-1 text-xs rounded-lg transition-all duration-300',
+                checkTagged?.(tag)
+                  ? ' text-emerald-500 bg-emerald-500/10'
+                  : 'bg-neutral-900 text-neutral-400 hover:bg-neutral-800 hover:text-neutral-300 border-neutral-800 hover:border-neutral-700'
+              )}
+            >
+              <HighlightedText text={tag} searchQuery={searchQuery} />
+            </button>
+          ))}
+        </div>
+
+        {/* Bottom line - Document footer */}
+        <div className="absolute bottom-0 left-5 right-5 h-[1px] bg-neutral-800/50 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+      </div>
     </article>
   );
 };
