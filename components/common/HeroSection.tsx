@@ -125,7 +125,7 @@ const HeroSection = () => {
 
             {/* Headline */}
             <motion.h1
-              className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight tracking-tight text-white max-w-3xl"
+              className="text-5xl md:text-5xl font-bold leading-tight tracking-tight text-white max-w-3xl"
               variants={containerVariants}
             >
               I'm <span className="">AL KINDI</span>
@@ -133,7 +133,7 @@ const HeroSection = () => {
 
             {/* Sub-headline */}
             <motion.div variants={itemVariants}>
-              <p className="text-lg md:text-xl text-neutral-400 leading-relaxed max-w-2xl">
+              <p className="text-base md:text-lg text-neutral-400 leading-relaxed max-w-2xl">
                 Bridging the intersection between law & technology — growing my
                 skills in M&A and capital markets, and sharing insights on law,
                 tech, and crypto through this website.

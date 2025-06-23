@@ -197,7 +197,7 @@ export default function Header() {
                           leaveFrom="transform opacity-100 scale-100"
                           leaveTo="transform opacity-0 scale-95"
                         >
-                          <Menu.Items className="absolute right-0 mt-2 w-64 p-2 bg-[#0a0a0a]/95 backdrop-blur-xl rounded-sm shadow-xl shadow-emerald-500/[0.05] focus:outline-none">
+                          <Menu.Items className="absolute right-0 mt-2 w-64 p-2 bg-[#1A1A1A] backdrop-blur-xl rounded-sm shadow-xl shadow-emerald-500/[0.05] focus:outline-none">
                             {item.dropdownItems?.map((dropdownItem) => (
                               <Menu.Item key={dropdownItem.href}>
                                 {({ active }) => (
@@ -205,22 +205,17 @@ export default function Header() {
                                     href={dropdownItem.href}
                                     prefetch={true}
                                     className={clsx(
-                                      'flex items-center gap-3 p-2.5 rounded-sm transition-colors',
+                                      'group block p-2.5 rounded-md transition-colors border border-neutral-800',
                                       active
                                         ? 'bg-emerald-500/10 text-emerald-400'
-                                        : 'text-gray-400 hover:text-emerald-400'
+                                        : 'bg-[#111111]/40 text-gray-400 hover:text-emerald-400'
                                     )}
                                   >
-                                    <div className="w-8 h-8 flex items-center justify-center bg-emerald-500/10 rounded-sm">
-                                      <dropdownItem.icon className="w-4 h-4" />
+                                    <div className="font-medium text-sm text-gray-200 underline-offset-2 group-hover:underline">
+                                      {dropdownItem.label}
                                     </div>
-                                    <div>
-                                      <div className="font-medium text-sm text-gray-200">
-                                        {dropdownItem.label}
-                                      </div>
-                                      <div className="text-xs text-gray-500">
-                                        {dropdownItem.description}
-                                      </div>
+                                    <div className="text-xs text-gray-500">
+                                      {dropdownItem.description}
                                     </div>
                                   </Link>
                                 )}
@@ -244,9 +239,7 @@ export default function Header() {
                     'text-sm font-medium',
                     'transition-all duration-300',
                     'underline-offset-2 hover:underline',
-                    isActive
-                      ? 'text-emerald-400 '
-                      : 'text-gray-300 hover:text-emerald-400 '
+                    isActive ? 'underline underline-offset-2 ' : 'text-gray-300'
                   )}
                 >
                   {item.label}
