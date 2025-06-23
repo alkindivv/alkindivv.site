@@ -9,8 +9,6 @@ import {
   HiUser,
   HiHome,
   HiMail,
-  HiMenu,
-  HiX,
   HiBookOpen,
   HiSparkles,
 } from 'react-icons/hi';
@@ -245,7 +243,7 @@ export default function Header() {
                     'relative inline-flex items-center gap-1.5 py-2 mx-3',
                     'text-sm font-medium',
                     'transition-all duration-300',
-                    'underline-offset-4 hover:underline',
+                    'underline-offset-2 hover:underline',
                     isActive
                       ? 'text-emerald-400 '
                       : 'text-gray-300 hover:text-emerald-400 '
@@ -257,22 +255,38 @@ export default function Header() {
             })}
           </nav>
 
-          {/* Mobile Menu Button - Legal styled */}
+          {/* Mobile Menu Button */}
           <button
             onClick={() => setIsMenuOpen(!isMenuOpen)}
             className={clsx(
-              'md:hidden p-2 rounded-sm',
-              'transition-all duration-300',
-              'text-gray-400 hover:text-emerald-400 ',
-              'hover:bg-emerald-500/5 '
+              'relative md:hidden p-2 rounded-sm',
+              'transition-colors duration-300',
+              'text-gray-400 hover:text-emerald-400',
+              'hover:bg-emerald-500/5'
             )}
             aria-label="Toggle menu"
           >
-            {isMenuOpen ? (
-              <HiX className="w-5 h-5" />
-            ) : (
-              <HiMenu className="w-5 h-5" />
-            )}
+            {/* Hamburger lines */}
+            <div className="w-4 h-4 relative flex flex-col justify-between items-center">
+              <span
+                className={clsx(
+                  'block w-5 h-0.5 bg-current transform transition-all duration-300',
+                  isMenuOpen && 'translate-y-[7px] rotate-45'
+                )}
+              ></span>
+              <span
+                className={clsx(
+                  'block w-4 h-0.5 bg-current transition-all duration-300',
+                  isMenuOpen && 'opacity-0'
+                )}
+              ></span>
+              <span
+                className={clsx(
+                  'block w-5 h-0.5 bg-current transform transition-all duration-300',
+                  isMenuOpen && '-translate-y-[7px] -rotate-45'
+                )}
+              ></span>
+            </div>
           </button>
         </div>
       </div>
