@@ -81,7 +81,7 @@ export default function Header() {
     {
       href: '/blog/',
       label: 'Blog',
-      description: 'Thoughts, mental models, and tutorials',
+      description: 'Thoughts & Insights',
       icon: HiNewspaper,
     },
     {
@@ -114,13 +114,13 @@ export default function Header() {
     {
       href: '/resources/',
       label: 'Resources',
-      description: 'Resources and templates',
+      description: 'Resources and legal templates',
       icon: HiBookOpen,
     },
     {
       href: '/wishlist/',
       label: 'Wishlist',
-      description: 'Life Goals & Aspirations',
+      description: 'Life Goals',
       icon: HiSparkles,
     },
   ];
@@ -136,51 +136,25 @@ export default function Header() {
       {/* Legal document corner decorations - only visible when scrolled */}
       {scrolled && (
         <>
-          {/* <div className="absolute top-0 right-0 w-4 h-4 border-t border-r border-emerald-500/30"></div> */}
-          {/* <div className="absolute bottom-0 left-0 w-4 h-4 border-b border-l border-emerald-500/30"></div>
-          <div className="absolute bottom-0 right-0 w-4 h-4 border-b border-r border-emerald-500/30"></div> */}
-
-          {/* Top header line - legal document style */}
           <div className="absolute top-0 left-0 right-0 h-0.5 bg-gradient-to-r from-transparent via-emerald-500/20 to-transparent"></div>
         </>
       )}
 
-      {/* <div className="container max-w-6xl mx-auto h-full px-4">
-        <div className="flex items-center justify-between h-full">
-          <Link
-            href="/"
-            className="flex items-center gap-2 text-sm hover:text-emerald-400 transition-colors relative"
-          >
-            <div className="w-8 h-8 flex items-center justify-center text-emerald-400">
-              <GoLaw className="w-5 h-5" />
-            </div>
-            <div className="flex flex-col">
-              <span className="text-[10px] text-neutral-500 font-mono">
-                LAW & TECHNOLOGY
-              </span>
-            </div>
-          </Link> */}
-
       <div className="container max-w-6xl mx-auto h-full px-4">
-        <div className="flex items-center justify-between h-full">
+        <div className="flex items-center justify-between h-full ">
           {/* Logo - Legal styled */}
           <Link
             href="/"
             prefetch={true}
-            className="flex items-center gap-2 text-sm hover:text-emerald-400 transition-colors relative"
+            className="flex items-center gap-2 text-sm hover:text-emerald-400 transition-colors relative "
           >
             <div className="w-8 h-8 flex items-center justify-center text-emerald-400">
               <Image src="/images/logo.png" alt="Logo" width={28} height={28} />
             </div>
-            {/* <div className="flex flex-col">
-              <span className="text-[10px] text-neutral-500 font-sans">
-                LAW & TECHNOLOGY
-              </span>
-            </div> */}
           </Link>
 
           {/* Desktop Navigation - Legal styled */}
-          <nav className="hidden md:flex items-center gap-1">
+          <nav className="hidden md:flex items-center gap-1 ">
             {[
               ...navItems,
               {
@@ -204,7 +178,8 @@ export default function Header() {
                           className={clsx(
                             'inline-flex items-center gap-1.5 px-3 py-2 rounded-sm',
                             'text-sm font-medium text-gray-300 hover:text-emerald-400',
-                            'transition-colors duration-300 hover:bg-emerald-500/5'
+                            'transition-colors duration-300 hover:bg-emerald-500/5',
+                            'underline-offset-2 hover:underline'
                           )}
                         >
                           More
@@ -267,10 +242,10 @@ export default function Header() {
                   href={item.href}
                   prefetch={true}
                   className={clsx(
-                    'relative inline-flex  items-center gap-1.5 py-2 mx-3',
+                    'relative inline-flex items-center gap-1.5 py-2 mx-3',
                     'text-sm font-medium',
-                    'transition-all duration-300  ',
-
+                    'transition-all duration-300',
+                    'underline-offset-4 hover:underline',
                     isActive
                       ? 'text-emerald-400 '
                       : 'text-gray-300 hover:text-emerald-400 '
