@@ -213,64 +213,29 @@ export default function Header() {
                           leaveFrom="transform opacity-100 scale-100"
                           leaveTo="transform opacity-0 scale-95"
                         >
-                          <Menu.Items className="absolute left-1/2 -translate-x-1/2 mt-2 w-[420px] md:w-[520px] lg:w-[640px] p-4 bg-[#1A1A1A]/90 backdrop-blur-xl rounded-md shadow-[0_0_0_1px_rgba(255,255,255,0.05)] focus:outline-none grid gap-3 lg:grid-cols-[.7fr_1fr] list-none">
-                            {/* Hero card kiri (desktop) */}
-                            <li className="row-span-3 hidden lg:block">
+                          <Menu.Items className="absolute  -translate-x-1/2    mt-5   max-w-[85vw] w-[320px] sm:w-[260px] bg-[#121212]/95 backdrop-blur-lg border border-white/5 rounded-md shadow-lg focus:outline-none divide-y divide-white/5">
+                            {item.dropdownItems?.map((dropdownItem, idx) => (
                               <Link
-                                href="/about/"
+                                key={dropdownItem.href}
+                                href={dropdownItem.href}
                                 prefetch={true}
-                                className="flex h-full w-full flex-col justify-end rounded-md bg-gradient-to-b from-[#1d1d1d]/50 to-[#111] p-6 no-underline outline-none select-none border border-white/5 focus:shadow-inner"
+                                className="group flex items-start gap-3 px-4 py-3 transition-colors"
                               >
-                                <div className="mt-4 mb-2 text-lg font-medium text-neutral-100">
-                                  AL KINDI
-                                </div>
-                                <p className="text-xs text-gray-400 leading-tight">
-                                  Law & Technology insights built with Next.js.
-                                </p>
-                              </Link>
-                            </li>
-
-                            {item.dropdownItems?.map((dropdownItem) => (
-                              <li key={dropdownItem.href}>
-                                <Link
-                                  href={dropdownItem.href}
-                                  prefetch={true}
-                                  className="relative group flex flex-col gap-1 p-4 rounded-md border border-white/5 bg-[#111111]/40 overflow-hidden transition-colors duration-300 hover:bg-[#222]"
-                                  onMouseMove={(e) => {
-                                    const rect =
-                                      e.currentTarget.getBoundingClientRect();
-                                    e.currentTarget.style.setProperty(
-                                      '--x',
-                                      `${e.clientX - rect.left}px`
-                                    );
-                                    e.currentTarget.style.setProperty(
-                                      '--y',
-                                      `${e.clientY - rect.top}px`
-                                    );
-                                  }}
-                                >
-                                  <span
-                                    aria-hidden="true"
-                                    className="pointer-events-none absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity"
-                                    style={{
-                                      background:
-                                        'radial-gradient(300px circle at var(--x) var(--y), rgba(34,211,151,0.12), transparent 40%)',
-                                    }}
-                                  />
-                                  <div className="text-sm font-medium text-neutral-100 mb-0.5 flex items-center gap-1">
-                                    {(() => {
-                                      const Icon = dropdownItem.icon;
-                                      return (
-                                        <Icon className="w-4 h-4 text-emerald-400" />
-                                      );
-                                    })()}
+                                {(() => {
+                                  const Icon = dropdownItem.icon;
+                                  return (
+                                    <Icon className="w-4 h-4 mt-0.5 text-emerald-400 flex-shrink-0" />
+                                  );
+                                })()}
+                                <div className="text-sm leading-tight">
+                                  <div className="font-medium text-neutral-100 border-decoration-bottom group-hover:text-emerald-400">
                                     {dropdownItem.label}
                                   </div>
-                                  <p className="text-xs text-gray-400 leading-tight line-clamp-2">
+                                  <p className="text-xs text-gray-400 mt-0.5 line-clamp-2">
                                     {dropdownItem.description}
                                   </p>
-                                </Link>
-                              </li>
+                                </div>
+                              </Link>
                             ))}
                           </Menu.Items>
                         </Transition>
