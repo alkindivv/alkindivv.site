@@ -136,11 +136,11 @@ export default function Header() {
       {/* Desktop Header */}
       <header
         className={clsx(
-          'fixed inset-x-0 top-6 z-50 h-12 w-full mx-auto items-center justify-between flex',
+          'fixed top-6 left-1/2 -translate-x-1/2 z-50 h-12 flex items-center justify-between',
           'hidden md:flex px-4 md:px-0 transition-all duration-300',
           scrolled && 'rounded-lg backdrop-blur-lg bg-[#121212]/90 shadow-lg',
-          scrolled && 'md:max-w-[30%]',
-          !scrolled && 'md:max-w-full'
+          scrolled && 'sm:w-[440px]',
+          !scrolled && 'sm:w-full'
         )}
       >
         <div className="flex items-center justify-between h-full w-full">
@@ -184,15 +184,13 @@ export default function Header() {
                           className={clsx(
                             'inline-flex items-center gap-1.5 px-3  py-2 rounded-sm group',
                             'text-sm md:text-base font-medium text-neutral-500 transition-colors',
-                            'group-hover:text-emerald-400'
+                            ''
                           )}
                         >
                           <span
                             className={clsx(
                               'underline-offset-2',
-                              open
-                                ? ' text-emerald-400'
-                                : 'group-hover:underline'
+                              open ? ' ' : 'group-hover:underline'
                             )}
                           >
                             More
@@ -228,7 +226,7 @@ export default function Header() {
                                   );
                                 })()}
                                 <div className="text-sm leading-tight">
-                                  <div className="font-medium text-neutral-100 border-decoration-bottom group-hover:text-emerald-400">
+                                  <div className="font-medium text-neutral-100  group-hover:underline underline-offset-2">
                                     {dropdownItem.label}
                                   </div>
                                   <p className="text-xs text-gray-400 mt-0.5 line-clamp-2">
