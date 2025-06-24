@@ -367,7 +367,7 @@ export default function GlossaryClient() {
           {/* Header - Matching Blog Style */}
           <div className="mb-12 max-w-4xl mx-auto" data-fade="1">
             <h3 className="text-4xl md:text-5xl font-bold mb-4 text-center">
-              <span className="gradient-text">Legal</span>Glossary
+              <span className="gradient-text">Legal </span>Glossary
             </h3>
             <p className="text-neutral-400 leading-relaxed text-center">
               A glossary of legal terms related to law & cryptocurrency.

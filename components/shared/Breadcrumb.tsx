@@ -74,7 +74,7 @@ export default function Breadcrumb({ items }: BreadcrumbProps) {
                   {item.label}
                 </Link>
               ) : (
-                <span className="inline-flex items-center px-2 py-1 rounded-md font-semibold gradient-text line-clamp-1">
+                <span className="inline-flex items-center px-2 py-1 rounded-md font-semibold text-neutral-300 line-clamp-1">
                   {item.label}
                 </span>
               )}

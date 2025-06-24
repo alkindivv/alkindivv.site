@@ -5,7 +5,7 @@ import Header from './Header';
 import Footer from './Footer';
 import clsx from 'clsx';
 import { useIsLoading } from '@/lib/stores/useLoadingStore';
-import PerformanceMonitor from '../shared/PerformanceMonitor';
+// import PerformanceMonitor from '../shared/PerformanceMonitor';
 import SharedLoadingOverlay from './LoadingOverlay';
 
 interface LayoutProps {
@@ -54,7 +54,7 @@ const Layout: React.FC<LayoutProps> = ({
       <SharedLoadingOverlay />
 
       {/* Performance Monitor - hanya di development */}
-      <PerformanceMonitor />
+      {/* <PerformanceMonitor /> */}
     </div>
   );
 };

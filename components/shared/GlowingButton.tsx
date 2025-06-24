@@ -118,7 +118,7 @@ const GlowingButton = React.forwardRef<HTMLButtonElement, GlowingButtonProps>(
       'relative group inline-flex items-center gap-3 transition-all duration-300 ease-out motion-safe:group-hover:scale-[1.03]',
       disabled && 'opacity-50 cursor-not-allowed pointer-events-none',
       variant === 'default' &&
-        'gradient-border glass-bg hover:bg-white/5 px-4 py-3 rounded-xl',
+        'gradient-border glass-bg hover:bg-white/5 px-4 py-3 rounded-xl text-sm md:text-base',
       variant === 'small' &&
         'gradient-border glass-bg hover:bg-white/5 px-3 py-2 text-sm rounded-lg md:px-3 md:py-2.5 md:text-base md:rounded-xl',
       variant === 'minimal' &&

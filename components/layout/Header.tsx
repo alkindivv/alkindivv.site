@@ -147,7 +147,7 @@ export default function Header() {
             ? 'top-2 px-6 rounded-lg bg-[#121212]/90 shadow-lg '
             : 'top-2 bg-transparent'
         )}
-        animate={{ width: scrolled ? (isDesktop ? '60%' : '100%') : '100%' }}
+        animate={{ width: scrolled ? (isDesktop ? '40%' : '100%') : '100%' }}
         // transition={{ type: 'spring', stiffness: 220, damping: 30 }}
         // transition={{ type: 'spring', stiffness: 500, damping: 40 }}
         transition={{ type: 'tween', duration: 0.3, ease: 'easeInOut' }}
@@ -159,9 +159,9 @@ export default function Header() {
             prefetch={true}
             className="flex items-center gap-2 text-sm hover:text-emerald-400 transition-colors relative "
           >
-            <div className="w-8 h-8 flex items-center justify-center text-emerald-400">
+            {/* <div className="w-8 h-8 flex items-center justify-center text-emerald-400">
               <Image src="/images/logo.png" alt="Logo" width={28} height={28} />
-            </div>
+            </div> */}
           </Link>
 
           {/* Desktop Navigation - Legal styled */}
@@ -218,56 +218,64 @@ export default function Header() {
                           leaveFrom="transform opacity-100 scale-100"
                           leaveTo="transform opacity-0 scale-95"
                         >
-                          <Menu.Items className="absolute right-0 mt-2 w-[350px] p-4 bg-[#1A1A1A]/90 backdrop-blur-xl rounded-md shadow-xl shadow-emerald-500/[0.05] focus:outline-none grid grid-cols-2 gap-3">
+                          <Menu.Items className="absolute left-1/2 -translate-x-1/2 mt-2 w-[420px] md:w-[520px] lg:w-[640px] p-4 bg-[#1A1A1A]/90 backdrop-blur-xl rounded-md shadow-[0_0_0_1px_rgba(255,255,255,0.05)] focus:outline-none grid gap-3 lg:grid-cols-[.7fr_1fr] list-none">
+                            {/* Hero card kiri (desktop) */}
+                            <li className="row-span-3 hidden lg:block">
+                              <Link
+                                href="/about/"
+                                prefetch={true}
+                                className="flex h-full w-full flex-col justify-end rounded-md bg-gradient-to-b from-[#1d1d1d]/50 to-[#111] p-6 no-underline outline-none select-none border border-white/5 focus:shadow-inner"
+                              >
+                                <div className="mt-4 mb-2 text-lg font-medium text-neutral-100">
+                                  AL KINDI
+                                </div>
+                                <p className="text-xs text-gray-400 leading-tight">
+                                  Law & Technology insights built with Next.js.
+                                </p>
+                              </Link>
+                            </li>
+
                             {item.dropdownItems?.map((dropdownItem) => (
-                              <Menu.Item key={dropdownItem.href}>
-                                {({ active }) => (
-                                  <Link
-                                    href={dropdownItem.href}
-                                    prefetch={true}
-                                    className={clsx(
-                                      'relative group flex flex-col gap-1 p-3 rounded-md border border-white/5 overflow-hidden',
-                                      active
-                                        ? 'bg-emerald-500/10'
-                                        : 'bg-[#111111]/40 hover:bg-[#222]',
-                                      'transition-colors duration-300'
-                                    )}
-                                    onMouseMove={(e) => {
-                                      const rect =
-                                        e.currentTarget.getBoundingClientRect();
-                                      e.currentTarget.style.setProperty(
-                                        '--x',
-                                        `${e.clientX - rect.left}px`
-                                      );
-                                      e.currentTarget.style.setProperty(
-                                        '--y',
-                                        `${e.clientY - rect.top}px`
-                                      );
+                              <li key={dropdownItem.href}>
+                                <Link
+                                  href={dropdownItem.href}
+                                  prefetch={true}
+                                  className="relative group flex flex-col gap-1 p-4 rounded-md border border-white/5 bg-[#111111]/40 overflow-hidden transition-colors duration-300 hover:bg-[#222]"
+                                  onMouseMove={(e) => {
+                                    const rect =
+                                      e.currentTarget.getBoundingClientRect();
+                                    e.currentTarget.style.setProperty(
+                                      '--x',
+                                      `${e.clientX - rect.left}px`
+                                    );
+                                    e.currentTarget.style.setProperty(
+                                      '--y',
+                                      `${e.clientY - rect.top}px`
+                                    );
+                                  }}
+                                >
+                                  <span
+                                    aria-hidden="true"
+                                    className="pointer-events-none absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity"
+                                    style={{
+                                      background:
+                                        'radial-gradient(300px circle at var(--x) var(--y), rgba(34,211,151,0.12), transparent 40%)',
                                     }}
-                                  >
-                                    <span
-                                      aria-hidden="true"
-                                      className="pointer-events-none absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity"
-                                      style={{
-                                        background:
-                                          'radial-gradient(400px circle at var(--x) var(--y), rgba(34,211,151,0.15), transparent 40%)',
-                                      }}
-                                    />
+                                  />
+                                  <div className="text-sm font-medium text-neutral-100 mb-0.5 flex items-center gap-1">
                                     {(() => {
                                       const Icon = dropdownItem.icon;
                                       return (
-                                        <Icon className="w-5 h-5 text-emerald-400" />
+                                        <Icon className="w-4 h-4 text-emerald-400" />
                                       );
                                     })()}
-                                    <span className="font-medium text-sm text-neutral-100">
-                                      {dropdownItem.label}
-                                    </span>
-                                    <span className="text-[11px] text-gray-400 leading-tight">
-                                      {dropdownItem.description}
-                                    </span>
-                                  </Link>
-                                )}
-                              </Menu.Item>
+                                    {dropdownItem.label}
+                                  </div>
+                                  <p className="text-xs text-gray-400 leading-tight line-clamp-2">
+                                    {dropdownItem.description}
+                                  </p>
+                                </Link>
+                              </li>
                             ))}
                           </Menu.Items>
                         </Transition>
@@ -298,20 +306,19 @@ export default function Header() {
 
           {/* Actions */}
           <div className="flex items-center gap-3 pr-4">
-            {/* Search (desktop only) */}
-            <button
+            {/* <button
               onClick={() => setIsSearchOpen(true)}
               aria-label="Search"
               className="hidden md:inline-flex p-2 rounded-sm hover:bg-emerald-500/10 text-gray-300 hover:text-emerald-400 transition-colors"
             >
               <Search className="w-4 h-4" />
-            </button>
+            </button> */}
 
             {/* Hamburger (mobile only) */}
             <button
               onClick={() => setIsMenuOpen(!isMenuOpen)}
               className={clsx(
-                'md:hidden p-2 rounded-sm',
+                'md:hidden -p-10 rounded-sm',
                 'transition-colors duration-300',
                 'text-gray-400 hover:text-emerald-400',
                 'hover:bg-emerald-500/5'
