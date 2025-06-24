@@ -36,13 +36,13 @@ module.exports = {
       typography: {
         DEFAULT: {
           css: {
-            color: '#d1d5db',
-            a: {
-              color: '#059669',
-              '&:hover': {
-                color: '#34d399',
-              },
-            },
+            // color: '#d1d5db',
+            // a: {
+            //   color: '#059669',
+            //   '&:hover': {
+            //     color: '#34d399',
+            //   },
+            // },
             h1: {
               color: '#f8fafc',
             },

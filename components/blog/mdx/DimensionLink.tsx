@@ -26,8 +26,8 @@ export default function DimensionLink({
   );
 
   const iconClasses = clsx(
-    'inline-block w-[14px] h-[14px]',
-    'ml-1',
+    'inline-block w-[12px] h-[12px]',
+
     'transition-transform duration-300 ease-out',
     'text-neutral-400 group-hover:text-[#d0d2d7]',
     '-translate-y-[1px]',
@@ -70,8 +70,8 @@ export default function DimensionLink({
   return (
     <span className="relative group">
       {linkElem}
-      <span className="pointer-events-none absolute left-1/2 bottom-full z-50 mb-2 w-max -translate-x-1/2 scale-95 opacity-0 transition-all group-hover:scale-100 group-hover:opacity-100">
-        <span className="rounded-md bg-[#1A1A1A]/90 px-3 py-2 text-xs text-neutral-300 shadow-xl backdrop-blur-md border border-neutral-800">
+      <span className="pointer-events-none absolute left-1/2 bottom-full z-50 mb-2 max-w-xs break-words -translate-x-1/2 scale-95 opacity-0 transition-all group-hover:scale-100 group-hover:opacity-100">
+        <span className="rounded-md bg-[#1A1A1A]/90 px-3 py-2 text-xs text-neutral-300 shadow-xl backdrop-blur-md border border-neutral-800 max-w-full break-words">
           {href}
         </span>
       </span>

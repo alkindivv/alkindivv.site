@@ -210,7 +210,7 @@ export const CodeBlock = ({
       </div>
       <pre
         className={clsx(
-          'overflow-x-auto rounded-lg bg-[#1b1b1f] p-4',
+          'overflow-x-auto rounded-lg bg-[#c6c6d1] p-4',
           'border border-gray-800/40',
           'text-[13.6px] leading-relaxed',
           'scrollbar-thin scrollbar-track-gray-800/20 scrollbar-thumb-gray-800/40',
@@ -258,20 +258,17 @@ export const MDXComponents = {
       {children}
     </strong>
   ),
-  Image: ({ src, alt, ...props }: any) => (
-    <div className="relative w-full aspect-[1.88/1] mb-12 -mt-10 md:mb-12 md:-mt-14 group cursor-zoom-in">
-      <div className="absolute inset-0">
-        <Image
-          src={src}
-          alt={alt || ''}
-          fill
-          className="object-contain"
-          quality={100}
-          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 60vw"
-          priority
-          {...props}
-        />
-      </div>
+  Image: ({ src, alt = '', ...props }: any) => (
+    <div className="my-8 w-full relative aspect-[16/9] max-w-full mx-auto mb-12 -mt-10 md:mb-12 md:-mt-14">
+      <Image
+        src={src}
+        alt={alt}
+        fill
+        priority
+        className="object-contain"
+        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 60vw"
+        {...props}
+      />
     </div>
   ),
   Accent: ({ children, ...props }: TypographyProps) => (

@@ -28,6 +28,15 @@
   .glass-bg {
     @apply bg-white/5 backdrop-blur-md saturate-150;
   }
+  /* Remove underline from links in prose */
+  .prose a {
+    @apply no-underline;
+  }
+  .prose img,
+  .prose pre,
+  .prose table {
+    max-width: 100%;
+  }
 }
 
 /* Root Variables */

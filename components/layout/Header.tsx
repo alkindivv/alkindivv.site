@@ -16,7 +16,6 @@ import { FaChevronDown } from 'react-icons/fa';
 import type { IconType } from 'react-icons';
 import { GoLaw } from 'react-icons/go';
 import { Menu, Transition } from '@headlessui/react';
-import { motion } from 'framer-motion';
 import { Search } from 'lucide-react';
 
 import clsx from 'clsx';
@@ -45,13 +44,14 @@ export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const pathname = usePathname();
-  const [isDesktop, setIsDesktop] = useState<boolean>(false);
 
   // Detect article pages: any path that starts with /blog/ and has at least two
   // additional segments (e.g., /blog/category/slug or deeper)
   const isArticlePage =
     pathname.startsWith('/blog/') &&
     pathname.split('/').filter(Boolean).length >= 3;
+
+  // Header stays visible in mobile to allow closing menu
 
   useEffect(() => {
     const handleScroll = () => {
@@ -70,19 +70,6 @@ export default function Header() {
     };
   }, [isMenuOpen]);
 
-  useEffect(() => {
-    const handleResize = () => {
-      setIsDesktop(window.innerWidth >= 768);
-    };
-    handleResize();
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
-  }, []);
-
-  // if (isArticlePage) {
-  //   return null;
-  // }
-
   const navItems: NavItem[] = [
     {
       href: '/',
@@ -96,6 +83,13 @@ export default function Header() {
       description: 'Thoughts & Insights',
       icon: HiNewspaper,
     },
+    // {
+    //   href: '/projects/',
+    //   label: 'Projects',
+    //   description: 'Personal & OSS works',
+    //   icon: HiSparkles,
+    // },
+
     {
       href: '/about/',
       label: 'About',
@@ -140,19 +134,16 @@ export default function Header() {
   return (
     <>
       {/* Desktop Header */}
-      <motion.header
+      <header
         className={clsx(
-          'sticky z-50 block w-full max-w-6xl mx-auto h-14 backdrop-blur-lg transition-all duration-300',
-          scrolled
-            ? 'top-2 px-6 rounded-lg bg-[#121212]/90 shadow-lg '
-            : 'top-2 bg-transparent'
+          'fixed inset-x-0 top-6 z-50 h-12 w-full mx-auto items-center justify-between flex',
+          'hidden md:flex px-4 md:px-0 transition-all duration-300',
+          scrolled && 'rounded-lg backdrop-blur-lg bg-[#121212]/90 shadow-lg',
+          scrolled && 'md:max-w-[30%]',
+          !scrolled && 'md:max-w-full'
         )}
-        animate={{ width: scrolled ? (isDesktop ? '40%' : '100%') : '100%' }}
-        // transition={{ type: 'spring', stiffness: 220, damping: 30 }}
-        // transition={{ type: 'spring', stiffness: 500, damping: 40 }}
-        transition={{ type: 'tween', duration: 0.3, ease: 'easeInOut' }}
       >
-        <div className="flex items-center justify-between h-full px-0">
+        <div className="flex items-center justify-between h-full w-full">
           {/* Logo - Legal styled */}
           <Link
             href="/"
@@ -182,13 +173,17 @@ export default function Header() {
 
               if (isMoreDropdown) {
                 return (
-                  <Menu as="div" className="relative" key="more">
+                  <Menu
+                    as="div"
+                    className="relative flex items-center pl-4 ml-2 border-l border-gray-700/60"
+                    key="more"
+                  >
                     {({ open }) => (
                       <>
                         <Menu.Button
                           className={clsx(
-                            'inline-flex items-center gap-1.5 px-3 py-2 rounded-sm group',
-                            'text-sm font-medium text-gray-300 transition-colors',
+                            'inline-flex items-center gap-1.5 px-3  py-2 rounded-sm group',
+                            'text-sm md:text-base font-medium text-neutral-500 transition-colors',
                             'group-hover:text-emerald-400'
                           )}
                         >
@@ -196,7 +191,7 @@ export default function Header() {
                             className={clsx(
                               'underline-offset-2',
                               open
-                                ? 'underline text-emerald-400'
+                                ? ' text-emerald-400'
                                 : 'group-hover:underline'
                             )}
                           >
@@ -291,8 +286,8 @@ export default function Header() {
                   href={item.href}
                   prefetch={true}
                   className={clsx(
-                    'relative inline-flex items-center gap-1.5 py-2 mx-3',
-                    'text-sm font-medium',
+                    'relative inline-flex items-center gap-1.5 py-2 mx-4',
+                    'text-sm md:text-base font-medium',
                     'transition-all duration-300',
                     'underline-offset-2 hover:underline',
                     isActive ? 'text-emerald-400' : 'text-gray-300'
@@ -314,64 +309,30 @@ export default function Header() {
               <Search className="w-4 h-4" />
             </button> */}
 
-            {/* Hamburger (mobile only) */}
-            <button
-              onClick={() => setIsMenuOpen(!isMenuOpen)}
-              className={clsx(
-                'md:hidden -p-10 rounded-sm',
-                'transition-colors duration-300',
-                'text-gray-400 hover:text-emerald-400',
-                'hover:bg-emerald-500/5'
-              )}
-              aria-label="Toggle menu"
-            >
-              <div className="w-4 h-4 relative flex flex-col justify-between items-center">
-                <span
-                  className={clsx(
-                    'block w-5 h-0.5 bg-current transform transition-all duration-300',
-                    isMenuOpen && 'translate-y-[7px] rotate-45'
-                  )}
-                ></span>
-                <span
-                  className={clsx(
-                    'block w-4 h-0.5 bg-current transition-all duration-300',
-                    isMenuOpen && 'opacity-0'
-                  )}
-                ></span>
-                <span
-                  className={clsx(
-                    'block w-5 h-0.5 bg-current transform transition-all duration-300',
-                    isMenuOpen && '-translate-y-[7px] -rotate-45'
-                  )}
-                ></span>
-              </div>
-            </button>
+            {/* Menu button handled outside for mobile */}
           </div>
         </div>
-      </motion.header>
+      </header>
 
-      {isSearchOpen && (
-        <div className="fixed inset-0 z-[60] flex items-center justify-center bg-black/70 backdrop-blur-sm">
-          <div className="bg-[#0a0a0a] w-full max-w-lg mx-4 p-6 rounded-md shadow-xl relative">
-            <button
-              onClick={() => setIsSearchOpen(false)}
-              className="absolute top-3 right-3 text-neutral-400 hover:text-emerald-400"
-              aria-label="Close search"
-            >
-              ✕
-            </button>
-            <input
-              type="text"
-              placeholder="Search..."
-              autoFocus
-              className="w-full bg-transparent border border-neutral-700 rounded-md px-4 py-3 outline-none focus:border-emerald-500 placeholder:text-neutral-500"
-            />
-            <p className="mt-4 text-xs text-neutral-500">
-              Type your query and press Enter.
-            </p>
-          </div>
-        </div>
-      )}
+      {/* Mobile Menu Button */}
+      <button
+        onClick={() => setIsMenuOpen(!isMenuOpen)}
+        className={clsx(
+          'fixed top-6 right-4 md:hidden inline-flex items-center gap-2 px-4 py-2 rounded-lg',
+          'bg-[#1A1A1A]/90 border border-white/5',
+          'text-neutral-400 text-sm',
+          'transition-colors duration-200 hover:bg-[#222] hover:text-emerald-400 z-50'
+        )}
+        aria-label="Toggle menu"
+      >
+        <span>{isMenuOpen ? 'Close' : 'Menu'}</span>
+        <FaChevronDown
+          className={clsx(
+            'w-3 h-3 transition-transform',
+            isMenuOpen && 'rotate-180'
+          )}
+        />
+      </button>
 
       {/* Mobile Menu - Legal styled */}
       {isMenuOpen && (
@@ -385,7 +346,7 @@ export default function Header() {
                   prefetch={true}
                   onClick={() => setIsMenuOpen(false)}
                   className={clsx(
-                    'block p-3 rounded-md border border-white/5 bg-[#111111]/40',
+                    'block p-3 rounded-md border border-white/5 bg-[#111111]/40 text-sm',
                     'transition-colors duration-300',
                     pathname === item.href
                       ? 'text-emerald-400 bg-emerald-500/10'
@@ -412,7 +373,7 @@ export default function Header() {
                     prefetch={true}
                     onClick={() => setIsMenuOpen(false)}
                     className={clsx(
-                      'block p-3 rounded-md border border-white/5 bg-[#111111]/40',
+                      'block p-3 rounded-md border border-white/5 bg-[#111111]/40 text-sm',
                       'transition-colors duration-300',
                       pathname === item.href
                         ? 'text-emerald-400 bg-emerald-500/10'
