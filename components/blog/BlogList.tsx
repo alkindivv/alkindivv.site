@@ -16,6 +16,7 @@ export default function BlogList({ posts, categories }: BlogListProps) {
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
   const [filteredPosts, setFilteredPosts] = useState<BlogPost[]>(posts);
   const [showFilters, setShowFilters] = useState(false);
+  const [hovered, setHovered] = useState<number | null>(null);
 
   useEffect(() => {
     // Filter posts based on search term and selected category
@@ -113,8 +114,14 @@ export default function BlogList({ posts, categories }: BlogListProps) {
       {/* Blog Posts Grid */}
       {filteredPosts.length > 0 ? (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {filteredPosts.map((post) => (
-            <BlogCard key={`${post.category}-${post.slug}`} post={post} />
+          {filteredPosts.map((post, idx) => (
+            <BlogCard
+              key={`${post.category}-${post.slug}`}
+              post={post}
+              index={idx}
+              hoveredIndex={hovered}
+              setHovered={setHovered}
+            />
           ))}
         </div>
       ) : (

@@ -19,6 +19,8 @@ import { useRouter } from 'next/navigation';
 import HighlightedText from '@/components/shared/HighlightedText';
 import { IoLogoBitcoin } from 'react-icons/io';
 import { slugify } from '@/lib/utils/slug';
+import AnimatedTooltip from '@/components/ui/AnimatedTooltip';
+import { motion } from 'framer-motion';
 
 interface BlogCardProps {
   post: BlogPost;
@@ -29,6 +31,9 @@ interface BlogCardProps {
   searchQuery?: string;
   variant?: 'default' | 'featured' | 'compact' | 'minimal';
   priority?: boolean;
+  hoveredIndex?: number | null;
+  setHovered?: React.Dispatch<React.SetStateAction<number | null>>;
+  setHoveredTags?: React.Dispatch<React.SetStateAction<string[] | null>>;
 }
 
 // Helper function to get the appropriate icon based on category
@@ -53,6 +58,9 @@ const BlogCard = ({
   searchQuery = '',
   variant = 'default',
   priority = false,
+  hoveredIndex = null,
+  setHovered,
+  setHoveredTags,
 }: BlogCardProps) => {
   const router = useRouter();
   const href = `/blog/${post.category.toLowerCase()}/${post.slug}`;
@@ -67,7 +75,7 @@ const BlogCard = ({
 
   // Default Card
   return (
-    <article
+    <motion.article
       role="link"
       tabIndex={0}
       onClick={handleClick}
@@ -76,12 +84,40 @@ const BlogCard = ({
           handleClick(e as unknown as React.MouseEvent);
         }
       }}
+      onMouseEnter={() => {
+        setHovered?.(_index ?? null);
+        setHoveredTags?.(post.tags || []);
+      }}
+      onMouseLeave={() => {
+        setHovered?.(null);
+        setHoveredTags?.(null);
+      }}
+      onMouseMove={(e) => {
+        const rect = e.currentTarget.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        e.currentTarget.style.setProperty('--x', `${x}px`);
+        e.currentTarget.style.setProperty('--y', `${y}px`);
+      }}
       className={clsx(
-        'group h-full flex flex-col bg-transparent border border-neutral-800 hover:border-neutral-700 hover:shadow-md hover:shadow-emerald-900/5 rounded-lg transition-all duration-300 overflow-hidden relative cursor-pointer',
+        'group h-full flex flex-col bg-transparent rounded-lg transition-all duration-300 overflow-hidden relative cursor-pointer transform-gpu',
+        hoveredIndex !== null &&
+          hoveredIndex !== _index &&
+          'blur-sm scale-[0.98]',
         className
       )}
     >
-      {/* Featured Image */}
+      {/* Spotlight Gradient */}
+      <span
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-0 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+        style={{
+          background:
+            'radial-gradient(600px circle at var(--x) var(--y), rgba(34,211,151,0.15), transparent 40%)',
+        }}
+      />
+
+      {/* === IMAGE WITH OVERLAY === */}
       {post.featuredImage && (
         <div className="relative h-48 overflow-hidden">
           <Image
@@ -175,7 +211,7 @@ const BlogCard = ({
         {/* Bottom line - Document footer */}
         <div className="absolute bottom-0 left-5 right-5 h-[1px] bg-neutral-800/50 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
       </div>
-    </article>
+    </motion.article>
   );
 };
 

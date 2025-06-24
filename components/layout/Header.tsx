@@ -16,6 +16,9 @@ import { FaChevronDown } from 'react-icons/fa';
 import type { IconType } from 'react-icons';
 import { GoLaw } from 'react-icons/go';
 import { Menu, Transition } from '@headlessui/react';
+import { motion } from 'framer-motion';
+import { Search } from 'lucide-react';
+
 import clsx from 'clsx';
 
 interface MoreItem {
@@ -40,7 +43,9 @@ interface NavItemWithDropdown extends NavItem {
 export default function Header() {
   const [scrolled, setScrolled] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isSearchOpen, setIsSearchOpen] = useState(false);
   const pathname = usePathname();
+  const [isDesktop, setIsDesktop] = useState<boolean>(false);
 
   // Detect article pages: any path that starts with /blog/ and has at least two
   // additional segments (e.g., /blog/category/slug or deeper)
@@ -65,9 +70,18 @@ export default function Header() {
     };
   }, [isMenuOpen]);
 
-  if (isArticlePage) {
-    return null;
-  }
+  useEffect(() => {
+    const handleResize = () => {
+      setIsDesktop(window.innerWidth >= 768);
+    };
+    handleResize();
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+  // if (isArticlePage) {
+  //   return null;
+  // }
 
   const navItems: NavItem[] = [
     {
@@ -124,22 +138,21 @@ export default function Header() {
   ];
 
   return (
-    <header
-      className={clsx(
-        'fixed top-0 left-0 right-0 z-50',
-        'transition-all duration-300 ease-in-out',
-        scrolled ? 'h-20 bg-black/80 backdrop-blur-lg ' : 'h-20 bg-transparent'
-      )}
-    >
-      {/* Legal document corner decorations - only visible when scrolled */}
-      {scrolled && (
-        <>
-          <div className="absolute top-0 left-0 right-0 h-0.5 bg-gradient-to-r from-transparent via-emerald-500/20 to-transparent"></div>
-        </>
-      )}
-
-      <div className="container max-w-6xl mx-auto h-full px-4">
-        <div className="flex items-center justify-between h-full ">
+    <>
+      {/* Desktop Header */}
+      <motion.header
+        className={clsx(
+          'sticky z-50 block w-full max-w-6xl mx-auto h-14 backdrop-blur-lg transition-all duration-300',
+          scrolled
+            ? 'top-2 px-6 rounded-lg bg-[#121212]/90 shadow-lg '
+            : 'top-2 bg-transparent'
+        )}
+        animate={{ width: scrolled ? (isDesktop ? '60%' : '100%') : '100%' }}
+        // transition={{ type: 'spring', stiffness: 220, damping: 30 }}
+        // transition={{ type: 'spring', stiffness: 500, damping: 40 }}
+        transition={{ type: 'tween', duration: 0.3, ease: 'easeInOut' }}
+      >
+        <div className="flex items-center justify-between h-full px-0">
           {/* Logo - Legal styled */}
           <Link
             href="/"
@@ -174,13 +187,21 @@ export default function Header() {
                       <>
                         <Menu.Button
                           className={clsx(
-                            'inline-flex items-center gap-1.5 px-3 py-2 rounded-sm',
-                            'text-sm font-medium text-gray-300 hover:text-emerald-400',
-                            'transition-colors duration-300 hover:bg-emerald-500/5',
-                            'underline-offset-2 hover:underline'
+                            'inline-flex items-center gap-1.5 px-3 py-2 rounded-sm group',
+                            'text-sm font-medium text-gray-300 transition-colors',
+                            'group-hover:text-emerald-400'
                           )}
                         >
-                          More
+                          <span
+                            className={clsx(
+                              'underline-offset-2',
+                              open
+                                ? 'underline text-emerald-400'
+                                : 'group-hover:underline'
+                            )}
+                          >
+                            More
+                          </span>
                           <FaChevronDown
                             className={clsx(
                               'w-3 h-3 transition-transform',
@@ -197,7 +218,7 @@ export default function Header() {
                           leaveFrom="transform opacity-100 scale-100"
                           leaveTo="transform opacity-0 scale-95"
                         >
-                          <Menu.Items className="absolute right-0 mt-2 w-64 p-2 bg-[#1A1A1A] backdrop-blur-xl rounded-sm shadow-xl shadow-emerald-500/[0.05] focus:outline-none">
+                          <Menu.Items className="absolute right-0 mt-2 w-[350px] p-4 bg-[#1A1A1A]/90 backdrop-blur-xl rounded-md shadow-xl shadow-emerald-500/[0.05] focus:outline-none grid grid-cols-2 gap-3">
                             {item.dropdownItems?.map((dropdownItem) => (
                               <Menu.Item key={dropdownItem.href}>
                                 {({ active }) => (
@@ -205,18 +226,45 @@ export default function Header() {
                                     href={dropdownItem.href}
                                     prefetch={true}
                                     className={clsx(
-                                      'group block p-2.5 rounded-md transition-colors border border-neutral-800',
+                                      'relative group flex flex-col gap-1 p-3 rounded-md border border-white/5 overflow-hidden',
                                       active
-                                        ? 'bg-emerald-500/10 text-emerald-400'
-                                        : 'bg-[#111111]/40 text-gray-400 hover:text-emerald-400'
+                                        ? 'bg-emerald-500/10'
+                                        : 'bg-[#111111]/40 hover:bg-[#222]',
+                                      'transition-colors duration-300'
                                     )}
+                                    onMouseMove={(e) => {
+                                      const rect =
+                                        e.currentTarget.getBoundingClientRect();
+                                      e.currentTarget.style.setProperty(
+                                        '--x',
+                                        `${e.clientX - rect.left}px`
+                                      );
+                                      e.currentTarget.style.setProperty(
+                                        '--y',
+                                        `${e.clientY - rect.top}px`
+                                      );
+                                    }}
                                   >
-                                    <div className="font-medium text-sm text-gray-200 underline-offset-2 group-hover:underline">
+                                    <span
+                                      aria-hidden="true"
+                                      className="pointer-events-none absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity"
+                                      style={{
+                                        background:
+                                          'radial-gradient(400px circle at var(--x) var(--y), rgba(34,211,151,0.15), transparent 40%)',
+                                      }}
+                                    />
+                                    {(() => {
+                                      const Icon = dropdownItem.icon;
+                                      return (
+                                        <Icon className="w-5 h-5 text-emerald-400" />
+                                      );
+                                    })()}
+                                    <span className="font-medium text-sm text-neutral-100">
                                       {dropdownItem.label}
-                                    </div>
-                                    <div className="text-xs text-gray-500">
+                                    </span>
+                                    <span className="text-[11px] text-gray-400 leading-tight">
                                       {dropdownItem.description}
-                                    </div>
+                                    </span>
                                   </Link>
                                 )}
                               </Menu.Item>
@@ -239,7 +287,7 @@ export default function Header() {
                     'text-sm font-medium',
                     'transition-all duration-300',
                     'underline-offset-2 hover:underline',
-                    isActive ? 'underline underline-offset-2 ' : 'text-gray-300'
+                    isActive ? 'text-emerald-400' : 'text-gray-300'
                   )}
                 >
                   {item.label}
@@ -248,45 +296,79 @@ export default function Header() {
             })}
           </nav>
 
-          {/* Mobile Menu Button */}
-          <button
-            onClick={() => setIsMenuOpen(!isMenuOpen)}
-            className={clsx(
-              'relative md:hidden p-2 rounded-sm',
-              'transition-colors duration-300',
-              'text-gray-400 hover:text-emerald-400',
-              'hover:bg-emerald-500/5'
-            )}
-            aria-label="Toggle menu"
-          >
-            {/* Hamburger lines */}
-            <div className="w-4 h-4 relative flex flex-col justify-between items-center">
-              <span
-                className={clsx(
-                  'block w-5 h-0.5 bg-current transform transition-all duration-300',
-                  isMenuOpen && 'translate-y-[7px] rotate-45'
-                )}
-              ></span>
-              <span
-                className={clsx(
-                  'block w-4 h-0.5 bg-current transition-all duration-300',
-                  isMenuOpen && 'opacity-0'
-                )}
-              ></span>
-              <span
-                className={clsx(
-                  'block w-5 h-0.5 bg-current transform transition-all duration-300',
-                  isMenuOpen && '-translate-y-[7px] -rotate-45'
-                )}
-              ></span>
-            </div>
-          </button>
+          {/* Actions */}
+          <div className="flex items-center gap-3 pr-4">
+            {/* Search (desktop only) */}
+            <button
+              onClick={() => setIsSearchOpen(true)}
+              aria-label="Search"
+              className="hidden md:inline-flex p-2 rounded-sm hover:bg-emerald-500/10 text-gray-300 hover:text-emerald-400 transition-colors"
+            >
+              <Search className="w-4 h-4" />
+            </button>
+
+            {/* Hamburger (mobile only) */}
+            <button
+              onClick={() => setIsMenuOpen(!isMenuOpen)}
+              className={clsx(
+                'md:hidden p-2 rounded-sm',
+                'transition-colors duration-300',
+                'text-gray-400 hover:text-emerald-400',
+                'hover:bg-emerald-500/5'
+              )}
+              aria-label="Toggle menu"
+            >
+              <div className="w-4 h-4 relative flex flex-col justify-between items-center">
+                <span
+                  className={clsx(
+                    'block w-5 h-0.5 bg-current transform transition-all duration-300',
+                    isMenuOpen && 'translate-y-[7px] rotate-45'
+                  )}
+                ></span>
+                <span
+                  className={clsx(
+                    'block w-4 h-0.5 bg-current transition-all duration-300',
+                    isMenuOpen && 'opacity-0'
+                  )}
+                ></span>
+                <span
+                  className={clsx(
+                    'block w-5 h-0.5 bg-current transform transition-all duration-300',
+                    isMenuOpen && '-translate-y-[7px] -rotate-45'
+                  )}
+                ></span>
+              </div>
+            </button>
+          </div>
         </div>
-      </div>
+      </motion.header>
+
+      {isSearchOpen && (
+        <div className="fixed inset-0 z-[60] flex items-center justify-center bg-black/70 backdrop-blur-sm">
+          <div className="bg-[#0a0a0a] w-full max-w-lg mx-4 p-6 rounded-md shadow-xl relative">
+            <button
+              onClick={() => setIsSearchOpen(false)}
+              className="absolute top-3 right-3 text-neutral-400 hover:text-emerald-400"
+              aria-label="Close search"
+            >
+              ✕
+            </button>
+            <input
+              type="text"
+              placeholder="Search..."
+              autoFocus
+              className="w-full bg-transparent border border-neutral-700 rounded-md px-4 py-3 outline-none focus:border-emerald-500 placeholder:text-neutral-500"
+            />
+            <p className="mt-4 text-xs text-neutral-500">
+              Type your query and press Enter.
+            </p>
+          </div>
+        </div>
+      )}
 
       {/* Mobile Menu - Legal styled */}
       {isMenuOpen && (
-        <div className="md:hidden absolute top-full left-0 w-full bg-black/90 border-t border-neutral-800/50 backdrop-blur-md">
+        <div className="fixed inset-0 z-40 md:hidden bg-black/90 backdrop-blur-md pt-14 border-t border-neutral-800/50">
           <div className="container mx-auto px-4 py-2">
             <div className="space-y-1">
               {navItems.map((item) => (
@@ -296,12 +378,11 @@ export default function Header() {
                   prefetch={true}
                   onClick={() => setIsMenuOpen(false)}
                   className={clsx(
-                    'block px-3 py-2 rounded-sm',
-                    'transition-all duration-300',
-
+                    'block p-3 rounded-md border border-white/5 bg-[#111111]/40',
+                    'transition-colors duration-300',
                     pathname === item.href
-                      ? 'text-emerald-400 bg-emerald-500/5'
-                      : 'text-gray-300 hover:text-emerald-400 hover:bg-emerald-500/5'
+                      ? 'text-emerald-400 bg-emerald-500/10'
+                      : 'text-gray-300 hover:text-emerald-400 hover:bg-[#222]'
                   )}
                 >
                   <div className="flex items-center gap-3">
@@ -324,11 +405,11 @@ export default function Header() {
                     prefetch={true}
                     onClick={() => setIsMenuOpen(false)}
                     className={clsx(
-                      'block px-3 py-2 rounded-sm',
-                      'transition-all duration-300 ',
+                      'block p-3 rounded-md border border-white/5 bg-[#111111]/40',
+                      'transition-colors duration-300',
                       pathname === item.href
-                        ? 'text-emerald-400 '
-                        : 'text-gray-300 hover:text-emerald-400 '
+                        ? 'text-emerald-400 bg-emerald-500/10'
+                        : 'text-gray-300 hover:text-emerald-400 hover:bg-[#222]'
                     )}
                   >
                     <div className="flex items-center gap-3">
@@ -342,6 +423,6 @@ export default function Header() {
           </div>
         </div>
       )}
-    </header>
+    </>
   );
 }

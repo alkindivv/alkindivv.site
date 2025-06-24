@@ -39,7 +39,6 @@ module.exports = async () => {
     experimental: {
       scrollRestoration: true,
       optimizePackageImports: ['react-icons'],
-      optimizeCss: true,
       serverActions: { bodySizeLimit: '2mb' },
       serverComponentsExternalPackages: ['rss'],
     },

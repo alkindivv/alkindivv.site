@@ -62,6 +62,8 @@ export default function BlogPageClient({
   );
   const [currentPage, setCurrentPage] = useState(initialPage);
   const [searchQuery, setSearchQuery] = useState(initialSearch);
+  const [hovered, setHovered] = useState<number | null>(null);
+  const [hoveredTags, setHoveredTags] = useState<string[] | null>(null);
   const [isVisible, setIsVisible] = useState(true);
   const [blogPosts] = useState<BlogPost[]>(initialPosts);
 
@@ -196,7 +198,7 @@ export default function BlogPageClient({
 
             <div className="mt-6 mb-8" data-fade="3">
               <div className="flex flex-wrap gap-2 items-center">
-                <FaTags className="w-4 h-4 text-[#08c488] mr-2" />
+                {/* <FaTags className="w-4 h-4 text-[#08c488] mr-2" /> */}
                 {tagOptions.map((tag) => {
                   const slug = slugify(tag);
                   return (
@@ -207,7 +209,10 @@ export default function BlogPageClient({
                         'px-1.5 py-1 text-xs rounded-lg md:text-sm transition-all duration-300',
                         selectedTag === slug
                           ? 'border-emerald-500 text-neutral-50 bg-emerald-500/10'
-                          : ' bg-[#17171799] font-medium text-[#9e9e9e] hover:text-neutral-50'
+                          : ' bg-[#17171799] font-medium text-[#9e9e9e] hover:text-neutral-50',
+                        hoveredTags && !hoveredTags.map(slugify).includes(slug)
+                          ? 'blur-sm scale-[0.98]'
+                          : ''
                       )}
                     >
                       <HighlightedText text={tag} searchQuery={searchQuery} />
@@ -227,8 +232,12 @@ export default function BlogPageClient({
                       <BlogCard
                         key={post.slug}
                         post={post}
+                        index={index}
+                        hoveredIndex={hovered}
+                        setHovered={setHovered}
+                        setHoveredTags={setHoveredTags}
                         searchQuery={searchQuery}
-                        priority={index < 3} // Priority loading for first 3 cards
+                        priority={index < 3}
                       />
                     ))}
                   </div>
