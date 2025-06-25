@@ -47,7 +47,7 @@ export const useRouterLoading = () => {
     if (prevPathRef.current !== undefined && prevPathRef.current !== pathname) {
       begin(pathname);
       // Simulasikan selesai setelah render selesai
-      const t = setTimeout(() => finish(pathname), 300);
+      const t = setTimeout(() => finish(pathname), 50);
       return () => clearTimeout(t);
     }
     prevPathRef.current = pathname;

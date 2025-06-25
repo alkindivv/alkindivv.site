@@ -28,6 +28,9 @@
   .glass-bg {
     @apply bg-white/5 backdrop-blur-md saturate-150;
   }
+  .prose a {
+    @apply no-underline;
+  }
 }
 
 /* Root Variables */
@@ -143,6 +146,10 @@ html {
   margin-right: -50vw;
   padding-top: 6rem;
   padding-bottom: 6rem;
+}
+
+.about-preview-section {
+  min-height: 450px; /* tinggi minimum */
 }
 
 #content-sections > section > div[class*='relative z-10'] {

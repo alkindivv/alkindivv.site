@@ -64,9 +64,6 @@ export default function BlogPostLayout({
       {/* Header */}
 
       <div className="mb-8 sm:mb-12 -mt-20 relative z-10">
-        <div className="mb-1" data-fade="2">
-          <Breadcrumb items={breadcrumbItems} />
-        </div>
         <h1
           className="text-2xl md:text-4xl font-bold text-white leading-[1.15] tracking-tight mb-2 sm:mb-2"
           data-fade="3"
@@ -223,6 +220,9 @@ export default function BlogPostLayout({
               ))}
             </div>
           )}
+          <div className="mt-2" data-fade="2">
+            <Breadcrumb items={breadcrumbItems} />
+          </div>
         </article>
 
         <aside className="hidden lg:block w-50">
@@ -234,7 +234,7 @@ export default function BlogPostLayout({
 
       {/* Related Articles - placed below main flex so TOC height stops here */}
       <section className="mt-16" data-fade="9">
-        <h2 className="text-2xl md:text-3xl font-bold mb-4 sm:mb-6">
+        <h2 className="text-3xl md:text-4xl font-bold mb-4 sm:mb-6">
           <span className="gradient-text">Related Articles</span>
         </h2>
         <RelatedArticles

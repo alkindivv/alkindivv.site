@@ -16,6 +16,7 @@ import { FaChevronDown } from 'react-icons/fa';
 import type { IconType } from 'react-icons';
 import { GoLaw } from 'react-icons/go';
 import { Menu, Transition } from '@headlessui/react';
+import { Search } from 'lucide-react';
 
 import clsx from 'clsx';
 
@@ -137,7 +138,7 @@ export default function Header() {
         className={clsx(
           'fixed top-6 left-1/2 -translate-x-1/2 z-50 h-12 flex items-center justify-between',
           'hidden md:flex px-4 md:px-0 transition-all duration-300',
-          scrolled && 'rounded-lg backdrop-blur-lg bg-[#121212]/90 shadow-lg',
+          scrolled && 'rounded-lg backdrop-blur-lg bg-[#1A1A1A]/90 shadow-lg',
           scrolled && 'sm:w-[460px]',
           !scrolled && 'sm:w-full'
         )}
@@ -181,7 +182,7 @@ export default function Header() {
                       <>
                         <Menu.Button
                           className={clsx(
-                            'inline-flex items-center gap-1.5 py-2 rounded-sm group',
+                            'inline-flex items-center gap-1.5 pl-3  py-2 rounded-sm group',
                             'text-sm md:text-base font-medium text-neutral-500 transition-colors',
                             ''
                           )}
@@ -210,7 +211,7 @@ export default function Header() {
                           leaveFrom="transform opacity-100 scale-100"
                           leaveTo="transform opacity-0 scale-95"
                         >
-                          <Menu.Items className="absolute  -translate-x-1/2    mt-5   max-w-[85vw] w-[320px] sm:w-[260px] bg-[#121212]/95 backdrop-blur-lg border border-white/5 rounded-md shadow-lg focus:outline-none divide-y divide-white/5">
+                          <Menu.Items className="absolute  -translate-x-1/2 mt-7 ml-10 max-w-[85vw] w-[320px] sm:w-[260px] bg-[#1A1A1A]/95 backdrop-blur-lg border border-white/5 rounded-md shadow-lg focus:outline-none divide-y divide-white/5">
                             {item.dropdownItems?.map((dropdownItem, idx) => (
                               <Link
                                 key={dropdownItem.href}
@@ -280,7 +281,7 @@ export default function Header() {
       <button
         onClick={() => setIsMenuOpen(!isMenuOpen)}
         className={clsx(
-          'fixed top-6 right-4 md:hidden inline-flex items-center gap-2 px-4 py-2 rounded-lg',
+          'fixed top-6 right-4 md:hidden inline-flex items-center gap-2 px-4 py-2 rounded-lg mt-8',
           'bg-[#1A1A1A]/90 border border-white/5',
           'text-neutral-400 text-sm',
           'transition-colors duration-200 hover:bg-[#222] hover:text-emerald-400 z-50'
@@ -298,7 +299,7 @@ export default function Header() {
 
       {/* Mobile Menu - Legal styled */}
       {isMenuOpen && (
-        <div className="fixed inset-0 z-40 md:hidden bg-black/90 backdrop-blur-md pt-14 border-t border-neutral-800/50">
+        <div className="fixed inset-0 z-40 md:hidden bg-black/90 backdrop-blur-md pt-24 border-t border-neutral-800/50">
           <div className="container mx-auto px-4 py-2">
             <div className="space-y-1">
               {navItems.map((item) => (
