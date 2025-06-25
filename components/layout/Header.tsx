@@ -16,6 +16,7 @@ import { FaChevronDown } from 'react-icons/fa';
 import type { IconType } from 'react-icons';
 import { GoLaw } from 'react-icons/go';
 import { Menu, Transition } from '@headlessui/react';
+
 import clsx from 'clsx';
 
 interface MoreItem {
@@ -40,6 +41,7 @@ interface NavItemWithDropdown extends NavItem {
 export default function Header() {
   const [scrolled, setScrolled] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isSearchOpen, setIsSearchOpen] = useState(false);
   const pathname = usePathname();
 
   // Detect article pages: any path that starts with /blog/ and has at least two
@@ -47,6 +49,8 @@ export default function Header() {
   const isArticlePage =
     pathname.startsWith('/blog/') &&
     pathname.split('/').filter(Boolean).length >= 3;
+
+  // Header stays visible in mobile to allow closing menu
 
   useEffect(() => {
     const handleScroll = () => {
@@ -65,10 +69,6 @@ export default function Header() {
     };
   }, [isMenuOpen]);
 
-  if (isArticlePage) {
-    return null;
-  }
-
   const navItems: NavItem[] = [
     {
       href: '/',
@@ -82,6 +82,13 @@ export default function Header() {
       description: 'Thoughts & Insights',
       icon: HiNewspaper,
     },
+    // {
+    //   href: '/projects/',
+    //   label: 'Projects',
+    //   description: 'Personal & OSS works',
+    //   icon: HiSparkles,
+    // },
+
     {
       href: '/about/',
       label: 'About',
@@ -124,31 +131,27 @@ export default function Header() {
   ];
 
   return (
-    <header
-      className={clsx(
-        'fixed top-0 left-0 right-0 z-50',
-        'transition-all duration-300 ease-in-out',
-        scrolled ? 'h-20 bg-black/80 backdrop-blur-lg ' : 'h-20 bg-transparent'
-      )}
-    >
-      {/* Legal document corner decorations - only visible when scrolled */}
-      {scrolled && (
-        <>
-          <div className="absolute top-0 left-0 right-0 h-0.5 bg-gradient-to-r from-transparent via-emerald-500/20 to-transparent"></div>
-        </>
-      )}
-
-      <div className="container max-w-6xl mx-auto h-full px-4">
-        <div className="flex items-center justify-between h-full ">
+    <>
+      {/* Desktop Header */}
+      <header
+        className={clsx(
+          'fixed top-6 left-1/2 -translate-x-1/2 z-50 h-12 flex items-center justify-between',
+          'hidden md:flex px-4 md:px-0 transition-all duration-300',
+          scrolled && 'rounded-lg backdrop-blur-lg bg-[#121212]/90 shadow-lg',
+          scrolled && 'sm:w-[460px]',
+          !scrolled && 'sm:w-full'
+        )}
+      >
+        <div className="flex items-center justify-between h-full w-full">
           {/* Logo - Legal styled */}
           <Link
             href="/"
             prefetch={true}
             className="flex items-center gap-2 text-sm hover:text-emerald-400 transition-colors relative "
           >
-            <div className="w-8 h-8 flex items-center justify-center text-emerald-400">
+            {/* <div className="w-8 h-8 flex items-center justify-center text-emerald-400">
               <Image src="/images/logo.png" alt="Logo" width={28} height={28} />
-            </div>
+            </div> */}
           </Link>
 
           {/* Desktop Navigation - Legal styled */}
@@ -169,18 +172,28 @@ export default function Header() {
 
               if (isMoreDropdown) {
                 return (
-                  <Menu as="div" className="relative" key="more">
+                  <Menu
+                    as="div"
+                    className="relative flex items-center pl-4 ml-2 border-l border-gray-700/60"
+                    key="more"
+                  >
                     {({ open }) => (
                       <>
                         <Menu.Button
                           className={clsx(
-                            'inline-flex items-center gap-1.5 px-3 py-2 rounded-sm',
-                            'text-sm font-medium text-gray-300 hover:text-emerald-400',
-                            'transition-colors duration-300 hover:bg-emerald-500/5',
-                            'underline-offset-2 hover:underline'
+                            'inline-flex items-center gap-1.5 py-2 rounded-sm group',
+                            'text-sm md:text-base font-medium text-neutral-500 transition-colors',
+                            ''
                           )}
                         >
-                          More
+                          <span
+                            className={clsx(
+                              'underline-offset-2',
+                              open ? ' ' : 'group-hover:underline'
+                            )}
+                          >
+                            More
+                          </span>
                           <FaChevronDown
                             className={clsx(
                               'w-3 h-3 transition-transform',
@@ -197,29 +210,29 @@ export default function Header() {
                           leaveFrom="transform opacity-100 scale-100"
                           leaveTo="transform opacity-0 scale-95"
                         >
-                          <Menu.Items className="absolute right-0 mt-2 w-64 p-2 bg-[#1A1A1A] backdrop-blur-xl rounded-sm shadow-xl shadow-emerald-500/[0.05] focus:outline-none">
-                            {item.dropdownItems?.map((dropdownItem) => (
-                              <Menu.Item key={dropdownItem.href}>
-                                {({ active }) => (
-                                  <Link
-                                    href={dropdownItem.href}
-                                    prefetch={true}
-                                    className={clsx(
-                                      'group block p-2.5 rounded-md transition-colors border border-neutral-800',
-                                      active
-                                        ? 'bg-emerald-500/10 text-emerald-400'
-                                        : 'bg-[#111111]/40 text-gray-400 hover:text-emerald-400'
-                                    )}
-                                  >
-                                    <div className="font-medium text-sm text-gray-200 underline-offset-2 group-hover:underline">
-                                      {dropdownItem.label}
-                                    </div>
-                                    <div className="text-xs text-gray-500">
-                                      {dropdownItem.description}
-                                    </div>
-                                  </Link>
-                                )}
-                              </Menu.Item>
+                          <Menu.Items className="absolute  -translate-x-1/2    mt-5   max-w-[85vw] w-[320px] sm:w-[260px] bg-[#121212]/95 backdrop-blur-lg border border-white/5 rounded-md shadow-lg focus:outline-none divide-y divide-white/5">
+                            {item.dropdownItems?.map((dropdownItem, idx) => (
+                              <Link
+                                key={dropdownItem.href}
+                                href={dropdownItem.href}
+                                prefetch={true}
+                                className="group flex items-start gap-3 px-4 py-3 transition-colors"
+                              >
+                                {(() => {
+                                  const Icon = dropdownItem.icon;
+                                  return (
+                                    <Icon className="w-4 h-4 mt-0.5 text-emerald-400 flex-shrink-0" />
+                                  );
+                                })()}
+                                <div className="text-sm leading-tight">
+                                  <div className="font-medium text-neutral-100  group-hover:underline underline-offset-2">
+                                    {dropdownItem.label}
+                                  </div>
+                                  <p className="text-xs text-gray-400 mt-0.5 line-clamp-2">
+                                    {dropdownItem.description}
+                                  </p>
+                                </div>
+                              </Link>
                             ))}
                           </Menu.Items>
                         </Transition>
@@ -235,11 +248,11 @@ export default function Header() {
                   href={item.href}
                   prefetch={true}
                   className={clsx(
-                    'relative inline-flex items-center gap-1.5 py-2 mx-3',
-                    'text-sm font-medium',
+                    'relative inline-flex items-center gap-1.5 py-2 mx-4',
+                    'text-sm md:text-base font-medium',
                     'transition-all duration-300',
                     'underline-offset-2 hover:underline',
-                    isActive ? 'underline underline-offset-2 ' : 'text-gray-300'
+                    isActive ? 'text-emerald-400' : 'text-gray-300'
                   )}
                 >
                   {item.label}
@@ -248,45 +261,44 @@ export default function Header() {
             })}
           </nav>
 
-          {/* Mobile Menu Button */}
-          <button
-            onClick={() => setIsMenuOpen(!isMenuOpen)}
-            className={clsx(
-              'relative md:hidden p-2 rounded-sm',
-              'transition-colors duration-300',
-              'text-gray-400 hover:text-emerald-400',
-              'hover:bg-emerald-500/5'
-            )}
-            aria-label="Toggle menu"
-          >
-            {/* Hamburger lines */}
-            <div className="w-4 h-4 relative flex flex-col justify-between items-center">
-              <span
-                className={clsx(
-                  'block w-5 h-0.5 bg-current transform transition-all duration-300',
-                  isMenuOpen && 'translate-y-[7px] rotate-45'
-                )}
-              ></span>
-              <span
-                className={clsx(
-                  'block w-4 h-0.5 bg-current transition-all duration-300',
-                  isMenuOpen && 'opacity-0'
-                )}
-              ></span>
-              <span
-                className={clsx(
-                  'block w-5 h-0.5 bg-current transform transition-all duration-300',
-                  isMenuOpen && '-translate-y-[7px] -rotate-45'
-                )}
-              ></span>
-            </div>
-          </button>
+          {/* Actions */}
+          <div className="flex items-center gap-3 pr-4">
+            {/* <button
+              onClick={() => setIsSearchOpen(true)}
+              aria-label="Search"
+              className="hidden md:inline-flex p-2 rounded-sm hover:bg-emerald-500/10 text-gray-300 hover:text-emerald-400 transition-colors"
+            >
+              <Search className="w-4 h-4" />
+            </button> */}
+
+            {/* Menu button handled outside for mobile */}
+          </div>
         </div>
-      </div>
+      </header>
+
+      {/* Mobile Menu Button */}
+      <button
+        onClick={() => setIsMenuOpen(!isMenuOpen)}
+        className={clsx(
+          'fixed top-6 right-4 md:hidden inline-flex items-center gap-2 px-4 py-2 rounded-lg',
+          'bg-[#1A1A1A]/90 border border-white/5',
+          'text-neutral-400 text-sm',
+          'transition-colors duration-200 hover:bg-[#222] hover:text-emerald-400 z-50'
+        )}
+        aria-label="Toggle menu"
+      >
+        <span>{isMenuOpen ? 'Close' : 'Menu'}</span>
+        <FaChevronDown
+          className={clsx(
+            'w-3 h-3 transition-transform',
+            isMenuOpen && 'rotate-180'
+          )}
+        />
+      </button>
 
       {/* Mobile Menu - Legal styled */}
       {isMenuOpen && (
-        <div className="md:hidden absolute top-full left-0 w-full bg-black/90 border-t border-neutral-800/50 backdrop-blur-md">
+        <div className="fixed inset-0 z-40 md:hidden bg-black/90 backdrop-blur-md pt-14 border-t border-neutral-800/50">
           <div className="container mx-auto px-4 py-2">
             <div className="space-y-1">
               {navItems.map((item) => (
@@ -296,12 +308,11 @@ export default function Header() {
                   prefetch={true}
                   onClick={() => setIsMenuOpen(false)}
                   className={clsx(
-                    'block px-3 py-2 rounded-sm',
-                    'transition-all duration-300',
-
+                    'block p-3 rounded-md border border-white/5 bg-[#111111]/40 text-sm',
+                    'transition-colors duration-300',
                     pathname === item.href
-                      ? 'text-emerald-400 bg-emerald-500/5'
-                      : 'text-gray-300 hover:text-emerald-400 hover:bg-emerald-500/5'
+                      ? 'text-emerald-400 bg-emerald-500/10'
+                      : 'text-gray-300 hover:text-emerald-400 hover:bg-[#222]'
                   )}
                 >
                   <div className="flex items-center gap-3">
@@ -324,11 +335,11 @@ export default function Header() {
                     prefetch={true}
                     onClick={() => setIsMenuOpen(false)}
                     className={clsx(
-                      'block px-3 py-2 rounded-sm',
-                      'transition-all duration-300 ',
+                      'block p-3 rounded-md border border-white/5 bg-[#111111]/40 text-sm',
+                      'transition-colors duration-300',
                       pathname === item.href
-                        ? 'text-emerald-400 '
-                        : 'text-gray-300 hover:text-emerald-400 '
+                        ? 'text-emerald-400 bg-emerald-500/10'
+                        : 'text-gray-300 hover:text-emerald-400 hover:bg-[#222]'
                     )}
                   >
                     <div className="flex items-center gap-3">
@@ -342,6 +353,6 @@ export default function Header() {
           </div>
         </div>
       )}
-    </header>
+    </>
   );
 }
