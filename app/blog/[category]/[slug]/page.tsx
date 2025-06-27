@@ -63,11 +63,22 @@ export async function generateMetadata({
         authors: typedFrontMatter.author,
         images: [
           {
-            url: typedFrontMatter.featuredImage || `/api/og/blog/${slug}`,
+            url: `/api/og/blog/${slug}`,
             width: 1200,
             height: 630,
             alt: typedFrontMatter.title,
           },
+          //fallback ke featuredImage jika ada
+          ...(typedFrontMatter.featuredImage
+            ? [
+                {
+                  url: typedFrontMatter.featuredImage,
+                  width: 1200,
+                  height: 630,
+                  alt: typedFrontMatter.title,
+                },
+              ]
+            : []),
         ],
       },
       twitter: {
