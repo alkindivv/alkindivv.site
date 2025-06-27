@@ -1,8 +1,8 @@
 import Link from 'next/link';
 import { Metadata } from 'next';
-import Header from '@/components/layout/Header';
-import Footer from '@/components/layout/Footer';
 import { viewport } from './viewport';
+import DimensionLink from '@/components/common/DimensionLink';
+import GlowingButton from '@/components/shared/GlowingButton';
 
 export { viewport };
 
@@ -13,36 +13,27 @@ export const metadata: Metadata = {
 
 export default function NotFound() {
   return (
-    <>
-      <Header />
-      <main className="flex flex-col items-center justify-center min-h-screen py-20 px-4 text-center">
-        <div className="space-y-8 max-w-2xl">
-          <h1 className="text-6xl md:text-8xl font-bold text-emerald-500">
-            404
-          </h1>
-          <h2 className="text-3xl md:text-4xl font-bold text-white">
-            Page Not Found
-          </h2>
-          <p className="text-xl text-neutral-300">
-            The page you are looking for doesn&apos;t exist or has been moved.
-          </p>
-          <div className="flex flex-col sm:flex-row justify-center gap-4 pt-4">
-            <Link
-              href="/"
-              className="px-6 py-3 bg-emerald-600 hover:bg-emerald-700 text-white font-medium rounded-lg transition-colors"
-            >
-              Back to Home
-            </Link>
-            <Link
-              href="/blog"
-              className="px-6 py-3 bg-neutral-800 hover:bg-neutral-700 text-white font-medium rounded-lg transition-colors"
-            >
-              Browse Articles
-            </Link>
+    <main className="flex flex-col items-center justify-center min-h-screen py-20 px-4 bg-neutral-950">
+      <div className="space-y-6 max-w-5xl text-center">
+        <div className="inline-block mb-2">
+          <div className="relative">
+            {/* <div className="h-px w-16 bg-gradient-to-r from-transparent via-emerald-500 to-transparent absolute -top-6 left-1/2 transform -translate-x-1/2"></div>
+            <h1 className="text-5xl font-light text-white">404</h1>
+            <div className="h-px w-16 bg-gradient-to-r from-transparent via-emerald-500 to-transparent absolute -bottom-6 left-1/2 transform -translate-x-1/2"></div> */}
           </div>
         </div>
-      </main>
-      <Footer />
-    </>
+        {/* <h2 className="text-xl font-normal text-white">Page not found</h2> */}
+        <p className="text-3xl md:text-4xl font-bold text-neutral-50 max-w-5xl mx-auto">
+          Lost in the void? This page can't be found.
+        </p>
+        <div className="pt-6">
+          <GlowingButton variant="minimal">
+            <span className="flex items-center gap-2">
+              <Link href="/">Return home</Link>
+            </span>
+          </GlowingButton>
+        </div>
+      </div>
+    </main>
   );
 }

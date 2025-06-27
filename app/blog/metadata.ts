@@ -1,7 +1,7 @@
 import { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'Blog - AL KINDI',
+  title: 'Blog',
   description:
     'Article, News, Thoughts, and Insights about law, technology, and cryptocurrency written by me based on my personal experiences and research',
   alternates: {

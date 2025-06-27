@@ -165,16 +165,11 @@ export default function Footer() {
                     </Link>
                   </li>
                   <li className="text-neutral-400 text-sm">
-                    <Link href="/blog/hackintosh/" className="block text-white">
-                      Hackintosh
-                    </Link>
-                  </li>
-                  <li className="text-neutral-400 text-sm">
                     <Link
                       href="/blog/cryptocurrency/"
                       className="block text-white"
                     >
-                      Crypto
+                      Cryptocurrency
                     </Link>
                   </li>
                 </ul>

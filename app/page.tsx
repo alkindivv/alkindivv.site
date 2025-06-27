@@ -30,6 +30,28 @@ export const metadata: Metadata = {
   alternates: {
     canonical: '/',
   },
+  openGraph: {
+    title: 'AL KINDI - Law, Technology, and Cryptocurrency',
+    description:
+      'A personal blog about law, technology, and cryptocurrency — shaping the future of blockchain and tech law',
+    url: 'https://alkindivv.site/',
+    type: 'website',
+    images: [
+      {
+        url: '/images/default.png',
+        width: 1200,
+        height: 630,
+        alt: 'AL KINDI - Law, Technology, and Cryptocurrency',
+      },
+    ],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'AL KINDI - Law, Technology, and Cryptocurrency',
+    description:
+      'A personal blog about law, technology, and cryptocurrency — shaping the future of blockchain and tech law',
+    images: ['/images/default.png'],
+  },
 };
 
 // Type untuk resource preview - disesuaikan dengan komponen ResourcesPreview baru
