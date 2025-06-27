@@ -3,12 +3,34 @@ import Layout from '@/components/layout/Layout';
 import dynamic from 'next/dynamic';
 import AboutPreview from '@/components/common/AboutPreview';
 import LatestBlogPosts from '@/components/common/LatestBlogPosts';
-
 import GlossaryPreview from '@/components/common/GlossaryPreview';
 import ResourcesPreview from '@/components/common/ResourcesPreview';
 import DiscussionPreview from '@/components/common/DiscussionPreview';
-
 import { getAllPosts } from '@/lib/posts';
+import { Metadata } from 'next';
+import StructuredData from '@/components/shared/StructuredData';
+
+// Metadata khusus untuk halaman beranda
+export const metadata: Metadata = {
+  title: 'AL KINDI - Pakar Hukum, Teknologi, dan Cryptocurrency',
+  description:
+    'A personal blog about law, technology, and cryptocurrency — shaping the future of blockchain and tech law',
+  keywords: [
+    'AL KINDI',
+    'hukum korporasi',
+    'merger dan akuisisi',
+    'pasar modal',
+    'teknologi blockchain',
+    'regulasi cryptocurrency',
+    'hukum teknologi',
+    'smart contracts',
+    'konsultan hukum',
+    'legal tech',
+  ],
+  alternates: {
+    canonical: '/',
+  },
+};
 
 // Type untuk resource preview - disesuaikan dengan komponen ResourcesPreview baru
 type ResourcePreview = {
@@ -83,6 +105,11 @@ export default async function HomePage() {
 
   return (
     <Layout>
+      {/* Schema.org structured data untuk halaman beranda */}
+      <StructuredData type="website" />
+      <StructuredData type="person" />
+      <StructuredData type="organization" />
+
       <main className="relative min-h-screen flex flex-col -mt-16 md:mt-0">
         {/* Hero Content - Full Width */}
         <div className="w-full">

@@ -2,7 +2,13 @@ import React from 'react';
 import { BlogPost } from '@/types/blog';
 
 interface StructuredDataProps {
-  type: 'website' | 'article' | 'person' | 'organization' | 'glossary';
+  type:
+    | 'website'
+    | 'article'
+    | 'person'
+    | 'organization'
+    | 'glossary'
+    | 'profilePage';
   post?: BlogPost;
   terms?: { term: string; definition: string }[];
 }
@@ -13,7 +19,8 @@ const StructuredData: React.FC<StructuredDataProps> = ({
   terms,
 }) => {
   const getStructuredData = () => {
-    const baseUrl = 'https://alkindivv.site';
+    const baseUrl =
+      process.env.NEXT_PUBLIC_BASE_URL || 'https://alkindivv.site';
 
     switch (type) {
       case 'website':
@@ -29,11 +36,11 @@ const StructuredData: React.FC<StructuredDataProps> = ({
             '@type': 'Person',
             name: 'AL KINDI',
             url: baseUrl,
-            sameAs: [
-              'https://twitter.com/alkindivv',
-              'https://linkedin.com/in/alkindivv',
-              'https://github.com/alkindivv',
-            ],
+          },
+          publisher: {
+            '@type': 'Person',
+            name: 'AL KINDI',
+            url: baseUrl,
           },
           potentialAction: {
             '@type': 'SearchAction',
@@ -42,6 +49,41 @@ const StructuredData: React.FC<StructuredDataProps> = ({
               urlTemplate: `${baseUrl}/blog?search={search_term_string}`,
             },
             'query-input': 'required name=search_term_string',
+          },
+          inLanguage: 'id-ID',
+        };
+
+      case 'profilePage':
+        return {
+          '@context': 'https://schema.org',
+          '@type': 'ProfilePage',
+          dateCreated: '2023-01-01T00:00:00+07:00',
+          dateModified: new Date().toISOString(),
+          mainEntity: {
+            '@type': 'Person',
+            name: 'AL KINDI',
+            alternateName: 'alkindivv',
+            identifier: 'alkindivv',
+            description:
+              'A Law Graduate with expertise in corporate law, and interested in the intersection of law, technology, and cryptocurrency',
+            image: `${baseUrl}/images/AL-KINDI.png`,
+            sameAs: [
+              'https://twitter.com/alkindivv',
+              'https://linkedin.com/in/alkindivv',
+              'https://github.com/alkindivv',
+            ],
+            interactionStatistic: [
+              {
+                '@type': 'InteractionCounter',
+                interactionType: 'https://schema.org/FollowAction',
+                userInteractionCount: 500,
+              },
+            ],
+            agentInteractionStatistic: {
+              '@type': 'InteractionCounter',
+              interactionType: 'https://schema.org/WriteAction',
+              userInteractionCount: 25,
+            },
           },
         };
 
@@ -54,7 +96,7 @@ const StructuredData: React.FC<StructuredDataProps> = ({
           url: baseUrl,
           image: `${baseUrl}/images/AL-KINDI.png`,
           description:
-            'Legal professional specializing in Corporate Law, Technology Law, and Blockchain regulations.',
+            'A Law Graduate with expertise in corporate law, and interested in the intersection of law, technology, and cryptocurrency',
           jobTitle: 'Legal Professional',
           worksFor: {
             '@type': 'Organization',
@@ -68,6 +110,12 @@ const StructuredData: React.FC<StructuredDataProps> = ({
             'Mergers & Acquisitions',
             'Capital Markets',
             'Bankruptcy Law',
+            'Regulasi Cryptocurrency',
+            'Merger dan Akuisisi',
+            'Pasar Modal',
+            'Hukum Kepailitan',
+            'Smart Contracts',
+            'Legal Tech',
           ],
           sameAs: [
             'https://twitter.com/alkindivv',
@@ -79,6 +127,17 @@ const StructuredData: React.FC<StructuredDataProps> = ({
             addressCountry: 'ID',
             addressRegion: 'Indonesia',
           },
+          nationality: {
+            '@type': 'Country',
+            name: 'Indonesia',
+          },
+          alumniOf: {
+            '@type': 'EducationalOrganization',
+            name: 'Universitas Islam Indonesia',
+            sameAs: 'https://uii.ac.id/',
+          },
+          email: 'alkindivv@gmail.com',
+          gender: 'Male',
         };
 
       case 'article':
@@ -149,18 +208,30 @@ const StructuredData: React.FC<StructuredDataProps> = ({
           name: 'AL KINDI Legal Services',
           alternateName: 'alkindivv.site',
           url: baseUrl,
-          logo: `${baseUrl}/images/AL-KINDI.png`,
+          logo: {
+            '@type': 'ImageObject',
+            url: `${baseUrl}/images/AL-KINDI.png`,
+            width: 400,
+            height: 400,
+          },
+          image: `${baseUrl}/images/AL-KINDI.png`,
           description:
             'Professional legal services specializing in Corporate Law, Technology Law, and Blockchain regulations.',
           founder: {
             '@type': 'Person',
             name: 'AL KINDI',
+            url: baseUrl,
           },
           areaServed: {
             '@type': 'Country',
             name: 'Indonesia',
           },
           serviceType: [
+            'Hukum Korporasi',
+            'Hukum Teknologi',
+            'Konsultasi Blockchain',
+            'Riset Hukum',
+            'Kepatuhan Regulasi',
             'Corporate Law',
             'Technology Law',
             'Blockchain Consulting',
@@ -170,12 +241,36 @@ const StructuredData: React.FC<StructuredDataProps> = ({
           address: {
             '@type': 'PostalAddress',
             addressCountry: 'ID',
+            addressRegion: 'Indonesia',
           },
           contactPoint: {
             '@type': 'ContactPoint',
             contactType: 'customer service',
             url: `${baseUrl}/contact`,
+            email: 'alkindivv@gmail.com',
           },
+          sameAs: [
+            'https://twitter.com/alkindivv',
+            'https://linkedin.com/in/alkindivv',
+            'https://github.com/alkindivv',
+          ],
+          foundingDate: '2023-01-01',
+          legalName: 'AL KINDI Legal Services',
+          slogan: 'Memadukan hukum, teknologi, dan inovasi',
+          knowsAbout: [
+            'Hukum Korporasi',
+            'Teknologi Blockchain',
+            'Regulasi Cryptocurrency',
+            'Merger dan Akuisisi',
+            'Pasar Modal',
+            'Legal Tech',
+            'Smart Contracts',
+            'Bankruptcy Law',
+            'Regulasi Cryptocurrency',
+            'Merger dan Akuisisi',
+            'Pasar Modal',
+            'Hukum Kepailitan',
+          ],
         };
 
       case 'glossary':

@@ -6,6 +6,7 @@ import Breadcrumb from '@/components/shared/Breadcrumb';
 import DimensionLink from '@/components/common/DimensionLink';
 import AccentNormal from '@/components/shared/AccentNormal';
 import { IoCalendarOutline } from 'react-icons/io5';
+import StructuredData from '@/components/shared/StructuredData';
 
 import { viewport } from '../viewport';
 
@@ -23,7 +24,7 @@ export const metadata: Metadata = {
     description:
       'Im a law graduate with a passion for writing and sharing knowledge. I focus on exploring and analyzing legal topics such as capital markets & securities, mergers and acquisitions (M&A), bankruptcy & insolvency, and the legal aspects of crypto assets in Indonesia.',
     url: '/about/',
-    type: 'website',
+    type: 'profile',
     images: [
       {
         url: '/images/default.png',
@@ -47,6 +48,9 @@ const AboutPage = () => {
 
   return (
     <Layout>
+      <StructuredData type="profilePage" />
+      <StructuredData type="person" />
+
       {/* Background Effect - Legal Themed */}
       <div
         className="absolute inset-0 overflow-hidden h-[450px] bg-neutral-950"
@@ -121,7 +125,7 @@ const AboutPage = () => {
               >
                 Hello! you can call me <AccentNormal>AL</AccentNormal> or{' '}
                 <AccentNormal>KINDI</AccentNormal>. I hold a law degree and have
-                always enjoyed writing and sharing what I learn. I’m someone who
+                always enjoyed writing and sharing what I learn. I'm someone who
                 is naturally curious and always eager to learn new things,
                 whether it's about law, technology, or anything else.
               </p>
@@ -130,14 +134,14 @@ const AboutPage = () => {
                 className="text-justify paragraph-text leading-relaxed"
                 data-fade="4"
               >
-                Throughout my life, I’ve explored various fields — I’m a law
+                Throughout my life, I've explored various fields — I'm a law
                 graduate, a trader, a developer, and a writer. Despite my
                 diverse interests, my main focus remains on building a career in
                 law especially in the M&A practice area. Currently, I am seeking
                 opportunities as a <AccentNormal>Legal Intern</AccentNormal>,
                 <AccentNormal>Trainee</AccentNormal> or{' '}
                 <AccentNormal>Junior Associates</AccentNormal> at a law firm,
-                particularly in the M&A practice area. I’m eager to grow, learn,
+                particularly in the M&A practice area. I'm eager to grow, learn,
                 and gain valuable experience from seasoned professionals in the
                 legal industry.
               </p>
