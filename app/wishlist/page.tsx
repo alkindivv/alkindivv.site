@@ -2,13 +2,8 @@ import React from 'react';
 import Layout from '@/components/layout/Layout';
 import Image from 'next/image';
 import { Metadata } from 'next';
-import {
-  HiScale,
-  HiOutlineHeart,
-  HiOutlineCheck,
-  HiOutlineCalendar,
-} from 'react-icons/hi';
-import clsx from 'clsx';
+import { HiOutlineCalendar } from 'react-icons/hi';
+
 import Breadcrumb from '@/components/shared/Breadcrumb';
 
 export const metadata: Metadata = {
@@ -67,8 +62,7 @@ const wishlistItems: WishlistItem[] = [
   },
   {
     id: 3,
-    title:
-      'Become a junior or trainee associate at a top tier corporate law firm',
+    title: 'Become an associate at a top-tier corporate law firm',
     description: '',
     completed: false,
   },
@@ -78,21 +72,22 @@ const wishlistItems: WishlistItem[] = [
     description: '',
     completed: false,
   },
+
   {
     id: 5,
-    title: 'Speak at an international conference',
-    description: '',
-    completed: false,
-  },
-  {
-    id: 6,
     title: 'Solo travel to another country',
     description: '',
     completed: false,
   },
   {
+    id: 6,
+    title: 'Become a partner at a top-tier corporate law firm in Indonesia',
+    description: '',
+    completed: false,
+  },
+  {
     id: 7,
-    title: 'Establish my own corporate law firm',
+    title: 'Being recognized as one of Indonesian Top 100 Lawyers (A-List)',
     description: '',
     completed: false,
   },
