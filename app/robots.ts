@@ -8,12 +8,9 @@ export default function robots(): MetadataRoute.Robots {
       userAgent: '*',
       allow: [
         '/', // semua halaman
-        '/_next/static/', // JS, CSS, font
-        '/_next/image/', // gambar yang di-optimize
       ],
       disallow: [
         '/api/', // endpoint API memang tak perlu di-crawl
-        '/search', // halaman pencarian internal
         '/**/?*q=', // query pencarian
       ],
     },
