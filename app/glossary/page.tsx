@@ -1,6 +1,9 @@
 import { Metadata } from 'next';
 import GlossaryClient from './GlossaryClient';
 import Layout from '@/components/layout/Layout';
+import StructuredData from '@/components/shared/StructuredData';
+import { GlossaryTerm } from '@/types/glossary';
+import { glossary } from '@/content/glossary';
 
 export const metadata: Metadata = {
   title: 'Legal Glossary',
@@ -36,7 +39,14 @@ export const metadata: Metadata = {
 export default function GlossaryPage() {
   return (
     <Layout>
-      <GlossaryClient />
+      <GlossaryClient terms={glossary} />
+      <StructuredData
+        type="glossary"
+        terms={glossary.map(({ term, definition }: GlossaryTerm) => ({
+          term,
+          definition,
+        }))}
+      />
     </Layout>
   );
 }

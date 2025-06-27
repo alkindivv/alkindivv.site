@@ -2,11 +2,16 @@ import React from 'react';
 import { BlogPost } from '@/types/blog';
 
 interface StructuredDataProps {
-  type: 'website' | 'article' | 'person' | 'organization';
+  type: 'website' | 'article' | 'person' | 'organization' | 'glossary';
   post?: BlogPost;
+  terms?: { term: string; definition: string }[];
 }
 
-const StructuredData: React.FC<StructuredDataProps> = ({ type, post }) => {
+const StructuredData: React.FC<StructuredDataProps> = ({
+  type,
+  post,
+  terms,
+}) => {
   const getStructuredData = () => {
     const baseUrl = 'https://alkindivv.site';
 
@@ -171,6 +176,43 @@ const StructuredData: React.FC<StructuredDataProps> = ({ type, post }) => {
             contactType: 'customer service',
             url: `${baseUrl}/contact`,
           },
+        };
+
+      case 'glossary':
+        if (!terms) return null;
+        return {
+          '@context': 'https://schema.org',
+          '@type': 'DefinedTermSet',
+          '@id': `${baseUrl}/glossary/#glossary`,
+          name: 'Legal Glossary',
+          description:
+            'Collection of legal terms related to law, technology, and cryptocurrency.',
+          inLanguage: 'id-ID',
+          mainEntityOfPage: {
+            '@type': 'WebPage',
+            '@id': `${baseUrl}/glossary/`,
+          },
+          author: {
+            '@type': 'Person',
+            name: 'AL KINDI',
+            url: baseUrl,
+          },
+          publisher: {
+            '@type': 'Person',
+            name: 'AL KINDI',
+            url: baseUrl,
+          },
+          hasDefinedTerm: terms.map((t) => ({
+            '@type': 'DefinedTerm',
+            '@id': `${baseUrl}/glossary/#${t.term
+              .toLowerCase()
+              .replace(/\s+/g, '-')
+              .replace(/[^\w\-]+/g, '')}`,
+            name: t.term,
+            description: t.definition,
+            inDefinedTermSet: `${baseUrl}/glossary/#glossary`,
+            termCode: t.term.charAt(0).toUpperCase(),
+          })),
         };
 
       default:

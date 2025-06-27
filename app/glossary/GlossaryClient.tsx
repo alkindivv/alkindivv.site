@@ -9,224 +9,16 @@ import {
   HiScale,
   HiDocumentText,
 } from 'react-icons/hi';
+import { FaTags } from 'react-icons/fa';
 import clsx from 'clsx';
 import Image from 'next/image';
 import Accent from '@/components/shared/Accent';
 import Link from 'next/link';
 import GlowingButton from '@/components/shared/GlowingButton';
 import Breadcrumb from '@/components/shared/Breadcrumb';
-
-// Data istilah hukum
-const legalTerms = [
-  // PERSEROAN TERBATAS
-  {
-    term: 'Perseroan Terbatas (PT)',
-    definition:
-      'Badan hukum yang merupakan persekutuan modal, didirikan berdasarkan perjanjian antar 2 orang atau lebih dan melakukan kegiatan usaha dengan modal dasar yang seluruhnya terbagi dalam saham, dan saham-saham tersebut hanya dimiliki oleh orang-orang tertentu atau terdekat saja seperti saudara atau keluarga',
-    tags: ['Hukum Perusahaan', 'Badan Hukum', 'Toha'],
-  },
-  {
-    term: 'Perseroan Terbuka (Tbk)',
-    definition:
-      'Badan Hukum yang  sudah melakukan IPO sehingga sahamnya dapat dibeli dan dimilikioleh publik',
-    tags: ['Hukum Perusahaan', 'Badan Hukum'],
-  },
-
-  {
-    term: 'Badan Usaha Milik Negara (BUMN) ',
-    definition:
-      'adalah suatu perusahaan yang sebagaian besar sahamnya atau seluruhnya dimiliki oleh Negara, dan segala keuntungan dianggap sebagai pendapatan Negara, begitupun dengan kerugiannya yang dianggap sebagai kerugian Negara',
-    tags: ['Hukum Perusahaan', 'Badan Hukum'],
-  },
-
-  {
-    term: 'Perusahaan Jawatan (Perjan)',
-    definition:
-      'adalah Perusahaan Badan Usaha Milik Negara (BUMN) yang bergerak dibidang penyediaan jasa masyarakat dan tujuan kegiatan usahanya tidak mengutamakan keuntungan',
-    tags: ['Hukum Perusahaan', 'Badan Hukum'],
-  },
-
-  {
-    term: 'Perusahaan Umum (Perum)',
-    definition:
-      'adalah Perusahaan Badan Usaha Milik Negara (BUMN) yang bergerak di bidang palayanan bagi kemanfaatan masyarakat umum',
-    tags: ['Hukum Perusahaan', 'Badan Hukum'],
-  },
-
-  {
-    term: 'Perusahaan Perseroan (Persero)',
-    definition:
-      'adalah Perusahaan Badan Usaha Milik Negara (BUMN) yang bergerak disektor swasta dan koperasi dan diutamakan dalam kegiatan usaha untuk mendapatkan keuntungan',
-    tags: ['Hukum Perusahaan', 'Badan Hukum'],
-  },
-
-  {
-    term: 'Rapat Umum Pemegang Saham (RUPS)',
-    definition:
-      'adalah salah satu organ perusahaan yang mempunyai kekuasaan tertinggi dalam sebuah perusahaan, RUPS terdiri dari RUPS Biasa (Tahunan) dan RUPS luar biasa ',
-    tags: ['Hukum Perusahaan', 'Badan Hukum'],
-  },
-
-  {
-    term: 'Direksi (Director)',
-    definition:
-      'adalah merupakan organ perusahaan yang memiliki tugas dan wewenang untuk mengatur jalannya perusahaan dan bertindak untuk mewakili perusahaan baik di dalam maupun diluar persidangan',
-    tags: ['Hukum Perusahaan'],
-  },
-
-  {
-    term: 'Komisaris',
-    definition:
-      'adalah organ perusahaan yang bertugas untuk mengawasi direksi perusahaan dalam menjalankan tugasnya, dan bertanggung jawab kapada Rapat Umum Pemegang Saham (RUPS)',
-    tags: ['Hukum Perusahaan'],
-  },
-
-  // MERGER & AKUSISI
-
-  {
-    term: 'Merger (Penggabungan)',
-    definition:
-      'Perbuatan hukum yang dilakukan oleh satu perseroan atau lebih untuk menggabungkan diri dengan perseroan lain yang telah ada dan selanjutnya perseroan yang menggabungkan diri menjadi bubar.',
-    example:
-      'Merger antara Gojek dan Tokopedia pada tahun 2021 membentuk GoTo Group. Dalam proses ini, kedua perusahaan menggabungkan operasional, aset, dan struktur organisasi mereka menjadi satu entitas baru.',
-    tags: ['Merger & Akuisisi', 'Restrukturisasi'],
-  },
-
-  {
-    term: 'Akuisisi (Pengambilalihan)',
-    definition:
-      'yaitu merupakan suatu strategi bisnis untuk mengambil alih kontrol terhadap suatu PT yaitu dengan cara mengakuisisi saham ataupun aset dari PT sebuah PT, dalam proses Akuisis PT yang saham atau asetnya diakuisisi akan tetap exist dan menjalankan kegiatan usahanya sama seperti sebelumnya, yang berubah hanya kontrol atas PT tersebut',
-    tags: ['Hukum Perusahaan', 'M&A'],
-    example:
-      'PT A memgakuisisi saham PT B sebesar 60% sehingga mengakibatkan berpindahnya kontrol terhadap PT B tersebut kepada PT A',
-  },
-
-  {
-    term: 'Konsilidasi (Peleburan)',
-    definition:
-      'pada prinsipnya secara definsi hampir sama dengan Merger (Penggabungan) namun dalam hal ini Konsilidasi adalah bergabungnya 2 (dua) atau lebih aktiva dan pasiva perusahaan dan kemudian menciptakan suatu entitas/perusahaan baru, dan setelahnya dua perusahaan atau lebih yang menggabungkan diri tersebut dianggap bubar demi hukum baik dengan atau tanpa likuidasi ',
-    tags: ['Hukum Perusahaan', 'M&A'],
-    example:
-      'PT A dan PT B bergabung sehingga membentuk PT baru yaitu PT C, dan kemudian PT A dan B menjadi bubar',
-  },
-
-  {
-    term: 'Spin-off (Pemisahan)',
-    definition:
-      'suatu perbuatan hukum yang dilakukan oleh PT untuk memisahkan usahanya yang mengakibatkan seluruh atau sebagian aktiva dan pasivanya beralih ke 2 (dua) atau lebih PT, jika seluruh aktiva dan pasiva tersebut beralih ke 2 PT atau lebih maka perusahaan yang melakukan spin-off tersebut akan bubar, namun jika hanya sebagian aktiva dan pasiva yang beralhi ke 2 atau lebih PT maka perusahaan yang melakukan spin-off tersebut akan tetap eksis.',
-    tags: ['Hukum Perusahaan', 'M&A', 'Restrukturisasi'],
-    example: '',
-  },
-
-  {
-    term: 'Laverage Buyouts (LBO) ',
-    definition:
-      'LBO merupakan salah satu variasi dari akuisisi yaitu dengan cara membeli suatu perusahaan yang kemudian perusahaan tersebut diperbaiki secara keseluruhan baik dari struktur organisasi, kegiatan usaha dll. dan kemudian setelah perusahaan itu diperbaiki/dipermak maka selanjutnya perusahaan tersebut kepada pihak ketiga. kegiatan LBO ini sering disebut sebagai pancaplokan perusahaan (Corporade Raiders)',
-    tags: ['Hukum Perusahaan', 'M&A'],
-    example:
-      'PT A membeli PT B yang sedang mengalami berbagai masalah dan kemudian seluruh permasalahan tersebut diperbaiki oleh PT A, setelah dirasa cukup dan sudah tidak memiliki masalah maka selanjutnya PT A menjual PT B tersebut kepada pihak ke-3',
-  },
-  {
-    term: 'Management Buyouts (MBO) ',
-    definition:
-      'MBO ini secara prinsip segala prosesnya sama dengan LBO, yang membedakan adalah dalam MBO yang melakukan pembelian terhadap PT yang bermasalah tersebut adalah pihak management dari PT itu sendiri baik PT yang sedang ia pimpin ataupun PT dalam 1 grup dengan PT yang dipimpinnya',
-    tags: ['Hukum Perusahaan', 'M&A'],
-  },
-
-  {
-    term: 'Monopoli',
-    definition:
-      'Penguasaan atas produksi atau pemasaran barang atau pengguaan jasa tertentu yang hanya dilakukan oleh 1 (satu) pelaku usaha atau 1 (satu) kelompok pelaku usaha, sehingga menimbulkan suatu persaingan usaha yang tidak sehat dan merugikan kepentingan umum akibat adanya pemusatan ekonomi yang dikuasai hanya oleh 1 (satu) pelaku usaha atau 1 (satu) kelompok pelaku usaha.',
-    tags: ['Hukum Perusahaan'],
-  },
-
-  {
-    term: 'Antitrust (Persaingan curang)',
-    definition:
-      'Persaingan antar pelaku usaha dalam menjalankan kegiatan produksi atau pemeasaran barang atau jasa uang dilakukan dengan cara-cara yang tidak jujur dan melawan hukum.',
-    tags: ['Hukum Perusahaan'],
-  },
-
-  // HUKUM KEPAILITAN
-
-  {
-    term: 'Kepailitan',
-    definition:
-      'Suatu keadaan di mana debitor tidak mampu untuk melakukan pembayaran terhadap utang-utang dari para kreditornya.',
-    example:
-      'Kasus kepailitan PT Asuransi Jiwasraya pada tahun 2020, dimana perusahaan tidak mampu membayar klaim nasabah senilai triliunan rupiah, menyebabkan pengadilan menyatakan perusahaan pailit dan menunjuk kurator untuk mengelola aset-asetnya.',
-    tags: ['Hukum Kepailitan', 'Utang Piutang'],
-  },
-
-  {
-    term: 'Kurator (receiver)',
-    definition:
-      'Pengurus yang ditunjuk oleh Pengadilan Niaga untuk mengurus dan membereskan harta debitor yang telah dinyatakan pailit oleh Pengadilan Niaga.',
-    tags: ['Hukum Kepailitan'],
-  },
-  {
-    term: 'Kurator Sementara (interim receiver)',
-    definition:
-      'adalah pengurus sementara yang diangkat sebelum debitur dinyatakan pailit (tidak wajib), yang bertujuan untuk mengurus seluruh aset dan harta perusahaan yang akan pailit sehingga tidak disalahgunakan oleh debitur, dan setelah perusahaan dinyatakan pailit oleh pengadilan niaga maka kurator sementara ini akan digantikan olek kurator tetap',
-    tags: ['Hukum Kepailitan'],
-  },
-
-  // DOKUMEN ATAU SURAT HUKUM
-  {
-    term: 'Akta Notaris',
-    definition:
-      'Dokumen resmi yang dibuat oleh atau di hadapan notaris menurut bentuk dan tata cara yang ditetapkan oleh undang-undang.',
-    tags: ['Dokumen Hukum', 'Notaris'],
-  },
-
-  {
-    term: 'Force Majeure',
-    definition:
-      'Keadaan memaksa atau keadaan darurat yang terjadi di luar kendali para pihak yang mengakibatkan tidak dapat dipenuhinya suatu perjanjian.',
-    tags: ['Kontrak', 'Perjanjian'],
-  },
-
-  // PASAR MODAL
-  {
-    term: 'Initial Public Offering (IPO)',
-    definition:
-      'Penawaran saham suatu perusahaan kepada publik untuk pertama kalinya di pasar modal .',
-    tags: ['Pasar Modal', 'Saham'],
-  },
-
-  {
-    term: 'Emitem',
-    definition:
-      'merupakan perusahaan terbuka (PT tbk) yang sahamnya dapat diperjualbelikan oleh publik/masyarakat melalui pasar modal',
-    tags: ['Pasar Modal', 'Saham'],
-    example: '',
-  },
-
-  {
-    term: 'Legal Due Diligence (LDD)',
-    definition:
-      'Pemeriksaan aspek hukum perusahaan secara menyeluruh untuk mengidentifikasi potensi risiko hukum.',
-    tags: ['Audit', 'Compliance'],
-  },
-  {
-    term: 'Nominee',
-    definition:
-      'Pihak yang ditunjuk untuk bertindak atas nama pihak lain dalam kepemilikan saham atau aset.',
-    tags: ['Hukum Perusahaan', 'Kepemilikan'],
-  },
-
-  // {
-  //   term: '',
-  //   definition: '',
-  //   tags: [''],
-  //   example: '',
-  // },
-].sort((a, b) => a.term.localeCompare(b.term, 'id'));
-
-// Generate unique tags from legal terms
-const uniqueTags = Array.from(
-  new Set(legalTerms.flatMap((term) => term.tags))
-).sort();
+import { GlossaryTerm } from '@/types/glossary';
+import { slugify } from '@/lib/utils/slug';
+import { useRouter, usePathname } from 'next/navigation';
 
 // Generate alphabet array A-Z plus #
 const alphabet = Array.from({ length: 26 }, (_, i) =>
@@ -234,7 +26,19 @@ const alphabet = Array.from({ length: 26 }, (_, i) =>
 );
 alphabet.push('#');
 
-export default function GlossaryClient() {
+// Helper scroll to anchor hanya jika di luar viewport
+function scrollToHashIfNeeded(id: string) {
+  const el = document.getElementById(id);
+  if (el) {
+    const rect = el.getBoundingClientRect();
+    // Hanya scroll jika elemen berada di luar viewport
+    if (rect.top < 0 || rect.bottom > window.innerHeight) {
+      el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  }
+}
+
+export default function GlossaryClient({ terms }: { terms: GlossaryTerm[] }) {
   const breadcrumbItems = [{ label: 'Glossary' }];
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedLetter, setSelectedLetter] = useState('');
@@ -245,6 +49,8 @@ export default function GlossaryClient() {
   // Refs for alphabet navigation
   const alphabetNavRef = useRef<HTMLDivElement | null>(null);
   const [isNavSticky, setIsNavSticky] = useState(false);
+  const router = useRouter();
+  const pathname = usePathname();
 
   // Effect untuk mengatur sticky nav
   useEffect(() => {
@@ -259,18 +65,44 @@ export default function GlossaryClient() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  // Effect untuk mengatur expanded term dari hash URL
+  useEffect(() => {
+    // Check if URL has hash
+    if (typeof window !== 'undefined') {
+      const hash = window.location.hash.replace('#', '');
+      if (hash) {
+        // Find term that matches hash
+        const matchingTerm = terms.find((term) => slugify(term.term) === hash);
+        if (matchingTerm) {
+          setExpandedTerm(matchingTerm.term);
+          // Delay scroll to ensure component is rendered
+          setTimeout(() => scrollToHashIfNeeded(hash), 300);
+        }
+      }
+    }
+  }, [terms]);
+
   // Helper function untuk memeriksa apakah ada istilah untuk huruf tertentu
-  const hasTermsForLetter = (letter: string, terms: typeof legalTerms) => {
+  const hasTermsForLetter = (letter: string, list: GlossaryTerm[]) => {
     if (letter === '#') {
-      return terms.some((term) => /^[^A-Za-z]/.test(term.term.charAt(0)));
+      return list.some((term) => /^[^A-Za-z]/.test(term.term.charAt(0)));
     }
 
-    return terms.some((term) => term.term.charAt(0).toUpperCase() === letter);
+    return list.some((term) => term.term.charAt(0).toUpperCase() === letter);
   };
+
+  // Unique tags dari data
+  const uniqueTags = useMemo(
+    () =>
+      Array.from(new Set(terms.flatMap((t) => t.tags))).sort((a, b) =>
+        a.localeCompare(b, 'id')
+      ),
+    [terms]
+  );
 
   // Memoized filtered terms
   const filteredTerms = useMemo(() => {
-    return legalTerms.filter((term) => {
+    return terms.filter((term) => {
       const matchesSearch =
         searchTerm === '' ||
         term.term.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -290,11 +122,11 @@ export default function GlossaryClient() {
 
       return matchesSearch && matchesLetter && matchesTags;
     });
-  }, [searchTerm, selectedLetter, selectedTags]);
+  }, [searchTerm, selectedLetter, selectedTags, terms]);
 
   // Memoized terms grouped by letter
   const groupedTerms = useMemo(() => {
-    const groups: Record<string, typeof legalTerms> = {};
+    const groups: Record<string, GlossaryTerm[]> = {};
 
     filteredTerms.forEach((term) => {
       const firstLetter = term.term.charAt(0).toUpperCase();
@@ -319,6 +151,23 @@ export default function GlossaryClient() {
     setSelectedLetter('');
     setSelectedTags([]);
     setExpandedTerm(null);
+  };
+
+  // Handle expand/collapse term dengan URL hash
+  const handleTermClick = (term: GlossaryTerm) => {
+    const slug = slugify(term.term);
+
+    if (expandedTerm === term.term) {
+      setExpandedTerm(null);
+      // Gunakan replace untuk menghindari scroll ke atas
+      router.replace(pathname, { scroll: false });
+    } else {
+      setExpandedTerm(term.term);
+      // Update URL dengan hash tanpa scroll
+      router.replace(`${pathname}#${slug}`, { scroll: false });
+      // Scroll ke elemen hanya jika perlu
+      setTimeout(() => scrollToHashIfNeeded(slug), 100);
+    }
   };
 
   return (
@@ -517,7 +366,7 @@ export default function GlossaryClient() {
                     Filter Kategori
                   </div>
                   <div className="flex flex-wrap gap-2">
-                    {uniqueTags.map((tag) => (
+                    {selectedTags.map((tag) => (
                       <button
                         key={tag}
                         onClick={() => handleTagSelect(tag)}
@@ -534,46 +383,6 @@ export default function GlossaryClient() {
                   </div>
                 </div>
               </div>
-
-              {/* Active Filters - Styled as tags */}
-              {/* {(selectedTags.length > 0 || selectedLetter || searchTerm) && (
-                <div
-                  className="flex flex-wrap gap-2 items-center mb-8 border-t border-b border-neutral-800/50 py-2 px-2"
-                  data-fade="6"
-                >
-                  <div className="flex items-center space-x-2 text-sm">
-                    <span className="text-neutral-400 whitespace-nowrap">
-                      Active:
-                    </span>
-                    <HiDocumentText className="w-4 h-4 text-emerald-400" />
-                  </div>
-                  {selectedTags.map((tag) => (
-                    <button
-                      key={tag}
-                      onClick={() => handleTagSelect(tag)}
-                      className="px-3 py-1 text-xs font-medium rounded-sm bg-emerald-900/30 text-emerald-400 border border-emerald-500/30 hover:bg-emerald-900/40 transition-colors flex items-center gap-1"
-                    >
-                      {tag}
-                      <HiX className="w-3 h-3" />
-                    </button>
-                  ))}
-                  {selectedLetter && (
-                    <button
-                      onClick={() => setSelectedLetter('')}
-                      className="px-3 py-1 text-xs font-medium rounded-sm bg-emerald-900/30 text-emerald-400 border border-emerald-500/30 hover:bg-emerald-900/40 transition-colors flex items-center gap-1"
-                    >
-                      Huruf: {selectedLetter}
-                      <HiX className="w-3 h-3" />
-                    </button>
-                  )}
-                  <button
-                    onClick={resetFilters}
-                    className="text-sm text-gray-500 hover:text-emerald-400 transition-colors ml-auto"
-                  >
-                    Reset All
-                  </button>
-                </div>
-              )} */}
 
               {/* Alphabet navigation - styled as legal tabs */}
               <div
@@ -638,91 +447,79 @@ export default function GlossaryClient() {
 
                         <div className="space-y-4">
                           {terms.map((item) => (
-                            <div
+                            <button
                               key={item.term}
-                              className="group transition-all duration-200"
-                              data-fade="10"
+                              onClick={() => handleTermClick(item)}
+                              aria-expanded={expandedTerm === item.term}
+                              aria-controls={slugify(item.term)}
+                              className={clsx(
+                                'w-full flex items-center justify-between p-4 rounded-lg transition-all duration-200 text-left',
+                                expandedTerm === item.term ? '' : ''
+                              )}
                             >
-                              <button
-                                onClick={() =>
-                                  setExpandedTerm(
-                                    expandedTerm === item.term
-                                      ? null
-                                      : item.term
-                                  )
-                                }
-                                className={clsx(
-                                  'w-full flex items-center justify-between p-4 rounded-lg transition-all duration-200 text-left',
-                                  expandedTerm === item.term
-                                    ? // ? 'border border-emerald-800/30'
-                                      // : 'bg-[#0a0a0a] border border-[#1a1a1a] hover:border-[#232323]'
-                                      ''
-                                    : ''
-                                )}
-                              >
-                                <div className="space-y-1 pr-4">
-                                  <h3
-                                    className={clsx(
-                                      'text-lg md:text-xl font-semibold tracking-wide transition-colors  underline underline-offset-2 decoration-[#4e4e4e] decoration-2 hover:decoration-white',
-                                      expandedTerm === item.term
-                                        ? 'inline-block underline-offset-2 decoration-white decoration-2'
-                                        : 'text-gray-200'
-                                    )}
-                                  >
-                                    {item.term}
-                                  </h3>
-                                  <p
-                                    className={clsx(
-                                      'glossary-text transition-all duration-200',
-                                      expandedTerm === item.term
-                                        ? ''
-                                        : 'line-clamp-3'
-                                    )}
-                                  >
-                                    {item.definition}
-                                  </p>
-                                  {expandedTerm === item.term && (
-                                    <div className="space-y-4 mt-3 pt-3 border-t border-emerald-900/30">
-                                      {item.example && (
-                                        <div className="rounded-lg p-4 border border-emerald-900/20 relative">
-                                          {/* Corner decorations - legal document style */}
-
-                                          <h4 className="text-sm font-medium text-neutral-50 mb-2">
-                                            Example:
-                                          </h4>
-                                          <p className="text-sm text-neutral-400 leading-relaxed">
-                                            {item.example}
-                                          </p>
-                                        </div>
-                                      )}
-                                      <div className="flex flex-wrap gap-2">
-                                        {item.tags.map((tag) => (
-                                          <span
-                                            key={tag}
-                                            className="px-2 py-1 text-xs font-medium text-neutral-400 border border-neutral-800 rounded-full
-                                              hover:border-emerald-500/30 hover:text-emerald-400 cursor-pointer transition-colors"
-                                            onClick={(e) => {
-                                              e.stopPropagation();
-                                              if (!selectedTags.includes(tag)) {
-                                                handleTagSelect(tag);
-                                              }
-                                            }}
-                                          >
-                                            {tag}
-                                          </span>
-                                        ))}
-                                      </div>
-                                    </div>
-                                  )}
-                                </div>
-                                <HiChevronRight
+                              <div className="space-y-1 pr-4">
+                                <h3
                                   className={clsx(
-                                    'flex-shrink-0 w-5 h-5 text-gray-500 group-hover:text-emerald-400 transition-transform duration-200',
-                                    expandedTerm === item.term && 'rotate-90'
+                                    'text-lg md:text-xl font-semibold tracking-wide transition-colors  underline underline-offset-2 decoration-[#4e4e4e] decoration-2 hover:decoration-white',
+                                    expandedTerm === item.term
+                                      ? 'inline-block underline-offset-2 decoration-white decoration-2'
+                                      : 'text-gray-200'
                                   )}
-                                />
-                              </button>
-                            </div>
+                                >
+                                  {item.term}
+                                </h3>
+                                <p
+                                  id={slugify(item.term)}
+                                  className={clsx(
+                                    'glossary-text transition-all duration-200',
+                                    expandedTerm === item.term
+                                      ? ''
+                                      : 'line-clamp-3'
+                                  )}
+                                >
+                                  {item.definition}
+                                </p>
+                                {expandedTerm === item.term && (
+                                  <div className="space-y-4 mt-3 pt-3 border-t border-emerald-900/30">
+                                    {item.example && (
+                                      <div className="rounded-lg p-4 border border-emerald-900/20 relative">
+                                        {/* Corner decorations - legal document style */}
+
+                                        <h4 className="text-sm font-medium text-neutral-50 mb-2">
+                                          Example:
+                                        </h4>
+                                        <p className="text-sm text-neutral-400 leading-relaxed">
+                                          {item.example}
+                                        </p>
+                                      </div>
+                                    )}
+                                    <div className="flex flex-wrap gap-2">
+                                      {item.tags.map((tag) => (
+                                        <span
+                                          key={tag}
+                                          className="px-2 py-1 text-xs font-medium text-neutral-400 border border-neutral-800 rounded-full
+                                            hover:border-emerald-500/30 hover:text-emerald-400 cursor-pointer transition-colors"
+                                          onClick={(e) => {
+                                            e.stopPropagation();
+                                            if (!selectedTags.includes(tag)) {
+                                              handleTagSelect(tag);
+                                            }
+                                          }}
+                                        >
+                                          {tag}
+                                        </span>
+                                      ))}
+                                    </div>
+                                  </div>
+                                )}
+                              </div>
+                              <HiChevronRight
+                                className={clsx(
+                                  'flex-shrink-0 w-5 h-5 text-gray-500 group-hover:text-emerald-400 transition-transform duration-200',
+                                  expandedTerm === item.term && 'rotate-90'
+                                )}
+                              />
+                            </button>
                           ))}
                         </div>
                       </div>
