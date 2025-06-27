@@ -77,7 +77,9 @@ export async function generateMetadata({
           typedFrontMatter.excerpt ||
           typedFrontMatter.description ||
           `${typedFrontMatter.title} - Article by ${typedFrontMatter.author}`,
-        images: [typedFrontMatter.featuredImage || `/api/og/blog/${slug}`],
+        images: [`/api/og/blog/${slug}`, typedFrontMatter.featuredImage].filter(
+          (src): src is string => Boolean(src)
+        ),
       },
     };
   } catch (error) {

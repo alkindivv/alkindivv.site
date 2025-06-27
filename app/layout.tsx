@@ -29,7 +29,7 @@ export const metadata: Metadata = {
     template: '%s | AL KINDI',
   },
   description:
-    'Insights & Thoughts about corporate M&A, and capital markets technology, blockchain and smart contracts',
+    'A personal blog about law, technology, and cryptocurrency — shaping the future of blockchain and tech law',
   metadataBase: new URL(
     process.env.NEXT_PUBLIC_BASE_URL || 'https://alkindivv.site'
   ),
@@ -88,7 +88,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'AL KINDI - Law, Technology, and Cryptocurrency',
     description:
-      'AL KINDI - Exploring the future of legal technology focus on corporate, bankruptcy and capital markets',
+      'A personal blog about law, technology, and cryptocurrency — shaping the future of blockchain and tech law',
     url: 'https://alkindivv.site',
     siteName: 'AL KINDI',
     images: [
@@ -106,13 +106,47 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'AL KINDI - Law, Technology, and Cryptocurrency',
     description:
-      'AL KINDI - Exploring the future of legal technology focus on corporate, bankruptcy and capital markets',
+      'A personal blog about law, technology, and cryptocurrency — shaping the future of blockchain and tech law',
     images: ['/images/default.png'],
   },
   icons: {
-    icon: '/favicon.ico',
-    shortcut: '/favicon-16x16.png',
-    apple: '/apple-touch-icon.png',
+    icon: [
+      '/favicon.ico',
+      { url: '/favicon-32x32.png', sizes: '32x32', type: 'image/png' },
+      { url: '/favicon-16x16.png', sizes: '16x16', type: 'image/png' },
+      { url: '/android-icon-192x192.png', sizes: '192x192', type: 'image/png' },
+    ],
+    apple: [
+      { url: '/apple-icon-180x180.png', sizes: '180x180', type: 'image/png' },
+      { url: '/apple-icon-152x152.png', sizes: '152x152', type: 'image/png' },
+      { url: '/apple-icon-144x144.png', sizes: '144x144', type: 'image/png' },
+      { url: '/apple-icon-120x120.png', sizes: '120x120', type: 'image/png' },
+      { url: '/apple-icon-114x114.png', sizes: '114x114', type: 'image/png' },
+      { url: '/apple-icon-76x76.png', sizes: '76x76', type: 'image/png' },
+      { url: '/apple-icon-72x72.png', sizes: '72x72', type: 'image/png' },
+      { url: '/apple-icon-60x60.png', sizes: '60x60', type: 'image/png' },
+      { url: '/apple-icon-57x57.png', sizes: '57x57', type: 'image/png' },
+    ],
+    other: [
+      {
+        rel: 'shortcut icon',
+        url: '/favicon-96x96.png',
+        sizes: '96x96',
+        type: 'image/png',
+      },
+      {
+        rel: 'ms-icon',
+        url: '/ms-icon-150x150.png',
+        sizes: '150x150',
+        type: 'image/png',
+      },
+      {
+        rel: 'ms-icon',
+        url: '/ms-icon-310x310.png',
+        sizes: '310x310',
+        type: 'image/png',
+      },
+    ],
   },
   manifest: '/site.webmanifest',
   other: {
@@ -120,7 +154,7 @@ export const metadata: Metadata = {
     'geo.placename': 'Indonesia',
     'dc.language': 'id',
     'content-language': 'id',
-    'google-site-verification': 'tLWZliQliSbsSXo5T_8Q2d2d5RRHTau1da3C5lt3pN8',
+    // 'google-site-verification': 'tLWZliQliSbsSXo5T_8Q2d2d5RRHTau1da3C5lt3pN8',
   },
   alternates: {
     canonical: '/',
@@ -145,8 +179,7 @@ function generateDefaultSchema() {
         '@id': `${baseUrl}/#website`,
         url: baseUrl,
         name: 'AL KINDI',
-        description:
-          'AL KINDI - Exploring the future of legal technology focus on corporate, bankruptcy and capital markets',
+        description: ' s ',
         publisher: {
           '@id': `${baseUrl}/#person`,
         },
@@ -178,14 +211,14 @@ function generateDefaultSchema() {
           caption: 'AL KINDI',
         },
         description:
-          'A law graduate focusing my expertise in corporate M&A, capital markets, and crypto assets regulations and compliance',
+          'A law graduate focusing my expertise in corporate M&A, capital markets, cryptocurrency and blockchain technology',
         sameAs: [
           'https://twitter.com/alkindivv',
           'https://linkedin.com/in/alkindivv',
           'https://github.com/alkindivv',
         ],
         url: baseUrl,
-        jobTitle: 'Trainee Associate',
+        jobTitle: 'Legal Intern',
         worksFor: {
           '@type': 'Organization',
           name: 'Law Firm',

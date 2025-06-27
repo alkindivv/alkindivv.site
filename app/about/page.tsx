@@ -133,8 +133,8 @@ const AboutPage = () => {
                 Throughout my life, I’ve explored various fields — I’m a law
                 graduate, a trader, a developer, and a writer. Despite my
                 diverse interests, my main focus remains on building a career in
-                law. Currently, I am seeking opportunities as a{' '}
-                <AccentNormal>Legal Intern</AccentNormal>,
+                law especially in the M&A practice area. Currently, I am seeking
+                opportunities as a <AccentNormal>Legal Intern</AccentNormal>,
                 <AccentNormal>Trainee</AccentNormal> or{' '}
                 <AccentNormal>Junior Associates</AccentNormal> at a law firm,
                 particularly in the M&A practice area. I’m eager to grow, learn,

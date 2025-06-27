@@ -138,7 +138,7 @@ export default function Header() {
         className={clsx(
           'fixed top-6 left-1/2 -translate-x-1/2 z-50 h-12 flex items-center justify-between',
           'hidden md:flex px-4 md:px-0 transition-all duration-300',
-          scrolled && 'rounded-lg backdrop-blur-lg bg-[#1A1A1A]/90 shadow-lg',
+          scrolled && 'rounded-lg backdrop-blur-sm bg-[#1A1A1A]/90 shadow-lg',
           scrolled && 'sm:w-[460px]',
           !scrolled && 'sm:w-full'
         )}
