@@ -179,7 +179,8 @@ function generateDefaultSchema() {
         '@id': `${baseUrl}/#website`,
         url: baseUrl,
         name: 'AL KINDI',
-        description: ' s ',
+        description:
+          'Personal website & blog by AL KINDI – sharing insights on corporate law, technology, blockchain and cryptocurrency.',
         publisher: {
           '@id': `${baseUrl}/#person`,
         },

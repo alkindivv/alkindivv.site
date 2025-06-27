@@ -4,11 +4,11 @@ import { promises as fs } from 'fs';
 import path from 'path';
 
 // Muat font dan logo dari folder public (sekali per cold start)
-const DMSansBold = fs
+const dmSansBold = fs
   .readFile(path.join(process.cwd(), 'public', 'fonts', 'DMSans-Bold.ttf'))
   .then((buf) => new Uint8Array(buf).buffer);
 
-const DMSansRegular = fs
+const dmSansRegular = fs
   .readFile(path.join(process.cwd(), 'public', 'fonts', 'DMSans-Regular.ttf'))
   .then((buf) => new Uint8Array(buf).buffer);
 
@@ -49,8 +49,8 @@ export async function GET(
 
     // Pastikan font sudah tersedia
     const [boldFont, regularFont, logoDataUrl] = await Promise.all([
-      DMSansBold,
-      DMSansRegular,
+      dmSansBold,
+      dmSansRegular,
       logoDataUrlPromise,
     ]);
 

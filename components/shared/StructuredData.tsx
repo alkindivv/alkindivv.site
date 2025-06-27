@@ -90,14 +90,20 @@ const StructuredData: React.FC<StructuredDataProps> = ({ type, post }) => {
 
         const keywords = post.tags?.length ? post.tags.join(', ') : undefined;
 
+        const isoDate = (dateStr: string) => {
+          const parsed = new Date(dateStr);
+          if (isNaN(parsed.getTime())) return dateStr; // fallback ke string asli
+          return parsed.toISOString();
+        };
+
         return {
           '@context': 'https://schema.org',
           '@type': 'Article',
           headline: post.title,
           description,
           image: imageUrl,
-          datePublished: post.date,
-          dateModified: post.date,
+          datePublished: isoDate(post.date),
+          dateModified: isoDate(post.date),
           author: {
             '@type': 'Person',
             name: post.author || 'AL KINDI',

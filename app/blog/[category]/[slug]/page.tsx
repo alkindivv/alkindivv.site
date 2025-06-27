@@ -59,7 +59,8 @@ export async function generateMetadata({
           `${typedFrontMatter.title} - Article by ${typedFrontMatter.author}`,
         url: `https://alkindivv.site/blog/${category}/${slug}/`,
         type: 'article',
-        publishedTime: typedFrontMatter.date,
+        publishedTime: new Date(typedFrontMatter.date).toISOString(),
+        modifiedTime: new Date(typedFrontMatter.date).toISOString(),
         authors: typedFrontMatter.author,
         images: [
           {
