@@ -5,7 +5,7 @@ import Link from 'next/link';
 import GlowingButton from '../shared/GlowingButton';
 import SocialMedia from '../social/SocialMedia';
 import { HiChevronDoubleDown, HiScale } from 'react-icons/hi';
-import { motion, useReducedMotion } from 'framer-motion';
+import { motion, useReducedMotion, Variants } from 'framer-motion';
 
 const containerVariants = {
   hidden: { opacity: 0 },
@@ -19,7 +19,7 @@ const containerVariants = {
 };
 
 // Varian animasi untuk item anak (teks, tombol, dll.)
-const itemVariants = {
+const itemVariants: Variants = {
   hidden: { y: 20, opacity: 0 },
   visible: {
     y: 0,

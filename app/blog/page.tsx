@@ -20,6 +20,13 @@ export default async function BlogPage({ searchParams }: BlogPageProps) {
   const page =
     typeof searchParams?.page === 'string' ? parseInt(searchParams.page) : 1;
 
+  // Kumpulkan semua tag unik untuk ditampilkan sebagai filter di client
+  const uniqueTags = Array.from(
+    new Set(
+      blogPosts.flatMap((p) => p.tags ?? []).map((tg) => tg.toLowerCase())
+    )
+  ).sort();
+
   // Filter posts di server agar initial render sesuai query
   const filtered = blogPosts
     .filter((post) => {
@@ -47,6 +54,7 @@ export default async function BlogPage({ searchParams }: BlogPageProps) {
       initialSearch={search}
       initialTag={tag}
       initialPage={page}
+      tags={uniqueTags}
     />
   );
 }

@@ -18,32 +18,11 @@ import Image from 'next/image';
 import { BlogPost } from '@/types/blog';
 import { slugify } from '@/lib/utils/slug';
 
-const tagOptions = [
-  'banking & finance',
-  'bankruptcy',
-  'blockchain',
-  'capital market',
-  'competition & antitrust',
-  'corporate',
-  'cryptocurrency',
-  'dispute resolution',
-  'energy',
-  'fintech',
-  'hackintosh',
-  'intellectual property',
-  'investment',
-  'labor',
-  'litigation',
-  'macos',
-  'merger & acquisition',
-  'smart contract',
-  'tech law',
-];
-
 const POSTS_PER_PAGE = 9;
 
 interface BlogPageClientProps {
   initialPosts: BlogPost[];
+  tags: string[];
   initialSearch?: string;
   initialTag?: string;
   initialPage?: number;
@@ -51,6 +30,7 @@ interface BlogPageClientProps {
 
 export default function BlogPageClient({
   initialPosts,
+  tags,
   initialSearch = '',
   initialTag = '',
   initialPage = 1,
@@ -197,7 +177,7 @@ export default function BlogPageClient({
             <div className="mt-6 mb-8" data-fade="3">
               <div className="flex flex-wrap gap-2 items-center">
                 <FaTags className="w-4 h-4 text-[#08c488] mr-2" />
-                {tagOptions.map((tag) => {
+                {tags.map((tag) => {
                   const slug = slugify(tag);
                   return (
                     <button
