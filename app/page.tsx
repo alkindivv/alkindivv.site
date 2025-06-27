@@ -12,7 +12,7 @@ import StructuredData from '@/components/shared/StructuredData';
 
 // Metadata khusus untuk halaman beranda
 export const metadata: Metadata = {
-  title: 'AL KINDI - Pakar Hukum, Teknologi, dan Cryptocurrency',
+  title: 'AL KINDI - Law, Technology, and Cryptocurrency',
   description:
     'A personal blog about law, technology, and cryptocurrency — shaping the future of blockchain and tech law',
   keywords: [

@@ -2,8 +2,10 @@ import React from 'react';
 import { getAllPosts } from '@/lib/posts';
 import BlogPageClient from './BlogPageClient';
 import { viewport } from '../viewport';
+import { metadata } from './metadata';
 
 export { viewport };
+export { metadata };
 
 interface BlogPageProps {
   searchParams: { [key: string]: string | string[] | undefined };
