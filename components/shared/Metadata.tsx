@@ -63,102 +63,6 @@ export function generateMetadata({
       '@graph': [],
     };
 
-    // Website Schema
-    const websiteSchema = {
-      '@type': 'WebSite',
-      '@id': `${defaultMeta.url}/#website`,
-      url: defaultMeta.url,
-      name: defaultMeta.siteName,
-      description: defaultMeta.description,
-      publisher: {
-        '@id': `${defaultMeta.url}/#person`,
-      },
-      potentialAction: [
-        {
-          '@type': 'SearchAction',
-          target: {
-            '@type': 'EntryPoint',
-            urlTemplate: `${defaultMeta.url}/blog?search={search_term_string}`,
-          },
-          'query-input': 'required name=search_term_string',
-        },
-      ],
-      inLanguage: language,
-    };
-
-    // Person/Author Schema
-    const personSchema = {
-      '@type': 'Person',
-      '@id': `${defaultMeta.url}/#person`,
-      name: defaultMeta.author,
-      image: {
-        '@type': 'ImageObject',
-        '@id': `${defaultMeta.url}/#personlogo`,
-        inLanguage: language,
-        url: `${defaultMeta.url}/images/AL-KINDI.png`,
-        contentUrl: `${defaultMeta.url}/images/AL-KINDI.png`,
-        width: 400,
-        height: 400,
-        caption: defaultMeta.author,
-      },
-      description:
-        'Legal professional specializing in corporate law, capital markets, M&A, bankruptcy, and cryptocurrency regulations',
-      sameAs: [
-        'https://twitter.com/alkindivv',
-        'https://linkedin.com/in/alkindivv',
-        'https://github.com/alkindivv',
-      ],
-      url: defaultMeta.url,
-      jobTitle: 'Trainee Associate',
-      worksFor: {
-        '@type': 'Organization',
-        name: 'Law Firm',
-      },
-      knowsAbout: [
-        'Corporate Law',
-        'Capital Markets',
-        'Mergers and Acquisitions',
-        'Bankruptcy Law',
-        'Cryptocurrency Regulations',
-        'Legal Technology',
-        'Blockchain',
-        'Lawyer',
-        'Law Firm',
-        'Law Practice',
-        'corporate lawyer',
-        'tech lawyer',
-        'NFT',
-        'DeFi',
-        'DAO',
-        'Web3',
-      ],
-    };
-
-    // Organization Schema
-    const organizationSchema = {
-      '@type': 'Organization',
-      '@id': `${defaultMeta.url}/#organization`,
-      name: defaultMeta.siteName,
-      url: defaultMeta.url,
-      logo: {
-        '@type': 'ImageObject',
-        inLanguage: language,
-        '@id': `${defaultMeta.url}/#logo`,
-        url: `${defaultMeta.url}/images/default.png`,
-        contentUrl: `${defaultMeta.url}/images/default.png`,
-        width: 1200,
-        height: 630,
-        caption: defaultMeta.siteName,
-      },
-      image: {
-        '@id': `${defaultMeta.url}/#logo`,
-      },
-      sameAs: [
-        'https://twitter.com/alkindivv',
-        'https://linkedin.com/in/alkindivv',
-      ],
-    };
-
     // WebPage Schema
     const webPageSchema = {
       '@type': 'WebPage',
@@ -183,14 +87,6 @@ export function generateMetadata({
         },
       ],
     };
-
-    // Add schemas to graph
-    baseSchema['@graph'].push(
-      websiteSchema,
-      personSchema,
-      organizationSchema,
-      webPageSchema
-    );
 
     // Article-specific schema
     if (type === 'article') {
@@ -278,6 +174,10 @@ export function generateMetadata({
     }
 
     baseSchema['@graph'].push(breadcrumbSchema);
+
+    // Website, Person, Organization sudah disuntik global di layout.tsx.
+    // Tambahkan hanya node dinamis untuk tiap halaman agar tidak duplikat.
+    baseSchema['@graph'].push(webPageSchema);
 
     return baseSchema;
   };
