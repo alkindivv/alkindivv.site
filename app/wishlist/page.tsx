@@ -175,7 +175,7 @@ export default function WishlistPage() {
         />
       </div>
       <main className="min-h-screen pt-40 relative z-10">
-        <div className=" max-w-4xl mx-auto ">
+        <div className=" max-w-3xl mx-auto ">
           {/* Header */}
           <div className="mb-12 space-y-4 text-center">
             <h1 className="font-sans text-[2.5rem] md:text-[3rem] lg:text-[3.5rem] font-bold leading-tight">

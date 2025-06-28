@@ -9,6 +9,8 @@ import DiscussionPreview from '@/components/common/DiscussionPreview';
 import { getAllPosts } from '@/lib/posts';
 import { Metadata } from 'next';
 import StructuredData from '@/components/shared/StructuredData';
+import DimensionLink from '@/components/common/DimensionLink';
+import LandingPage from '@/components/common/LandingPage';
 
 // Metadata khusus untuk halaman beranda
 export const metadata: Metadata = {
@@ -137,6 +139,7 @@ export default async function HomePage() {
         <div className="w-full">
           <div className="">
             {/* Hero Section */}
+
             <HeroSection />
           </div>
         </div>

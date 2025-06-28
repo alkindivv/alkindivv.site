@@ -14,7 +14,8 @@
     "perf": "npm run build && npm run start",
     "debug-prod": "NODE_ENV=production NODE_OPTIONS='--inspect' next dev",
     "prod-local": "npm run build && NODE_ENV=production DEBUG=* PORT=9999 next start",
-    "verbose": "NODE_OPTIONS='--trace-warnings' npm run build && NODE_ENV=production DEBUG=* PORT=9999 next start"
+    "verbose": "NODE_OPTIONS='--trace-warnings' npm run build && NODE_ENV=production DEBUG=* PORT=9999 next start",
+    "knip": "knip"
   },
   "dependencies": {
     "@headlessui/react": "^1.7.19",
@@ -59,7 +60,7 @@
     "@mdx-js/mdx": "^3.1.0",
     "@next/bundle-analyzer": "^14.2.30",
     "@next/mdx": "^15.3.3",
-    "@types/node": "^20",
+    "@types/node": "^20.19.0",
     "@types/react": "^18",
     "@types/rss": "^0.0.32",
     "autoprefixer": "^10.4.14",
@@ -67,6 +68,7 @@
     "eslint-config-next": "14.1.0",
     "github-slugger": "^2.0.0",
     "html-minifier-terser": "^7.2.0",
+    "knip": "^5.61.2",
     "lighthouse-ci": "^1.13.1",
     "next-unused": "^0.0.6",
     "postcss": "^8.4.21",
@@ -76,7 +78,7 @@
     "remark-gfm": "^4.0.1",
     "tailwindcss": "^3.3.0",
     "ts-prune": "^0.10.3",
-    "typescript": "^5",
+    "typescript": "^5.8.3",
     "unimported": "^1.31.1"
   }
 }

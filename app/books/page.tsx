@@ -2,18 +2,16 @@ import React from 'react';
 import Layout from '@/components/layout/Layout';
 import Image from 'next/image';
 import { Metadata } from 'next';
-import { HiOutlineBookOpen } from 'react-icons/hi';
+import Link from 'next/link';
 import Breadcrumb from '@/components/shared/Breadcrumb';
 import DimensionLink from '@/components/common/DimensionLink';
 
 export const metadata: Metadata = {
-  title: 'Books Collection',
-  description:
-    'Some of the books that I have read and annotated with my personal notes and takeaways.',
+  title: 'Books',
+  description: 'Books on law, business, and technology',
   openGraph: {
-    title: 'Books Collection',
-    description:
-      'Some of the books that I have read and annotated with my personal notes and takeaways.',
+    title: 'Books | AL KINDI',
+    description: 'Books on law, business, and technology',
     type: 'website',
     url: '/books/',
     images: [
@@ -21,15 +19,14 @@ export const metadata: Metadata = {
         url: '/images/default.png',
         width: 1200,
         height: 630,
-        alt: 'AL KINDI',
+        alt: 'Books',
       },
     ],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Books Collection',
-    description:
-      'Some of the books that I have read and annotated with my personal notes and takeaways.',
+    title: 'Books | AL KINDI',
+    description: 'Books on law, business, and technology',
     images: ['/images/default.png'],
   },
   alternates: {
@@ -91,45 +88,21 @@ const books: Book[] = [
 
 export default function BooksPage() {
   const breadcrumbItems = [{ label: 'Books' }];
+
   return (
     <Layout title="Books">
-      <div
-        className="absolute inset-0 overflow-hidden h-[450px] bg-neutral-950"
-        style={{
-          maskImage: 'linear-gradient(rgb(0, 0, 0) 80%, rgba(0, 0, 0, 0) 100%)',
-        }}
-      >
-        <div
-          aria-hidden="true"
-          className="h-[900px] w-[950px] rounded-full bg-gradient-to-r from-[#2E996C]/70 to-[#0F3324]/10 blur-[150px] absolute top-0 -translate-y-full rotate-45 origin-left z-[-2] left-[15%]"
-        />
-        <Image
-          alt=""
-          width={1280}
-          height={825}
-          className="pointer-events-none select-none absolute w-full inset-0 h-[450px] object-cover z-[-1] opacity-40 mix-blend-overlay"
-          src="/images/textures/crumpled.jpg"
-          priority
-        />
-
-        {/* Legal paper texture */}
-        <div
-          className="absolute inset-0 opacity-10 transition-opacity duration-1000 ease-in-out"
-          style={{
-            backgroundImage:
-              'linear-gradient(0deg, rgba(16,185,129,0.08) 1px, transparent 1px)',
-            backgroundSize: '100% 28px',
-          }}
-        />
+      {/* Subtle background with gradient */}
+      <div className="absolute inset-0 bg-neutral-950">
+        <div className="absolute inset-0 bg-gradient-to-b from-emerald-950/5 to-neutral-950" />
       </div>
 
       {/* Content */}
       <main className="min-h-screen pt-40 relative z-10">
-        <div className="max-w-6xl mx-auto">
+        <div className="max-w-3xl mx-auto">
           {/* Header - Legal Styled */}
           <div className="mb-12 max-w-2xl mx-auto" data-fade="1">
             <h3 className="text-4xl md:text-5xl font-bold mb-4 text-center">
-              Books <span className="gradient-text">Refrences</span>
+              Books <span className="gradient-text">References</span>
             </h3>
             <p className="text-neutral-400 leading-relaxed text-center">
               Some of the books that I have read and annotated with my personal
@@ -143,72 +116,58 @@ export default function BooksPage() {
             <Breadcrumb items={breadcrumbItems} />
           </div>
 
-          {/* Books List - Simple & Elegant */}
-          <ul className="divide-y divide-neutral-800/60">
+          {/* Books List - Ultra Minimal */}
+          <div className="space-y-12">
             {books.map((book) => (
-              <li key={book.id} className="py-6 flex items-start gap-6">
-                {/* Cover thumbnail */}
-                <div className="shrink-0 hidden md:block">
-                  <Image
-                    src={book.coverImage}
-                    alt={book.title}
-                    width={124}
-                    height={96}
-                    className="object-cover rounded"
-                  />
-                </div>
+              <div key={book.id} className="group">
+                <div className="grid grid-cols-3 md:grid-cols-4 gap-4 md:gap-6">
+                  {/* Book Cover - Smaller on mobile */}
+                  <div className="col-span-1 aspect-[3/4] relative overflow-hidden rounded bg-neutral-900">
+                    <Image
+                      src={book.coverImage}
+                      alt={book.title}
+                      fill
+                      className="object-cover"
+                      sizes="(max-width: 768px) 33vw, 25vw"
+                    />
+                  </div>
 
-                {/* Details */}
-                <div className="flex-1">
-                  <h4 className="text-lg md:text-2xl font-semibold text-white leading-snug">
-                    <DimensionLink href={book.url || ''}>
+                  {/* Book Details */}
+                  <div className="col-span-2 md:col-span-3 space-y-2 md:space-y-3">
+                    <div className="text-xs text-emerald-500">
+                      {book.category}
+                    </div>
+
+                    <h2 className="text-lg md:text-xl text-white">
                       {book.title}
-                    </DimensionLink>
-                  </h4>
-                  <p className="text-xs md:text-sm text-neutral-500 mb-2">
-                    {book.author} • {book.publishYear} • {book.category}
-                  </p>
-                  <p className="paragraph-text leading-relaxed">
-                    {book.description}
-                  </p>
+                    </h2>
 
-                  {book.keyTakeaways && (
-                    <ul className="mt-3 list-disc list-inside space-y-1 paragraph-text leading-relaxed">
-                      {book.keyTakeaways.map((take, idx) => (
-                        <li key={idx}>{take}</li>
-                      ))}
-                    </ul>
-                  )}
+                    <p className="text-xs md:text-sm text-neutral-400">
+                      {book.author} • {book.publishYear}
+                    </p>
+
+                    <p className="text-sm md:text-base text-neutral-400 leading-relaxed">
+                      {book.description}
+                    </p>
+
+                    {/* Simple link */}
+                    {book.url && (
+                      <div>
+                        <DimensionLink
+                          href={book.url}
+                          className="text-xs md:text-sm text-neutral-500 py-1.5 rounded-full"
+                        >
+                          Reference
+                        </DimensionLink>
+                      </div>
+                    )}
+                  </div>
                 </div>
-              </li>
-            ))}
-          </ul>
 
-          {/* Legal footer */}
-          {/* <div className="mt-12 text-end text-[10px] text-neutral-500 font-mono">
-            BOOKS-{new Date().getFullYear()}
-          </div> */}
-          <div className="mt-16 text-center relative">
-            {/* Law scale divider */}
-            <div className="flex items-center justify-center mb-6">
-              <div className="h-px w-16 bg-neutral-800"></div>
-              <div className="mx-4">
-                <HiOutlineBookOpen className="w-8 h-8 text-emerald-500/30" />
+                {/* Minimal separator */}
+                <div className="mt-12 h-px bg-neutral-900 w-full" />
               </div>
-              <div className="h-px w-16 bg-neutral-800"></div>
-            </div>
-
-            <div className="flex items-center justify-center gap-2 text-xs text-neutral-500">
-              <HiOutlineBookOpen className="w-4 h-4 text-emerald-500/50" />
-              <span>For professional reference only</span>
-            </div>
-
-            {/* Legal disclaimer */}
-            <p className="mt-4 text-[10px] text-neutral-600 max-w-lg mx-auto">
-              These are provided for informational purposes only and do not
-              constitute legal advice. Always consult with a qualified legal
-              professional before using these for references.
-            </p>
+            ))}
           </div>
         </div>
       </main>

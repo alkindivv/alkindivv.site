@@ -1,7 +1,7 @@
 import React from 'react';
 import Image from 'next/image';
 import clsx from 'clsx';
-import DimensionLink from '@/components/blog/mdx/DimensionLink';
+import DimensionLink from '@/components/common/DimensionLink';
 import Accent from '@/components/shared/Accent';
 
 /* -------------------------- Tipografi Komponen -------------------------- */
@@ -233,6 +233,40 @@ export const InlineCode = ({ children }: { children: React.ReactNode }) => (
   </code>
 );
 
+export const ImageGrid = ({
+  images,
+  caption,
+}: {
+  images: { src: string; alt: string }[];
+  caption?: string;
+}) => {
+  if (!images || images.length === 0) return null;
+
+  return (
+    <div className=" w-full max-w-full mx-auto mb-12 md:mb-12 md:mt-0">
+      <div className="grid grid-cols-2 md:grid-cols-2 gap-4">
+        {images.map((image, index) => (
+          <div
+            key={index}
+            className="relative aspect-[3/4] w-full overflow-hidden rounded-md border border-gray-800/50"
+          >
+            <Image
+              src={image.src}
+              alt={image.alt || ''}
+              fill
+              sizes="(max-width: 768px) 100vw, 50vw"
+              className="object-cover"
+            />
+          </div>
+        ))}
+      </div>
+      {caption && (
+        <p className="text-center text-gray-400 text-sm mt-2">{caption}</p>
+      )}
+    </div>
+  );
+};
+
 /* ------------------------- MDX Components Map ------------------------- */
 export const MDXComponents = {
   h1: H1,
@@ -271,6 +305,7 @@ export const MDXComponents = {
       />
     </div>
   ),
+  ImageGrid,
   Accent: ({ children, ...props }: TypographyProps) => (
     <Accent {...props}>{children}</Accent>
   ),

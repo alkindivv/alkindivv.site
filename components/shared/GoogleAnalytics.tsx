@@ -69,15 +69,6 @@ export const GoogleAnalytics = () => {
   );
 };
 
-// Track page views
-export const trackPageView = (url: string) => {
-  if (typeof window !== 'undefined' && window.gtag) {
-    window.gtag('event', 'page_view', {
-      page_location: url,
-    });
-  }
-};
-
 // Track custom events
 export const trackEvent = (
   action: string,
@@ -109,5 +100,4 @@ export const trackBlogRead = (
     });
   }
 };
-
 export default GoogleAnalytics;

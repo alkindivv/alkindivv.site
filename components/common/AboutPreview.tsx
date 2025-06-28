@@ -7,6 +7,8 @@ import { HiScale } from 'react-icons/hi';
 import OptimizedImage from '../shared/OptimizedImage';
 import AccentNormal from '../shared/AccentNormal';
 import Link from 'next/link';
+import { SOCIAL_ICONS } from '../icons/ModernSocialIcons';
+import { LEGAL_ICONS } from '../icons/ModernLegalIcons';
 
 const AboutPreview = () => {
   const [isVisible, setIsVisible] = useState(false);
@@ -266,7 +268,7 @@ const AboutPreview = () => {
                   >
                     <div className="flex items-center gap-3">
                       <div className="w-10 h-10 rounded-md border border-emerald-800/40 flex items-center justify-center">
-                        <HiScale className="w-5 h-5 text-neutral-300" />
+                        <LEGAL_ICONS.balanceScale className="w-5 h-5 text-neutral-300" />
                       </div>
                       <div>
                         <h4 className="text-base font-medium ">

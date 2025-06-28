@@ -2,7 +2,6 @@
 
 import { useEffect, useRef, useCallback } from 'react';
 import { usePathname, useRouter } from 'next/navigation';
-import { useLoadingStore } from '@/lib/stores/useLoadingStore';
 
 export const useRouterLoading = () => {
   const pathname = usePathname();

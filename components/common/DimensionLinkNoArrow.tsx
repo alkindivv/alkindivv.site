@@ -4,19 +4,19 @@ import React, { useState } from 'react';
 import Link from 'next/link';
 import clsx from 'clsx';
 
-interface DimensionLinkProps {
+interface DimensionLinkNoArrowProps {
   href: string;
   children: React.ReactNode;
   className?: string;
   tooltipPosition?: 'top' | 'bottom' | 'left' | 'right';
 }
 
-export default function DimensionLink({
+export default function DimensionLinkNoArrow({
   href,
   children,
   className,
   tooltipPosition = 'top',
-}: DimensionLinkProps) {
+}: DimensionLinkNoArrowProps) {
   const isExternal = href.startsWith('http');
   const [isTooltipVisible, setIsTooltipVisible] = useState(false);
 
@@ -99,7 +99,7 @@ export default function DimensionLink({
       <span className="dimension-link" style={textStyles}>
         {children}
       </span>
-      <ArrowIcon />
+      {/* <ArrowIcon /> */}
       <span className={tooltipClasses}>
         {isExternal ? (
           <span className="flex items-center gap-1">

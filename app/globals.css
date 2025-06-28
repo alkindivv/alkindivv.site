@@ -53,7 +53,7 @@
 
   --color-border: #374151;
   /* --color-background: #0a0a0a; */
-  --color-background: #000000;
+  --color-background: #0a0a0a;
   --color-hover: #1f1f1f;
   --link-gradient: linear-gradient(45deg, #08c488 50%, #59fbbf 100%);
   --link-gradient-button: linear-gradient(45deg, #08c488 25%, #59fbbf 100%);
@@ -175,7 +175,8 @@ html {
 /* Background styling dengan tema hukum */
 #content-sections > section {
   background-color: rgba(5, 5, 5, 0.2);
-  background-image: linear-gradient(
+  background-image:
+    linear-gradient(
       to bottom,
       rgba(20, 84, 74, 0.05),
       transparent 15%,
@@ -189,7 +190,8 @@ html {
 /* Efek marmer subtle untuk section hukum */
 #content-sections > section:nth-child(odd) {
   background-color: rgba(10, 13, 16, 0.4);
-  background-image: linear-gradient(
+  background-image:
+    linear-gradient(
       to bottom,
       rgba(20, 84, 74, 0.05),
       transparent 15%,
@@ -201,7 +203,8 @@ html {
 
 #content-sections > section:nth-child(even) {
   background-color: rgba(7, 10, 12, 0.2);
-  background-image: linear-gradient(
+  background-image:
+    linear-gradient(
       to bottom,
       rgba(20, 84, 74, 0.03),
       transparent 15%,
@@ -1031,16 +1034,18 @@ button,
   filter: drop-shadow(0 0 8px rgba(52, 211, 153, 0.5));
 }
 
+/* Tooltip styling */
 .tooltip {
   opacity: 0;
-  transform: translateY(10px);
-  transition: all 0.3s ease;
-  pointer-events: none;
+  visibility: hidden;
+  transition:
+    opacity 0.2s ease-out,
+    visibility 0.2s ease-out;
 }
 
 .tooltip-wrapper:hover .tooltip {
   opacity: 1;
-  transform: translateY(0);
+  visibility: visible;
 }
 
 /* Animasi untuk BlogCard */
@@ -1098,4 +1103,27 @@ body.fade-out {
   transition:
     opacity 0.3s ease-in-out,
     transform 0.3s ease-in-out;
+}
+
+/* Animasi untuk ikon outline premium */
+@keyframes icon-pulse {
+  0% {
+    filter: drop-shadow(0 0 0 rgba(16, 185, 129, 0));
+  }
+  50% {
+    filter: drop-shadow(0 0 3px rgba(16, 185, 129, 0.5));
+  }
+  100% {
+    filter: drop-shadow(0 0 0 rgba(16, 185, 129, 0));
+  }
+}
+
+.premium-icon-hover {
+  transition: all 0.3s ease;
+}
+
+.premium-icon-hover:hover {
+  color: #10b981; /* emerald-500 */
+  animation: icon-pulse 1.5s infinite;
+  transform: translateY(-1px);
 }

@@ -158,19 +158,13 @@ const AboutPage = () => {
                 also actively engaged in the Indonesian crypto community. Being
                 part of this community has not only broadened my understanding
                 of the ecosystem but has also helped me build a strong
-                professional individuals network.
-              </p>
-
-              <p
-                className="text-justify paragraph-text leading-relaxed"
-                data-fade="6"
-              >
-                Through this blog, I combine my knowledge of law and technology
-                to share insights with a wider audience. I write about topics
-                such as capital markets, mergers and acquisitions, bankruptcy
-                law, and crypto asset regulations — hoping to make complex
-                subjects more accessible and engaging for readers who are as
-                passionate about these areas as I am.
+                professional individuals network. Through this blog, I combine
+                my knowledge of law and technology to share insights with a
+                wider audience. I write about topics such as capital markets,
+                mergers and acquisitions, bankruptcy law, and crypto asset
+                regulations — hoping to make complex subjects more accessible
+                and engaging for readers who are as passionate about these areas
+                as I am.
               </p>
             </div>
             <div className="clear-both mb-20" />

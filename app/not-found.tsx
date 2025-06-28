@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import { Metadata } from 'next';
 import { viewport } from './viewport';
-import DimensionLink from '@/components/common/DimensionLink';
+import DimensionLinkNoArrow from '@/components/common/DimensionLinkNoArrow';
 import GlowingButton from '@/components/shared/GlowingButton';
 
 export { viewport };
@@ -13,8 +13,13 @@ export const metadata: Metadata = {
 
 export default function NotFound() {
   return (
-    <main className="flex flex-col items-center justify-center min-h-screen py-20 px-4 bg-neutral-950">
-      <div className="space-y-6 max-w-5xl text-center">
+    <main className="flex flex-col items-center justify-center min-h-screen py-20 px-4 relative">
+      {/* Subtle background with gradient */}
+      <div className="absolute inset-0 bg-neutral-950">
+        <div className="absolute inset-0 bg-gradient-to-b from-emerald-950/5 to-neutral-950" />
+      </div>
+
+      <div className="space-y-6 max-w-5xl text-center relative z-10">
         <div className="inline-block mb-2">
           <div className="relative">
             {/* <div className="h-px w-16 bg-gradient-to-r from-transparent via-emerald-500 to-transparent absolute -top-6 left-1/2 transform -translate-x-1/2"></div>
@@ -27,11 +32,9 @@ export default function NotFound() {
           Lost in the void? This page can't be found.
         </p>
         <div className="pt-6">
-          <GlowingButton variant="minimal">
-            <span className="flex items-center gap-2">
-              <Link href="/">Return home</Link>
-            </span>
-          </GlowingButton>
+          <span className=" items-center gap-2">
+            <DimensionLinkNoArrow href="/">Return home</DimensionLinkNoArrow>
+          </span>
         </div>
       </div>
     </main>

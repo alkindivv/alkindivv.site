@@ -4,34 +4,36 @@ import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { usePathname } from 'next/navigation';
-import {
-  HiNewspaper,
-  HiUser,
-  HiHome,
-  HiMail,
-  HiBookOpen,
-  HiSparkles,
-} from 'react-icons/hi';
-import { FaChevronDown } from 'react-icons/fa';
-import type { IconType } from 'react-icons';
-import { GoLaw } from 'react-icons/go';
-import { Menu, Transition } from '@headlessui/react';
-import { Search } from 'lucide-react';
 
+import { Menu, Transition } from '@headlessui/react';
 import clsx from 'clsx';
+
+// Import modern icons - optimized and elegant
+import {
+  HomeIcon,
+  BookIcon,
+  UserIcon,
+  BalanceScaleIcon,
+  EmailIcon,
+  GridIcon,
+  StarIcon,
+  ChevronDownIcon,
+  SearchIcon,
+  LawBookIcon,
+} from '@/components/icons';
 
 interface MoreItem {
   href: string;
   label: string;
   description: string;
-  icon: IconType;
+  icon: React.FC<{ className?: string; strokeWidth?: number; color?: string }>;
 }
 
 interface NavItem {
   href: string;
   label: string;
   description: string;
-  icon: IconType;
+  icon: React.FC<{ className?: string; strokeWidth?: number; color?: string }>;
 }
 
 interface NavItemWithDropdown extends NavItem {
@@ -75,13 +77,13 @@ export default function Header() {
       href: '/',
       label: 'Home',
       description: 'Welcome to my forever work-in-progress!',
-      icon: HiHome,
+      icon: HomeIcon,
     },
     {
       href: '/blog/',
       label: 'Blog',
       description: 'Thoughts & Insights',
-      icon: HiNewspaper,
+      icon: BookIcon,
     },
     // {
     //   href: '/projects/',
@@ -94,13 +96,13 @@ export default function Header() {
       href: '/about/',
       label: 'About',
       description: 'Learn more about me',
-      icon: HiUser,
+      icon: UserIcon,
     },
     {
       href: '/glossary/',
       label: 'Glossary',
       description: 'Legal Glossary',
-      icon: GoLaw,
+      icon: BalanceScaleIcon,
     },
   ];
 
@@ -109,25 +111,25 @@ export default function Header() {
       href: '/books/',
       label: 'Books',
       description: 'My Book Collections',
-      icon: HiBookOpen,
+      icon: BookIcon,
     },
     {
       href: '/contact/',
       label: 'Contact',
       description: 'Get in touch with me',
-      icon: HiMail,
+      icon: EmailIcon,
     },
     {
       href: '/resources/',
       label: 'Resources',
       description: 'Resources and legal templates',
-      icon: HiBookOpen,
+      icon: LawBookIcon,
     },
     {
       href: '/wishlist/',
       label: 'Wishlist',
       description: 'Life Goals',
-      icon: HiSparkles,
+      icon: StarIcon,
     },
   ];
 
@@ -163,7 +165,7 @@ export default function Header() {
                 href: '#',
                 label: 'More',
                 description: 'Additional pages and resources',
-                icon: FaChevronDown,
+                icon: ChevronDownIcon,
                 isDropdown: true,
                 dropdownItems: moreItems,
               } as NavItemWithDropdown,
@@ -195,11 +197,12 @@ export default function Header() {
                           >
                             More
                           </span>
-                          <FaChevronDown
+                          <ChevronDownIcon
                             className={clsx(
-                              'w-3 h-3 transition-transform',
+                              'w-3 h-3 transition-transform duration-200',
                               open && 'rotate-180'
                             )}
+                            strokeWidth={2}
                           />
                         </Menu.Button>
 
@@ -211,25 +214,24 @@ export default function Header() {
                           leaveFrom="transform opacity-100 scale-100"
                           leaveTo="transform opacity-0 scale-95"
                         >
-                          <Menu.Items className="absolute  -translate-x-1/2 mt-7 ml-10 max-w-[85vw] w-[320px] sm:w-[260px] bg-[#1A1A1A]/95 backdrop-blur-lg border border-white/5 rounded-md shadow-lg focus:outline-none divide-y divide-white/5">
+                          <Menu.Items className="absolute -translate-x-1/2 mt-7 ml-10 max-w-[85vw] w-[320px] sm:w-[260px] bg-gradient-to-b from-[#1A1A1A]/95 to-[#111111]/95 backdrop-blur-xl border border-white/10 rounded-lg shadow-2xl focus:outline-none divide-y divide-white/5 overflow-hidden">
                             {item.dropdownItems?.map((dropdownItem, idx) => (
                               <Link
                                 key={dropdownItem.href}
                                 href={dropdownItem.href}
                                 prefetch={true}
-                                className="group flex items-start gap-3 px-4 py-3 transition-colors"
+                                className="group flex items-start gap-3 px-4 py-3 transition-all duration-200 hover:bg-white/5 hover:backdrop-blur-sm relative overflow-hidden"
                               >
-                                {(() => {
-                                  const Icon = dropdownItem.icon;
-                                  return (
-                                    <Icon className="w-4 h-4 mt-0.5 text-emerald-400 flex-shrink-0" />
-                                  );
-                                })()}
-                                <div className="text-sm leading-tight">
-                                  <div className="font-medium text-neutral-100  group-hover:underline underline-offset-2">
+                                <div className="absolute inset-0 bg-gradient-to-r from-emerald-500/0 via-emerald-500/5 to-emerald-500/0 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                                <dropdownItem.icon
+                                  className="w-4 h-4 mt-0.5 text-emerald-400 flex-shrink-0 transition-transform duration-200 hover:scale-110"
+                                  strokeWidth={1.5}
+                                />
+                                <div className="text-sm leading-tight relative z-10">
+                                  <div className="font-semibold text-neutral-100 group-hover:text-emerald-300 transition-colors duration-200">
                                     {dropdownItem.label}
                                   </div>
-                                  <p className="text-xs text-gray-400 mt-0.5 line-clamp-2">
+                                  <p className="text-xs text-neutral-400 group-hover:text-neutral-300 mt-0.5 line-clamp-2 transition-colors duration-200">
                                     {dropdownItem.description}
                                   </p>
                                 </div>
@@ -249,14 +251,27 @@ export default function Header() {
                   href={item.href}
                   prefetch={true}
                   className={clsx(
-                    'relative inline-flex items-center gap-1.5 py-2 mx-4',
+                    'relative inline-flex items-center gap-1.5 py-2 mx-4 group',
                     'text-sm md:text-base font-medium',
                     'transition-all duration-300',
-                    'underline-offset-2 hover:underline',
-                    isActive ? 'text-emerald-400' : 'text-gray-300'
+                    'hover:scale-105',
+                    isActive
+                      ? 'text-emerald-400'
+                      : 'text-gray-300 hover:text-emerald-300'
                   )}
                 >
-                  {item.label}
+                  <span
+                    className={clsx(
+                      'relative',
+                      'before:absolute before:bottom-0 before:left-0 before:w-0 before:h-0.5',
+                      'before:bg-gradient-to-r before:from-emerald-400 before:to-emerald-300',
+                      'before:transition-all before:duration-300',
+                      'group-hover:before:w-full',
+                      isActive && 'before:w-full'
+                    )}
+                  >
+                    {item.label}
+                  </span>
                 </Link>
               );
             })}
@@ -269,7 +284,7 @@ export default function Header() {
               aria-label="Search"
               className="hidden md:inline-flex p-2 rounded-sm hover:bg-emerald-500/10 text-gray-300 hover:text-emerald-400 transition-colors"
             >
-              <Search className="w-4 h-4" />
+              <PremiumSearchIcon className="w-4 h-4" strokeWidth={1.5} />
             </button> */}
 
             {/* Menu button handled outside for mobile */}
@@ -282,24 +297,26 @@ export default function Header() {
         onClick={() => setIsMenuOpen(!isMenuOpen)}
         className={clsx(
           'fixed top-6 right-4 md:hidden inline-flex items-center gap-2 px-4 py-2 rounded-lg mt-8',
-          'bg-[#1A1A1A]/90 border border-white/5',
-          'text-neutral-400 text-sm',
-          'transition-colors duration-200 hover:bg-[#222] hover:text-emerald-400 z-50'
+          'bg-gradient-to-br from-[#1A1A1A]/90 to-[#111111]/90 border border-white/10 backdrop-blur-sm',
+          'text-neutral-400 text-sm font-medium shadow-lg',
+          'transition-all duration-200 hover:bg-gradient-to-br hover:from-[#222]/90 hover:to-[#1A1A1A]/90 hover:text-emerald-400 hover:border-emerald-500/20 z-50',
+          'hover:shadow-emerald-500/10 hover:shadow-xl'
         )}
         aria-label="Toggle menu"
       >
         <span>{isMenuOpen ? 'Close' : 'Menu'}</span>
-        <FaChevronDown
+        <ChevronDownIcon
           className={clsx(
-            'w-3 h-3 transition-transform',
+            'w-3 h-3 transition-transform duration-200',
             isMenuOpen && 'rotate-180'
           )}
+          strokeWidth={2}
         />
       </button>
 
       {/* Mobile Menu - Legal styled */}
       {isMenuOpen && (
-        <div className="fixed inset-0 z-40 md:hidden bg-black/90 backdrop-blur-md pt-24 border-t border-neutral-800/50">
+        <div className="fixed inset-0 z-40 md:hidden bg-gradient-to-b from-black/90 via-black/85 to-black/90 backdrop-blur-xl pt-24 border-t border-neutral-800/50">
           <div className="container mx-auto px-4 py-2">
             <div className="space-y-1">
               {navItems.map((item) => (
@@ -309,16 +326,21 @@ export default function Header() {
                   prefetch={true}
                   onClick={() => setIsMenuOpen(false)}
                   className={clsx(
-                    'block p-3 rounded-md border border-white/5 bg-[#111111]/40 text-sm',
-                    'transition-colors duration-300',
+                    'block p-4 rounded-lg border text-sm',
+                    'transition-all duration-300 group relative overflow-hidden',
                     pathname === item.href
-                      ? 'text-emerald-400 bg-emerald-500/10'
-                      : 'text-gray-300 hover:text-emerald-400 hover:bg-[#222]'
+                      ? 'text-emerald-400 bg-gradient-to-r from-emerald-500/20 to-emerald-500/10 border-emerald-500/30 shadow-lg shadow-emerald-500/10'
+                      : 'text-gray-300 bg-[#111111]/40 border-white/5 hover:text-emerald-400 hover:bg-gradient-to-r hover:from-[#222]/60 hover:to-[#1A1A1A]/60 hover:border-emerald-500/20'
                   )}
                 >
                   <div className="flex items-center gap-3">
-                    <item.icon className="w-5 h-5" />
-                    <span>{item.label}</span>
+                    <div className="flex items-center justify-center w-8 h-8 rounded-md bg-emerald-500/10 border border-emerald-500/20">
+                      <item.icon
+                        className="w-4 h-4 text-emerald-400 transition-all duration-200 group-hover:scale-110"
+                        strokeWidth={1.5}
+                      />
+                    </div>
+                    <span className="font-medium">{item.label}</span>
                   </div>
                 </Link>
               ))}
@@ -336,16 +358,21 @@ export default function Header() {
                     prefetch={true}
                     onClick={() => setIsMenuOpen(false)}
                     className={clsx(
-                      'block p-3 rounded-md border border-white/5 bg-[#111111]/40 text-sm',
-                      'transition-colors duration-300',
+                      'block p-4 rounded-lg border text-sm',
+                      'transition-all duration-300 group relative overflow-hidden',
                       pathname === item.href
-                        ? 'text-emerald-400 bg-emerald-500/10'
-                        : 'text-gray-300 hover:text-emerald-400 hover:bg-[#222]'
+                        ? 'text-emerald-400 bg-gradient-to-r from-emerald-500/20 to-emerald-500/10 border-emerald-500/30 shadow-lg shadow-emerald-500/10'
+                        : 'text-gray-300 bg-[#111111]/40 border-white/5 hover:text-emerald-400 hover:bg-gradient-to-r hover:from-[#222]/60 hover:to-[#1A1A1A]/60 hover:border-emerald-500/20'
                     )}
                   >
                     <div className="flex items-center gap-3">
-                      <item.icon className="w-5 h-5" />
-                      <span>{item.label}</span>
+                      <div className="flex items-center justify-center w-8 h-8 rounded-md bg-emerald-500/10 border border-emerald-500/20">
+                        <item.icon
+                          className="w-4 h-4 text-emerald-400 transition-all duration-200 group-hover:scale-110"
+                          strokeWidth={1.5}
+                        />
+                      </div>
+                      <span className="font-medium">{item.label}</span>
                     </div>
                   </Link>
                 ))}

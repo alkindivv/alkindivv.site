@@ -91,7 +91,7 @@ export default function ContactClient() {
 
       {/* Hero Section */}
       <main className="min-h-screen pt-40 relative z-10">
-        <div className="max-w-6xl mx-auto">
+        <div className="max-w-3xl mx-auto">
           {/* Header - Legal Styled */}
           <div className="mb-12 max-w-2xl mx-auto" data-fade="1">
             <h3 className="text-4xl md:text-5xl font-bold mb-4 text-center">
@@ -191,36 +191,21 @@ export default function ContactClient() {
                   )}
                 </div>
 
-                <div className="flex items-center justify-between pt-2 sm:pt-4 mt-auto border-t border-neutral-800/40">
-                  <div className="flex items-center gap-2 text-xs text-neutral-500">
-                    {/* <GrContact className="w-4 h-4" /> */}
+                <div className="flex items-center justify-end pt-2 sm:pt-4 mt-auto border-t border-neutral-800/40">
+                  {/* <div className="flex items-center gap-2 text-xs text-neutral-500">
                     <span>I'm looking forward to hearing from you!</span>
-                  </div>
+                  </div> */}
                   <GlowingButton
                     type="submit"
                     disabled={isLoading}
                     isLoading={isLoading}
                     variant="small"
-                    iconPosition="link"
+                    iconPosition="right"
                   >
                     Send Message
                   </GlowingButton>
                 </div>
               </form>
-
-              <div
-                className="mt-16 text-center"
-                style={{
-                  opacity: isVisible ? 1 : 0,
-                  transition: 'opacity 800ms ease-out',
-                  transitionDelay: '1400ms',
-                }}
-              >
-                <div className="flex items-center justify-center gap-2 text-xs text-neutral-500">
-                  <HiScale className="w-4 h-4 text-emerald-500/50" />
-                  <span>Contact Form</span>
-                </div>
-              </div>
             </div>
           </div>
         </div>
