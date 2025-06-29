@@ -5,15 +5,20 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { HiOutlineClock } from 'react-icons/hi';
 import Breadcrumb from '@/components/shared/Breadcrumb';
-import TableOfContents from '@/components/blog/TableOfContents';
-import RelatedArticles from '@/components/blog/RelatedArticles';
-import ArticleNewsletterPopup from '@/components/blog/ArticleNewsletterPopup';
 import { MDXComponents } from '@/components/blog/mdx';
 import { BlogPost } from '@/types/blog';
-import { FiLinkedin, FiMail, FiTwitter } from 'react-icons/fi';
+import {
+  FiLinkedin,
+  FiMail,
+  FiTwitter,
+  FiArrowLeft,
+  FiArrowRight,
+} from 'react-icons/fi';
 import AccentNormal from '@/components/shared/AccentNormal';
 import { slugify } from '@/lib/utils/slug';
 import { format } from 'date-fns';
+import dynamic from 'next/dynamic';
+import FloatingShare from '@/components/blog/FloatingShare';
 
 interface PostData extends BlogPost {
   readingTime: number;
@@ -31,11 +36,24 @@ interface BlogPostLayoutProps {
   children: React.ReactNode;
 }
 
-const debugProd = (msg: string, data?: any) => {
-  if (process.env.NODE_ENV === 'production') {
-    console.log(`[PostLayout] ${msg}`, data);
-  }
-};
+// Production debugging removed for performance
+
+const TableOfContents = dynamic(
+  () => import('@/components/blog/TableOfContents'),
+  { ssr: false, loading: () => null }
+);
+const RelatedArticles = dynamic(
+  () => import('@/components/blog/RelatedArticles'),
+  { ssr: false, loading: () => null }
+);
+const ArticleNewsletterPopup = dynamic(
+  () => import('@/components/blog/ArticleNewsletterPopup'),
+  { ssr: false, loading: () => null }
+);
+const MobileFloatingToc = dynamic(
+  () => import('@/components/blog/MobileFloatingToc'),
+  { ssr: false }
+);
 
 export default function BlogPostLayout({
   post,
@@ -48,7 +66,7 @@ export default function BlogPostLayout({
   const articleRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    debugProd('mounted', { slug });
+    // Component mounted
   }, [slug]);
 
   const formattedDate = format(new Date(post.date), 'MMMM dd, yyyy');
@@ -103,16 +121,22 @@ export default function BlogPostLayout({
           </div>
         </div>
         <div
-          className="flex items-center gap-3 text-xs sm:text-sm font-paragraf text-[#A3A3A3]"
+          className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-3 text-xs sm:text-sm font-paragraf text-[#A3A3A3]"
           data-fade="5"
         >
           <span className="flex items-center gap-2">
             <HiOutlineClock className="w-4 h-4 text-[#08c488]" />
-
             <span className="text-xs md:text-md text-neutral-300 font-paragraf">
               {post.readingTime} min read
             </span>
           </span>
+          {/* <span className="hidden sm:inline">•</span>
+          <Link
+            href={`/blog/${post.category.toLowerCase()}/`}
+            className="text-emerald-400 hover:underline"
+          >
+            {post.category}
+          </Link> */}
         </div>
       </div>
 
@@ -139,13 +163,9 @@ export default function BlogPostLayout({
             {/* <div className="absolute -inset-[1px] bg-gradient-to-r from-emerald-500/0 via-emerald-500/10 to-emerald-500/0 rounded-2xl opacity-0 group-hover:opacity-100 transition-all duration-700" /> */}
 
             {/* Content Container */}
-            <div className="relative flex flex-col sm:flex-row gap-6 sm:gap-8 p-6 sm:p-8 bg-[#0a0a0a]/90 backdrop-blur-md rounded-2xl border border-white/[0.05]">
-              {/* Author Image Container */}
-              <div className="relative sm:flex-shrink-0">
-                {/* Image Glow Effect */}
-                {/* <div className="absolute -inset-0.5 bg-gradient-to-br from-emerald-500/30 to-emerald-500/0 rounded-xl blur-sm opacity-0 group-hover:opacity-20 transition-all duration-700" /> */}
-
-                {/* Image */}
+            {/* <div className="relative flex flex-col sm:flex-row gap-6 sm:gap-8 p-6 sm:p-8 bg-[#0a0a0a]/90 backdrop-blur-md rounded-2xl border border-white/[0.05]"> */}
+            {/* Author Image Container */}
+            {/* <div className="relative sm:flex-shrink-0">
                 <div className="relative w-16 h-16 sm:w-24 sm:h-24 overflow-hidden rounded-xl ring-1 ring-white/[0.05]">
                   <Image
                     src="/images/AL-KINDI.png"
@@ -157,70 +177,25 @@ export default function BlogPostLayout({
                     quality={90}
                   />
                 </div>
-              </div>
+              </div> */}
 
-              {/* Author Info */}
-              <div className="flex-1 space-y-1">
-                {/* Name and Role */}
-                <div className="space-y-0">
-                  <h3 className="text-base sm:text-lg font-semibold tracking-tight">
-                    <span className="">{post.author}</span>
-                  </h3>
-                </div>
-
-                {/* Bio */}
-                <p className="text-[13px] sm:text-[14px] text-[#A3A3A3]leading-relaxed font-paragraf">
-                  Focusing my expertise in corporate M&A, capital markets, and
-                  bankruptcy. Passionate about the intersection of law and
-                  technology, exploring innovative solutions in legal practice.
-                </p>
-
-                {/* Social Links */}
-                <div className="flex flex-wrap items-center gap-x-5 gap-y-2 pt-1">
-                  <a
-                    href="https://twitter.com/alkindivv"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex items-center gap-2 text-[13px] text-gray-400/80 transition-colors duration-300"
-                  >
-                    <FiTwitter className="w-4 h-4" />
-                    <span className="font-medium">@alkindivv</span>
-                  </a>
-                  <a
-                    href="https://linkedin.com/in/alkindivv"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex items-center gap-2 text-[13px] text-gray-400/80 hover:text-emerald-400/90 transition-colors duration-300"
-                  >
-                    <FiLinkedin className="w-4 h-4" />
-
-                    <span className="font-medium">LinkedIn</span>
-                  </a>
-                  <a
-                    href="mailto:alkindivv@gmail.com"
-                    className="flex items-center gap-2 text-[13px] text-gray-400/80 hover:text-emerald-400/90 transition-colors duration-300"
-                  >
-                    <FiMail className="w-4 h-4" />
-                    <span className="font-medium">Email</span>
-                  </a>
-                </div>
-              </div>
-            </div>
+            {/* Author Info */}
+            {/* </div> */}
           </div>
           {post.tags?.length && (
             <div className="flex items-center gap-2 mt-2">
-              {post.tags.map((tag) => (
+              {post.tags.map((tag: string) => (
                 <Link
                   key={tag}
                   href={`/blog/tag/${slugify(tag)}`}
-                  className="px-1.5 py-1 text-xs rounded-lg md:text-sm transition-all duration-300 tracking-widebg-[#17171799] font-medium text-[#9e9e9e] border-emerald-500 bg-emerald-500/10"
+                  className="px-1.5 py-1 text-xs rounded-lg md:text-sm transition-all duration-300 tracking-wide bg-[#17171799] font-medium text-[#9e9e9e] border-emerald-500 bg-emerald-500/10"
                 >
                   {tag}
                 </Link>
               ))}
             </div>
           )}
-          <div className="mt-2" data-fade="2">
+          <div className="mt-5" data-fade="2">
             <Breadcrumb items={breadcrumbItems} />
           </div>
         </article>
@@ -237,51 +212,49 @@ export default function BlogPostLayout({
         <h2 className="text-3xl md:text-4xl font-bold mb-4 sm:mb-6">
           <span className="gradient-text">Related Articles</span>
         </h2>
-        <RelatedArticles
-          currentPost={{ ...post, readingTime: post.readingTime }}
-          posts={allPosts}
-        />
+        <RelatedArticles currentPost={post} posts={allPosts} />
       </section>
-      <div className="flex items-center justify-between mt-16 pt-8 border-t border-gray-800/50">
+      {/* Next / Previous navigation */}
+      <div className="grid grid-cols-2 gap-4 mt-16 pt-8 border-t border-gray-800/50">
         {(() => {
-          // Urutkan semua post berdasarkan tanggal
           const sorted = [...allPosts].sort(
             (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
           );
-          const currentIndex = sorted.findIndex((p) => p.slug === slug);
-
-          const prevPost = sorted[currentIndex - 1]; // Lebih baru
-          const nextPost = sorted[currentIndex + 1]; // Lebih lama
+          const idx = sorted.findIndex((p) => p.slug === slug);
+          const prevPost = sorted[idx - 1];
+          const nextPost = sorted[idx + 1];
 
           return (
             <>
+              {/* Previous */}
               {prevPost ? (
                 <Link
                   href={`/blog/${prevPost.category}/${prevPost.slug}`}
-                  className="group flex-1 max-w-[280px] pr-4 hover:underline"
+                  className="group flex flex-col justify-between rounded-lg p-4 bg-[#0a0a0a]/80 border border-white/5 hover:border-neutral-800 hover:bg-[#0a0a0a]/60 transition-colors"
                 >
-                  <p className="text-xs text-neutral-400 mb-1 group-hover:text-emerald-400 transition-colors">
-                    Previous Article
-                  </p>
-                  <span className="text-sm font-semibold text-neutral-200 group-hover:text-white line-clamp-2">
-                    {prevPost.title}
+                  <span className="flex items-center gap-2 text-xs text-neutral-400 group-hover:text-emerald-400">
+                    <FiArrowLeft className="w-3 h-3" /> Previous
                   </span>
+                  <h3 className="mt-2 text-sm font-semibold text-neutral-200 group-hover:text-white line-clamp-2">
+                    {prevPost.title}
+                  </h3>
                 </Link>
               ) : (
                 <div />
               )}
 
+              {/* Next */}
               {nextPost ? (
                 <Link
                   href={`/blog/${nextPost.category}/${nextPost.slug}`}
-                  className="group flex-1 max-w-[280px] text-right pl-4 hover:underline"
+                  className="group flex flex-col text-right justify-between rounded-lg p-4 bg-[#0a0a0a]/80 border border-white/5 hover:border-neutral-800 hover:bg-[#0a0a0a]/60 transition-colors"
                 >
-                  <p className="text-xs text-neutral-400 mb-1 group-hover:text-emerald-400 transition-colors ">
-                    Next Article
-                  </p>
-                  <span className="text-sm font-semibold text-neutral-200 group-hover:text-white  line-clamp-2">
-                    {nextPost.title}
+                  <span className="flex items-center gap-2 text-xs text-neutral-400 group-hover:text-emerald-400 justify-end">
+                    Next <FiArrowRight className="w-3 h-3" />
                   </span>
+                  <h3 className="mt-2 text-sm font-semibold text-neutral-200 group-hover:text-white line-clamp-2">
+                    {nextPost.title}
+                  </h3>
                 </Link>
               ) : (
                 <div />
@@ -291,6 +264,8 @@ export default function BlogPostLayout({
         })()}
       </div>
       <ArticleNewsletterPopup slug={post.slug} />
+      <FloatingShare title={post.title} />
+      <MobileFloatingToc headings={headings} />
     </div>
   );
 }

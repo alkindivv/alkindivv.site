@@ -65,7 +65,7 @@ function FooterSection({
 
 export default function Footer() {
   return (
-    <footer className="mt-20">
+    <footer role="contentinfo" aria-label="Footer" className="mt-20">
       {/* Top Border Gradient */}
       <div className="h-px bg-gradient-to-r from-transparent via-emerald-500/20  to-transparent" />
       {/* <div className="absolute top-0 left-0 right-0 h-0.5 bg-gradient-to-r from-transparent via-emerald-500/20 to-transparent" /> */}

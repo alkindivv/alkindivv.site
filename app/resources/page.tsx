@@ -6,6 +6,7 @@ import Link from 'next/link';
 import { Metadata } from 'next';
 import Breadcrumb from '@/components/shared/Breadcrumb';
 import DimensionLink from '@/components/common/DimensionLink';
+import StructuredData from '@/components/shared/StructuredData';
 
 export const metadata: Metadata = {
   title: 'Resources',
@@ -178,7 +179,13 @@ export default function ResourcesPage() {
   const breadcrumbItems = [{ label: 'Resources' }];
 
   return (
-    <Layout title="Resources" isHomePage={false}>
+    <Layout>
+      <StructuredData
+        type="webPage"
+        pageTitle="Resources - AL KINDI"
+        pageDescription="A curated collection of legal resources, templates, forms, and documents for professionals and students"
+        pagePath="/resources/"
+      />
       {/* Subtle background */}
       <div className="absolute inset-0 bg-neutral-950">
         <div className="absolute inset-0 bg-gradient-to-b from-emerald-950/5 to-neutral-950" />

@@ -8,19 +8,26 @@ interface StructuredDataProps {
     | 'person'
     | 'organization'
     | 'glossary'
-    | 'profilePage';
+    | 'profilePage'
+    | 'webPage';
   post?: BlogPost;
   terms?: { term: string; definition: string }[];
+  pageTitle?: string;
+  pageDescription?: string;
+  pagePath?: string;
 }
 
 const StructuredData: React.FC<StructuredDataProps> = ({
   type,
   post,
   terms,
+  pageTitle,
+  pageDescription,
+  pagePath,
 }) => {
   const getStructuredData = () => {
     const baseUrl =
-      process.env.NEXT_PUBLIC_BASE_URL || 'https://alkindivv.site';
+      process.env.NEXT_PUBLIC_BASE_URL || 'https://alkind.id';
 
     switch (type) {
       case 'website':
@@ -28,7 +35,7 @@ const StructuredData: React.FC<StructuredDataProps> = ({
           '@context': 'https://schema.org',
           '@type': 'WebSite',
           name: 'AL KINDI',
-          alternateName: 'alkindivv.site',
+          alternateName: 'alkind.id',
           url: baseUrl,
           description:
             'Personal website of AL KINDI - A professional with expertise in Corporate Law, Technology, and Blockchain.',
@@ -136,7 +143,11 @@ const StructuredData: React.FC<StructuredDataProps> = ({
             name: 'Universitas Islam Indonesia',
             sameAs: 'https://uii.ac.id/',
           },
-          email: 'alkindivv@gmail.com',
+          contactPoint: {
+            '@type': 'ContactPoint',
+            contactType: 'personal',
+            url: `${baseUrl}/contact`,
+          },
           gender: 'Male',
         };
 
@@ -163,23 +174,33 @@ const StructuredData: React.FC<StructuredDataProps> = ({
         return {
           '@context': 'https://schema.org',
           '@type': 'Article',
+          '@id': `${baseUrl}/blog/${post.category}/${post.slug}#article`,
           headline: post.title,
+          alternativeHeadline: post.title,
           description,
-          image: imageUrl,
+          image: {
+            '@type': 'ImageObject',
+            url: imageUrl,
+            width: 1200,
+            height: 630,
+          },
           datePublished: isoDate(post.date),
           dateModified: isoDate(post.date),
           author: {
             '@type': 'Person',
             name: post.author || 'AL KINDI',
             url: baseUrl,
+            image: `${baseUrl}/images/AL-KINDI.png`,
           },
           publisher: {
-            '@type': 'Person',
+            '@type': 'Organization',
             name: 'AL KINDI',
             url: baseUrl,
             logo: {
               '@type': 'ImageObject',
               url: `${baseUrl}/images/AL-KINDI.png`,
+              width: 400,
+              height: 400,
             },
           },
           mainEntityOfPage: {
@@ -199,6 +220,28 @@ const StructuredData: React.FC<StructuredDataProps> = ({
                 })),
               }
             : {}),
+          isAccessibleForFree: true,
+          speakable: {
+            '@type': 'SpeakableSpecification',
+            cssSelector: ['.post-title', '.post-excerpt', '.post-content'],
+          },
+          potentialAction: {
+            '@type': 'ReadAction',
+            target: `${baseUrl}/blog/${post.category}/${post.slug}`,
+          },
+          copyrightYear: new Date(post.date).getFullYear(),
+          copyrightHolder: {
+            '@type': 'Person',
+            name: 'AL KINDI',
+          },
+          license: 'https://creativecommons.org/licenses/by-sa/4.0/',
+          audience: {
+            '@type': 'Audience',
+            audienceType:
+              'Legal Professionals, Tech Enthusiasts, Cryptocurrency Investors',
+          },
+          genre: 'Legal Technology Blog',
+          articleBody: post.excerpt || description,
         };
 
       case 'organization':
@@ -206,7 +249,7 @@ const StructuredData: React.FC<StructuredDataProps> = ({
           '@context': 'https://schema.org',
           '@type': 'ProfessionalService',
           name: 'AL KINDI Legal Services',
-          alternateName: 'alkindivv.site',
+          alternateName: 'alkind.id',
           url: baseUrl,
           logo: {
             '@type': 'ImageObject',
@@ -247,7 +290,6 @@ const StructuredData: React.FC<StructuredDataProps> = ({
             '@type': 'ContactPoint',
             contactType: 'customer service',
             url: `${baseUrl}/contact`,
-            email: 'alkindivv@gmail.com',
           },
           sameAs: [
             'https://twitter.com/alkindivv',
@@ -308,6 +350,43 @@ const StructuredData: React.FC<StructuredDataProps> = ({
             inDefinedTermSet: `${baseUrl}/glossary/#glossary`,
             termCode: t.term.charAt(0).toUpperCase(),
           })),
+        };
+
+      case 'webPage':
+        return {
+          '@context': 'https://schema.org',
+          '@type': 'WebPage',
+          '@id': `${baseUrl}${pagePath || ''}#webpage`,
+          url: `${baseUrl}${pagePath || ''}`,
+          name: pageTitle || 'AL KINDI',
+          description: pageDescription || 'Personal website of AL KINDI',
+          isPartOf: {
+            '@id': `${baseUrl}/#website`,
+          },
+          primaryImageOfPage: {
+            '@type': 'ImageObject',
+            '@id': `${baseUrl}/#primaryimage`,
+            url: `${baseUrl}/images/default.png`,
+            width: 1200,
+            height: 630,
+          },
+          datePublished: new Date().toISOString(),
+          dateModified: new Date().toISOString(),
+          author: {
+            '@type': 'Person',
+            name: 'AL KINDI',
+            url: baseUrl,
+          },
+          breadcrumb: {
+            '@id': `${baseUrl}${pagePath || ''}#breadcrumb`,
+          },
+          inLanguage: 'id-ID',
+          potentialAction: [
+            {
+              '@type': 'ReadAction',
+              target: [`${baseUrl}${pagePath || ''}`],
+            },
+          ],
         };
 
       default:

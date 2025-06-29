@@ -23,7 +23,7 @@ A modern, performant personal website and blog built with Next.js, focusing on l
 ## 📁 Project Structure
 
 ```
-alkindivv.site/
+alkind.id/
 ├── app/               # App directory for Next.js App Router
 │   ├── atom.xml/      # RSS feed implementation
 │   ├── feed.xml/      # Alternative feed format
@@ -88,8 +88,8 @@ The site includes robust SEO features:
 1. Clone the repository:
 
    ```bash
-   git clone https://github.com/yourusername/alkindivv.site.git
-   cd alkindivv.site
+   git clone https://github.com/yourusername/alkind.id.git
+   cd alkind.id
    ```
 
 2. Install dependencies:
@@ -139,4 +139,4 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 
 AL KINDI - [@alkindivv](https://twitter.com/alkindivv) - alkindivv@gmail.com
 
-Project Link: [https://github.com/yourusername/alkindivv.site](https://github.com/yourusername/alkindivv.site)
+Project Link: [https://github.com/yourusername/alkind.id](https://github.com/yourusername/alkind.id)

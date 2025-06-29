@@ -31,7 +31,7 @@ export const metadata: Metadata = {
   description:
     'A personal blog about law, technology, and cryptocurrency — shaping the future of blockchain and tech law',
   metadataBase: new URL(
-    process.env.NEXT_PUBLIC_BASE_URL || 'https://alkindivv.site'
+    process.env.NEXT_PUBLIC_BASE_URL || 'https://alkind.id'
   ),
   keywords: [
     // Primary Keywords
@@ -71,7 +71,7 @@ export const metadata: Metadata = {
     'Merger dan Akuisisi',
     'Pasar Modal',
   ],
-  authors: [{ name: 'AL KINDI', url: 'https://alkindivv.site' }],
+  authors: [{ name: 'AL KINDI', url: 'https://alkind.id' }],
   creator: 'AL KINDI',
   publisher: 'AL KINDI',
   robots: {
@@ -89,7 +89,7 @@ export const metadata: Metadata = {
     title: 'AL KINDI - Law, Technology, and Cryptocurrency',
     description:
       'A personal blog about law, technology, and cryptocurrency — shaping the future of blockchain and tech law',
-    url: 'https://alkindivv.site',
+    url: 'https://alkind.id',
     siteName: 'AL KINDI',
     images: [
       {
@@ -99,7 +99,7 @@ export const metadata: Metadata = {
         alt: 'AL KINDI - Law, Technology, and Cryptocurrency',
       },
     ],
-    locale: 'en_US',
+    locale: 'id_ID',
     type: 'website',
   },
   twitter: {
@@ -148,7 +148,7 @@ export const metadata: Metadata = {
       },
     ],
   },
-  manifest: '/site.webmanifest',
+  manifest: '/manifest.json',
   other: {
     'geo.region': 'ID',
     'geo.placename': 'Indonesia',
@@ -168,7 +168,7 @@ export const metadata: Metadata = {
 
 // Generate default JSON-LD schema
 function generateDefaultSchema() {
-  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://alkindivv.site';
+  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://alkind.id';
 
   return {
     '@context': 'https://schema.org',
@@ -223,6 +223,11 @@ function generateDefaultSchema() {
         worksFor: {
           '@type': 'Organization',
           name: 'Law Firm',
+        },
+        contactPoint: {
+          '@type': 'ContactPoint',
+          contactType: 'personal',
+          url: `${baseUrl}/contact`,
         },
         knowsAbout: [
           'Corporate Law',
@@ -290,8 +295,57 @@ export default function RootLayout({
           content="black-translucent"
         />
 
+        {/* Security Headers */}
+        <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="referrer" content="origin-when-cross-origin" />
+        <meta
+          httpEquiv="Content-Security-Policy"
+          content="upgrade-insecure-requests"
+        />
+
+        {/* Additional Meta Tags */}
+        <meta name="generator" content="Next.js 14" />
+        <meta
+          name="theme-color"
+          content="#08a875"
+          media="(prefers-color-scheme: light)"
+        />
+        <meta
+          name="theme-color"
+          content="#0a0a0a"
+          media="(prefers-color-scheme: dark)"
+        />
+        <meta name="color-scheme" content="dark light" />
+
+        {/* Author & Copyright */}
+        <link rel="author" href="/humans.txt" />
+        <meta
+          name="copyright"
+          content={`© ${new Date().getFullYear()} AL KINDI`}
+        />
+
+        {/* Geo Tags */}
+        <meta name="geo.position" content="-7.797068;110.370529" />
+        <meta name="ICBM" content="-7.797068, 110.370529" />
+
+        {/* Verification Tags */}
+        <meta
+          name="google-site-verification"
+          content="tLWZliQliSbsSXo5T_8Q2d2d5RRHTau1da3C5lt3pN8"
+        />
+        {/* <meta name="msvalidate.01" content="YOUR_BING_VERIFICATION_CODE" /> */}
+        {/* <meta name="yandex-verification" content="YOUR_YANDEX_CODE" /> */}
+
         {/* Preconnect untuk performance */}
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link
+          rel="preconnect"
+          href="https://fonts.gstatic.com"
+          crossOrigin="anonymous"
+        />
         <link rel="preconnect" href="https://images.unsplash.com" />
+        <link rel="preconnect" href="https://www.google-analytics.com" />
+        <link rel="preconnect" href="https://www.googletagmanager.com" />
 
         {/* DNS Prefetch */}
         <link rel="dns-prefetch" href="//fonts.googleapis.com" />
@@ -299,12 +353,30 @@ export default function RootLayout({
         <link rel="dns-prefetch" href="//www.google-analytics.com" />
         <link rel="dns-prefetch" href="//www.googletagmanager.com" />
 
+        {/* Prefetch important pages */}
+        <link rel="prefetch" href="/blog/" />
+        <link rel="prefetch" href="/about/" />
+
         {/* Preload critical resources */}
         <link
           rel="prefetch"
           href="/images/AL-KINDI.png"
           as="image"
           type="image/png"
+        />
+
+        {/* Alternative Feeds */}
+        <link
+          rel="alternate"
+          type="application/rss+xml"
+          title="AL KINDI RSS Feed"
+          href="/feed.xml"
+        />
+        <link
+          rel="alternate"
+          type="application/atom+xml"
+          title="AL KINDI Atom Feed"
+          href="/atom.xml"
         />
 
         {/* JSON-LD Schema */}

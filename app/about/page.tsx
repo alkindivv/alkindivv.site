@@ -50,6 +50,12 @@ const AboutPage = () => {
     <Layout>
       <StructuredData type="profilePage" />
       <StructuredData type="person" />
+      <StructuredData
+        type="webPage"
+        pageTitle="About - AL KINDI"
+        pageDescription="Im a law graduate with a passion for writing and sharing knowledge. I focus on exploring and analyzing legal topics such as capital markets & securities, mergers and acquisitions (M&A), bankruptcy & insolvency, and the legal aspects of crypto assets in Indonesia."
+        pagePath="/about/"
+      />
 
       {/* Background Effect - Legal Themed */}
       <div

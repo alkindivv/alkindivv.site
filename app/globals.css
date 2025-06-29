@@ -1104,26 +1104,3 @@ body.fade-out {
     opacity 0.3s ease-in-out,
     transform 0.3s ease-in-out;
 }
-
-/* Animasi untuk ikon outline premium */
-@keyframes icon-pulse {
-  0% {
-    filter: drop-shadow(0 0 0 rgba(16, 185, 129, 0));
-  }
-  50% {
-    filter: drop-shadow(0 0 3px rgba(16, 185, 129, 0.5));
-  }
-  100% {
-    filter: drop-shadow(0 0 0 rgba(16, 185, 129, 0));
-  }
-}
-
-.premium-icon-hover {
-  transition: all 0.3s ease;
-}
-
-.premium-icon-hover:hover {
-  color: #10b981; /* emerald-500 */
-  animation: icon-pulse 1.5s infinite;
-  transform: translateY(-1px);
-}

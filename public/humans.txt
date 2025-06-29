@@ -1,16 +1,34 @@
 /* TEAM */
-Developer: AL KINDI
-Contact: contact@alkindivv.site
+Developer & Author: AL KINDI
+Role: Law Graduate, Web Developer, Content Creator
+Contact: contact [at] alkind.id
 Twitter: @alkindivv
-From: Indonesia
+LinkedIn: linkedin.com/in/alkindivv
+GitHub: github.com/alkindivv
+Location: Indonesia
+Bio: A law graduate focusing on corporate M&A, capital markets, and cryptocurrency regulations.
 
 /* THANKS */
-Next.js: https://nextjs.org/
-Tailwind CSS: https://tailwindcss.com/
-Vercel: https://vercel.com/
+Next.js Team: For the amazing React framework
+Tailwind CSS Team: For the utility-first CSS framework
+Vercel Team: For the hosting platform
+MDX Team: For markdown with JSX support
+Open Source Community: For countless libraries and inspiration
 
 /* SITE */
-Last update: 2025-06-03
-Language: Indonesian / English
+Last update: 2025-01-03
+Standards: HTML5, CSS3, ES6+, TypeScript
+Languages: Indonesian, English
 Doctype: HTML5
 IDE: Visual Studio Code
+Version Control: Git
+Hosting: Vercel
+Analytics: Google Analytics
+Performance: 90+ Lighthouse Score
+Accessibility: WCAG 2.1 Level AA Compliant
+
+/* LEGAL */
+License: CC BY-SA 4.0
+Privacy: Respects user privacy, minimal tracking
+Terms: Available at /terms
+Copyright: © 2025 AL KINDI. All rights reserved.

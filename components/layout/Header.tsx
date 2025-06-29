@@ -2,7 +2,6 @@
 
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
-import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 
 import { Menu, Transition } from '@headlessui/react';
@@ -137,6 +136,8 @@ export default function Header() {
     <>
       {/* Desktop Header */}
       <header
+        role="banner"
+        aria-label="Main navigation"
         className={clsx(
           'fixed top-6 left-1/2 -translate-x-1/2 z-50 h-12 flex items-center justify-between',
           'hidden md:flex px-4 md:px-0 transition-all duration-300',
@@ -158,7 +159,10 @@ export default function Header() {
           </Link>
 
           {/* Desktop Navigation - Legal styled */}
-          <nav className="hidden md:flex items-center gap-1 ">
+          <nav
+            className="hidden md:flex items-center gap-1 "
+            aria-label="Primary navigation"
+          >
             {[
               ...navItems,
               {
@@ -299,8 +303,8 @@ export default function Header() {
           'fixed top-6 right-4 md:hidden inline-flex items-center gap-2 px-4 py-2 rounded-lg mt-8',
           'bg-gradient-to-br from-[#1A1A1A]/90 to-[#111111]/90 border border-white/10 backdrop-blur-sm',
           'text-neutral-400 text-sm font-medium shadow-lg',
-          'transition-all duration-200 hover:bg-gradient-to-br hover:from-[#222]/90 hover:to-[#1A1A1A]/90 hover:text-emerald-400 hover:border-emerald-500/20 z-50',
-          'hover:shadow-emerald-500/10 hover:shadow-xl'
+          'transition-all duration-200 hover:bg-gradient-to-br hover:from-[#222]/90 hover:to-[#1A1A1A]/90 z-50',
+          ''
         )}
         aria-label="Toggle menu"
       >
@@ -316,7 +320,10 @@ export default function Header() {
 
       {/* Mobile Menu - Legal styled */}
       {isMenuOpen && (
-        <div className="fixed inset-0 z-40 md:hidden bg-gradient-to-b from-black/90 via-black/85 to-black/90 backdrop-blur-xl pt-24 border-t border-neutral-800/50">
+        <nav
+          className="fixed inset-0 z-40 md:hidden bg-gradient-to-b from-black/90 via-black/85 to-black/90 backdrop-blur-xl pt-24 border-t border-neutral-800/50"
+          aria-label="Mobile navigation"
+        >
           <div className="container mx-auto px-4 py-2">
             <div className="space-y-1">
               {navItems.map((item) => (
@@ -329,14 +336,14 @@ export default function Header() {
                     'block p-4 rounded-lg border text-sm',
                     'transition-all duration-300 group relative overflow-hidden',
                     pathname === item.href
-                      ? 'text-emerald-400 bg-gradient-to-r from-emerald-500/20 to-emerald-500/10 border-emerald-500/30 shadow-lg shadow-emerald-500/10'
-                      : 'text-gray-300 bg-[#111111]/40 border-white/5 hover:text-emerald-400 hover:bg-gradient-to-r hover:from-[#222]/60 hover:to-[#1A1A1A]/60 hover:border-emerald-500/20'
+                      ? 'text-emerald-400 border-neutral-800 '
+                      : 'text-gray-300 bg-[#0a0a0a]/80 border border-white/5 hover:text-emerald-400 hover:bg-gradient-to-r hover:from-[#222]/60 hover:to-[#1A1A1A]/60 hover:border-emerald-500/20'
                   )}
                 >
                   <div className="flex items-center gap-3">
-                    <div className="flex items-center justify-center w-8 h-8 rounded-md bg-emerald-500/10 border border-emerald-500/20">
+                    <div className="flex items-center justify-center w-8 h-8 rounded-md bg-[#1A1A1A]/70 border border-white/5">
                       <item.icon
-                        className="w-4 h-4 text-emerald-400 transition-all duration-200 group-hover:scale-110"
+                        className="w-4 h-4 text-neutral-400 transition-all duration-200 group-hover:scale-110 "
                         strokeWidth={1.5}
                       />
                     </div>
@@ -361,14 +368,14 @@ export default function Header() {
                       'block p-4 rounded-lg border text-sm',
                       'transition-all duration-300 group relative overflow-hidden',
                       pathname === item.href
-                        ? 'text-emerald-400 bg-gradient-to-r from-emerald-500/20 to-emerald-500/10 border-emerald-500/30 shadow-lg shadow-emerald-500/10'
-                        : 'text-gray-300 bg-[#111111]/40 border-white/5 hover:text-emerald-400 hover:bg-gradient-to-r hover:from-[#222]/60 hover:to-[#1A1A1A]/60 hover:border-emerald-500/20'
+                        ? 'text-emerald-400 border-neutral-800 '
+                        : 'text-gray-300 bg-[#0a0a0a]/80 border border-white/5 hover:text-emerald-400 hover:bg-gradient-to-r hover:from-[#222]/60 hover:to-[#1A1A1A]/60 hover:border-emerald-500/20'
                     )}
                   >
                     <div className="flex items-center gap-3">
-                      <div className="flex items-center justify-center w-8 h-8 rounded-md bg-emerald-500/10 border border-emerald-500/20">
+                      <div className="flex items-center justify-center w-8 h-8 rounded-md bg-[#1A1A1A]/70 border border-neutral-800/50">
                         <item.icon
-                          className="w-4 h-4 text-emerald-400 transition-all duration-200 group-hover:scale-110"
+                          className="w-4 h-4 text-neutral-400 transition-all duration-200 group-hover:scale-110"
                           strokeWidth={1.5}
                         />
                       </div>
@@ -379,7 +386,7 @@ export default function Header() {
               </div>
             </div>
           </div>
-        </div>
+        </nav>
       )}
     </>
   );

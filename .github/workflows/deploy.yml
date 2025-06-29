@@ -18,8 +18,8 @@ jobs:
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           port: ${{ secrets.PORT }}
           script: |
-            cd /root/alkindivv.site
+            cd /root/alkind.id
             git pull origin main
             npm install
             npm run build
-            pm2 restart alkindivv-site
+            pm2 restart alkind-id-site

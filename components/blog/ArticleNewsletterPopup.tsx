@@ -18,13 +18,7 @@ export default function ArticleNewsletterPopup({
     const shouldShow =
       !lastClosed || Date.now() - Number(lastClosed) > 7 * 24 * 60 * 60 * 1000;
 
-    console.log('Newsletter Popup Debug:', {
-      slug,
-      lastClosed,
-      shouldShow,
-      currentTime: Date.now(),
-      timeDiff: lastClosed ? Date.now() - Number(lastClosed) : null,
-    });
+    // Newsletter popup state tracking
 
     if (shouldShow) {
       const handleScroll = () => {
@@ -35,12 +29,7 @@ export default function ArticleNewsletterPopup({
             (document.documentElement.scrollHeight - window.innerHeight)) *
           100;
 
-        console.log('Scroll Debug:', {
-          scrollY: window.scrollY,
-          scrollHeight: document.documentElement.scrollHeight,
-          innerHeight: window.innerHeight,
-          scrollPercent,
-        });
+        // Track scroll progress for popup trigger
 
         if (scrollPercent > 50) {
           setHasScrolled(true);

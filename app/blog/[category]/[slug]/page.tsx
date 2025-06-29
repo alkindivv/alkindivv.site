@@ -57,11 +57,13 @@ export async function generateMetadata({
           typedFrontMatter.excerpt ||
           typedFrontMatter.description ||
           `${typedFrontMatter.title} - Article by ${typedFrontMatter.author}`,
-        url: `https://alkindivv.site/blog/${category}/${slug}/`,
+        url: `https://alkind.id/blog/${category}/${slug}/`,
         type: 'article',
         publishedTime: new Date(typedFrontMatter.date).toISOString(),
         modifiedTime: new Date(typedFrontMatter.date).toISOString(),
-        authors: typedFrontMatter.author,
+        authors: [typedFrontMatter.author],
+        section: category,
+        tags: typedFrontMatter.tags || [],
         images: [
           {
             url: `/api/og/blog/${slug}`,
@@ -170,6 +172,14 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
             <PostComponent components={MDXComponents as any} />
           </BlogPostLayout>
           <StructuredData type="article" post={typedFrontMatter as any} />
+          <StructuredData
+            type="webPage"
+            pageTitle={typedFrontMatter.title}
+            pageDescription={
+              typedFrontMatter.excerpt || typedFrontMatter.description
+            }
+            pagePath={`/blog/${category}/${slug}/`}
+          />
         </main>
       </Layout>
     );

@@ -47,6 +47,12 @@ export default function GlossaryPage() {
           definition,
         }))}
       />
+      <StructuredData
+        type="webPage"
+        pageTitle="Legal Glossary - AL KINDI"
+        pageDescription="A comprehensive collection of legal terms and definitions related to law, technology, and cryptocurrency"
+        pagePath="/glossary/"
+      />
     </Layout>
   );
 }

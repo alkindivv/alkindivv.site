@@ -77,7 +77,7 @@ const ArticleCardAlt = ({ post }: ArticleCardAltProps) => {
                     e.stopPropagation();
                     window.location.href = `/blog/tag/${slugify(tag)}`;
                   }}
-                  className="px-1.5 py-1 text-xs rounded-lg transition-all duration-300 tracking-widebg-[#17171799] font-medium text-[#9e9e9e] border-emerald-500 bg-emerald-500/10"
+                  className="px-1.5 py-1 text-xs rounded-lg transition-all duration-300 tracking-wide bg-[#17171799] font-medium text-[#9e9e9e] border-emerald-500 bg-emerald-500/10"
                 >
                   {tag}
                 </button>

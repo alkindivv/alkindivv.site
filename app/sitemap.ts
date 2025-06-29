@@ -1,8 +1,38 @@
 import { MetadataRoute } from 'next';
 import { getAllPosts, getAllCategories, getAllTags } from '@/lib/posts';
 
+// Export image sitemap function
+export async function generateImageSitemap(): Promise<
+  Array<{
+    loc: string;
+    images: Array<{
+      loc: string;
+      title?: string;
+      caption?: string;
+    }>;
+  }>
+> {
+  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://alkind.id';
+  const posts = await getAllPosts();
+
+  return posts
+    .filter((post) => post.featuredImage)
+    .map((post) => ({
+      loc: `${baseUrl}/blog/${post.category}/${post.slug}/`,
+      images: [
+        {
+          loc: post.featuredImage!.startsWith('http')
+            ? post.featuredImage!
+            : `${baseUrl}${post.featuredImage}`,
+          title: post.title,
+          caption: post.excerpt || post.description,
+        },
+      ],
+    }));
+}
+
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://alkindivv.site';
+  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://alkind.id';
 
   // Helper to ensure trailing slash (Next.js config `trailingSlash: true`)
   const withSlash = (url: string) => (url.endsWith('/') ? url : `${url}/`);

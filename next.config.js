@@ -42,12 +42,19 @@ module.exports = async () => {
       optimizeCss: true,
       serverActions: { bodySizeLimit: '2mb' },
       serverComponentsExternalPackages: ['rss'],
+      optimizeServerReact: true,
+      memoryBasedWorkersCount: true,
+      turbo: {
+        resolveAlias: {
+          canvas: './empty-module.js',
+        },
+      },
     },
     onDemandEntries: { maxInactiveAge: 25000, pagesBufferLength: 2 },
     env: {
       NEXT_PUBLIC_BASE_URL:
         process.env.NODE_ENV === 'production'
-          ? 'https://alkindivv.site'
+          ? 'https://alkind.id'
           : 'http://localhost:3000',
     },
     // Mengaktifkan source maps di browser production untuk debugging lebih mudah

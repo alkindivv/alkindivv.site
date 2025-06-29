@@ -9,8 +9,6 @@ import DiscussionPreview from '@/components/common/DiscussionPreview';
 import { getAllPosts } from '@/lib/posts';
 import { Metadata } from 'next';
 import StructuredData from '@/components/shared/StructuredData';
-import DimensionLink from '@/components/common/DimensionLink';
-import LandingPage from '@/components/common/LandingPage';
 
 // Metadata khusus untuk halaman beranda
 export const metadata: Metadata = {
@@ -36,7 +34,7 @@ export const metadata: Metadata = {
     title: 'AL KINDI - Law, Technology, and Cryptocurrency',
     description:
       'A personal blog about law, technology, and cryptocurrency — shaping the future of blockchain and tech law',
-    url: 'https://alkindivv.site/',
+    url: 'https://alkind.id/',
     type: 'website',
     images: [
       {
@@ -133,6 +131,12 @@ export default async function HomePage() {
       <StructuredData type="website" />
       <StructuredData type="person" />
       <StructuredData type="organization" />
+      <StructuredData
+        type="webPage"
+        pageTitle="AL KINDI - Law, Technology, and Cryptocurrency"
+        pageDescription="A personal blog about law, technology, and cryptocurrency — shaping the future of blockchain and tech law"
+        pagePath="/"
+      />
 
       <main className="relative min-h-screen flex flex-col -mt-16 md:mt-0">
         {/* Hero Content - Full Width */}

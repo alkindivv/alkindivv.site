@@ -5,7 +5,7 @@ import Header from './Header';
 import Footer from './Footer';
 import clsx from 'clsx';
 import { useIsLoading, useLoadingMessage } from '@/lib/stores/useLoadingStore';
-import PerformanceMonitor from '../shared/PerformanceMonitor';
+// import PerformanceMonitor from '../shared/PerformanceMonitor';
 
 interface LayoutProps {
   children: React.ReactNode;
@@ -56,6 +56,14 @@ const Layout: React.FC<LayoutProps> = ({
     <div
       className={clsx('min-h-screen', isHomePage && 'h-screen overflow-hidden')}
     >
+      {/* Skip to main content link for accessibility */}
+      <a
+        href="#main-content"
+        className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-50 focus:px-4 focus:py-2 focus:bg-emerald-600 focus:text-white focus:rounded-md focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:ring-offset-2 focus:ring-offset-gray-900"
+      >
+        Skip to main content
+      </a>
+
       <div
         className={clsx(
           'layout-container',
@@ -67,7 +75,9 @@ const Layout: React.FC<LayoutProps> = ({
       >
         <Header />
         <main
-          id="content"
+          id="main-content"
+          role="main"
+          aria-label="Main content"
           className={clsx(
             // Disable interactions saat loading
             isLoading && 'pointer-events-none select-none',
@@ -84,7 +94,7 @@ const Layout: React.FC<LayoutProps> = ({
       {/* <LoadingOverlay isLoading={isLoading} loadingMessage={loadingMessage} /> */}
 
       {/* Performance Monitor - hanya di development */}
-      <PerformanceMonitor />
+      {/* <PerformanceMonitor /> */}
     </div>
   );
 };
