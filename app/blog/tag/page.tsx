@@ -21,7 +21,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'Tags',
     description: 'explore all article tags',
-    url: 'https://alkind.id/blog/tag',
+    url: 'https://alkindi.id/blog/tag',
     type: 'website',
   },
 };

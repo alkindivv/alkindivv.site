@@ -26,8 +26,7 @@ const StructuredData: React.FC<StructuredDataProps> = ({
   pagePath,
 }) => {
   const getStructuredData = () => {
-    const baseUrl =
-      process.env.NEXT_PUBLIC_BASE_URL || 'https://alkind.id';
+    const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://alkindi.id';
 
     switch (type) {
       case 'website':
@@ -35,7 +34,7 @@ const StructuredData: React.FC<StructuredDataProps> = ({
           '@context': 'https://schema.org',
           '@type': 'WebSite',
           name: 'AL KINDI',
-          alternateName: 'alkind.id',
+          alternateName: 'alkindi.id',
           url: baseUrl,
           description:
             'Personal website of AL KINDI - A professional with expertise in Corporate Law, Technology, and Blockchain.',
@@ -249,7 +248,7 @@ const StructuredData: React.FC<StructuredDataProps> = ({
           '@context': 'https://schema.org',
           '@type': 'ProfessionalService',
           name: 'AL KINDI Legal Services',
-          alternateName: 'alkind.id',
+          alternateName: 'alkindi.id',
           url: baseUrl,
           logo: {
             '@type': 'ImageObject',

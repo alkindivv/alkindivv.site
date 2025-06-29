@@ -12,7 +12,7 @@ interface BreadcrumbProps {
 }
 
 const Breadcrumb: React.FC<BreadcrumbProps> = ({ items }) => {
-  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://alkind.id';
+  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://alkindi.id';
 
   // Generate BreadcrumbList schema
   const breadcrumbSchema = {

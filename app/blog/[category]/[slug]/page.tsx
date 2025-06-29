@@ -57,7 +57,7 @@ export async function generateMetadata({
           typedFrontMatter.excerpt ||
           typedFrontMatter.description ||
           `${typedFrontMatter.title} - Article by ${typedFrontMatter.author}`,
-        url: `https://alkind.id/blog/${category}/${slug}/`,
+        url: `https://alkindi.id/blog/${category}/${slug}/`,
         type: 'article',
         publishedTime: new Date(typedFrontMatter.date).toISOString(),
         modifiedTime: new Date(typedFrontMatter.date).toISOString(),

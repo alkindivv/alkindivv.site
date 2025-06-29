@@ -34,7 +34,7 @@ export const metadata: Metadata = {
     title: 'AL KINDI - Law, Technology, and Cryptocurrency',
     description:
       'A personal blog about law, technology, and cryptocurrency — shaping the future of blockchain and tech law',
-    url: 'https://alkind.id/',
+    url: 'https://alkindi.id/',
     type: 'website',
     images: [
       {

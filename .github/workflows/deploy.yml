@@ -18,7 +18,7 @@ jobs:
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           port: ${{ secrets.PORT }}
           script: |
-            cd /root/alkind.id
+            cd /root/alkindi.id
             git pull origin main
             npm install
             npm run build

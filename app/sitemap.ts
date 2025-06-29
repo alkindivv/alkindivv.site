@@ -12,7 +12,7 @@ export async function generateImageSitemap(): Promise<
     }>;
   }>
 > {
-  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://alkind.id';
+  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://alkindi.id';
   const posts = await getAllPosts();
 
   return posts
@@ -32,7 +32,7 @@ export async function generateImageSitemap(): Promise<
 }
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://alkind.id';
+  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://alkindi.id';
 
   // Helper to ensure trailing slash (Next.js config `trailingSlash: true`)
   const withSlash = (url: string) => (url.endsWith('/') ? url : `${url}/`);

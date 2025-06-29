@@ -1,7 +1,7 @@
 import { Feed } from 'feed';
 import { getAllPosts } from './posts';
 
-const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://alkind.id';
+const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://alkindi.id';
 
 // Shared feed configuration
 const getFeedConfig = () => ({
@@ -23,7 +23,7 @@ const getFeedConfig = () => ({
   },
   author: {
     name: 'AL KINDI',
-    email: 'contact@alkind.id',
+    email: 'contact@alkindi.id',
     link: baseUrl,
   },
   hub: `${baseUrl}/hub`,
@@ -59,7 +59,7 @@ export async function generateRSSFeed() {
       author: [
         {
           name: post.author || 'AL KINDI',
-          email: 'contact@alkind.id',
+          email: 'contact@alkindi.id',
           link: baseUrl,
         },
       ],
@@ -117,7 +117,7 @@ export async function generateAtomFeed() {
       author: [
         {
           name: post.author || 'AL KINDI',
-          email: 'contact@alkind.id',
+          email: 'contact@alkindi.id',
           link: baseUrl,
         },
       ],

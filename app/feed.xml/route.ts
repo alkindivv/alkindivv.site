@@ -2,7 +2,7 @@ import { getAllPosts } from '@/lib/posts';
 import RSS from 'rss';
 
 export async function GET() {
-  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://alkind.id';
+  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://alkindi.id';
   const posts = await getAllPosts();
 
   // Sort posts by date (newest first)

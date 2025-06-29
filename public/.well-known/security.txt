@@ -1,12 +1,7 @@
-Contact: mailto:me@alkindi.id
+Contact: mailto:contact@alkindi.id
 Expires: 2026-01-01T00:00:00.000Z
 Preferred-Languages: en, id
 Canonical: https://alkind.id/.well-known/security.txt
 Policy: https://alkind.id/security-policy
 Acknowledgments: https://alkind.id/security-acknowledgments
 
-# PGP Key (if available)
-# Encryption: https://alkind.id/pgp-key.txt
-
-# Bug Bounty Program (if applicable)
-# Bounty: https://alkind.id/bug-bounty

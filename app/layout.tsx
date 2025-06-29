@@ -31,7 +31,7 @@ export const metadata: Metadata = {
   description:
     'A personal blog about law, technology, and cryptocurrency — shaping the future of blockchain and tech law',
   metadataBase: new URL(
-    process.env.NEXT_PUBLIC_BASE_URL || 'https://alkind.id'
+    process.env.NEXT_PUBLIC_BASE_URL || 'https://alkindi.id'
   ),
   keywords: [
     // Primary Keywords
@@ -71,7 +71,7 @@ export const metadata: Metadata = {
     'Merger dan Akuisisi',
     'Pasar Modal',
   ],
-  authors: [{ name: 'AL KINDI', url: 'https://alkind.id' }],
+  authors: [{ name: 'AL KINDI', url: 'https://alkindi.id' }],
   creator: 'AL KINDI',
   publisher: 'AL KINDI',
   robots: {
@@ -89,7 +89,7 @@ export const metadata: Metadata = {
     title: 'AL KINDI - Law, Technology, and Cryptocurrency',
     description:
       'A personal blog about law, technology, and cryptocurrency — shaping the future of blockchain and tech law',
-    url: 'https://alkind.id',
+    url: 'https://alkindi.id',
     siteName: 'AL KINDI',
     images: [
       {
@@ -168,7 +168,7 @@ export const metadata: Metadata = {
 
 // Generate default JSON-LD schema
 function generateDefaultSchema() {
-  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://alkind.id';
+  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://alkindi.id';
 
   return {
     '@context': 'https://schema.org',

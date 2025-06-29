@@ -1,7 +1,7 @@
 /* TEAM */
 Developer & Author: AL KINDI
 Role: Law Graduate, Web Developer, Content Creator
-Contact: contact [at] alkind.id
+Contact: contact [at] alkindi.id
 Twitter: @alkindivv
 LinkedIn: linkedin.com/in/alkindivv
 GitHub: github.com/alkindivv

@@ -54,7 +54,7 @@ module.exports = async () => {
     env: {
       NEXT_PUBLIC_BASE_URL:
         process.env.NODE_ENV === 'production'
-          ? 'https://alkind.id'
+          ? 'https://alkindi.id'
           : 'http://localhost:3000',
     },
     // Mengaktifkan source maps di browser production untuk debugging lebih mudah

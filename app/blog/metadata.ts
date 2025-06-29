@@ -11,7 +11,7 @@ export const metadata: Metadata = {
     title: 'Blog - AL KINDI',
     description:
       'Article, News, Thoughts, and Insights about law, technology, and cryptocurrency written by me based on my personal experiences and research',
-    url: 'https://alkind.id/blog/',
+    url: 'https://alkindi.id/blog/',
     type: 'website',
     images: [
       {
