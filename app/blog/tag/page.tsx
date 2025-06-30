@@ -106,6 +106,7 @@ export default async function TagIndexPage() {
                     { label: 'Blog', href: '/blog' },
                     { label: 'Tag', href: '/blog/tag' },
                   ]}
+                  pagePath="/blog/tag"
                 />
               </div>
 

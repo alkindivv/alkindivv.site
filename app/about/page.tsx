@@ -102,7 +102,7 @@ const AboutPage = () => {
           </div>
 
           <div className="mb-6">
-            <Breadcrumb items={breadcrumbItems} />
+            <Breadcrumb items={breadcrumbItems} pagePath="/about/" />
           </div>
 
           {/* Profile Section - Legal Styled */}

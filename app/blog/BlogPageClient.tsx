@@ -103,6 +103,8 @@ export default function BlogPageClient({
   };
 
   const breadcrumbItems = [{ label: 'Blog' }];
+  const pagePath = '/blog/';
+
   return (
     <Layout>
       {/* Optimized Background Effect */}
@@ -171,7 +173,7 @@ export default function BlogPageClient({
             </div>
 
             <div className=" mb-4">
-              <Breadcrumb items={breadcrumbItems} />
+              <Breadcrumb items={breadcrumbItems} pagePath={pagePath} />
             </div>
 
             <div className="mt-6 mb-8" data-fade="3">

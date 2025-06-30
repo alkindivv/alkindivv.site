@@ -226,7 +226,7 @@ export default function GlossaryClient({ terms }: { terms: GlossaryTerm[] }) {
           </div>
 
           <div className=" mb-4">
-            <Breadcrumb items={breadcrumbItems} />
+            <Breadcrumb items={breadcrumbItems} pagePath="/glossary/" />
           </div>
 
           {/* Main Content with Sidebar Layout */}

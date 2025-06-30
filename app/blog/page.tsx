@@ -54,7 +54,6 @@ export default async function BlogPage({ searchParams }: BlogPageProps) {
 
   return (
     <Suspense fallback={<BlogPageLoading />}>
-      <StructuredData type="webPage" />
       <BlogPageClient
         initialPosts={filtered}
         initialSearch={search}

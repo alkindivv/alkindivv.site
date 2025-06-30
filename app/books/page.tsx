@@ -5,6 +5,7 @@ import { Metadata } from 'next';
 import Link from 'next/link';
 import Breadcrumb from '@/components/shared/Breadcrumb';
 import DimensionLink from '@/components/common/DimensionLink';
+import StructuredData from '@/components/shared/StructuredData';
 
 export const metadata: Metadata = {
   title: 'Books',
@@ -91,6 +92,12 @@ export default function BooksPage() {
 
   return (
     <Layout title="Books">
+      <StructuredData
+        type="webPage"
+        pageTitle="Books"
+        pageDescription="Books on law, business, and technology"
+        pagePath="/books/"
+      />
       {/* Subtle background with gradient */}
       <div className="absolute inset-0 bg-neutral-950">
         <div className="absolute inset-0 bg-gradient-to-b from-emerald-950/5 to-neutral-950" />
@@ -113,7 +120,7 @@ export default function BooksPage() {
           </div>
 
           <div className=" mb-4">
-            <Breadcrumb items={breadcrumbItems} />
+            <Breadcrumb items={breadcrumbItems} pagePath="/books/" />
           </div>
 
           {/* Books List - Ultra Minimal */}

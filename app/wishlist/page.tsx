@@ -8,11 +8,10 @@ import Breadcrumb from '@/components/shared/Breadcrumb';
 
 export const metadata: Metadata = {
   title: 'Wishlist',
-  description:
-    'My personal wishlist of books, tools, and items I want to acquire for my legal practice and personal development.',
+  description: 'Things I want to achieve and experience in my life',
   openGraph: {
     title: 'Wishlist - AL KINDI',
-    description: 'Life goals and aspirations of AL KINDI',
+    description: 'Things I want to achieve and experience in my life',
     type: 'website',
     url: '/wishlist/',
     images: [
@@ -27,7 +26,7 @@ export const metadata: Metadata = {
   twitter: {
     card: 'summary_large_image',
     title: 'Wishlist - AL KINDI',
-    description: 'Life goals and aspirations of AL KINDI',
+    description: 'Things I want to achieve and experience in my life',
     images: ['/images/default.png'],
   },
   alternates: {

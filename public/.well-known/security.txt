@@ -1,4 +1,4 @@
-Contact: mailto:contact@alkindi.id
+Contact: mailto:me@alkindi.id
 Expires: 2026-01-01T00:00:00.000Z
 Preferred-Languages: en, id
 Canonical: https://alkind.id/.well-known/security.txt

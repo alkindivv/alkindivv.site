@@ -182,15 +182,21 @@ export async function GET(
                 justifyContent: 'center',
               }}
             >
+              {/* Dynamically resize title font size based on length */}
               <h1
                 style={{
                   fontFamily: 'DMSans-Bold',
-                  fontSize: 64,
+                  fontSize:
+                    titleToRender.length > 90
+                      ? 48
+                      : titleToRender.length > 60
+                        ? 56
+                        : 64,
                   fontWeight: 700,
                   margin: 0,
                   color: '#ffffff',
-                  maxWidth: 800,
-                  lineHeight: 1.2,
+                  maxWidth: 900,
+                  lineHeight: 1.25,
                   letterSpacing: '-0.5px',
                 }}
               >
@@ -202,15 +208,15 @@ export async function GET(
                   style={{
                     fontSize: 24,
                     color: '#9ca3af',
-                    marginTop: 24,
+                    marginTop: 28,
                     maxWidth: 1000,
-                    lineHeight: 1.5,
+                    lineHeight: 1.4,
                     fontWeight: 400,
                     fontFamily: 'DMSans-Regular',
                   }}
                 >
-                  {excerptToRender.length > 220
-                    ? excerptToRender.substring(0, 220) + '...'
+                  {excerptToRender.length > 200
+                    ? excerptToRender.substring(0, 197) + '...'
                     : excerptToRender}
                 </p>
               )}

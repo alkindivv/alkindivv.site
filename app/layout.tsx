@@ -7,7 +7,7 @@ import { Inter } from 'next/font/google';
 import GoogleAnalytics from '@/components/shared/GoogleAnalytics';
 import { EventEmitter } from 'events';
 import NavigationEvents from '@/components/shared/NavigationEvents';
-import LoadingOverlay from '@/components/layout/LoadingOverlay';
+// import LoadingOverlay from '@/components/layout/LoadingOverlay';
 import { PHASE_DEVELOPMENT_SERVER } from 'next/dist/shared/lib/constants';
 
 // Increase MaxListeners limit to prevent memory leaks
@@ -29,7 +29,7 @@ export const metadata: Metadata = {
     template: '%s | AL KINDI',
   },
   description:
-    'A personal blog about law, technology, and cryptocurrency — shaping the future of blockchain and tech law',
+    'Personal website & blog by AL KINDI – sharing insights on corporate law, technology, blockchain and cryptocurrency.',
   metadataBase: new URL(
     process.env.NEXT_PUBLIC_BASE_URL || 'https://alkindi.id'
   ),
@@ -88,7 +88,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'AL KINDI - Law, Technology, and Cryptocurrency',
     description:
-      'A personal blog about law, technology, and cryptocurrency — shaping the future of blockchain and tech law',
+      'Personal website & blog by AL KINDI – sharing insights on corporate law, technology, blockchain and cryptocurrency.',
     url: 'https://alkindi.id',
     siteName: 'AL KINDI',
     images: [
@@ -106,7 +106,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'AL KINDI - Law, Technology, and Cryptocurrency',
     description:
-      'A personal blog about law, technology, and cryptocurrency — shaping the future of blockchain and tech law',
+      'Personal website & blog by AL KINDI – sharing insights on corporate law, technology, blockchain and cryptocurrency.',
     images: ['/images/default.png'],
   },
   icons: {
@@ -181,6 +181,12 @@ function generateDefaultSchema() {
         name: 'AL KINDI',
         description:
           'Personal website & blog by AL KINDI – sharing insights on corporate law, technology, blockchain and cryptocurrency.',
+        logo: {
+          '@type': 'ImageObject',
+          url: `${baseUrl}/logo.png`,
+          width: 512,
+          height: 512,
+        },
         publisher: {
           '@id': `${baseUrl}/#person`,
         },
@@ -312,7 +318,7 @@ export default function RootLayout({
         />
         <meta
           name="theme-color"
-          content="#0a0a0a"
+          content="#08a875"
           media="(prefers-color-scheme: dark)"
         />
         <meta name="color-scheme" content="dark light" />
@@ -388,7 +394,7 @@ export default function RootLayout({
         />
       </head>
       <body className={`${inter.className} text-white`}>
-        <LoadingOverlay />
+        {/* <LoadingOverlay /> */}
         {/* Google Analytics */}
         <GoogleAnalytics />
 

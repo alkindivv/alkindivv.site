@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { HiX, HiMail } from 'react-icons/hi';
 import GlowingButton from '../shared/GlowingButton';
+import DimensionLinkNoArrow from '../common/DimensionLinkNoArrow';
 
 interface ArticleNewsletterPopupProps {
   slug: string;
@@ -61,74 +62,55 @@ export default function ArticleNewsletterPopup({
 
   return (
     <div
-      className={`fixed inset-0 z-50 flex items-center justify-center px-4 transition-all duration-500 ${
-        isClosing ? 'opacity-0 scale-95' : 'opacity-100 scale-100'
+      className={`fixed bottom-3 left-2 sm:bottom-4 sm:left-4 z-50 w-[90vw] max-w-[260px] transition-transform duration-500 ${
+        isClosing
+          ? 'translate-x-[-120%] opacity-0'
+          : 'translate-x-0 opacity-100'
       }`}
     >
-      {/* Backdrop dengan blur effect yang lebih halus */}
-      <div
-        className="absolute inset-0 bg-black/40 backdrop-blur-sm transition-opacity duration-500"
-        onClick={handleClose}
-      />
+      {/* Card dengan desain yang lebih modern */}
+      <div className="relative overflow-hidden bg-neutral-900/90 rounded-xl shadow-lg border border-white/10 flex items-center gap-3 px-4 py-3">
+        {/* Subtle gradient border */}
+        <div className="absolute inset-0 bg-[#0a0a0a]" />
+        {/* bg-gradient-to-r from-emerald-500/10 via-emerald-500/20
+        to-emerald-500/10 opacity-50 */}
+        {/* Main content dengan padding yang lebih nyaman */}
+        <div className="relative flex items-center gap-3">
+          {/* Close button yang lebih elegan */}
+          <button
+            onClick={handleClose}
+            aria-label="Close newsletter popup"
+            className="absolute -top-2 -right-16 p-0 rounded-full bg-neutral-800/80 backdrop-blur text-gray-300 hover:text-white hover:bg-neutral-700 transition-colors duration-200"
+          >
+            <HiX className="w-4.5 h-4.5" />
+          </button>
 
-      {/* Popup Container dengan animasi yang lebih halus */}
-      <div
-        className={`relative w-full max-w-md transform transition-all duration-500 ${
-          isClosing ? 'opacity-0 translate-y-4' : 'opacity-100 translate-y-0'
-        }`}
-      >
-        {/* Card dengan desain yang lebih modern */}
-        <div className="relative overflow-hidden bg-gradient-to-b from-[#0a0a0a] to-[#0a0a0a] rounded-2xl shadow-2xl">
-          {/* Subtle gradient border */}
-          <div className="absolute inset-0 bg-[#0a0a0a]" />
-          {/* bg-gradient-to-r from-emerald-500/10 via-emerald-500/20
-          to-emerald-500/10 opacity-50 */}
-          {/* Main content dengan padding yang lebih nyaman */}
-          <div className="relative p-8 sm:p-10">
-            {/* Close button yang lebih elegan */}
-            <button
-              onClick={handleClose}
-              className="absolute top-4 right-4 p-1 text-gray-400 hover:text-white transition-colors duration-300"
+          {/* Icon dengan efek glow yang subtle */}
+          <div className="flex-shrink-0">
+            <div className="p-2 bg-gradient-to-br from-emerald-500/30 to-emerald-500/10 rounded-lg ring-1 ring-emerald-500/30">
+              <HiMail className="w-5 h-5 text-emerald-400" />
+            </div>
+          </div>
+
+          {/* Text content dengan spacing yang lebih baik */}
+          <div className="flex flex-col gap-1 text-left">
+            <p className="text-xs text-white font-medium">
+              Enjoying this article?
+            </p>
+            {/* <a
+              href="https://alkindivv.substack.com/subscribe?utm_source=article-popup&utm_medium=web&utm_campaign=article-popup"
+              className="text-[0.7rem] text-emerald-400 hover:underline"
+              target="_blank"
+              rel="noopener noreferrer"
             >
-              <HiX className="w-5 h-5" />
-            </button>
-
-            {/* Icon dengan efek glow yang subtle */}
-            <div className="mb-6 flex justify-center">
-              <div className="p-3 bg-gradient-to-br from-emerald-500/20 to-emerald-500/5 rounded-xl ring-1 ring-emerald-500/20">
-                <HiMail className="w-8 h-8 text-emerald-400" />
-              </div>
-            </div>
-
-            {/* Text content dengan spacing yang lebih baik */}
-            <div className="text-center space-y-4">
-              <h3 className="text-xl font-medium text-white">
-                Like this article?
-              </h3>
-              <p className="text-sm text-gray-400 leading-relaxed">
-                Get the latest updates and don't miss out my latest articles!.
-                Get an email whenever I post, no spam ✌️
-              </p>
-
-              {/* Subscribe button dengan desain yang lebih menarik */}
-              <div className="pt-2">
-                <GlowingButton
-                  href="https://alkindivv.substack.com/subscribe?utm_source=article-popup&utm_medium=web&utm_campaign=article-popup"
-                  variant="small"
-                  className="justify-center"
-                >
-                  Subscribe Newsletter
-                </GlowingButton>
-              </div>
-
-              {/* "Mungkin nanti" link yang lebih subtle */}
-              <button
-                onClick={handleClose}
-                className="text-xs text-gray-500 hover:text-gray-300 transition-colors mt-4 py-2"
-              >
-                Maybe later
-              </button>
-            </div>
+              Subscribe
+            </a> */}
+            <DimensionLinkNoArrow
+              href="https://alkindivv.substack.com/subscribe?utm_source=article-popup&utm_medium=web&utm_campaign=article-popup"
+              className="text-[0.6rem] text-neutral-400"
+            >
+              Subscribe
+            </DimensionLinkNoArrow>
           </div>
         </div>
       </div>

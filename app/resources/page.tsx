@@ -206,7 +206,7 @@ export default function ResourcesPage() {
           <div className="relative mt-5 top-0 left-0 right-0 h-0.5 bg-gradient-to-r from-transparent via-emerald-500/20 to-transparent"></div>
         </div>
         <div className=" mb-4">
-          <Breadcrumb items={breadcrumbItems} />
+          <Breadcrumb items={breadcrumbItems} pagePath="/resources/" />
         </div>
 
         {/* Resources grid - Minimal elegant design */}

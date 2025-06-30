@@ -1,77 +1,49 @@
-// 'use client';
-
-// import { useEffect } from 'react';
-// import { usePathname } from 'next/navigation';
-// import { useLoadingActions } from '@/lib/stores/useLoadingStore';
-// import NProgress from 'nprogress';
-
-// /**
-//  * Komponen ini mendeteksi perubahan navigasi di Next.js dan memicu NProgress.
-//  * Dioptimalkan untuk mengurangi delay dengan timeout yang lebih pendek.
-//  */
-// export default function NavigationEvents() {
-//   const pathname = usePathname();
-//   const { startLoading, stopLoading, setProgress } = useLoadingActions();
-
-//   useEffect(() => {
-//     startLoading('Navigating...');
-//     setProgress(20);
-
-//     const step2 = setTimeout(() => {
-//       setProgress(50);
-//     }, 50);
-
-//     const step3 = setTimeout(() => {
-//       setProgress(80);
-//     }, 150);
-
-//     const done = setTimeout(() => {
-//       setProgress(100);
-//       stopLoading();
-//     }, 300);
-
-//     return () => {
-//       clearTimeout(step2);
-//       clearTimeout(step3);
-//       clearTimeout(done);
-//     };
-//   }, [pathname, startLoading, stopLoading, setProgress]);
-
-//   return null; // Komponen ini tidak merender apa-apa
-// }
-
 'use client';
 
 import { useEffect } from 'react';
 import { usePathname } from 'next/navigation';
+import { useLoadingActions } from '@/lib/stores/useLoadingStore';
 import NProgress from 'nprogress';
 
 /**
- * Komponen ini mendeteksi perubahan navigasi di Next.js dan memicu NProgress.
- * Dioptimalkan untuk mengurangi delay dengan timeout yang lebih pendek.
+ * NavigationEvents dengan integrasi useLoadingStore + NProgress.
+ * Menampilkan progress bar tipis dan tetap menjaga granularitas loading store
+ * tanpa overlay.
  */
 export default function NavigationEvents() {
   const pathname = usePathname();
+  const { startLoading, stopLoading, setProgress } = useLoadingActions();
 
   useEffect(() => {
-    // Konfigurasi NProgress untuk performa yang lebih baik
+    // Konfigurasi NProgress (jika belum) sekali saja
     NProgress.configure({
-      showSpinner: false, // sembunyikan spinner
-      trickleSpeed: 120, // kecepatan gerak
-      minimum: 0.1, // progress awal
-      easing: 'ease', // animasi
+      showSpinner: false,
+      trickleSpeed: 150,
+      minimum: 0.08,
+      easing: 'ease',
     });
 
-    // Mulai progress bar ketika halaman berganti
+    startLoading();
+    setProgress(20);
+    const step2 = setTimeout(() => setProgress(50), 60);
+    const step3 = setTimeout(() => setProgress(80), 140);
+
+    // Selesai
+    const done = setTimeout(() => {
+      setProgress(100);
+      NProgress.done();
+      stopLoading();
+    }, 260);
+
+    // Mulai NProgress awal
     NProgress.start();
 
-    // Selesai setelah komponen di-render (simulasi penyelesaian navigasi)
-    const timer = setTimeout(() => {
-      NProgress.done();
-    }, 100); // Mengurangi timeout dari 300ms menjadi 100ms
+    return () => {
+      clearTimeout(step2);
+      clearTimeout(step3);
+      clearTimeout(done);
+    };
+  }, [pathname, startLoading, stopLoading, setProgress]);
 
-    return () => clearTimeout(timer);
-  }, [pathname]);
-
-  return null; // Komponen ini tidak merender apa-apa
+  return null;
 }

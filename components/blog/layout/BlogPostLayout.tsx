@@ -77,6 +77,9 @@ export default function BlogPostLayout({
     { label: post.title },
   ];
 
+  // Path halaman untuk keperluan BreadcrumbList @id
+  const pagePath = `/blog/${category}/${slug}/`;
+
   return (
     <div className="fade-wrapper max-w-[1400px] mx-auto">
       {/* Header */}
@@ -196,7 +199,7 @@ export default function BlogPostLayout({
             </div>
           )}
           <div className="mt-5" data-fade="2">
-            <Breadcrumb items={breadcrumbItems} />
+            <Breadcrumb items={breadcrumbItems} pagePath={pagePath} />
           </div>
         </article>
 

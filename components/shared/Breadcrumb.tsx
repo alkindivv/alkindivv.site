@@ -9,15 +9,23 @@ export interface BreadcrumbItem {
 
 interface BreadcrumbProps {
   items: BreadcrumbItem[];
+  /**
+   * Jalur URL absolut (mis. "/blog/law/slug/") tanpa domain.
+   * Jika disediakan, akan digunakan untuk membuat properti `@id` pada BreadcrumbList,
+   * sehingga cocok dengan referensi `breadcrumb` di StructuredData WebPage.
+   */
+  pagePath?: string;
 }
 
-const Breadcrumb: React.FC<BreadcrumbProps> = ({ items }) => {
+const Breadcrumb: React.FC<BreadcrumbProps> = ({ items, pagePath }) => {
   const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://alkindi.id';
+  const breadcrumbId = `${baseUrl}${pagePath || ''}#breadcrumb`;
 
   // Generate BreadcrumbList schema
-  const breadcrumbSchema = {
+  const breadcrumbSchema: Record<string, any> = {
     '@context': 'https://schema.org',
     '@type': 'BreadcrumbList',
+    '@id': breadcrumbId,
     itemListElement: [
       {
         '@type': 'ListItem',

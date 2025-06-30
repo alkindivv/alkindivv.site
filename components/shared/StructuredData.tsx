@@ -37,7 +37,7 @@ const StructuredData: React.FC<StructuredDataProps> = ({
           alternateName: 'alkindi.id',
           url: baseUrl,
           description:
-            'Personal website of AL KINDI - A professional with expertise in Corporate Law, Technology, and Blockchain.',
+            'Personal website & blog by AL KINDI – sharing insights on corporate law, technology, blockchain and cryptocurrency.',
           author: {
             '@type': 'Person',
             name: 'AL KINDI',
@@ -47,6 +47,12 @@ const StructuredData: React.FC<StructuredDataProps> = ({
             '@type': 'Person',
             name: 'AL KINDI',
             url: baseUrl,
+          },
+          logo: {
+            '@type': 'ImageObject',
+            url: `${baseUrl}/logo.png`,
+            width: 512,
+            height: 512,
           },
           potentialAction: {
             '@type': 'SearchAction',
@@ -71,25 +77,13 @@ const StructuredData: React.FC<StructuredDataProps> = ({
             alternateName: 'alkindivv',
             identifier: 'alkindivv',
             description:
-              'A Law Graduate with expertise in corporate law, and interested in the intersection of law, technology, and cryptocurrency',
+              'Law graduate focusing on corporate law and emerging technologies',
             image: `${baseUrl}/images/AL-KINDI.png`,
             sameAs: [
               'https://twitter.com/alkindivv',
               'https://linkedin.com/in/alkindivv',
               'https://github.com/alkindivv',
             ],
-            interactionStatistic: [
-              {
-                '@type': 'InteractionCounter',
-                interactionType: 'https://schema.org/FollowAction',
-                userInteractionCount: 500,
-              },
-            ],
-            agentInteractionStatistic: {
-              '@type': 'InteractionCounter',
-              interactionType: 'https://schema.org/WriteAction',
-              userInteractionCount: 25,
-            },
           },
         };
 
@@ -102,7 +96,7 @@ const StructuredData: React.FC<StructuredDataProps> = ({
           url: baseUrl,
           image: `${baseUrl}/images/AL-KINDI.png`,
           description:
-            'A Law Graduate with expertise in corporate law, and interested in the intersection of law, technology, and cryptocurrency',
+            'Law graduate focusing on corporate law and emerging technologies',
           jobTitle: 'Legal Professional',
           worksFor: {
             '@type': 'Organization',
@@ -112,14 +106,10 @@ const StructuredData: React.FC<StructuredDataProps> = ({
             'Corporate Law',
             'Technology Law',
             'Blockchain',
-            'Cryptocurrency Regulations',
+            'Cryptocurrency Regulation',
             'Mergers & Acquisitions',
             'Capital Markets',
             'Bankruptcy Law',
-            'Regulasi Cryptocurrency',
-            'Merger dan Akuisisi',
-            'Pasar Modal',
-            'Hukum Kepailitan',
             'Smart Contracts',
             'Legal Tech',
           ],
@@ -128,25 +118,6 @@ const StructuredData: React.FC<StructuredDataProps> = ({
             'https://linkedin.com/in/alkindivv',
             'https://github.com/alkindivv',
           ],
-          address: {
-            '@type': 'PostalAddress',
-            addressCountry: 'ID',
-            addressRegion: 'Indonesia',
-          },
-          nationality: {
-            '@type': 'Country',
-            name: 'Indonesia',
-          },
-          alumniOf: {
-            '@type': 'EducationalOrganization',
-            name: 'Universitas Islam Indonesia',
-            sameAs: 'https://uii.ac.id/',
-          },
-          contactPoint: {
-            '@type': 'ContactPoint',
-            contactType: 'personal',
-            url: `${baseUrl}/contact`,
-          },
           gender: 'Male',
         };
 
@@ -177,12 +148,7 @@ const StructuredData: React.FC<StructuredDataProps> = ({
           headline: post.title,
           alternativeHeadline: post.title,
           description,
-          image: {
-            '@type': 'ImageObject',
-            url: imageUrl,
-            width: 1200,
-            height: 630,
-          },
+          image: imageUrl,
           datePublished: isoDate(post.date),
           dateModified: isoDate(post.date),
           author: {
@@ -208,37 +174,8 @@ const StructuredData: React.FC<StructuredDataProps> = ({
           },
           articleSection: post.category,
           ...(keywords ? { keywords } : {}),
-          wordCount: post.readingTime ? post.readingTime * 200 : undefined,
-          timeRequired: post.readingTime ? `PT${post.readingTime}M` : undefined,
-          inLanguage: 'id-ID',
-          ...(post.tags?.length
-            ? {
-                about: post.tags.map((tag) => ({
-                  '@type': 'Thing',
-                  name: tag,
-                })),
-              }
-            : {}),
           isAccessibleForFree: true,
-          speakable: {
-            '@type': 'SpeakableSpecification',
-            cssSelector: ['.post-title', '.post-excerpt', '.post-content'],
-          },
-          potentialAction: {
-            '@type': 'ReadAction',
-            target: `${baseUrl}/blog/${post.category}/${post.slug}`,
-          },
-          copyrightYear: new Date(post.date).getFullYear(),
-          copyrightHolder: {
-            '@type': 'Person',
-            name: 'AL KINDI',
-          },
           license: 'https://creativecommons.org/licenses/by-sa/4.0/',
-          audience: {
-            '@type': 'Audience',
-            audienceType:
-              'Legal Professionals, Tech Enthusiasts, Cryptocurrency Investors',
-          },
           genre: 'Legal Technology Blog',
           articleBody: post.excerpt || description,
         };
@@ -246,8 +183,8 @@ const StructuredData: React.FC<StructuredDataProps> = ({
       case 'organization':
         return {
           '@context': 'https://schema.org',
-          '@type': 'ProfessionalService',
-          name: 'AL KINDI Legal Services',
+          '@type': 'Organization',
+          name: 'AL KINDI',
           alternateName: 'alkindi.id',
           url: baseUrl,
           logo: {
@@ -269,11 +206,6 @@ const StructuredData: React.FC<StructuredDataProps> = ({
             name: 'Indonesia',
           },
           serviceType: [
-            'Hukum Korporasi',
-            'Hukum Teknologi',
-            'Konsultasi Blockchain',
-            'Riset Hukum',
-            'Kepatuhan Regulasi',
             'Corporate Law',
             'Technology Law',
             'Blockchain Consulting',
@@ -296,21 +228,17 @@ const StructuredData: React.FC<StructuredDataProps> = ({
             'https://github.com/alkindivv',
           ],
           foundingDate: '2023-01-01',
-          legalName: 'AL KINDI Legal Services',
-          slogan: 'Memadukan hukum, teknologi, dan inovasi',
+          legalName: 'AL KINDI',
+          slogan: 'Bridging the intersection of law, & technology',
           knowsAbout: [
-            'Hukum Korporasi',
-            'Teknologi Blockchain',
-            'Regulasi Cryptocurrency',
-            'Merger dan Akuisisi',
-            'Pasar Modal',
+            'Corporate Law',
+            'Blockchain Technology',
+            'Cryptocurrency Regulation',
+            'Mergers & Acquisitions',
+            'Capital Markets',
             'Legal Tech',
             'Smart Contracts',
             'Bankruptcy Law',
-            'Regulasi Cryptocurrency',
-            'Merger dan Akuisisi',
-            'Pasar Modal',
-            'Hukum Kepailitan',
           ],
         };
 
